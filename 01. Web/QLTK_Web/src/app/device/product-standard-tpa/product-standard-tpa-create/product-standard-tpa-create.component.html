@@ -1,0 +1,2439 @@
+<div class="content-wrapper app-product-create padding-top-10">
+    <form name="form" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin chung</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên Tiếng Anh
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input name="EnglishName" [disUipermission]="['F110801','F110802']"
+                                                type="text" class="form-control" [(ngModel)]="model.EnglishName"
+                                                maxlength="300" (ngModelChange)="check()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên Tiếng Việt
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input name="VietNamName" [disUipermission]="['F110801','F110802']"
+                                                type="text" class="form-control" [(ngModel)]="model.VietNamName"
+                                                maxlength="300" (ngModelChange)="check()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Model
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input name="modelname" [disUipermission]="['F110801','F110802']"
+                                                type="text" class="form-control" [(ngModel)]="model.Model"
+                                                maxlength="100" (ngModelChange)="check()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Hãng
+                                        </label>
+                                        <div class="controls">
+                                            <input name="TheFirm" [disUipermission]="['F110801','F110802']" type="text"
+                                                class="form-control" [(ngModel)]="model.TheFirm" maxlength="300">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Chủng loại hàng hóa
+                                        </label>
+                                        <div class="controls">
+                                            <!-- <select name="TypeMerchandise" class="form-control" [(ngModel)]="model.TypeMerchandise"
+                        [disUipermission]="['F110801','F110802']">
+                        <option *ngFor="let item of constants.TypeMerchandise" [ngValue]="item.Id">{{item.Name}}
+                        </option>
+                      </select> -->
+                                            <!-- <select name="ProductStandardTPATypeId" class="form-control"
+                                                [(ngModel)]="model.ProductStandardTPATypeId"
+                                                [disUipermission]="['F110801','F110802']">
+                                                <option *ngFor="let item of productStandardTPATypes"
+                                                    [ngValue]="item.Id">{{item.Name}}</option>
+                                            </select> -->
+                                            <nts-drop-down-tree [disUipermission]="['F110801','F110802']"
+                                                [items]="productStandardTPATypes" [columns]="columnName"
+                                                ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                                ntsAutoClose="true" [(ngModel)]="model.ProductStandardTPATypeId"
+                                                name="ParentId">
+                                            </nts-drop-down-tree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Phòng ban kinh doanh
+                                        </label>
+                                        <div class="controls">
+                                            <input name="BusinessDepartment" type="text" class="form-control"
+                                                [(ngModel)]="model.BusinessDepartment" maxlength="100"
+                                                [disUipermission]="['F110801','F110802']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Xuất sứ
+                                        </label>
+                                        <div class="controls">
+                                            <select name="Country" class="form-control" [(ngModel)]="model.Country"
+                                                [disUipermission]="['F110801','F110802']">
+                                                <option *ngFor="let item of listCountry" [ngValue]="item">{{item}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12 checkbox">
+                                    <label class="form-label">
+                                    </label>
+                                    <div class="custom-control custom-checkbox" style="margin-top: 8px;">
+                                        <input [disUipermission]="['F110801','F110802']" type="checkbox"
+                                            class="custom-control-input" id="IsCOCQ" name="IsCOCQ"
+                                            [(ngModel)]="model.IsCOCQ">
+                                        <label class="custom-control-label" for="IsCOCQ">Hồ sơ chứng từ</label>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Thông số Tiếng Việt
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Specifications"
+                                                type="text" rows="4" class="form-control"
+                                                [(ngModel)]="model.Specifications"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Thông số Tiếng Anh
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note1" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note1"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ghi chú 1
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note2" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note2"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ghi chú 2
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note3" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note3"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ghi chú 3
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note4" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note4"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ghi chú 4
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note5" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note5"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ghi chú 5
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F110801','F110802']" name="Note6" type="text"
+                                                rows="1" class="form-control" [(ngModel)]="model.Note6"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12">
+                                    <br>
+                                    <h4 style="color: #116fbf;">Thông tin nhà cung cấp/nhà sản xuất</h4>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Nhà sản xuất
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Manufacture_NCC_SX" type="text" class="form-control"
+                                                        [(ngModel)]="model.Manufacture_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Mã cung cấp
+                                                </label>
+                                                <div class="controls">
+                                                    <!-- <nts-drop-down [disUipermission]="['F110801','F110802']" [items]="listSupplier"
+                                            [columns]="columnNameSupplier" ntsValue="Id" ntsLabel="Supplier_NCC_SX" ntsMode="single" ntsAutoClose="true"
+                                            [(ngModel)]="model.Supplier_NCC_SX" name="SupplierId" required (change)="changeSupplier()">
+                                          </nts-drop-down> -->
+
+                                                    <nts-drop-down [disUipermission]="['F110801','F110802']"
+                                                        [items]="listSupplier" [columns]="columnNameSupplier"
+                                                        ntsValue="Code" ntsLabel="Code" ntsMode="single"
+                                                        ntsAutoClose="true" [(ngModel)]="model.Supplier_NCC_SX"
+                                                        name="SupplierId" required (change)="changeSupplier()">
+                                                    </nts-drop-down>
+                                                    <!-- <nts-drop-down [disUipermission]="['F110801','F110802']"
+                                            [items]="productStandardTPATypes" [columns]="columnName"
+                                            ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                            ntsAutoClose="true" [(ngModel)]="model.ProductStandardTPATypeId" name="ParentId">
+                                        </nts-drop-down> -->
+                                                    <!-- <input name="Supplier_NCC_SX" type="text" class="form-control"
+                                                [(ngModel)]="model.Supplier_NCC_SX" maxlength="300"
+                                                [disUipermission]="['F110801','F110802']"> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Tên
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Name_NCC_SX" type="text" class="form-control" disabled
+                                                        [(ngModel)]="model.Name_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Địa chỉ
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Address_NCC_SX" type="text" class="form-control"
+                                                        disabled [(ngModel)]="model.Address_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Người liên hệ
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="PIC_NCC_SX" type="text" class="form-control" disabled
+                                                        [(ngModel)]="model.PIC_NCC_SX" maxlength="100"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">SĐT
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="PhoneNumber_NCC_SX" type="text" class="form-control"
+                                                        disabled [(ngModel)]="model.PhoneNumber_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Email
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Email_NCC_SX" type="text"
+                                                        placeholder="name@example.com" disabled class="form-control"
+                                                        [(ngModel)]="model.Email_NCC_SX" maxlength="100"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Chức danh
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Title_NCC_SX" type="text" class="form-control" disabled
+                                                        [(ngModel)]="model.Title_NCC_SX" maxlength="200"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Thông tin ngân hàng thanh toán
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="BankPayment_NCC_SX" type="text" class="form-control"
+                                                        disabled [(ngModel)]="model.BankPayment_NCC_SX"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-xs-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom ">
+                                                <label class="form-label">Loại hình thanh toán
+                                                </label>
+                                                <div class="controls">
+                                                    <select name="TypePayment_NCC_SX" class="form-control" disabled
+                                                        [(ngModel)]="model.TypePayment_NCC_SX"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                        <option *ngFor="let item of constants.TypePayment_NCC_SX"
+                                                            [ngValue]="item.Id">{{item.Name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom ">
+                                                <label class="form-label">Điều khoản thanh toán
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="RulesPayment_NCC_SX" type="text" class="form-control"
+                                                        disabled [(ngModel)]="model.RulesPayment_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Điều khoản giao hàng
+                                                </label>
+                                                <div class="controls">
+                                                    <select name="RulesDelivery" class="form-control" disabled
+                                                        [(ngModel)]="model.RulesDelivery"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                        <option *ngFor="let item of constants.RulesPayment_NCC_SX"
+                                                            [ngValue]="item.Id">{{item.Name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom ">
+                                                <label class="form-label">Thời gian giao hàng
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="DeliveryTime" type="text" class="form-control" disabled
+                                                        [(ngModel)]="model.DeliveryTime" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom ">
+                                                <label class="form-label">Quốc gia
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Country_NCC_SX" type="text" class="form-control"
+                                                        [(ngModel)]="model.Country_NCC_SX" maxlength="300" disabled
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                            <div class="form-group form-group-custom ">
+                                                <label class="form-label">Website
+                                                </label>
+                                                <div class="controls">
+                                                    <input name="Website_NCC_SX" type="text" class="form-control"
+                                                        disabled [(ngModel)]="model.Website_NCC_SX" maxlength="300"
+                                                        [disUipermission]="['F110801','F110802']">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh thiết bị</label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button *appUipermission="['F110801','F110802']"
+                                            class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="fileDataSheet" style="display: none;" type="file"
+                                            id="fileDataSheet" #fileImage (change)="uploadFileClickImage($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                                </ngx-gallery>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Thông tin giá sản phẩm</h4>
+                    <hr>
+                    <div class="row">
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Phương thức VC
+                                </label>
+                                <div class="controls">
+                                    <select name="MethodVC" class="form-control" [(ngModel)]="model.MethodVC"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.MethodVC" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Cảng xếp hàng
+                                </label>
+                                <div class="controls">
+                                    <input name="LoadingPort" type="text" class="form-control"
+                                        [(ngModel)]="model.LoadingPort" ntsNumberInt maxlength="100"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Chính sách giá
+                                </label>
+                                <div class="controls">
+                                    <!-- <input name="PricePolicy" type="text" class="form-control"
+                                        [(ngModel)]="model.PricePolicy" maxlength="100"
+                                        [disUipermission]="['F110801','F110802']"> -->
+                                    <select name="PricePolicy" class="form-control" [(ngModel)]="model.PricePolicy"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.PricePolicy" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Số lượng tối thiểu
+                                </label>
+                                <div class="controls">
+                                    <input name="MinimumQuantity" type="text" class="form-control"
+                                        [(ngModel)]="model.MinimumQuantity" ntsNumberInt maxlength="9"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá niêm yết
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4  }"
+                                        name="ListedPrice" type="text" class="form-control"
+                                        [(ngModel)]="model.ListedPrice" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Giá theo số lượng
+                                </label>
+                                <div class="controls">
+                                    <textarea name="PriceConformQuantity" type="text" class="form-control"
+                                        [(ngModel)]="model.PriceConformQuantity" maxlength="100"
+                                        [radUipermission]="['F110801','F110802']"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Giá hàng hóa</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá theo SP
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4  }"
+                                        name="PriceInSP_Price" type="text" class="form-control"
+                                        [(ngModel)]="model.PriceInSP_Price" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Đơn giá PO
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4 }"
+                                                name="PriceInPO_Price" type="text" class="form-control"
+                                                [(ngModel)]="model.PriceInPO_Price" maxlength="18"
+                                                [disUipermission]="['F110801','F110802']"
+                                                (ngModelChange)="changePriceInPO_Price()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Loại tiền tệ PO
+                                        </label>
+                                        <div class="controls">
+                                            <select name="Currency_PO" class="form-control"
+                                                [(ngModel)]="model.Currency_PO"
+                                                [disUipermission]="['F110801','F110802']">
+                                                <option *ngFor="let item of constants.Currency_NCC_SX"
+                                                    [ngValue]="item.Id">{{item.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tỷ giá PO
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2  }"
+                                                name="Ratio_PO" type="text" class="form-control"
+                                                [(ngModel)]="model.Ratio_PO" maxlength="18"
+                                                [disUipermission]="['F110801','F110802']"
+                                                (ngModelChange)="changePriceInPO_Price()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá VNĐ PO
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= Đơn giá PO * Tỷ giá PO" container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4  }"
+                                                name="Amout_PO" type="text" class="form-control"
+                                                [(ngModel)]="model.Amout_PO" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi phí chuyển phát nhanh quốc tế</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Trọng lượng(kg)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision: 4}"
+                                        name="Weight_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Weight_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateVolumePricing_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Khối lượng quy đổi theo kích thước
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Thể tích thực tế / 0.005" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="PriceVCInWeight_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PriceVCInWeight_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Khối lượng để tính giá
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= IF(KL quy đổi theo kích thước > Trọng lượng, KL quy đổi theo kích thước, Trọng lượng)"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="VolumePricing_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.VolumePricing_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="CPVCInWeight_Price_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.CPVCInWeight_Price_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateCPVCInWeight_AmoutVND_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="CPVCInWeight_Currency_PriceWord" class="form-control"
+                                        [(ngModel)]="model.CPVCInWeight_Currency_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="CPVCInWeight_Ratio_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.CPVCInWeight_Ratio_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateCPVCInWeight_AmoutVND_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= KL để tính giá * Đơn giá * Tỷ giá"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="CPVCInWeight_AmoutVND_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.CPVCInWeight_AmoutVND_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi phí Air Cargo</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Trọng lượng(kg)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision: 4}"
+                                        name="Weight_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Weight_Air_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateVolumePricing_Air_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Khối lượng quy đổi theo kích thước
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Thể tích thực tế / 0.006" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:3}"
+                                        name="MassConvertedBySize_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.MassConvertedBySize_Air_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Khối lượng để tính giá
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= IF(KL quy đổi theo kích thước > Trọng lượng, KL quy đổi theo kích thước, Trọng lượng)"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="VolumePricing_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.VolumePricing_Air_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_AirTransport_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_AirTransport_Air_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_AirTransport_Air_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Curency_AirTransport_Air_PriceWord" class="form-control"
+                                        [(ngModel)]="model.Curency_AirTransport_Air_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_AirTransport_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_AirTransport_Air_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_AirTransport_Air_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= KL để tính giá * Đơn giá * Tỷ giá"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_AirTransport_Air_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_AirTransport_Air_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Kích thước đóng gói (MM)</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Dài
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="PackingSize_D_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_D_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePackingSize_RealVolume_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Rộng
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="PackingSize_R_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_R_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePackingSize_RealVolume_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Cao
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="PackingSize_C_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_C_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePackingSize_RealVolume_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">% đóng gói
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="PackingSize_Tolerance_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_Tolerance_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePackingSize_RealVolume_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thể tích thực tế
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= ((Dài + Dung sai đóng gói)*(Rộng + Dung sai đóng gói)*(Cao + Dung sai đóng gói)/1,000,000,000)"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="PackingSize_RealVolume_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_RealVolume_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thể tích để tính giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:3}"
+                                        name="PackingSize_PiceVolume_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PackingSize_PiceVolume_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi phí vận chuyển hàng lẻ LCL THEO CBM (m3) </h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceVC_LCLInBCM_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceVC_LCLInBCM_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePriceVCInCBM_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá vận chuyển
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= IF(Thể tích để tính giá < 1, 1 * Đơn giá, Thể tích để tính giá * Đơn giá)"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="PriceVCInCBM_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.PriceVCInCBM_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceVC_LCLInBCM_PriceWord" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceVC_LCLInBCM_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceVC_LCLInBCM_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceVC_LCLInBCM_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmout_PriceVC_LCLInBCM_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amout_PriceVC_LCLInBCM_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amout_PriceVC_LCLInBCM_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi Phí vận chuyển CONT 20"</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceVC_Cont20_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceVC_Cont20_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmout_PriceVC_Cont20_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceVC_Cont20_PriceWord" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceVC_Cont20_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceVC_Cont20_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceVC_Cont20_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmout_PriceVC_Cont20_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amout_PriceVC_Cont20_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amout_PriceVC_Cont20_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi Phí vận chuyển CONT 20 OT</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceVC_Cont20OT_PiceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceVC_Cont20OT_PiceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont20OT_PiceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceVC_Cont20OT_PiceWord" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceVC_Cont20OT_PiceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceVC_Cont20OT_PiceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceVC_Cont20OT_PiceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont20OT_PiceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceVC_Cont20OT_PiceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceVC_Cont20OT_PiceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi Phí vận chuyển CONT 40"</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceVC_Cont40_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceVC_Cont40_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont40_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceVC_Cont40_PriceWord" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceVC_Cont40_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceVC_Cont40_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceVC_Cont40_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont40_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceVC_Cont40_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceVC_Cont40_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi Phí vận chuyển CONT 40 OT</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceVC_Cont40OT_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceVC_Cont40OT_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont40OT_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceVC_Cont40OT_PriceWord" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceVC_Cont40OT_PriceWord"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceVC_Cont40OT_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceVC_Cont40OT_PriceWord" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceVC_Cont40OT_PriceWord()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceVC_Cont40OT_PriceWord" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceVC_Cont40OT_PriceWord" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày cập nhật đơn giá
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <div class="input-group ">
+                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                            name="UpdateDatePice_PriceWord"
+                                            [(ngModel)]="updateDatePice_Cont40OT_PriceWord" ngbDatepicker
+                                            #UpdateDatePice_PriceWord="ngbDatepicker"
+                                            [disUipermission]="['F110801','F110802']">
+                                        <div class="input-group-append" [disUipermission]="['F110801','F110802']">
+                                            <span class="dtp-icon"
+                                                (click)="UpdateDatePice_PriceWord.toggle();$event.stopPropagation();">
+                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">PHÍ Local Charge ĐẦU XUẤT</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= IF(Thể tích để tính giá < 1,15*1+85+110+150,15 * Thể tích để tính giá+85+110+150)"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4  }"
+                                        name="Price_PriceLCExport" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCExport" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCExport()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCExport" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCExport"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCExport" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCExport" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCExport()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCExport" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCExport" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Bảo hiểm</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỉ lệ phí bảo hiểm %
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="InsurranceType" type="text" class="form-control"
+                                        [(ngModel)]="model.InsurranceType" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePrice_InsurrancePrice()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_Insurrance" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_InsurrancePrice" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updatePrice_InsurrancePrice()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Giá theo đơn SQP * Tỉ lệ phí bảo hiểm * Tỷ giá"
+                                            container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_InsurrancePrice" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_InsurrancePrice" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">LSS - phí giảm thải lưu huỳnh - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_LSS" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_LSS" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_LSS()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_LSS" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_LSS"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_LSS" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_LSS" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_LSS()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_LSS" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_LSS" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">THC - Phí xếp dỡ hàng hóa - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_THC" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_THC" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_THC()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_THC" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_THC"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_THC" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_THC" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_THC()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_THC" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_THC" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">DO - Phí chứng từ &lệnh giao hàng - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_DO" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_DO" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_DO()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_DO" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_DO"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_DO" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_DO" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_DO()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_DO" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_DO" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">CIC - Phí cân bằng công - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_CIC" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_CIC" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CIC()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_CIC" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_CIC"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_CIC" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_CIC" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CIC()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_CIC" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_CIC" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">HF - Phí Handling - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_HL" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_HL" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_HL()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_HL" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_HL"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_HL" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_HL" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_HL()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_HL" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_HL" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">CLF - Phí vệ sinh công - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_CLF" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_CLF" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CLF()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_CLF" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_CLF"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_CLF" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_CLF" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CLF()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_CLF" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_CLF" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">CFS - Phí chuyển hàng lẻ vào kho - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_CFS" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_CFS" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CFS()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_CFS" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_CFS"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_CFS" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_CFS" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_CFS()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_CFS" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_CFS" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Lift on/off - Phí nâng hạ - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_Lift" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_Lift" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_Lift()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_Lift" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_Lift"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_Lift" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_Lift" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_Lift()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_Lift" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_Lift" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">IF - Phí cơ sở hạ tầng - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_IF" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_IF" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_IF()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_IF" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_IF"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_IF" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_IF" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_IF()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_IF" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_IF" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Other - ĐẦU NHẬP</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Đơn giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Price_PriceLCImport_Other" type="text" class="form-control"
+                                        [(ngModel)]="model.Price_PriceLCImport_Other" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_Other()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" col-xs-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom ">
+                                <label class="form-label">Loại tiền tệ
+                                </label>
+                                <div class="controls">
+                                    <select name="Currency_PriceLCImport_Other" class="form-control"
+                                        [(ngModel)]="model.Currency_PriceLCImport_Other"
+                                        [disUipermission]="['F110801','F110802']">
+                                        <option *ngFor="let item of constants.Currency_NCC_SX" [ngValue]="item.Id">
+                                            {{item.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tỷ giá
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="Ratio_PriceLCImport_Other" type="text" class="form-control"
+                                        [(ngModel)]="model.Ratio_PriceLCImport_Other" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateAmount_PriceLCImport_Other()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá VNĐ
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= Đơn giá * Tỷ giá" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:4}"
+                                        name="Amount_PriceLCImport_Other" type="text" class="form-control"
+                                        [(ngModel)]="model.Amount_PriceLCImport_Other" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Chi phí nhập khẩu</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">HS Code
+                                </label>
+                                <div class="controls">
+                                    <input name="HSCode" type="text" class="form-control" [(ngModel)]="model.HSCode"
+                                        maxlength="100" [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thuế NK(%)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="ImportTax" type="text" class="form-control" [(ngModel)]="model.ImportTax"
+                                        maxlength="18" [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateImportTaxPrice()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">CP thuế NK
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                        ngbTooltip="= Thuế NK * (Giá VNĐ đơn giá PO + (Giá VNĐ CP VC theo trọng lượng + Giá VNĐ CP VC LCL + Giá VNĐ CP VC Count 20 + Giá VNĐ CP VC Count 20 OT + Giá VNĐ CP VC Count 40 + Giá VNĐ CP VC Count 40 OT) + Giá VNĐ phí LC đàu xuất + Giá VNĐ phí bảo hiểm + Giá VNĐ LSS)" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="ImportTaxPrice" type="text" class="form-control"
+                                        [(ngModel)]="model.ImportTaxPrice" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày thay đổi HS Code
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <div class="input-group ">
+                                        <input class="form-control" placeholder="dd/mm/yyyy" name="UpdateDateHSCode"
+                                            [(ngModel)]="updateDateHSCode" ngbDatepicker
+                                            #UpdateDateHSCode="ngbDatepicker" [disUipermission]="['F110801','F110802']">
+                                        <div class="input-group-append" [disUipermission]="['F110801','F110802']">
+                                            <span class="dtp-icon"
+                                                (click)="UpdateDateHSCode.toggle();$event.stopPropagation();">
+                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Tên thuế khác
+                                </label>
+                                <div class="controls">
+                                    <input name="NameTaxOther" type="text" class="form-control"
+                                        [(ngModel)]="model.NameTaxOther" maxlength="300"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thuế khác(%)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="TaxOther" type="text" class="form-control" [(ngModel)]="model.TaxOther"
+                                        maxlength="18" [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)="updateImportTaxPriceOther()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">CP thuế NK
+                                    <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                        ngbTooltip="= Thuế khác * (Giá VNĐ đơn giá PO + (Giá VNĐ CP VC theo trọng lượng + Giá VNĐ CP VC LCL + Giá VNĐ CP VC Count 20 + Giá VNĐ CP VC Count 20 OT + Giá VNĐ CP VC Count 40 + Giá VNĐ CP VC Count 40 OT) + Giá VNĐ phí LC đàu xuất + Giá VNĐ phí bảo hiểm + Giá VNĐ LSS)" container="body"></i></span>
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="ImportTaxPriceOther" type="text" class="form-control"
+                                        [(ngModel)]="model.ImportTaxPriceOther" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">VAT(%)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                        name="VAT" type="text" class="form-control" [(ngModel)]="model.VAT"
+                                        maxlength="18" [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Phí khác theo YC hải quan
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="PriceOther" type="text" class="form-control"
+                                        [(ngModel)]="model.PriceOther" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)=" updateImportTaxPrice_TPA()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Phí FW(khai báo hải quan,...)/BL hoặc Cont
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="PriceFW" type="text" class="form-control" [(ngModel)]="model.PriceFW"
+                                        maxlength="18" [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)=" updateImportTaxPrice_TPA()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Phụ phí phát sinh(VS vỏ, nhổ đinh, sửa vỏ,...)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                        name="Surcharge" type="text" class="form-control" [(ngModel)]="model.Surcharge"
+                                        maxlength="18" [disUipermission]="['F110801','F110802']"
+                                        (ngModelChange)=" updateImportTaxPrice_TPA()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thời gian tồn kho
+                                </label>
+                                <div class="controls">
+                                    <input ntsNumberInt name="InventoryTime" type="text" class="form-control "
+                                        [(ngModel)]="model.InventoryTime" maxlength="18"
+                                        [disUipermission]="['F110801','F110802']">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <ng-container *ngIf="isUpdate">
+                        <ng-container *appUipermission="['F110811']">
+                            <br>
+                            <h4 style="color: #116fbf;">Lãi suất vay</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Ngắn hạn
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="ShortInterest" type="text" class="form-control"
+                                                [(ngModel)]="model.ShortInterest" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Trung hạn
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="MidtermInterest" type="text" class="form-control"
+                                                [(ngModel)]="model.MidtermInterest" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <h4 style="color: #116fbf;">Cấu thành giá EXW TPA</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá sản phẩm
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= Giá VNĐ PO" container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="PriceProduct_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.PriceProduct_TPA" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Phí LC đầu xuất và VC
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= (Giá CP chuyển phát nhanh + Giá CP Air Cargo + Giá CP VC hàng lẻ LCL + Giá CP VC COUNT 20'' + Giá CP VC COUNT 20 OT + Giá CP VC COUNT 40'' + Giá CP VC 40 OT + Giá phí Local Charge)"
+                                                    container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="PriceVC_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.PriceVC_TPA" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Chi phí nhập khẩu
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= Phí bảo hiểm + Giá LSS + Giá THC + Giá DO + Giá CIC + Giá HF + Giá CLF + Giá CFS + Giá Lift on/off + Giá IF + Giá OTHER + Phí khác theo YC hải quan + Phí FW + Phụ phí phát sinh"
+                                                    container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="ImportTaxPrice_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.ImportTaxPrice_TPA" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Thuế nhập khẩu
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= CP thuế NK + Chi phí thuế NK"
+                                                    container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="ImportTax_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.ImportTax_TPA" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">VAT
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="VAT_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.VAT_TPA" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Lãi vay
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="Interest_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.Interest_TPA" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tổng chi phí
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                                    ngbTooltip="= Giá SP + Phí LC đầu xuất và vận chuyển + Chi phí NK + Thuế NK + VAT + Lãi vay"
+                                                    container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="TotalPrice" type="text" class="form-control"
+                                                [(ngModel)]="model.TotalPrice" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Lợi nhuận(%)
+                                            <span class='text-danger text-strong'>&nbsp;<i class="fas fa-exclamation"
+                                            ngbTooltip="= (((Giá bán EXW - (Giá SP + Phí LC + Chi phí nhập khẩu + Thuế nhập khẩu))/Giá bán EXW) * 100)"
+                                            container="body"></i></span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                name="Profit_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.Profit_TPA" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá bán EXW TPA
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="PriceEXW_TPA" type="text" class="form-control"
+                                                [(ngModel)]="model.PriceEXW_TPA" maxlength="18"
+                                                [disUipermission]="['F110811']" (ngModelChange)="updateProfit_TPA()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ngày cập nhật giá EXW TPA
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group ">
+                                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                                    name="UpdateDatePrice_TPA" [(ngModel)]="updateDatePrice_TPA"
+                                                    ngbDatepicker #UpdateDatePrice_TPA="ngbDatepicker"
+                                                    [disUipermission]="['F110811']">
+                                                <div class="input-group-append" [disUipermission]="['F110811']">
+                                                    <span class="dtp-icon"
+                                                        (click)="UpdateDatePrice_TPA.toggle();$event.stopPropagation();">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá L1
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="Price_L1" type="text" class="form-control"
+                                                [(ngModel)]="model.Price_L1" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá L2
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="Price_L2" type="text" class="form-control"
+                                                [(ngModel)]="model.Price_L2" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá L3
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="Price_L3" type="text" class="form-control"
+                                                [(ngModel)]="model.Price_L3" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá L4
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="Price_L4" type="text" class="form-control"
+                                                [(ngModel)]="model.Price_L4" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá L5
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                name="Price_L5" type="text" class="form-control"
+                                                [(ngModel)]="model.Price_L5" maxlength="18"
+                                                [disUipermission]="['F110811']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Số lần xuất
+                                        </label>
+                                        <div class="controls">
+                                            <input name="Index" type="text" ntsNumberInt class="form-control "
+                                                [(ngModel)]="model.Index" maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" *ngIf="this.model.Id">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tình trạng chuyển thư viện</label>
+                                        <div class="controls">
+                                            <span class="badge badge-pill badge-success" *ngIf="model.IsSendSale">Đã
+                                                chuyển</span>
+                                            <span class="badge badge-pill badge-danger" *ngIf="!model.IsSendSale">Chưa
+                                                chuyển</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right mt-3">
+                            <ng-container *ngIf="this.model.Id">
+                                <button *appUipermission="['F110813']" type="button" class="btn btn-success"
+                                    (click)="syncSaleProductStandardTPA(false)">
+                                    <i class="fas fa-sync-alt"></i>&nbsp;
+                                    <span>Đồng bộ sản phẩm</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container>
+                                <button *appUipermission="['F110801','F110802','F110811']" type="button"
+                                    class="btn btn-success" (click)="save()" [disabled]="!valid">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container *ngIf="!this.model.Id">
+                                <button *appUipermission="['F110801']" type="button" class="btn btn-success"
+                                    (click)="saveAndContinue()" [disabled]="!valid">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu & tiếp tục</span>
+                                </button>&nbsp;
+                            </ng-container>
+                            <ng-container>
+                                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                                    <i class="fa fa-power-off"></i> &nbsp;
+                                    <span>
+                                        Đóng
+                                    </span>
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-product-tab-document-attach'"
+                [disabled]="!isUpdate || permissionService.checkPermission(['F110801','F110802','F110804'])">
+                <a ngbNavLink>Tài liệu đính kèm</a>
+                <ng-template ngbNavContent>
+                    <app-product-standard-tpa-file [Id]="model.Id"></app-product-standard-tpa-file>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

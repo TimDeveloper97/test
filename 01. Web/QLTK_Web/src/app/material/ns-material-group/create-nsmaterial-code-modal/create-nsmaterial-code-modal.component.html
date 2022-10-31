@@ -1,0 +1,178 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row" *ngIf="!isNext">
+      <div class="col-lg-4 col-md-6 col-sm-12 ">
+        <div class="form-group">
+          <label class="form-label">Mã nhóm vật tư</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Codecreatensmaterialgroup" [(ngModel)]="model.Code">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tên nhóm vật tư</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Namecreatensmaterialgroup" [(ngModel)]="model.Name">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Hãng
+          </label>
+          <div class="controls">
+            <!-- <select name="ManufactureId" required class="form-control" [(ngModel)]="model.ManufactureId">
+              <option *ngFor="let item of listManufacture" [ngValue]="item.Id">{{item.Name}}</option>
+            </select> -->
+
+            <nts-drop-down [items]="listManufacture" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+              ntsMode="single" ntsAutoClose="true" [disabled]="true" [(ngModel)]="model.ManufactureId"
+              name="ManufactureId" required>
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="form-group ">
+          <label class="form-label">Loại
+          </label>
+          <div class="controls">
+            <select name="NSMaterialTypeId" required class="form-control" [(ngModel)]="model.NSMaterialTypeId">
+              <option *ngFor="let item of listNSMaterialType" [ngValue]="item.Id">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div> -->
+
+      <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+        <button class="btn btn-success btn-success-system" (click)="searchNSMaterialGroup()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button> &nbsp; &nbsp;
+        <button class="btn btn-default btn-default-system" (click)="clear()">
+          <i class="fa fa-refresh"></i> &nbsp;Làm mới</button>
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <p><b>Chọn nhóm vật tư phi tiêu chuẩn</b></p>
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:800px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="150px" class="text-center">Mã nhóm vật tư</th>
+                <th width="200px" class="text-center">Tên nhóm vật tư</th>
+                <th width="150px" class="text-center">Mã hãng sản xuất</th>
+                <th width="150px" class="text-center">Loại</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listData; let i = index" [ngClass]="{'selected':selectIndex == i}"
+                (click)="getParamByIndex(i);">
+                <td class="text-center">{{startIndex + i}}</td>
+                <td>{{row.Code}}</td>
+                <td>{{row.Name}}</td>
+                <td>{{row.ManufactureName}}</td>
+                <td>{{row.TypeName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="isNext">
+      <div class="col-lg-8 col-md-8 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mã</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Namecreatensmaterial" [(ngModel)]="code" #Name="ngModel"
+              disabled>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:800px">
+            <thead>
+              <tr>
+                <th width="100px" class="text-center">Thông số</th>
+                <th width="350px" class="text-center">Tên thông số</th>
+                <th width="200px" class="text-center">Giá trị</th>
+                <th width="150px" class="text-center">Đơn vị</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngIf="selectIndex >=0">
+                <tr *ngFor="let row of listData[selectIndex].ListParameter; let i = index">
+                  <td class="text-center" width="100px">{{row.Code}}</td>
+                  <td width="350px">
+                    {{row.Name}}
+                  </td>
+                  <td width="200px" *ngIf="row.ListValue.length > 0">
+                    <select class="form-control" [(ngModel)]="row.Value" name="'nameValue' + row.Code"
+                      (change)="changeValue(row,i)">
+                      <option *ngFor="let item of row.ListValue" [value]="item.Value">{{item.Value}}</option>
+                    </select>
+                  </td>
+                  <td width="200px" *ngIf="row.ListValue.length == 0">
+                    <input type="text" class="form-control" [(ngModel)]="row.Value" name="'nameValue' + row.Code"
+                      (change)="changeValue(row,i)">
+                  </td>
+                  <td width="150px">{{row.Unit}}</td>
+                </tr>
+              </ng-container>
+
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+        <div class="controls ">
+          <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+            (ngModelChange)="searchNSMaterialGroup()" name="pageSize">
+            <option *ngFor="let item of constants.ListPageSize" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+        <ngb-pagination [collectionSize]="model.TotalItem" [(page)]="model.PageNumber"
+          (pageChange)="searchNSMaterialGroup()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+          [boundaryLinks]="true"></ngb-pagination>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-info" (click)="next()" *ngIf="!isNext">
+    <span>
+      Tiếp tục
+    </span> &nbsp;
+    <i class="fas fa-angle-right"></i>
+  </button>
+  <button type="button" class="btn btn-info" (click)="back()" *ngIf="isNext">
+    <i class="fas fa-angle-left"></i>
+    &nbsp; Quay lại
+  </button>
+  <button type="button" class="btn btn-success" (click)="createCode()" *ngIf="isNext">
+    <i class="far fa-save"></i>
+    &nbsp; Tạo mã
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

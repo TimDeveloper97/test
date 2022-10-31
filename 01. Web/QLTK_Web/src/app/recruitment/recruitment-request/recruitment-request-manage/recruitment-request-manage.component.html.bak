@@ -1,0 +1,362 @@
+<div class='content-wrapper'>
+    <section class="box box-head">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="searchModel"
+                            (change)="search()">
+                        </nts-search-bar>
+                    </div>
+
+                    <div class="col-xl-4 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="search()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> yêu cầu tuyển dụng</label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:3390px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px" class="text-center">Xử lý</th>
+                                    <th width="120px" class="text-center">Tình trạng</th>
+                                    <th width="120px" class="text-center">Số YCTD</th>
+                                    <th width="200px" class="text-center">Phòng ban đề xuất</th>
+                                    <th width="150px" class="text-center">Vị trí tuyển dụng</th>
+                                    <th width="80px" class="text-center">Số lượng</th>
+                                    <th width="120px" class="text-center">Thời gian cần</th>
+                                    <th width="120px" class="text-center">Loại hình</th>
+                                    <th width="200px" class="text-center">Mức lương dự kiến tối thiểu</th>
+                                    <th width="200px" class="text-center">Mức lương dự kiến tối đa</th>
+                                    <th width="200px" class="text-center">Lý do tuyển</th>
+                                    <th width="300px" class="text-center">Mô tả công việc</th>
+                                    <th min-width="300px" class="text-center">Yêu cầu</th>
+                                    <th width="200px" class="text-center">Trang thiết bị cần</th>
+                                    <th width="150px" class="text-center">Ngày phê duyệt</th>
+                                    <th width="150px" class="text-center">Ngày nhận yêu cầu</th>
+                                    <th width="150px" class="text-center">Ngày hoàn thành</th>
+                                    <th width="100px" class="text-center">Số lượng ứng tuyển</th>
+                                    <th width="100px" class="text-center">Số lượng hồ sơ ứng viên</th>
+                                    <th width="100px" class="text-center">Số lượng phỏng vấn</th>
+                                    <th width="100px" class="text-center">Số lượng còn phải tuyển</th>
+                                    <th width="100px" class="text-center">Số ngày trễ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listRequest; let i = index" (click)="select(i)"
+                                    [ngClass]="{'selected':selectIndex==i}">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button type="button" (click)='showCreateUpdate(row.Id)'
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button> &nbsp;
+                                        <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)"
+                                            placement="top" ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.RecruitStatus"
+                                            [value]="row.StatusRecruit"></nts-status-badge>
+                                    </td>
+                                    <td class="text-center">{{row.Code}}</td>
+                                    <td>{{row.DepartmentName}}</td>
+                                    <td class="text-center">{{row.WorkTypeName}}</td>
+                                    <td class="text-center">{{row.Quantity}}</td>
+                                    <td class="text-center">{{row.RecruitmentDeadline| date:"dd/MM/yyyy"}}</td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.RecruitmentRequestType" [value]="row.Type">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td>{{row.MinSalary}}</td>
+                                    <td>{{row.MaxSalary}}</td>
+                                    <td>{{row.RecruitmentReason}}</td>
+                                    <td>{{row.Description| limitTo:'100'}}</td>
+                                    <td>{{row.Request| limitTo:'100'}}</td>
+                                    <td>{{row.Equipment}}</td>
+                                    <td class="text-center">{{row.ApprovalDate| date:"dd/MM/yyyy"}}</td>
+                                    <td class="text-center"> {{row.RequestDate| date:"dd/MM/yyyy"}}</td>
+                                    <td class="text-center">{{row.FinishDate| date:"dd/MM/yyyy"}}</td>
+                                    <td class="text-center">{{row.NumberRecruitment}}</td>
+                                    <td class="text-center">{{row.NumberCandidate}}</td>
+                                    <td class="text-center">{{row.NumberInterview}}</td>
+                                    <td class="text-center">{{row.NumberNeedRecruit}}</td>
+                                    <td class="text-center">{{row.NumberLateDate}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listRequest.length == 0">
+                                <tr class="bold">
+                                    <td colspan="17" min-width="2690px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có
+                                        dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                            (ngModelChange)="search()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                        (pageChange)="search()" [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollApply>
+                    <h4>Danh sách ứng tuyển</h4>
+                    <div #scrollApplyHeader style="height: auto; width:100%;overflow: hidden">
+                        <table class="table table-bordered table-hover mb-0" style="min-width:1630px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>   
+                                    <th width="100px" class="text-center">Ảnh</th>
+                                    <th width="120px" class="text-center">KQ hồ sơ</th>
+                                    <!-- <th width="120px" class="text-center">KQ phỏng vấn</th> -->
+                                    <th width="120px" class="text-center">KQ ứng tuyển</th>
+                                    <th width="100px" class="text-center">Số HS</th>
+                                    <th min-width="200px" class="text-center">Tên ứng viên</th>
+                                    <th width="100px" class="text-center">Số điện thoại</th>
+                                    <th width="150px" class="text-center">Email</th>
+                                    <th width="120px" class="text-center">Ngày ứng tuyển</th>
+                                    <th width="120px" class="text-center">YC Ứng tuyển</th>
+                                    <th width="200px" class="text-center">Vị trí ứng tuyển</th>
+                                    <th width="130px" class="text-center">Lương đề nghị tối thiểu</th>
+                                    <th width="130px" class="text-center">Lương đề nghị tối thiểu</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                        style="height:auto;max-height: 500px; width:100%;">
+                        <table class="table table-bordered table-hover" style="min-width:1630px">
+                            <tbody>
+                                <tr *ngFor="let row of applys; let i = index">
+                                    <td width="50px" class="text-center">{{startIndex+i}}</td>
+                                    <td width="100px">
+                                        <img class="image-thum" *ngIf="row.ImagePath"
+                                            [src]="config.ServerFileApi+row.ImagePath">
+                                    </td>
+                                    <td width="120px" class="text-center">
+                                        <nts-status-badge [items]="constant.ProfileStatus" [value]="row.ProfileStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td width="120px" class="text-center">
+                                        <nts-status-badge [items]="constant.InterviewStatus"
+                                            [value]="row.InterviewStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td width="120px" class="text-center">
+                                        <nts-status-badge [items]="constant.ApplyStatus" [value]="row.Status">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td width ="100px">
+                                        <a target="_blank" [routerLink]="['/tuyen-dung/ung-tuyen/chinh-sua/'+row.Id]" *appUipermission="['F121652']"
+                                            class="bold">{{row.Code}}</a>
+                                    </td>
+                                    <td min-width="200px"><a target="_blank" [routerLink]="['/tuyen-dung/ung-tuyen/chinh-sua/'+row.Id]" *appUipermission="['F121652']"
+                                        class="bold">{{row.Name}}</a></td>
+                                    <td width="100px" class="text-center">{{row.PhoneNumber}}</td>
+                                    <td width="150px">{{row.Email}}</td>
+                                    <td width="120px" class="text-center">{{row.ApplyDate|date:'dd/MM/yyyy'}}</td>
+                                    <td width="120px" class="text-center">{{row.RecruitmentRequestCode}}</td>
+                                    <td width="200px">{{row.WorkTypeName}}</td>
+                                    <td width="130px" class="text-right">{{row.MinApplySalary}}</td>
+                                    <td width="130px" class="text-right">{{row.MaxApplySalary}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="applys.length == 0">
+                                <tr class="bold">
+                                    <td colspan="16" min-width="1630px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            
+            <div class="row mt-1">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollCandidate>
+                    <h4>Danh sách hồ sơ ứng viên</h4>
+                    <div #scrollCandidateHeader style="height: auto; width:100%;overflow: hidden">
+                        <table class="table table-bordered table-hover mb-0" style="min-width:1610px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="100px" class="text-center">Ảnh</th>
+                                    <th width="120px" class="text-center">KQ phỏng vấn</th>
+                                    <th width="120px" class="text-center">KQ ứng tuyển</th>
+                                    <th width="100px" class="text-center">Số HS</th>
+                                    <th min-width="200px" class="text-center">Tên ứng viên</th>
+                                    <th width="100px" class="text-center">Số điện thoại</th>
+                                    <th width="100px" class="text-center">Ngày sinh</th>
+                                    <th width="150px" class="text-center">Email</th>
+                                    <th width="120px" class="text-center">Ngày ứng tuyển</th>
+                                    <th width="200px" class="text-center">Vị trí ứng tuyển</th>
+                                    <th width="130px" class="text-center">Lương đề nghị</th>
+                                    <th width="120px" class="text-center">Ngày hẹn PV</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                        style="height:auto;max-height: 500px; width:100%;">
+                        <table class="table table-bordered table-hover" style="min-width:1610px">
+                            <tbody>
+                                <tr *ngFor="let row of candidates; let i = index" >
+                                    <td width="50px" class="text-center">{{startIndex+i}}</td>
+                                    <td width="100px">
+                                        <img class="image-thum" *ngIf="row.ImagePath"
+                                            [src]="config.ServerFileApi+row.ImagePath">
+                                    </td>
+                                    <td width="120px" class="text-center">
+                                        <nts-status-badge [items]="constant.InterviewStatus"
+                                            [value]="row.InterviewStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td width="120px" class="text-center">
+                                        <nts-status-badge [items]="constant.ApplyStatus" [value]="row.Status">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td width ="100px">
+                                        <a target="_blank" [routerLink]="['/tuyen-dung/ho-so-ung-vien/chinh-sua/'+row.ApplyId]" *appUipermission="['F121652']"
+                                            class="bold" >{{row.Code}}</a>
+                                    </td>
+                                    
+                                    <td min-width="200px"><a target="_blank" [routerLink]="['/tuyen-dung/ho-so-ung-vien/chinh-sua/'+row.ApplyId]" *appUipermission="['F121652']"
+                                        class="bold" >{{row.Name}}</a></td>
+                                    <td width="100px" class="text-center">{{row.PhoneNumber}}</td>
+                                    <td width="100px">{{row.DateOfBirth|date:'dd/MM/yyyy'}}</td>
+                                    <td width="150px">{{row.Email}}</td>
+                                    <td width="120px" class="text-center">{{row.ApplyDate|date:'dd/MM/yyyy'}}</td>
+                                    <td width="200px">{{row.WorkTypeName}}</td>
+                                    <td width="130px" class="text-right">{{row.Salary}}</td>
+                                    <td width="120px">{{row.InterviewDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="candidates.length == 0">
+                                <tr class="bold">
+                                    <td colspan="16" min-width="1610px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <!-- Danh sách phỏng vấn -->
+            <hr>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <h4>Danh sách phỏng vấn</h4>
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1290px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="50px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Ảnh</th>
+                                    <th width="120px" class="text-center">TT hồ sơ</th>
+                                    <th width="100px" class="text-center">Số hô sơ</th>
+                                    <th min-width="200px" class="text-center">Tên ứng viên</th>
+                                    <th width="100px" class="text-center">Số điện thoại</th>
+                                    <th width="120px" class="text-center">Ngày ứng tuyển</th>
+                                    <th width="200px" class="text-center">Vị trí ứng tuyển</th>
+                                    <th width="130px" class="text-center">Lương đề nghị</th>
+                                    <th width="100px" class="text-center">Ngày hẹn PV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of interviews; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <a type="button" [routerLink]="['/tuyen-dung/phong-van/them-moi/', row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top"
+                                            ngbTooltip="Bắt đâu phỏng vấn" container="body">
+                                            <span class="fas fa-play" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <img class="image-thum" *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                            [src]="config.ServerFileApi+row.ImagePath">
+                                    </td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.ProfileStatus" [value]="row.ProfileStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.PhoneNumber}}</td>
+                                    <td class="text-center">{{row.ApplyDate|date:'dd/MM/yyyy'}}</td>
+                                    <td>{{row.WorkTypeName}}</td>
+                                    <td class="text-right">{{row.Salary|number}}</td>
+                                    <td class="text-center">{{row.InterviewDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="interviews.length == 0">
+                                <tr class="bold">
+                                    <td colspan="13" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+     
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa yêu cầu tuyển dụng</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa yêu cầu tuyển dụng</small>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>

@@ -1,0 +1,41 @@
+<form name="form" #f="ngForm" novalidate>
+  <div class="row">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+      <button *appUipermission="['F060022']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+        container="body">
+        <i class="fa fa-plus"></i>
+        Thêm mới
+      </button>
+      &nbsp;
+      <button class="btn btn-default btn-default-system" (click)="searchProjectProductExport()">
+        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+    </div>
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <dx-tree-list class="sp-1" id="employees" [dataSource]="listDA" keyExpr="Id" parentIdExpr="ParentId"
+        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="false"
+        (onSelectionChanged)="onSelectionChanged($event)">
+        <dxo-selection mode="single"></dxo-selection>
+        <dxo-search-panel [visible]="true" [width]="400" placeholder="Tìm kiếm theo tên và mã hợp đồng">
+        </dxo-search-panel>
+        <dxi-column dataField="ContractIndex" caption="Hạng mục" width="100px" [allowSearch]="false"></dxi-column>
+        <dxi-column dataField="ContractName" caption="Tên theo hợp đồng" [minWidth]="400"> 
+        </dxi-column>
+        <dxi-column dataField="ContractCode" caption="Mã theo hợp đồng" width="200px"></dxi-column>
+        <dxi-column dataField="THTK" caption="Tổng hợp thiết kê" width="200px" (change)="ClickTHTK()"
+          [allowSearch]="false"></dxi-column>
+        <dxi-column dataField="CheckTHTK" caption="" width="100px" class="custom-control custom-checkbox"
+          [allowSearch]="false"></dxi-column>
+        <dxi-column dataField="CreateIndex" caption="Lần lập" width="100px" [allowSearch]="false"
+          cssClass="plan-header-cell" alignment="center"></dxi-column>
+      </dx-tree-list>
+      <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+        (onItemClick)="itemClick($event)">
+        <div *dxTemplate="let e of 'item'">
+          <div>
+            <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+          </div>
+        </div>
+      </dx-context-menu>
+    </div>
+  </div>
+</form>

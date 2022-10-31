@@ -1,0 +1,582 @@
+<div class="content-wrapper">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <section class="box">
+      <div class="content-body">
+        <div class="row">
+          <div class="col-12">
+          </div>
+        </div>
+        <ng-container>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã yêu cầu khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <div class="controls">
+                    <input type="text" class="form-control" [(ngModel)]="requirementModel.Code" name="code"
+                      maxlength="200" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên yêu cầu khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="requirementModel.Name" name="name" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã meeting
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <div class="controls">
+                    <input type="text" class="form-control" [(ngModel)]="requirementModel.MeetingCode"
+                      name="meetingCode" maxlength="200" disabled>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.CustomerId" name="CustomerId"
+                    required (change)="changeCustomer(requirementModel.CustomerId)">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã khách hàng
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" name="CustomerCode"
+                    [(ngModel)]="requirementModel.CustomerCode" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> Lĩnh vực
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <div class="controls">
+                    <nts-drop-down [disabled]="requirementModel.CustomerId == ''" [items]="listDomain" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                      ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.DomainId" name="DomainId" >
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Người Liên hệ
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listCustomerContact" [columns]="columnNameCustomerContact" ntsValue="Id"
+                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                    [(ngModel)]="requirementModel.CustomerContactId" name="CustomerContactId" required
+                    (change)="changeCustomerContact()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Số điện thoại liên hệ
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" name="CustomerContactPhoneNumber"
+                    [(ngModel)]="requirementModel.CustomerContactPhoneNumber" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Email liên hệ
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" name="CustomerContactEmail"
+                    [(ngModel)]="requirementModel.CustomerContactEmail" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Chức vụ
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" name="CustomerContactPosition"
+                    [(ngModel)]="requirementModel.CustomerContactPosition" disabled>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Nguồn yêu cầu
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <select data-size="3" class="form-control" [(ngModel)]="requirementModel.RequestSource"
+                    name="RequestSource">
+                    <option style="height: auto;" *ngFor="let item of listCustomerRequirementRequestSource"
+                      [ngValue]="item.Id">
+                      {{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Loại yêu cầu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <select data-size="3" class="form-control" [(ngModel)]="requirementModel.RequestType"
+                    name="requestType">
+                    <option style="height: auto;" *ngFor="let item of listCustomerRequirementRequestType"
+                      [ngValue]="item.Id">
+                      {{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngày hoàn thành thưc tế
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="RealFinishDate"
+                    [(ngModel)]="requirementModel.RealFinishDate" ngbDatepicker #RealFinishDate="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="RealFinishDate.toggle()" name="RealFinishDate">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Phòng yêu cầu
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.DepartmentRequest"
+                    name="DepartmentRequest" required (change)="changeDepartmentRequest()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Nhân viên kinh doanh phụ trách
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listEmployee" [columns]="columnNameEmployee" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.Petitioner" name="NamePetitioner"
+                    required>
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Phòng tiếp nhận
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.DepartmentReceive"
+                    name="DepartmentReceive" required (change)="changeDepartmentReceive()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Người tiếp nhận
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listEmployee1" [columns]="columnNameEmployee" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.Reciever" name="NameReciever">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Version
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [(ngModel)]="requirementModel.Version" name="Version" rows="5" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Trạng thái
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <select data-size="3" class="form-control" [(ngModel)]="requirementModel.Status" name="Statusone">
+                    <option style="height: auto;" *ngFor="let item of listCustomerRequirementRequestStatus"
+                      [ngValue]="item.Id">
+                      {{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngân sách
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2  }" name="Budget"
+                    type="text" class="form-control" [(ngModel)]="requirementModel.Budget" maxlength="200">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Thời gian cần hoàn thành giải pháp
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="PlanFinishDate"
+                    [(ngModel)]="requirementModel.PlanFinishDate" ngbDatepicker #PlanFinishDate="ngbDatepicker"
+                    required="false">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="PlanFinishDate.toggle()" name="PlanFinishDate">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Thời điểm triển khai giải pháp
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="StartDate"
+                    [(ngModel)]="requirementModel.StartDate" ngbDatepicker #StartDate="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="StartDate.toggle()" name="StartDate">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Thời gian triển khai dự án
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [(ngModel)]="requirementModel.Duration" name="Duration" rows="5" class="form-control">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label"> Tình trạng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <select data-size="3" class="form-control" [(ngModel)]="requirementModel.CustomerRequirementState"
+                    name="status">
+                    <option style="height: auto;" *ngFor="let item of state" [ngValue]="item.Id">
+                      {{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label"> Đối thủ cạnh tranh
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [(ngModel)]="requirementModel.Competitor" name="Competitor" rows="5"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label"> Nhà cung cấp hiện tại của khách hàng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [(ngModel)]="requirementModel.CustomerSupplier" name="CustomerSupplier" rows="5"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Thuộc giai đoạn
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down-tree required [items]="listProjectPhase"
+                    [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                    ntsAutoClose="true"  [(ngModel)]="requirementModel.ProjectPhaseId" name="ProjectPhaseId" [required]="true">
+                  </nts-drop-down-tree>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Ghi chú
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [(ngModel)]="requirementModel.Note" name="Note" rows="5" class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row mt-3">
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label>
+                Danh sách yêu cầu cần xử lý
+              </label>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+              <ng-container>
+                <button type="button" class="btn btn-success" (click)="showCreateCustomerRequirement('','',null,true)"
+                  container="body">
+                  <i class="fa fa-plus"></i>
+                  Thêm mới
+                </button>
+              </ng-container>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered " style="word-wrap: break-word ;min-width:1450px;">
+
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="100px" class="text-center">Xử lý</th>
+                      <th width="300px" class="text-center">Yêu cầu cần xử lý</th>
+                      <th width="300px" class="text-center">Phương án xử lý</th>
+                      <th width="150px" class="text-center">Số yêu cầu khách hàng</th>
+                      <th width="150px" class="text-center">Ngày yêu cầu</th>
+                      <th width="150px" class="text-center">Thời điểm hoàn thành</th>
+                      <th min-width="150px" class="text-center">Ghi chú</th>
+                      <th width="150px" class="text-center">Người yêu cầu</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <tr *ngFor="let row of requirementModel.ListContent; let i = index;"
+                      [ngClass]="{'selected': selectIndex == i}" (click)="selectCustomerRequimentNeedToHandle(i)">
+                      <td class="text-center" width="50px">{{i+1}}</td>
+                      <td class="text-center">
+                        <button type="button"
+                          (click)='showCreateCustomerRequirement(row.Id,row,i,false)' class="btn btn-xs btn-warning"
+                          placement="top" ngbTooltip="Cập nhật" container="body">
+                          <span class="fa fa-edit" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                          (click)="showComfirmDeleteContent(i)">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td width="300px" class="text-left">{{row.Request}}</td>
+                      <td width="300px" class="text-left">{{row.Solution}}</td>
+                      <td width="150px" class="text-left">{{row.Code}}</td>
+                      <td>
+                        <div class="input-group">
+                          <input disabled container="body" class="form-control" placeholder="dd/mm/yyyy"
+                            [name]="'createDateV' + i" [(ngModel)]="row.CreateDate" ngbDatepicker
+                            #createDateV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                            [maxDate]="{year: 2100, month: 12, day: 31}" required>
+                          <div class="input-group-append">
+                            <span class="dtp-icon">
+                              <i class="far fa-calendar-alt" style="color: #999;"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="input-group">
+                          <input container="body" class="form-control" placeholder="dd/mm/yyyy"
+                            [name]="'finishDate' + i" [(ngModel)]="row.FinishDate" ngbDatepicker
+                            #finishDate="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                            [maxDate]="{year: 2100, month: 12, day: 31}">
+                          <div class="input-group-append">
+                            <span class="dtp-icon" (click)="finishDate.toggle();$event.stopPropagation();">
+                              <i class="far fa-calendar-alt" style="color: #999;"></i>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td width="150px" class="text-left">{{row.Note}}</td>
+                      <td width="150px" class="text-left">{{row.RequestName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <label>
+                Tài liệu đính kèm
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+              <button *appUipermission="['F110801','F110802']" class="btn btn-success btn-upload"
+                (click)="fileInput.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Thêm tài liệu</button>
+              <input name="fileDataSheet" style="display: none;" type="file" id="fileDataSheet" #fileInput
+                (change)="uploadFile($event)" multiple />
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:1130px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="80px" class="text-center">Xử lý</th>
+                      <th width="200px" class="text-center">Tên </th>
+                      <th width="300px" class="text-center">Loại</th>
+                      <th min-width="200px" class="text-center">Cần lưu ý</th>
+                      <th width="200px" class="text-center">Tên file</th>
+                      <th width="100px" class="text-center">Dung lượng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let row of requirementModel.ListAttach; let i = index">
+                      <tr *ngIf="!row.IsDelete">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                          <ng-container *ngIf="row.FilePath">
+                            <button type="button" (click)="downloadAFile(row)" style="background-color: papayawhip"
+                              class="btn btn-xs" placement="top" ngbTooltip="Download" container="body">
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>&nbsp;
+                          </ng-container>
+                          <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                            (click)="showConfirmDeleteFile(row,i,1)">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.Name" class="form-control" [name]="'names' + i">
+                        </td>
+                        <td>
+                          <select data-size="3" class="form-control" [(ngModel)]="row.Type"
+                            [name]="'CustomerRequirementType' + i">
+                            <option style="height: auto;" *ngFor="let item of listCustomerRequirementType"
+                              [ngValue]="item.Id">
+                              {{item.Name}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <textarea type="text" [(ngModel)]="row.Note" class="form-control" [name]="'Notes' + i"
+                            rows="1"></textarea>
+                        </td>
+                        <td>
+                          {{row.FileName}}
+                        </td>
+                        <td class="text-center">
+                          {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-container>
+
+      </div>
+    </section>
+
+    <section class="box">
+      <div class="content-body">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+
+            <ng-container>
+              <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>{{modalInfo.SaveText}}</span>
+              </button>&nbsp;
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="close()">
+              <i class="fa fa-power-off"></i> &nbsp;
+              <span>
+                Ðóng
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </form>
+</div>

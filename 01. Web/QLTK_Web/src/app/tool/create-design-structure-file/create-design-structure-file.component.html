@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tên file</label>
+          <div class="controls">
+            <input [disUipermission]="['F090002','F090003']" type="text" class="form-control" name="Namedesginstructurefile" [(ngModel)]="model.Name" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="custom-control custom-checkbox margin-top-15" [disUipermission]="['F090002','F090003']">
+          <input type="checkbox" class="custom-control-input" id="Exist" name="Exist" [(ngModel)]="model.Exist">
+          <label class="custom-control-label" for="Exist">Tồn tại</label>
+        </div>
+
+        <div class="custom-control custom-checkbox margin-top-15" [disUipermission]="['F090002','F090003']">
+          <input type="checkbox" class="custom-control-input" id="IsTemplate" name="IsTemplate"
+            [(ngModel)]="model.IsTemplate">
+          <label class="custom-control-label" for="IsTemplate">Có Tempalte</label>
+        </div>
+        <div class="custom-control custom-checkbox margin-top-15" [disUipermission]="['F090002','F090003']">
+          <input type="checkbox" class="custom-control-input" id="IsInsertData" name="IsInsertData"
+            [(ngModel)]="model.IsInsertData">
+          <label class="custom-control-label" for="IsInsertData">Nhập dữ liệu</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 text-left" [disUipermission]="['F090002','F090003']">
+        <button class="btn btn-success btn-upload" (click)="fileInput.click();" [disabled]="!model.IsTemplate">
+          <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+        <input name="file" style="display: none;" type="file" id="fileDataSheet" #fileInput
+          (change)="uploadFileClick($event)" />
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-8 text-left">
+        <label class="form-label">{{file.name}}</label>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F090002','F090003']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+  </ng-container>
+  <!-- <ng-container *ngIf="id===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container> -->
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

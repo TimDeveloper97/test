@@ -1,0 +1,138 @@
+<div class="modal-header">
+  <h3 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h3>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã bước báo giá<span class='text-danger text-strong'>&nbsp;*</span></label>
+          <div class="controls">
+            <input [maxlength]="10" type="text" class="form-control" [(ngModel)]="model.Code" name="Code" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên bước báo giá <span class='text-danger text-strong'>&nbsp;*</span></label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Thứ tự hiển thị
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select required class="form-control" [(ngModel)]="model.Index" name="Index" required
+              [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let c of listIndex" [ngValue]="c.Index">{{c.Exten}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+
+          <label class="form-label">
+            Tình trạng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+
+          </label>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+          <label class="radio">
+            Đang sử dụng
+            <input type="radio" name="use" [(ngModel)]="model.IsEnable" [value]="true">
+            <span class="checkround"></span>
+          </label>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label class="radio">
+            <h5>Không sử dụng</h5>
+            <input type="radio" name="notUse" [(ngModel)]="model.IsEnable" [value]="false">
+            <span class="checkround"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">% Hoàn thành<span class='text-danger text-strong'>&nbsp;*</span></label>
+          <div class="controls">
+            <select name="SuccessRadio" class="form-control" [(ngModel)]="model.SuccessRadio">
+              <option *ngFor="let item of constant.WorkDiary_Done" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-lg-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">
+            SBU<span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select name="DepartmentId" required class="form-control" [(ngModel)]="model.SBUId">
+              <option *ngFor="let item of listData" [ngValue]="item.Id" class="text-left">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mô tả
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Description" name="RoleDescipton" rows="5" class="form-control">
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

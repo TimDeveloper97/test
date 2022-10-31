@@ -1,0 +1,32 @@
+.app-product-create {
+    padding-top: 10px !important;
+    
+    .radio .form-label {
+        display: block !important;
+      }
+      .radio .form-check-label input.form-check-input {
+        height: auto;
+      }
+      .radio label.radio {
+        display: inline-block;
+        margin: 19px 20px 0 0;
+        padding-left: 30px;
+      }
+      .radio {
+        position: relative;
+        margin-bottom: 12px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    
+      /* Hide the browser's default radio button */
+      .radio input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+    
+}

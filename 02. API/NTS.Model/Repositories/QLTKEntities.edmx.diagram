@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1491df10911f40699c31948be054ac59" Name="Diagram1" ZoomLevel="13">
+        <EntityTypeShape EntityType="QLTKModel.ActivityLog" Width="1.5" PointX="5.25" PointY="54.125" />
+        <EntityTypeShape EntityType="QLTKModel.Application" Width="1.5" PointX="29.75" PointY="20.375" />
+        <EntityTypeShape EntityType="QLTKModel.ApplicationClient" Width="1.5" PointX="0.75" PointY="7.375" />
+        <EntityTypeShape EntityType="QLTKModel.Attachment" Width="1.5" PointX="0.75" PointY="11.375" />
+        <EntityTypeShape EntityType="QLTKModel.Bank" Width="1.5" PointX="18.25" PointY="53.5" />
+        <EntityTypeShape EntityType="QLTKModel.BankAccount" Width="1.5" PointX="8.75" PointY="7.375" />
+        <EntityTypeShape EntityType="QLTKModel.BOMDesignTwo" Width="1.5" PointX="48" PointY="49.75" />
+        <EntityTypeShape EntityType="QLTKModel.BOMDesignTwoAttach" Width="1.5" PointX="50.25" PointY="47.25" />
+        <EntityTypeShape EntityType="QLTKModel.BOMDesignTwoDetial" Width="1.5" PointX="50.25" PointY="51.125" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateApply" Width="1.5" PointX="0.75" PointY="79.375" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateAttach" Width="1.5" PointX="3.75" PointY="108.625" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateEducation" Width="1.5" PointX="3.75" PointY="105.125" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateFollow" Width="1.5" PointX="3.75" PointY="99.875" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateLanguage" Width="1.5" PointX="3.75" PointY="85.125" />
+        <EntityTypeShape EntityType="QLTKModel.Candidate" Width="1.5" PointX="1.5" PointY="84.75" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateWorkHistory" Width="1.5" PointX="3.75" PointY="95.75" />
+        <EntityTypeShape EntityType="QLTKModel.CandidateWorkTypeFit" Width="1.5" PointX="3.75" PointY="102.625" />
+        <EntityTypeShape EntityType="QLTKModel.Classification" Width="1.5" PointX="10.75" PointY="6.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoom" Width="1.5" PointX="16" PointY="79" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomAttach" Width="1.5" PointX="18.25" PointY="99.75" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomDesignDocument" Width="1.5" PointX="5.75" PointY="24.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomMaterial" Width="1.5" PointX="18.25" PointY="103.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomModule" Width="1.5" PointX="0.75" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomPractice" Width="1.5" PointX="18.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomProduct" Width="1.5" PointX="20.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomToolPractice" Width="1.5" PointX="38" PointY="39.875" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomToolProduct" Width="1.5" PointX="38" PointY="34.75" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomTool" Width="1.5" PointX="35.75" PointY="36.875" />
+        <EntityTypeShape EntityType="QLTKModel.ClassRoomToolSkill" Width="1.5" PointX="38" PointY="37.25" />
+        <EntityTypeShape EntityType="QLTKModel.ClassSkill" Width="1.5" PointX="18.25" PointY="44.625" />
+        <EntityTypeShape EntityType="QLTKModel.CodeRule" Width="1.5" PointX="41.25" PointY="25.25" />
+        <EntityTypeShape EntityType="QLTKModel.CoefficientEmployee" Width="1.5" PointX="3" PointY="19.625" />
+        <EntityTypeShape EntityType="QLTKModel.Component" Width="1.5" PointX="7.75" PointY="24.375" />
+        <EntityTypeShape EntityType="QLTKModel.Config" Width="1.5" PointX="5.75" PointY="29.375" />
+        <EntityTypeShape EntityType="QLTKModel.ConfigScanFile" Width="1.5" PointX="22.75" PointY="30.375" />
+        <EntityTypeShape EntityType="QLTKModel.ConfigUserNotification" Width="1.5" PointX="5.25" PointY="49.25" />
+        <EntityTypeShape EntityType="QLTKModel.ConverUnit" Width="1.5" PointX="13" PointY="17.375" />
+        <EntityTypeShape EntityType="QLTKModel.Cost" Width="1.5" PointX="20.75" PointY="24.375" />
+        <EntityTypeShape EntityType="QLTKModel.Course" Width="1.5" PointX="47.75" PointY="7" />
+        <EntityTypeShape EntityType="QLTKModel.CourseAttachFile" Width="1.5" PointX="50" PointY="10.625" />
+        <EntityTypeShape EntityType="QLTKModel.CourseSkill" Width="1.5" PointX="51" PointY="20.125" />
+        <EntityTypeShape EntityType="QLTKModel.CourseTraining" Width="1.5" PointX="50" PointY="6.25" />
+        <EntityTypeShape EntityType="QLTKModel.CourseTrainingSkill" Width="1.5" PointX="53.25" PointY="19.375" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerContact" Width="1.5" PointX="41" PointY="12.625" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerDomain" Width="1.5" PointX="26.75" PointY="20.375" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerOfCustomer" Width="1.5" PointX="41" PointY="9.5" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirement" Width="1.5" PointX="43.25" PointY="8" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementAttach" Width="1.5" PointX="45.5" PointY="8.125" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementContent" Width="1.5" PointX="45.5" PointY="12.375" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementEstimate" Width="1.5" PointX="54.75" PointY="35.375" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementEstimateAttach" Width="1.5" PointX="57" PointY="34.625" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementProductSolution" Width="1.5" PointX="28.75" PointY="17.375" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementSolution" Width="1.5" PointX="10.75" PointY="3.5" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerRequirementSolutionContent" Width="1.5" PointX="13" PointY="3.5" />
+        <EntityTypeShape EntityType="QLTKModel.Customer" Width="1.5" PointX="38.75" PointY="10.25" />
+        <EntityTypeShape EntityType="QLTKModel.CustomerType" Width="1.5" PointX="29.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.DataDistribution" Width="1.5" PointX="31.25" PointY="83.125" />
+        <EntityTypeShape EntityType="QLTKModel.DataDistributionFile" Width="1.5" PointX="31.25" PointY="77.25" />
+        <EntityTypeShape EntityType="QLTKModel.DataDistributionFileLink" Width="1.5" PointX="33.5" PointY="83.5" />
+        <EntityTypeShape EntityType="QLTKModel.DataSheet" Width="1.5" PointX="29.75" PointY="7.375" />
+        <EntityTypeShape EntityType="QLTKModel.Degree" Width="1.5" PointX="13.75" PointY="43.375" />
+        <EntityTypeShape EntityType="QLTKModel.Department" Width="1.5" PointX="29" PointY="49.125" />
+        <EntityTypeShape EntityType="QLTKModel.DepartmentSkill" Width="1.5" PointX="31.25" PointY="86.75" />
+        <EntityTypeShape EntityType="QLTKModel.Design3D" Width="1.5" PointX="25.75" PointY="35.375" />
+        <EntityTypeShape EntityType="QLTKModel.DesignStructure" Width="1.5" PointX="10.75" PointY="36.375" />
+        <EntityTypeShape EntityType="QLTKModel.DesignStructureFile" Width="1.5" PointX="12.75" PointY="36.375" />
+        <EntityTypeShape EntityType="QLTKModel.District" Width="1.5" PointX="34.75" PointY="31.375" />
+        <EntityTypeShape EntityType="QLTKModel.Document" Width="1.5" PointX="32" PointY="11.625" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentFile" Width="1.5" PointX="34.25" PointY="22.375" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentGroup" Width="1.5" PointX="29.75" PointY="13.625" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentMeeting" Width="1.5" PointX="34.25" PointY="8.625" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentObject" Width="1.5" PointX="34.25" PointY="17.125" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentProblem" Width="1.5" PointX="34.25" PointY="4.5" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentPromulgate" Width="1.5" PointX="34.25" PointY="13.25" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentPromulgateFile" Width="1.5" PointX="36.5" PointY="12.875" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentReference" Width="1.5" PointX="34.25" PointY="19.875" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentTag" Width="1.5" PointX="7.75" PointY="32.375" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentTemplate" Width="1.5" PointX="35.75" PointY="28.375" />
+        <EntityTypeShape EntityType="QLTKModel.DocumentType" Width="1.5" PointX="36.75" PointY="17.375" />
+        <EntityTypeShape EntityType="QLTKModel.Education" Width="1.5" PointX="34.75" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.EducationProgram" Width="1.5" PointX="30" PointY="61.375" />
+        <EntityTypeShape EntityType="QLTKModel.EducationProgramAttach" Width="1.5" PointX="32.25" PointY="89.375" />
+        <EntityTypeShape EntityType="QLTKModel.EducationProgramJob" Width="1.5" PointX="32.25" PointY="44.75" />
+        <EntityTypeShape EntityType="QLTKModel.EmailTemplate" Width="1.5" PointX="25.75" PointY="39.375" />
+        <EntityTypeShape EntityType="QLTKModel.Employee" Width="1.5" PointX="0.75" PointY="36.875" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeBankAccount" Width="1.5" PointX="3" PointY="26.125" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeChangeIncome" Width="1.5" PointX="3" PointY="70.625" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeChangeInsurance" Width="1.5" PointX="3" PointY="53.375" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeContract" Width="1.5" PointX="36.75" PointY="31.375" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeCourseTraining" Width="1.5" PointX="3" PointY="61.125" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeDegree" Width="1.5" PointX="6" PointY="43.75" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeEducation" Width="1.5" PointX="3" PointY="64" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeGroup" Width="1.5" PointX="10.75" PointY="42.375" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeHistoryAppoint" Width="1.5" PointX="3" PointY="67.125" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeHistoryJobTranfer" Width="1.5" PointX="3" PointY="22.625" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeSkill" Width="1.5" PointX="3" PointY="42.875" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeSkillDetail" Width="1.5" PointX="3" PointY="56.5" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeTrainingAttachFile" Width="1.5" PointX="50" PointY="2.25" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeTraning" Width="1.5" PointX="47.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.EmployeeWorkHistory" Width="1.5" PointX="3" PointY="73.5" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorAffect" Width="1.5" PointX="28.75" PointY="32.375" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorAttach" Width="1.5" PointX="47" PointY="33.875" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorChangedPlan" Width="1.5" PointX="40.75" PointY="39.375" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorFixAttach" Width="1.5" PointX="49.25" PointY="41.375" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorFix" Width="1.5" PointX="47" PointY="40.5" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorGroup" Width="1.5" PointX="42.75" PointY="44.375" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorHistory" Width="1.5" PointX="47" PointY="37.5" />
+        <EntityTypeShape EntityType="QLTKModel.ErrorImage" Width="1.5" PointX="47" PointY="31.125" />
+        <EntityTypeShape EntityType="QLTKModel.Error" Width="1.5" PointX="44.75" PointY="33.125" />
+        <EntityTypeShape EntityType="QLTKModel.Expert" Width="1.5" PointX="16" PointY="51.25" />
+        <EntityTypeShape EntityType="QLTKModel.ExpertWorkplace" Width="1.5" PointX="25.25" PointY="57.5" />
+        <EntityTypeShape EntityType="QLTKModel.ExternalEmployee" Width="1.5" PointX="8.75" PointY="46.375" />
+        <EntityTypeShape EntityType="QLTKModel.Family" Width="1.5" PointX="3" PointY="28.875" />
+        <EntityTypeShape EntityType="QLTKModel.Feature" Width="1.5" PointX="40.25" PointY="44.625" />
+        <EntityTypeShape EntityType="QLTKModel.FileDefinition" Width="1.5" PointX="43.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.FlowStageOutputResult" Width="1.5" PointX="27" PointY="4.75" />
+        <EntityTypeShape EntityType="QLTKModel.FlowStage" Width="1.5" PointX="24.75" PointY="2.375" />
+        <EntityTypeShape EntityType="QLTKModel.FolderDefinition" Width="1.5" PointX="10.75" PointY="46.375" />
+        <EntityTypeShape EntityType="QLTKModel.FTPServer" Width="1.5" PointX="12.75" PointY="40.375" />
+        <EntityTypeShape EntityType="QLTKModel.FunctionGroup" Width="1.5" PointX="36.75" PointY="3.875" />
+        <EntityTypeShape EntityType="QLTKModel.Function" Width="1.5" PointX="39" PointY="3.625" />
+        <EntityTypeShape EntityType="QLTKModel.GroupFunction" Width="1.5" PointX="3.75" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.GroupPermission" Width="1.5" PointX="8.25" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.GroupUser" Width="1.5" PointX="6" PointY="19.875" />
+        <EntityTypeShape EntityType="QLTKModel.Guideline" Width="1.5" PointX="31.75" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.Holiday" Width="1.5" PointX="43.75" PointY="30.375" />
+        <EntityTypeShape EntityType="QLTKModel.ImportInventory" Width="1.5" PointX="44.75" PointY="46.375" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfile" Width="1.5" PointX="20.75" PointY="36" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileDocument" Width="1.5" PointX="23" PointY="43.5" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileDocumentConfig" Width="1.5" PointX="49.75" PointY="35.375" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileDocumentOther" Width="1.5" PointX="23" PointY="34.75" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfilePayment" Width="1.5" PointX="23" PointY="53.875" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileProblemExist" Width="1.5" PointX="46.75" PointY="46.375" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileProduct" Width="1.5" PointX="26" PointY="42.125" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileQuote" Width="1.5" PointX="23" PointY="38.75" />
+        <EntityTypeShape EntityType="QLTKModel.ImportProfileTransportSupplier" Width="1.5" PointX="23" PointY="58.125" />
+        <EntityTypeShape EntityType="QLTKModel.IncurredMaterial" Width="1.5" PointX="48" PointY="61.875" />
+        <EntityTypeShape EntityType="QLTKModel.Industry" Width="1.5" PointX="8.5" PointY="28.625" />
+        <EntityTypeShape EntityType="QLTKModel.InsuranceLevel" Width="1.5" PointX="7.75" PointY="53.375" />
+        <EntityTypeShape EntityType="QLTKModel.Interview" Width="1.5" PointX="3" PointY="78.875" />
+        <EntityTypeShape EntityType="QLTKModel.InterviewQuestion" Width="1.5" PointX="5.25" PointY="79.75" />
+        <EntityTypeShape EntityType="QLTKModel.InterviewUser" Width="1.5" PointX="5.25" PointY="40.375" />
+        <EntityTypeShape EntityType="QLTKModel.Job" Width="1.5" PointX="23" PointY="48.75" />
+        <EntityTypeShape EntityType="QLTKModel.JobAttach" Width="1.5" PointX="25.25" PointY="53.375" />
+        <EntityTypeShape EntityType="QLTKModel.JobGroup" Width="1.5" PointX="20.75" PointY="30.375" />
+        <EntityTypeShape EntityType="QLTKModel.JobPosition" Width="1.5" PointX="9.75" PointY="53.375" />
+        <EntityTypeShape EntityType="QLTKModel.JobSubject" Width="1.5" PointX="26.25" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.LaborContract" Width="1.5" PointX="16.75" PointY="83.25" />
+        <EntityTypeShape EntityType="QLTKModel.Language" Width="1.5" PointX="50.75" PointY="23.375" />
+        <EntityTypeShape EntityType="QLTKModel.Manufacture" Width="1.5" PointX="42" PointY="33.75" />
+        <EntityTypeShape EntityType="QLTKModel.ManufactureAvailable" Width="1.5" PointX="11.75" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.ManufactureGroup" Width="1.5" PointX="7.75" PointY="57.375" />
+        <EntityTypeShape EntityType="QLTKModel.ManufactureInGroup" Width="1.5" PointX="44.25" PointY="27" />
+        <EntityTypeShape EntityType="QLTKModel.Material" Width="1.5" PointX="10.75" PointY="16.5" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialBuyHistory" Width="1.5" PointX="16" PointY="14.75" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialDataSheet" Width="1.5" PointX="39.75" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialDesign3D" Width="1.5" PointX="9.75" PointY="57.375" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialGroup" Width="1.5" PointX="39" PointY="26.125" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialGroupTPA" Width="1.5" PointX="36.75" PointY="23.625" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialImage" Width="1.5" PointX="13" PointY="51" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialImportBOMDraft" Width="1.5" PointX="54.75" PointY="39.375" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialModuleGroup" Width="1.5" PointX="13" PointY="20.625" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialParameter" Width="1.5" PointX="41.75" PointY="57.375" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialParameterValue" Width="1.5" PointX="54.75" PointY="45.375" />
+        <EntityTypeShape EntityType="QLTKModel.MaterialPart" Width="1.5" PointX="55.75" PointY="17.375" />
+        <EntityTypeShape EntityType="QLTKModel.Meeting" Width="1.5" PointX="6" PointY="85.625" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingAttach" Width="1.5" PointX="8.25" PointY="85.5" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingContent" Width="1.5" PointX="8.25" PointY="89.75" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingContentAttach" Width="1.5" PointX="10.5" PointY="87.5" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingCustomerContact" Width="1.5" PointX="43.25" PointY="53.375" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingType" Width="1.5" PointX="3.75" PointY="88" />
+        <EntityTypeShape EntityType="QLTKModel.MeetingUser" Width="1.5" PointX="8.25" PointY="40.375" />
+        <EntityTypeShape EntityType="QLTKModel.MisMatch" Width="1.5" PointX="54.75" PointY="58.375" />
+        <EntityTypeShape EntityType="QLTKModel.Module" Width="1.5" PointX="16.75" PointY="3.875" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleChangeType" Width="1.5" PointX="56.75" PointY="20.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleDesignDocument" Width="1.5" PointX="19" PointY="66.875" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleDesignDocumentOld" Width="1.5" PointX="56.75" PointY="39.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleDesigner" Width="1.5" PointX="27.75" PointY="58.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleErrorImage" Width="1.5" PointX="56.75" PointY="44.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleErrorVideo" Width="1.5" PointX="56.75" PointY="58.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleGroup" Width="1.5" PointX="10.75" PointY="27.625" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleGroupProductStandard" Width="1.5" PointX="33.5" PointY="39.875" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleGroupStage" Width="1.5" PointX="57.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleGroupTestCriteria" Width="1.5" PointX="9.75" PointY="60.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleGroupTimeStandard" Width="1.5" PointX="57.75" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleHistory" Width="1.5" PointX="57.75" PointY="48.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleImage" Width="1.5" PointX="57.75" PointY="52.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleInPractice" Width="1.5" PointX="58.75" PointY="19.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleInProduct" Width="1.5" PointX="58.75" PointY="39.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleManualDocument" Width="1.5" PointX="58.75" PointY="42.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleMaterial" Width="1.5" PointX="13" PointY="23.875" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleMaterialAttach" Width="1.5" PointX="15.25" PointY="28.125" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleMaterialFinishDesign" Width="1.5" PointX="48" PointY="56.25" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleOldVersion" Width="1.5" PointX="41.75" PointY="61.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModulePart" Width="1.5" PointX="58.75" PointY="56.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleProductionTime" Width="1.5" PointX="58.75" PointY="59.375" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleProductStandard" Width="1.5" PointX="33.5" PointY="27.75" />
+        <EntityTypeShape EntityType="QLTKModel.ModuleTestCriteria" Width="1.5" PointX="48.25" PointY="23.625" />
+        <EntityTypeShape EntityType="QLTKModel.Notification" Width="1.5" PointX="5.25" PointY="57.875" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterial" Width="1.5" PointX="59.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterialGroup" Width="1.5" PointX="52.75" PointY="5.5" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterialGroupAttach" Width="1.5" PointX="55" PointY="8" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterialParameter" Width="1.5" PointX="55" PointY="3.75" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterialParameterValue" Width="1.5" PointX="57.25" PointY="4" />
+        <EntityTypeShape EntityType="QLTKModel.NSMaterialType" Width="1.5" PointX="59.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.NTSUpdateVersion" Width="1.5" PointX="59.75" PointY="12.375" />
+        <EntityTypeShape EntityType="QLTKModel.OutputRessultDocument" Width="1.5" PointX="27" PointY="7.875" />
+        <EntityTypeShape EntityType="QLTKModel.OutputRessult" Width="1.5" PointX="24.75" PointY="7" />
+        <EntityTypeShape EntityType="QLTKModel.Payment" Width="1.5" PointX="59.75" PointY="22.375" />
+        <EntityTypeShape EntityType="QLTKModel.PaymentPlan" Width="1.5" PointX="59.75" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.Permission" Width="1.5" PointX="6" PointY="16" />
+        <EntityTypeShape EntityType="QLTKModel.Plan" Width="1.5" PointX="6" PointY="8.125" />
+        <EntityTypeShape EntityType="QLTKModel.PlanAssignment" Width="1.5" PointX="8.25" PointY="37.25" />
+        <EntityTypeShape EntityType="QLTKModel.PlanFunction" Width="1.5" PointX="59.75" PointY="28.375" />
+        <EntityTypeShape EntityType="QLTKModel.PlanHistory" Width="1.5" PointX="54.75" PointY="29.625" />
+        <EntityTypeShape EntityType="QLTKModel.PlanHistoryAttach" Width="1.5" PointX="57" PointY="29.625" />
+        <EntityTypeShape EntityType="QLTKModel.PlanPermission" Width="1.5" PointX="59.75" PointY="31.375" />
+        <EntityTypeShape EntityType="QLTKModel.Practice" Width="1.5" PointX="13" PointY="57" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeExpert" Width="1.5" PointX="18.25" PointY="56.625" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeFile" Width="1.5" PointX="15.25" PointY="56.875" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeGroup" Width="1.5" PointX="18.75" PointY="16.5" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeMaterial" Width="1.5" PointX="15.25" PointY="63.125" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeMaterialConsumable" Width="1.5" PointX="15.25" PointY="70" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeOldVersion" Width="1.5" PointX="59.75" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeSkill" Width="1.5" PointX="18.25" PointY="59.625" />
+        <EntityTypeShape EntityType="QLTKModel.PracticeSubMaterial" Width="1.5" PointX="15.25" PointY="66.5" />
+        <EntityTypeShape EntityType="QLTKModel.PracticInProduct" Width="1.5" PointX="35.75" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductAccessory" Width="1.5" PointX="18.25" PointY="95.625" />
+        <EntityTypeShape EntityType="QLTKModel.ProductCatalog" Width="1.5" PointX="59.75" PointY="46.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductDesignDocument" Width="1.5" PointX="18.25" PointY="91.25" />
+        <EntityTypeShape EntityType="QLTKModel.ProductDocument" Width="1.5" PointX="18.25" PointY="87.75" />
+        <EntityTypeShape EntityType="QLTKModel.ProductGroup" Width="1.5" PointX="43.75" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductImage" Width="1.5" PointX="18.25" PointY="28.875" />
+        <EntityTypeShape EntityType="QLTKModel.ProductItem" Width="1.5" PointX="59.75" PointY="50.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductMaterialAttach" Width="1.5" PointX="57" PointY="24.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductMaterial" Width="1.5" PointX="54.75" PointY="23.625" />
+        <EntityTypeShape EntityType="QLTKModel.ProductModule" Width="1.5" PointX="18.25" PointY="35.25" />
+        <EntityTypeShape EntityType="QLTKModel.ProductModuleMaterial" Width="1.5" PointX="18.25" PointY="25.5" />
+        <EntityTypeShape EntityType="QLTKModel.ProductModuleUpdate" Width="1.5" PointX="18.25" PointY="32.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductNeedPrice" Width="1.5" PointX="56.75" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductNeedSolution" Width="1.5" PointX="58.75" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.Product" Width="1.5" PointX="16" PointY="31.875" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardAttach" Width="1.5" PointX="33.5" PointY="62.125" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardGroup" Width="1.5" PointX="29" PointY="54.75" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardHistory" Width="1.5" PointX="33.5" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandard" Width="1.5" PointX="31.25" PointY="48.125" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardTPA" Width="1.5" PointX="52.75" PointY="37.125" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardTPAFile" Width="1.5" PointX="55" PointY="54" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardTPAImage" Width="1.5" PointX="55" PointY="50.625" />
+        <EntityTypeShape EntityType="QLTKModel.ProductStandardTPAType" Width="1.5" PointX="9.75" PointY="63.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProductTestResultAttach" Width="1.5" PointX="18.25" PointY="38" />
+        <EntityTypeShape EntityType="QLTKModel.ProductVersion" Width="1.5" PointX="60.75" PointY="38.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectAttach" Width="1.5" PointX="3" PointY="0.75" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectAttachTabType" Width="1.5" PointX="60.75" PointY="19.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectAttachUser" Width="1.5" PointX="5.25" PointY="37.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectDocumentGroup" Width="1.5" PointX="60.75" PointY="42.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectEmployee" Width="1.5" PointX="60.75" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectError" Width="1.5" PointX="60.75" PointY="59.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectGeneralDesign" Width="1.5" PointX="49.75" PointY="28.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectGeneralDesignMaterial" Width="1.5" PointX="52" PointY="26.75" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectGeneralDesignModule" Width="1.5" PointX="52" PointY="30.5" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectPhase" Width="1.5" PointX="29" PointY="45.875" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectProduct" Width="1.5" PointX="45.75" PointY="50" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectProductTestCriteria" Width="1.5" PointX="48.25" PointY="20.625" />
+        <EntityTypeShape EntityType="QLTKModel.Project" Width="1.5" PointX="3.75" PointY="7.625" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectSolution" Width="1.5" PointX="39.5" PointY="31" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectSolutionProduct" Width="1.5" PointX="41.75" PointY="31.125" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectTransferAttach" Width="1.5" PointX="6" PointY="3.75" />
+        <EntityTypeShape EntityType="QLTKModel.ProjectTransferProduct" Width="1.5" PointX="8.25" PointY="4.375" />
+        <EntityTypeShape EntityType="QLTKModel.ProtectSolution" Width="1.5" PointX="45.5" PointY="16.25" />
+        <EntityTypeShape EntityType="QLTKModel.Province" Width="1.5" PointX="60.75" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.PurchaseRequest" Width="1.5" PointX="21.5" PointY="64.5" />
+        <EntityTypeShape EntityType="QLTKModel.PurchaseRequestProduct" Width="1.5" PointX="23.75" PointY="63.5" />
+        <EntityTypeShape EntityType="QLTKModel.QCCheckList" Width="1.5" PointX="61.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.QCResult" Width="1.5" PointX="61.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.Qualification" Width="1.5" PointX="3.75" PointY="91.625" />
+        <EntityTypeShape EntityType="QLTKModel.Question" Width="1.5" PointX="50" PointY="14.625" />
+        <EntityTypeShape EntityType="QLTKModel.QuestionFile" Width="1.5" PointX="52.25" PointY="14.875" />
+        <EntityTypeShape EntityType="QLTKModel.QuestionGroup" Width="1.5" PointX="47.75" PointY="14.875" />
+        <EntityTypeShape EntityType="QLTKModel.Quotation" Width="1.5" PointX="61.75" PointY="12.375" />
+        <EntityTypeShape EntityType="QLTKModel.QuotationPlan" Width="1.5" PointX="61.75" PointY="22.375" />
+        <EntityTypeShape EntityType="QLTKModel.QuotationProduct" Width="1.5" PointX="61.75" PointY="28.375" />
+        <EntityTypeShape EntityType="QLTKModel.QuotationStep" Width="1.5" PointX="61.75" PointY="45.375" />
+        <EntityTypeShape EntityType="QLTKModel.RawMaterial" Width="1.5" PointX="61.75" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.ReasonChangeIncome" Width="1.5" PointX="61.75" PointY="50.375" />
+        <EntityTypeShape EntityType="QLTKModel.ReasonChangeInsurance" Width="1.5" PointX="11.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.ReasonEndWorking" Width="1.5" PointX="25.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.RecruitmentChannel" Width="1.5" PointX="27.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.RecruitmentRequest" Width="1.5" PointX="34.25" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.RecruitmentRequestAttach" Width="1.5" PointX="36.5" PointY="58" />
+        <EntityTypeShape EntityType="QLTKModel.Responsibility" Width="1.5" PointX="62.75" PointY="19.375" />
+        <EntityTypeShape EntityType="QLTKModel.Role" Width="1.5" PointX="29.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.RoomType" Width="1.5" PointX="13.75" PointY="79.625" />
+        <EntityTypeShape EntityType="QLTKModel.SalaryGroup" Width="1.5" PointX="62.75" PointY="38.375" />
+        <EntityTypeShape EntityType="QLTKModel.SalaryLevel" Width="1.5" PointX="36.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SalaryType" Width="1.5" PointX="38.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SaleGroup" Width="1.5" PointX="29.75" PointY="42.125" />
+        <EntityTypeShape EntityType="QLTKModel.SaleGroupProduct" Width="1.5" PointX="32" PointY="31.5" />
+        <EntityTypeShape EntityType="QLTKModel.SaleGroupUser" Width="1.5" PointX="32" PointY="36.5" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProduct" Width="1.5" PointX="26.75" PointY="24.5" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductAccessory" Width="1.5" PointX="29" PointY="24" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductApplication" Width="1.5" PointX="32" PointY="24.5" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductDocument" Width="1.5" PointX="29" PointY="34.5" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductExport" Width="1.5" PointX="54.75" PointY="11.625" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductExportDetail" Width="1.5" PointX="57" PointY="12.625" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductJob" Width="1.5" PointX="29" PointY="29.25" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductMedia" Width="1.5" PointX="29" PointY="37.875" />
+        <EntityTypeShape EntityType="QLTKModel.SaleProductType" Width="1.5" PointX="40.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SaleTargetment" Width="1.5" PointX="45.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SBU" Width="1.5" PointX="26.75" PointY="48.25" />
+        <EntityTypeShape EntityType="QLTKModel.SimilarMaterial" Width="1.5" PointX="13.75" PointY="7.5" />
+        <EntityTypeShape EntityType="QLTKModel.SimilarMaterialConfig" Width="1.5" PointX="16" PointY="20.125" />
+        <EntityTypeShape EntityType="QLTKModel.SketchAttach" Width="1.5" PointX="19" PointY="78.5" />
+        <EntityTypeShape EntityType="QLTKModel.SketchAttachHistory" Width="1.5" PointX="21.25" PointY="78.625" />
+        <EntityTypeShape EntityType="QLTKModel.SketcheHistory" Width="1.5" PointX="62.75" PointY="42.375" />
+        <EntityTypeShape EntityType="QLTKModel.SketchFunction" Width="1.5" PointX="41.25" PointY="4.375" />
+        <EntityTypeShape EntityType="QLTKModel.SketchMaterialElectronic" Width="1.5" PointX="16" PointY="24.375" />
+        <EntityTypeShape EntityType="QLTKModel.SketchMaterialMechanical" Width="1.5" PointX="19" PointY="20.375" />
+        <EntityTypeShape EntityType="QLTKModel.SkillAttach" Width="1.5" PointX="18.25" PointY="48" />
+        <EntityTypeShape EntityType="QLTKModel.SkillGroup" Width="1.5" PointX="13.75" PointY="46.875" />
+        <EntityTypeShape EntityType="QLTKModel.Skill" Width="1.5" PointX="16" PointY="44.5" />
+        <EntityTypeShape EntityType="QLTKModel.Solution" Width="1.5" PointX="37.25" PointY="46.5" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionAnalysisEstimate" Width="1.5" PointX="47.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionAnalysisProduct" Width="1.5" PointX="49.75" PointY="65.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionAnalysisRisk" Width="1.5" PointX="62.75" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionAnalysisSupplier" Width="1.5" PointX="62.75" PointY="57.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionAttach" Width="1.5" PointX="39.5" PointY="50.5" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionDesignDocument" Width="1.5" PointX="62.75" PointY="61.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionDesignDocumentOld" Width="1.5" PointX="63.75" PointY="3.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionFeature" Width="1.5" PointX="42.5" PointY="50.5" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionGroup" Width="1.5" PointX="35" PointY="45.5" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionImage" Width="1.5" PointX="39.5" PointY="56.75" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionOldVersion" Width="1.5" PointX="39.5" PointY="47.375" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionProduct" Width="1.5" PointX="39.5" PointY="60.5" />
+        <EntityTypeShape EntityType="QLTKModel.SolutionTechnology" Width="1.5" PointX="63.75" PointY="8.375" />
+        <EntityTypeShape EntityType="QLTKModel.Specialize" Width="1.5" PointX="18.75" PointY="4.5" />
+        <EntityTypeShape EntityType="QLTKModel.SpecializeExpert" Width="1.5" PointX="21" PointY="27.25" />
+        <EntityTypeShape EntityType="QLTKModel.SpecializeGroup" Width="1.5" PointX="63.75" PointY="12.375" />
+        <EntityTypeShape EntityType="QLTKModel.SpecializeInPracticeGroup" Width="1.5" PointX="21" PointY="5" />
+        <EntityTypeShape EntityType="QLTKModel.Specification" Width="1.5" PointX="63.75" PointY="16.375" />
+        <EntityTypeShape EntityType="QLTKModel.Stage" Width="1.5" PointX="63.75" PointY="22.375" />
+        <EntityTypeShape EntityType="QLTKModel.StepInQuotation" Width="1.5" PointX="63.75" PointY="27.375" />
+        <EntityTypeShape EntityType="QLTKModel.Subject" Width="1.5" PointX="16" PointY="73.375" />
+        <EntityTypeShape EntityType="QLTKModel.SubjectsAttach" Width="1.5" PointX="18.25" PointY="74.125" />
+        <EntityTypeShape EntityType="QLTKModel.SubjectsClassRoom" Width="1.5" PointX="21.25" PointY="74.625" />
+        <EntityTypeShape EntityType="QLTKModel.SubjectSkill" Width="1.5" PointX="18.25" PointY="63.25" />
+        <EntityTypeShape EntityType="QLTKModel.SubsidyHistory" Width="1.5" PointX="63.75" PointY="30.375" />
+        <EntityTypeShape EntityType="QLTKModel.Supplier" Width="1.5" PointX="13.75" PointY="10.75" />
+        <EntityTypeShape EntityType="QLTKModel.SupplierContact" Width="1.5" PointX="16" PointY="40.25" />
+        <EntityTypeShape EntityType="QLTKModel.SupplierContract" Width="1.5" PointX="19" PointY="11.625" />
+        <EntityTypeShape EntityType="QLTKModel.SupplierGroup" Width="1.5" PointX="63.75" PointY="33.375" />
+        <EntityTypeShape EntityType="QLTKModel.SupplierInGroup" Width="1.5" PointX="41.25" PointY="20.375" />
+        <EntityTypeShape EntityType="QLTKModel.SupplierManufacture" Width="1.5" PointX="47.25" PointY="26.5" />
+        <EntityTypeShape EntityType="QLTKModel.Survey" Width="1.5" PointX="3" PointY="46.625" />
+        <EntityTypeShape EntityType="QLTKModel.SurveyContent" Width="1.5" PointX="5.25" PointY="64.125" />
+        <EntityTypeShape EntityType="QLTKModel.SurveyContentAttach" Width="1.5" PointX="7.5" PointY="64.875" />
+        <EntityTypeShape EntityType="QLTKModel.SurveyContentUser" Width="1.5" PointX="7.5" PointY="62.375" />
+        <EntityTypeShape EntityType="QLTKModel.SurveyTool" Width="1.5" PointX="13" PointY="32" />
+        <EntityTypeShape EntityType="QLTKModel.SurveyUser" Width="1.5" PointX="5.25" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.SyncSaleProduct" Width="1.5" PointX="63.75" PointY="45.375" />
+        <EntityTypeShape EntityType="QLTKModel.sysdiagram" Width="1.5" PointX="42.75" PointY="66.375" />
+        <EntityTypeShape EntityType="QLTKModel.SystemParam" Width="1.5" PointX="63.75" PointY="48.375" />
+        <EntityTypeShape EntityType="QLTKModel.TaskInputRessult" Width="1.5" PointX="27" PointY="10.75" />
+        <EntityTypeShape EntityType="QLTKModel.TaskMateril" Width="1.5" PointX="24" PointY="27.5" />
+        <EntityTypeShape EntityType="QLTKModel.TaskModuleGroup" Width="1.5" PointX="24" PointY="17.125" />
+        <EntityTypeShape EntityType="QLTKModel.TaskModuleGroupTimeStandard" Width="1.5" PointX="26.25" PointY="17.5" />
+        <EntityTypeShape EntityType="QLTKModel.TaskOutputRessult" Width="1.5" PointX="27" PointY="13.75" />
+        <EntityTypeShape EntityType="QLTKModel.Task" Width="1.5" PointX="21.75" PointY="11.25" />
+        <EntityTypeShape EntityType="QLTKModel.TaskSkill" Width="1.5" PointX="24" PointY="25" />
+        <EntityTypeShape EntityType="QLTKModel.TaskTimeStandard" Width="1.5" PointX="24" PointY="12.125" />
+        <EntityTypeShape EntityType="QLTKModel.TaskWorkType" Width="1.5" PointX="24" PointY="21.125" />
+        <EntityTypeShape EntityType="QLTKModel.TechInSolution" Width="1.5" PointX="63.75" PointY="51.375" />
+        <EntityTypeShape EntityType="QLTKModel.TechnologyManufacture" Width="1.5" PointX="60.75" PointY="66.375" />
+        <EntityTypeShape EntityType="QLTKModel.TechnologySupplier" Width="1.5" PointX="62.75" PointY="66.375" />
+        <EntityTypeShape EntityType="QLTKModel.TestCriteria" Width="1.5" PointX="46" PointY="21.125" />
+        <EntityTypeShape EntityType="QLTKModel.TestCriteriaGroup" Width="1.5" PointX="43.75" PointY="21.625" />
+        <EntityTypeShape EntityType="QLTKModel.Unit" Width="1.5" PointX="10.75" PointY="12.125" />
+        <EntityTypeShape EntityType="QLTKModel.User" Width="1.5" PointX="3" PointY="35.5" />
+        <EntityTypeShape EntityType="QLTKModel.UserGuide" Width="1.5" PointX="64.75" PointY="37.375" />
+        <EntityTypeShape EntityType="QLTKModel.UserGuideVersion" Width="1.5" PointX="64.75" PointY="41.375" />
+        <EntityTypeShape EntityType="QLTKModel.UserHistory" Width="1.5" PointX="64.75" PointY="54.375" />
+        <EntityTypeShape EntityType="QLTKModel.UserNotification" Width="1.5" PointX="5.25" PointY="51.625" />
+        <EntityTypeShape EntityType="QLTKModel.UserPermission" Width="1.5" PointX="8.25" PointY="34.375" />
+        <EntityTypeShape EntityType="QLTKModel.Ward" Width="1.5" PointX="64.75" PointY="19.375" />
+        <EntityTypeShape EntityType="QLTKModel.WorkDiary" Width="1.5" PointX="34.25" PointY="48.5" />
+        <EntityTypeShape EntityType="QLTKModel.WorkLocation" Width="1.5" PointX="54.75" PointY="67.375" />
+        <EntityTypeShape EntityType="QLTKModel.Workplace" Width="1.5" PointX="23" PointY="69.25" />
+        <EntityTypeShape EntityType="QLTKModel.WorkSkill" Width="1.5" PointX="0.75" PointY="32.625" />
+        <EntityTypeShape EntityType="QLTKModel.WorkSkillGroup" Width="1.5" PointX="64.75" PointY="58.375" />
+        <EntityTypeShape EntityType="QLTKModel.WorkTime" Width="1.5" PointX="56.75" PointY="67.375" />
+        <EntityTypeShape EntityType="QLTKModel.WorkType" Width="1.5" PointX="32" PointY="55.125" />
+        <EntityTypeShape EntityType="QLTKModel.WorkTypeDocument" Width="1.5" PointX="34.25" PointY="68.625" />
+        <EntityTypeShape EntityType="QLTKModel.WorkTypeInterview" Width="1.5" PointX="34.25" PointY="71.25" />
+        <EntityTypeShape EntityType="QLTKModel.WorkTypeInterviewQuestion" Width="1.5" PointX="36.5" PointY="71.875" />
+        <EntityTypeShape EntityType="QLTKModel.WorkTypeSkill" Width="1.5" PointX="37.25" PointY="43.25" />
+        <EntityTypeShape EntityType="QLTKModel.Country" Width="1.5" PointX="36.75" PointY="21.375" />
+        <AssociationConnector Association="QLTKModel.FK__ActivityL__UserI__3C34F16F" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__Appli__54E23A56" />
+        <AssociationConnector Association="QLTKModel.FK__Bank__ExpertId__70D3A237" />
+        <AssociationConnector Association="QLTKModel.FK__BOMDesign__BOMDe__331666E0" />
+        <AssociationConnector Association="QLTKModel.FK__BOMDesign__BOMDe__340A8B19" />
+        <AssociationConnector Association="QLTKModel.FK__BOMDesign__Proje__5D4E2E7C" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__1592879F" />
+        <AssociationConnector Association="QLTKModel.FK__Interview__Candi__13AA3F2D" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__19631883" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__177AD011" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__08038257" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__1A573CBC" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__1686ABD8" />
+        <AssociationConnector Association="QLTKModel.FK__Candidate__Candi__186EF44A" />
+        <AssociationConnector Association="QLTKModel.FK_ClassRoom_RoomType" />
+        <AssociationConnector Association="QLTKModel.FK_ClassRoomAttach_ClassRoom" />
+        <AssociationConnector Association="QLTKModel.FK_ClassRoomMaterial_ClassRoom" />
+        <AssociationConnector Association="QLTKModel.FK_ClassSkill_ClassRoom1" />
+        <AssociationConnector Association="QLTKModel.FK_SubjectsClassRoom_ClassRoom" />
+        <AssociationConnector Association="QLTKModel.FK__ClassRoom__Class__3AD78439" />
+        <AssociationConnector Association="QLTKModel.FK__ClassRoom__Class__37FB178E" />
+        <AssociationConnector Association="QLTKModel.FK__ClassRoom__Class__351EAAE3" />
+        <AssociationConnector Association="QLTKModel.FK_ClassSkill_Skills" />
+        <AssociationConnector Association="QLTKModel.FK_CodeRule_MaterialGroup" />
+        <AssociationConnector Association="QLTKModel.FK_CodeRule_MaterialGroupTPA" />
+        <AssociationConnector Association="QLTKModel.FK_CoefficientEmployee_Employee" />
+        <AssociationConnector Association="QLTKModel.FK__ConfigUse__UserI__66760F55" />
+        <AssociationConnector Association="QLTKModel.FK_ConverUnit_Material" />
+        <AssociationConnector Association="QLTKModel.FK_ConverUnit_Unit" />
+        <AssociationConnector Association="QLTKModel.FK_CourseAttachFile_Course" />
+        <AssociationConnector Association="QLTKModel.FK_CourseSkill_Course" />
+        <AssociationConnector Association="QLTKModel.FK_CourseTraining_Course" />
+        <AssociationConnector Association="QLTKModel.FK_CourseSkill_WorkSkill" />
+        <AssociationConnector Association="QLTKModel.FK__CourseTra__Cours__53833672" />
+        <AssociationConnector Association="QLTKModel.FK_CourseTraining_EmployeeTraning" />
+        <AssociationConnector Association="QLTKModel.FK__CourseTra__WorkS__528F1239" />
+        <AssociationConnector Association="QLTKModel.FK__CustomerC__Custo__0A495B77" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerRequirement_CustomerContact" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingCustomerContact_CustomerContact" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerOfCustomer_CustomerOfCustomer" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerOfCustomer_Customers" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerRequirement_Customers" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerRequirementAttach_CustomerRequirement" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerRequirementContent_CustomerRequirement" />
+        <AssociationConnector Association="QLTKModel.FK_ProtectSolution_CustomerRequirement" />
+        <AssociationConnector Association="QLTKModel.FK__CustomerR__Custo__4789D5E6" />
+        <AssociationConnector Association="QLTKModel.FK_CustomerRequirementSolutionContent_CustomerRequirementSolution" />
+        <AssociationConnector Association="QLTKModel.FK_DataDistribution_Department" />
+        <AssociationConnector Association="QLTKModel.FK_DataDistributionFileLink_DataDistribution" />
+        <AssociationConnector Association="QLTKModel.FK_DataDistributionFileLink_DataDistributionFile" />
+        <AssociationConnector Association="QLTKModel.FK__Skills__DegreeId__695C9DA1" />
+        <AssociationConnector Association="QLTKModel.FK_Job_Degree" />
+        <AssociationConnector Association="QLTKModel.FK_Subjects_Degree" />
+        <AssociationConnector Association="QLTKModel.FK__Departmen__Depar__5CC1BC92" />
+        <AssociationConnector Association="QLTKModel.FK__Solution__Depart__4BC21919" />
+        <AssociationConnector Association="QLTKModel.FK__WorkDiary__Depar__100D21C5" />
+        <AssociationConnector Association="QLTKModel.FK_Department_SBU" />
+        <AssociationConnector Association="QLTKModel.FK_ProductStandards_Department" />
+        <AssociationConnector Association="QLTKModel.FK_RecruitmentRequest_Department" />
+        <AssociationConnector Association="QLTKModel.FK__Document__Docume__467FD7BD" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentF__Docum__41BB22A0" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentM__Docum__458BB384" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentO__Docum__40C6FE67" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentP__Docum__43A36B12" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentP__Docum__44978F4B" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentR__Docum__42AF46D9" />
+        <AssociationConnector Association="QLTKModel.FK__DocumentP__Docum__4773FBF6" />
+        <AssociationConnector Association="QLTKModel.FK__Education__Educa__0CFADF99" />
+        <AssociationConnector Association="QLTKModel.FK__Education__Educa__0DEF03D2" />
+        <AssociationConnector Association="QLTKModel.FK__Education__JobId__0C06BB60" />
+        <AssociationConnector Association="QLTKModel.FK__EmployeeB__Emplo__15F1AEFB" />
+        <AssociationConnector Association="QLTKModel.FK__User__EmployeeId__42E1EEFE" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeChangeIncome_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeChangeInsurance_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeCourseTraining_CourseTraining" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeDegree_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeEducation_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeHistoryAppoint_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeHistoryJobTranfer_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeSkill_Employee1" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeSkillDetails_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeWorkHistory_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_Families_Employee" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeDegree_Qualification" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeSkill_WorkSkill" />
+        <AssociationConnector Association="QLTKModel.FK_EmployeeTrainingAttachFile_EmployeeTraining" />
+        <AssociationConnector Association="QLTKModel.FK_ErrorAttach_Errors" />
+        <AssociationConnector Association="QLTKModel.FK__ErrorFixA__Error__5B1BCD47" />
+        <AssociationConnector Association="QLTKModel.FK__ErrorFixs__Error__5C0FF180" />
+        <AssociationConnector Association="QLTKModel.FK_ErrorHistory_Errors" />
+        <AssociationConnector Association="QLTKModel.FK_ErrorImage_Errors" />
+        <AssociationConnector Association="QLTKModel.FK__ExpertWor__Exper__08D548FA" />
+        <AssociationConnector Association="QLTKModel.FK__Specialit__Exper__5DB5E0CB" />
+        <AssociationConnector Association="QLTKModel.FK_PracticeExpert_Experts" />
+        <AssociationConnector Association="QLTKModel.FK__ExpertWor__Workp__0BB1B5A5" />
+        <AssociationConnector Association="QLTKModel.FK__SolutionF__Featu__6561EF8B" />
+        <AssociationConnector Association="QLTKModel.FK__FlowStage__FlowS__081890F0" />
+        <AssociationConnector Association="QLTKModel.FK__FlowStage__Outpu__4E00329D" />
+        <AssociationConnector Association="QLTKModel.FK__Functions__Funct__2B5F6B28" />
+        <AssociationConnector Association="QLTKModel.FK__SketchFun__Funct__2882FE7D" />
+        <AssociationConnector Association="QLTKModel.FK__Permissio__Group__41EDCAC5" />
+        <AssociationConnector Association="QLTKModel.FK__GroupPerm__Group__3D2915A8" />
+        <AssociationConnector Association="QLTKModel.FK__GroupPerm__Permi__3E1D39E1" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Impor__11D639FD" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Impor__12CA5E36" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Impor__13BE826F" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Impor__14B2A6A8" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Impor__15A6CAE1" />
+        <AssociationConnector Association="QLTKModel.FK_ImportProfileTransportSupplier_ImportProfile" />
+        <AssociationConnector Association="QLTKModel.FK__ImportPro__Purch__169AEF1A" />
+        <AssociationConnector Association="QLTKModel.FK__IncurredM__Proje__5F3676EE" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleGroup_Industry" />
+        <AssociationConnector Association="QLTKModel.FK__Interview__Inter__149E6366" />
+        <AssociationConnector Association="QLTKModel.FK_InterviewUser_Interview" />
+        <AssociationConnector Association="QLTKModel.FK_InterviewUser_User" />
+        <AssociationConnector Association="QLTKModel.FK_Job_JobGroup" />
+        <AssociationConnector Association="QLTKModel.FK_JobAttach_Job" />
+        <AssociationConnector Association="QLTKModel.FK_JobSubjects_Job" />
+        <AssociationConnector Association="QLTKModel.FK_JobSubjects_Subjects" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierContract_LaborContract" />
+        <AssociationConnector Association="QLTKModel.FK_ManufactureInGroup_Manufacture" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierManufacture_Manufacture" />
+        <AssociationConnector Association="QLTKModel.FK_ManufactureInGroup_ManufactureGroup" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialB__Mater__14E61A24" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialI__Mater__1B9317B3" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialM__Mater__3B0BC30C" />
+        <AssociationConnector Association="QLTKModel.FK__SketchMat__Mater__5CF6C6BC" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleMaterial_Material" />
+        <AssociationConnector Association="QLTKModel.FK_SimilarMaterialConfig_Material" />
+        <AssociationConnector Association="QLTKModel.FK_SketchMaterialElectronic_Material" />
+        <AssociationConnector Association="QLTKModel.FK_SurveyTools_Material" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialB__Suppl__13F1F5EB" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialG__Mater__531856C7" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierInGroup_SupplierGroup" />
+        <AssociationConnector Association="QLTKModel.FK__MaterialM__Modul__3A179ED3" />
+        <AssociationConnector Association="QLTKModel.FK_Meeting_MeetingType" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingAttach_Meeting" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingContent_Meeting" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingContentAttach_Meeting" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingCustomerContact_Meeting" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingUser_Meeting" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingContentAttach_Meeting_sds1" />
+        <AssociationConnector Association="QLTKModel.FK_MeetingUser_User" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleDesignDocument_Module" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleMaterial_Module" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleProductStandard_Module" />
+        <AssociationConnector Association="QLTKModel.FK_SketchAttach_Module" />
+        <AssociationConnector Association="QLTKModel.FK_SketchMaterialElectronic_Module" />
+        <AssociationConnector Association="QLTKModel.FK_SketchMaterialMechanical_Module" />
+        <AssociationConnector Association="QLTKModel.FK__ModuleGro__Modul__318258D2" />
+        <AssociationConnector Association="QLTKModel.FK__TaskModul__Modul__6BD9E2F0" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleProductStandard_ModuleGroupId" />
+        <AssociationConnector Association="QLTKModel.FK__ModuleGro__Produ__308E3499" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleMaterialAttach_ModuleMaterial" />
+        <AssociationConnector Association="QLTKModel.FK_ProductModuleMaterial_ModuleMaterial" />
+        <AssociationConnector Association="QLTKModel.FK__ModuleMat__Proje__36DE6CD1" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleProductStandard_ProductStandards" />
+        <AssociationConnector Association="QLTKModel.FK_ModuleTestCriteria_ModuleTestCriteria" />
+        <AssociationConnector Association="QLTKModel.FK__Notificat__UserI__676A338E" />
+        <AssociationConnector Association="QLTKModel.FK__NSMateria__NSMat__03F0984C" />
+        <AssociationConnector Association="QLTKModel.FK_NSMaterialGroupAttach_NSMaterialGroup" />
+        <AssociationConnector Association="QLTKModel.FK__NSMateria__NSMat__40F9A68C" />
+        <AssociationConnector Association="QLTKModel.FK__OutputRes__Outpu__4B23C5F2" />
+        <AssociationConnector Association="QLTKModel.FK__TaskInput__Outpu__54AD302C" />
+        <AssociationConnector Association="QLTKModel.FK__TaskOutpu__Outpu__4DCB2873" />
+        <AssociationConnector Association="QLTKModel.FK__UserPermi__Permi__44CA3770" />
+        <AssociationConnector Association="QLTKModel.FK_Plan_Projects" />
+        <AssociationConnector Association="QLTKModel.FK_PlanAssignment_Plan" />
+        <AssociationConnector Association="QLTKModel.FK_PlanAssignment_User" />
+        <AssociationConnector Association="QLTKModel.FK_PlanHistoryAttach_PlanHistory" />
+        <AssociationConnector Association="QLTKModel.FK__PracticeM__Pract__1A74D648" />
+        <AssociationConnector Association="QLTKModel.FK__PracticeS__Pract__70FDBF69" />
+        <AssociationConnector Association="QLTKModel.FK_Practice_Unit" />
+        <AssociationConnector Association="QLTKModel.FK_PracticeExpert_Practice" />
+        <AssociationConnector Association="QLTKModel.FK_PracticeFile_Practice" />
+        <AssociationConnector Association="QLTKModel.FK_PracticeMaterial_Practice" />
+        <AssociationConnector Association="QLTKModel.FK_PracticeSubMaterial_PracticeSubMaterial" />
+        <AssociationConnector Association="QLTKModel.FK__Specializ__Pract__2ED0D4B0" />
+        <AssociationConnector Association="QLTKModel.FK__PracticeS__Skill__71F1E3A2" />
+        <AssociationConnector Association="QLTKModel.FK_ProductAccessories_Products" />
+        <AssociationConnector Association="QLTKModel.FK_ProductDesignDocument_Products" />
+        <AssociationConnector Association="QLTKModel.FK_ProductDocument_Products" />
+        <AssociationConnector Association="QLTKModel.FK__ProductIm__Produ__3AF6B473" />
+        <AssociationConnector Association="QLTKModel.FK_ProductMaterialAttach_ProductMaterials" />
+        <AssociationConnector Association="QLTKModel.FK__ProductMo__Produ__3553B50D" />
+        <AssociationConnector Association="QLTKModel.FK_ProductModuleMaterial_Products" />
+        <AssociationConnector Association="QLTKModel.FK_ProductModuleUpdate_Products" />
+        <AssociationConnector Association="QLTKModel.FK__ProductTe__Produ__4E0A543E" />
+        <AssociationConnector Association="QLTKModel.FK_ProductStandardAttach_ProductStandardAttach" />
+        <AssociationConnector Association="QLTKModel.FK_ProductStandards_ProductStandardGroup" />
+        <AssociationConnector Association="QLTKModel.FK_ProductStandardHistory_ProductStandards" />
+        <AssociationConnector Association="QLTKModel.FK_ProductStandards_SBU" />
+        <AssociationConnector Association="QLTKModel.FK__ProductSt__Produ__39444182" />
+        <AssociationConnector Association="QLTKModel.FK__ProductSt__Produ__3A3865BB" />
+        <AssociationConnector Association="QLTKModel.FK_ProjectAttach_Projects" />
+        <AssociationConnector Association="QLTKModel.FK_ProjectAttachUser_ProjectAttach" />
+        <AssociationConnector Association="QLTKModel.FK_ProjectAttachUser_User" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectGe__Proje__42E2BA55" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectGe__Proje__43D6DE8E" />
+        <AssociationConnector Association="QLTKModel.FK_ProjectPhase_SBU" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectPr__TestC__6B79F03D" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectSo__Proje__4396E76C" />
+        <AssociationConnector Association="QLTKModel.FK_ProjectTransferAttach_Projects" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectSo__Proje__625B65AE" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectSo__Solut__3F5C4234" />
+        <AssociationConnector Association="QLTKModel.FK__ProjectTr__Proje__470850F4" />
+        <AssociationConnector Association="QLTKModel.FK__PurchaseR__Purch__41BA5749" />
+        <AssociationConnector Association="QLTKModel.FK_Question_Question" />
+        <AssociationConnector Association="QLTKModel.FK_QuestionFile_Question" />
+        <AssociationConnector Association="QLTKModel.FK_RecruitmentRequest_WorkType" />
+        <AssociationConnector Association="QLTKModel.FK_RecruitmentRequestAttach_RecruitmentRequest" />
+        <AssociationConnector Association="QLTKModel.FK__SaleGroup__SaleG__121565C8" />
+        <AssociationConnector Association="QLTKModel.FK__SaleGroup__SaleG__15E5F6AC" />
+        <AssociationConnector Association="QLTKModel.FK__SaleGroup__SaleP__501D8539" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__SaleP__5111A972" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__SaleP__5205CDAB" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__SaleP__52F9F1E4" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__SaleP__53EE161D" />
+        <AssociationConnector Association="QLTKModel.FK_SaleProductAccessories_SaleProduct" />
+        <AssociationConnector Association="QLTKModel.FK__SaleProdu__SaleP__2221B05F" />
+        <AssociationConnector Association="QLTKModel.FK__WorkDiary__SBUId__110145FE" />
+        <AssociationConnector Association="QLTKModel.FK_SimilarMaterialConfig_SimilarMaterial" />
+        <AssociationConnector Association="QLTKModel.FK_SketchAttachHistory_SketchAttach" />
+        <AssociationConnector Association="QLTKModel.FK__SkillAtta__Skill__6E2152BE" />
+        <AssociationConnector Association="QLTKModel.FK__Skills__SkillGro__6B44E613" />
+        <AssociationConnector Association="QLTKModel.FK__SubjectSk__Skill__48317F57" />
+        <AssociationConnector Association="QLTKModel.FK__Solution__Soluti__3C7FD589" />
+        <AssociationConnector Association="QLTKModel.FK__SolutionA__Solut__4050666D" />
+        <AssociationConnector Association="QLTKModel.FK__SolutionF__Solut__3D73F9C2" />
+        <AssociationConnector Association="QLTKModel.FK__SolutionI__Solut__3FF13F11" />
+        <AssociationConnector Association="QLTKModel.FK__SolutionP__Solut__06B8C1B5" />
+        <AssociationConnector Association="QLTKModel.FK_SolutionOldVersion_Solution" />
+        <AssociationConnector Association="QLTKModel.FK__Specialit__Speci__5EAA0504" />
+        <AssociationConnector Association="QLTKModel.FK__Specializ__Speci__2DDCB077" />
+        <AssociationConnector Association="QLTKModel.FK__SubjectSk__Subje__4925A390" />
+        <AssociationConnector Association="QLTKModel.FK_SubjectsAttach_Subjects" />
+        <AssociationConnector Association="QLTKModel.FK_SubjectsClassRoom_Subjects" />
+        <AssociationConnector Association="QLTKModel.FK__SupplierC__Suppl__6B4FD30B" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierContract_Supplier" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierInGroup_Supplier" />
+        <AssociationConnector Association="QLTKModel.FK_SupplierManufacture_Supplier" />
+        <AssociationConnector Association="QLTKModel.FK_SurveyContent_Survey" />
+        <AssociationConnector Association="QLTKModel.FK_SurveyTools_Survey" />
+        <AssociationConnector Association="QLTKModel.FK_SurveyUser_Survey" />
+        <AssociationConnector Association="QLTKModel.FK__SurveyCon__Surve__71346041" />
+        <AssociationConnector Association="QLTKModel.FK__SurveyCon__Surve__7410CCEC" />
+        <AssociationConnector Association="QLTKModel.FK_SurveyUser_User" />
+        <AssociationConnector Association="QLTKModel.FK__TaskInput__TaskI__0353DBD3" />
+        <AssociationConnector Association="QLTKModel.FK__TaskMater__TaskI__016B9361" />
+        <AssociationConnector Association="QLTKModel.FK__TaskModul__TaskI__6932806F" />
+        <AssociationConnector Association="QLTKModel.FK__TaskModul__TaskI__7D9B027D" />
+        <AssociationConnector Association="QLTKModel.FK_TaskModuleGroupTimeStandard_TaskModuleGroup" />
+        <AssociationConnector Association="QLTKModel.FK__TaskOutpu__TaskI__025FB79A" />
+        <AssociationConnector Association="QLTKModel.FK__TaskSkill__TaskI__7F834AEF" />
+        <AssociationConnector Association="QLTKModel.FK__TaskTimeS__TaskI__7E8F26B6" />
+        <AssociationConnector Association="QLTKModel.FK_TaskWorkType_Tasks" />
+        <AssociationConnector Association="QLTKModel.FK_TestCriteria_TestCriteria" />
+        <AssociationConnector Association="QLTKModel.FK__UserNotif__UserI__685E57C7" />
+        <AssociationConnector Association="QLTKModel.FK__UserPermi__UserI__45BE5BA9" />
+        <AssociationConnector Association="QLTKModel.FK_WorkTypeSkill_WorkSkill" />
+        <AssociationConnector Association="QLTKModel.FK__WorkTypeI__WorkT__29CE8A76" />
+        <AssociationConnector Association="QLTKModel.FK_WorkTypeDocuments_WorkType" />
+        <AssociationConnector Association="QLTKModel.FK_WorkTypeSkill_WorkType" />
+        <AssociationConnector Association="QLTKModel.FK__WorkTypeI__WorkT__75C4D68B" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

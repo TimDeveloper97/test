@@ -1,0 +1,268 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên tài liệu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="projectAttachModel.Name" name="Name" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Thuộc nhóm
+          </label>
+          <div class="controls">
+            <nts-drop-down-tree [items]="listDA" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+              ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="projectAttachModel.ParentId"
+              name="ParentId">
+            </nts-drop-down-tree>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group ">
+          <label class="form-label">Loại đơn vị ban hành
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <label class="radio">Khách hàng
+              <input type="radio" name="PromulgateType" [(ngModel)]="projectAttachModel.PromulgateType" [value]="1">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio ml-1">Nhà cung cấp
+              <input type="radio" name="PromulgateType" [(ngModel)]="projectAttachModel.PromulgateType" [value]="2">
+              <span class="checkround"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group ">
+          <label class="form-label">Tài liệu
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <label class="radio">Có
+              <input type="radio" [(ngModel)]="projectAttachModel.IsRequired" name="IsRequired" [value]="true">
+              <span class="checkround"></span>
+            </label> &nbsp;
+            <label class="radio">Không
+              <input type="radio" [(ngModel)]="projectAttachModel.IsRequired" name="IsRequired" [value]="false">
+              <span class="checkround"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="projectAttachModel.PromulgateType==1">
+        <div class="form-group ">
+          <label class="form-label">Mã đơn vị ban hành
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <nts-drop-down [items]="customers" [columns]="columnCustomers" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+            ntsAutoClose="true" [(ngModel)]="projectAttachModel.CustomerId" name="moduleId"
+            placeholder="Chọn đơn vị ban hành">
+          </nts-drop-down>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="projectAttachModel.PromulgateType==2">
+        <div class="form-group ">
+          <label class="form-label">Nhà cung cấp
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <nts-drop-down [items]="suppliers" [columns]="columnCustomers" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+            ntsAutoClose="true" [(ngModel)]="projectAttachModel.SupplierId" name="moduleId" placeholder="Chọn NCC">
+          </nts-drop-down>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày ban hành
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input class="form-control" placeholder="dd/mm/yyyy" name="PromulgateDateV" [(ngModel)]="PromulgateDateV"
+                ngbDatepicker #promulgateDateV="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="promulgateDateV.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhóm tài liệu
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="projectAttachModel.GroupName" name="GroupName"
+              maxlength="300">
+          </div>
+        </div>
+      </div> -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="row" #scrollModule>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+            <h4>Người có thể xem tài liệu</h4>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+            <button type="button" class="btn btn-success" (click)="showSelectEmployee()">
+              <i class="fa fa-plus"></i> &nbsp;Chọn nhân viên</button>
+          </div>
+          <!-- <div class="col-md-12 col-sm-12 col-lg-12">
+            <perfect-scrollbar [config]="constant.ScrollConfig" style=" display: block;height: 200px;">
+              <table class="table table-bordered " style="word-wrap: break-word; min-width: 820px;">
+                <thead  style="background-color: white">
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="70px" class="text-center">Xử lý </th>
+                    <th width="150px" class="text-center">Tên nhân viên</th>
+                    <th width="150px" class="text-center">Mã nhân viên</th>
+                    <th width="150px" class="text-center">Email</th>
+                    <th width="100px" class="text-center">Số điện thoại</th>
+                    <th min-width="150px" class="text-center">Phòng ban</th>
+                  </tr>
+                </thead>
+                <tbody #container>
+                  <tr *ngFor="let row of projectAttachModel.ListUser; let i = index">
+                    <td class="text-center" width="50px">{{i+1}}</td>
+                    <td width="70px" class="text-center">
+                      <button type="button" (click)="showComfirmDeleteEmployee(i)" class="btn btn-xs btn-danger"
+                        ngbTooltip="Xóa" container="body" placement="bottom">
+                        <span class="fas fa-times" aria-hidden="true"></span>
+                      </button>
+                    </td>
+                    <td width="150px">{{row.Name}}</td>
+                    <td width="150px">{{row.Code}}</td>
+                    <td width="150px">{{row.Email}}</td>
+                    <td width="100px">{{row.PhoneNumber}}</td>
+                    <td min-width="150px">{{row.DepartmentName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div> -->
+          <div class="col-md-12 col-sm-12 col-lg-12">
+              <div #scrollModuleHeader style="overflow-x: auto;overflow: hidden;">
+                <table  class="table table-bordered table-fixed table-hover" style="margin-bottom:0px !important;min-width: 820px;">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="70px" class="text-center">Xử lý </th>
+                      <th width="150px" class="text-center">Tên nhân viên</th>
+                      <th width="150px" class="text-center">Mã nhân viên</th>
+                      <th width="150px" class="text-center">Email</th>
+                      <th width="100px" class="text-center">Số điện thoại</th>
+                      <th min-width="150px" class="text-center">Phòng ban</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;max-height : 300px">
+                <table  class="table table-bordered table-fixed" style="min-width:820px">
+                  <colgroup>
+                    <col width="50px">
+                    <col width="70px">
+                    <col width="150px">
+                    <col width="150px">
+                    <col width="150px">
+                    <col width="100px">
+                    <col min-width="150px">
+                  </colgroup>
+                  <tbody>
+                    <ng-container *ngFor="let row of projectAttachModel.ListUser; let i = index">
+                    <tr *ngIf="!row.IsDelete">
+                      <td class="text-center" width="50px">{{i+1}}</td>
+                      <td width="70px" class="text-center">
+                        <button type="button" (click)="showComfirmDeleteEmployee(i)" class="btn btn-xs btn-danger"
+                          ngbTooltip="Xóa" container="body" placement="bottom">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td width="150px">{{row.Name}}</td>
+                      <td width="150px">{{row.Code}}</td>
+                      <td width="150px">{{row.Email}}</td>
+                      <td width="100px">{{row.PhoneNumber}}</td>
+                      <td min-width="150px">{{row.DepartmentName}}</td>
+                    </tr>
+                  </ng-container>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="projectAttachModel.Description" name="Description" rows="3"
+              class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên file tải lên
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [value]="projectAttachModel.FileName" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputElictric.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+        <input name="fileimportelictric" style="display: none;" type="file" id="fileInputElictric" #fileInputElictric
+          (change)="uploadFileDocument($event)" />
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container *ngIf="!isEdit">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="isEdit">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!isEdit">
+    <button *appUipermission="['F060008']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

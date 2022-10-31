@@ -1,0 +1,64 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn kĩ năng</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+      <div class="row">
+        <div class="col-md-3 col-sm-12 col-xl-3">
+          <div class="form-group">
+            <label class="form-label">Tên kĩ năng</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="NameSkill" [(ngModel)]="model.Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-9 text-right margin-top-20">
+          <button class="btn btn-success btn-success-system" (click)="searchSkill()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fa fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger"> {{listBase.length}}</span> kĩ năng chưa chọn</label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+          <dx-tree-list id="Id" [dataSource]="listBase" keyExpr="Id" parentIdExpr="ParentId" [showRowLines]="true"
+            [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[1,2,10]"
+            [(selectedRowKeys)]="selectedRowKeys" (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+            (onRowDblClick)="onRowDblClick()">
+            <dxo-search-panel [visible]="true" placeholder="Tìm kiếm..."></dxo-search-panel>
+            <dxo-selection mode="multiple" [recursive]="true">
+            </dxo-selection>
+            <dxi-column dataField="Name" caption="Tên kỹ năng"></dxi-column>
+          </dx-tree-list>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-check"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

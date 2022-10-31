@@ -1,0 +1,180 @@
+<div class='content-wrapper page-content'>
+  <section class="search-left">
+    <div class="content-body">
+        <div class="row">
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold mt-2">
+            <label class="form-label" style="line-height:25px;">Tổng số
+              <span class="bold text-danger">{{modelModelGroup.TotalItems}}</span> nhóm module</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+            <button *appUipermission = "['F020001']" type="button" (click)="showCreateUpdateModuleGroup('', false)" class="btn btn-xs btn-success mt-2"
+              placement="bottom" ngbTooltip="Thêm nhóm module" container="body">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <dx-tree-list id="employees" [dataSource]="listModuleGroup" keyExpr="Id" parentIdExpr="ParentId"
+              [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+              (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="[1]" noDataText=" ">
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-search-panel [visible]="true" placeholder="Tìm kiếm theo mã nhóm"></dxo-search-panel>
+              <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+              <dxi-column dataField="Name" caption="Danh sách nhóm module" [minWidth]="200">
+              </dxi-column>
+              <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+                <div *dxTemplate="let item of 'cellEditTemplate'">
+                  <ng-container *appUipermission = "['F020001']">
+                    <button *ngIf="item.value != 0" type="button" container="body" placement="top" class="item-add"
+                    ngbTooltip="Thêm nhóm" (click)=" showCreateUpdateModuleGroup(item.value)">
+                    <i class="fas fa-plus"></i></button>
+                  </ng-container>
+                  <ng-container *appUipermission = "['F020002']">
+                    <button *ngIf="item.value != 0" type="button" container="body" placement="top" class="item-update"
+                    ngbTooltip="Sửa nhóm" (click)=" showCreateUpdateModuleGroup(item.value, true)">
+                    <i class="fa fa-edit"></i></button>
+                  </ng-container>
+                  <ng-container *appUipermission = "['F020003']">
+                    <button *ngIf="item.value != 0" type="button" container="body" placement="top" class="item-delete"
+                    ngbTooltip="Xóa nhóm" (click)=" showConfirmDeleteModuleGroup(item.value)">
+                    <i class="fas fa-times"></i></button>
+                  </ng-container>
+                </div>
+              </dxi-column>
+            </dx-tree-list>
+            <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+              (onItemClick)="itemClick($event)">
+              <div *dxTemplate="let e of 'item'">
+                <div>
+                  <span [ngClass]="e.icon"></span>
+                  <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                </div>
+              </div>
+            </dx-context-menu>
+          </div>
+        </div>
+      </div>
+
+  </section>
+  <section class="body-right">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelTaskTimeStandard"
+              (change)="searchTask(moduleGroupId)">
+            </nts-search-bar>
+          </div>
+
+          <div class="col-xl-4 col-md-12 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchTask(moduleGroupId)">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> công việc</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button *appUipermission = "['F060504']" type="button" class="btn btn-success" (click)="save()" container="body">
+            <i class="fa fa-save"></i>
+            Lưu
+          </button>&nbsp; &nbsp;
+          <button  *appUipermission = "['F060501']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:950px">
+              <thead>
+                <tr>
+                  <th  style="text-align:center; padding-top: 10px" width="60px">
+                    <input [disUipermission] = "['F060501','F060502']" type="checkbox"
+                    [(ngModel)]="checkeds" name="checkeds" (change)="selectAllFunction()"
+                    style="height:20px; width:20px;">
+                </th>
+                <th width="60" class="text-center">STT</th>
+                  <th width="80px" class="text-center">Xử lý</th>
+                  <th min-width="250px" class="text-center">Tên công việc</th>
+                  <th width="150px" class="text-center">Loại công việc</th>
+                  <th width="150px" class="text-center">Thời gian tiêu chuẩn</th>
+                  <th width="300px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+
+                  <td style="text-align:center">
+                    <input  [disUipermission] = "['F060504']" type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                      style="height:20px; width:20px;" (change)="pushChecker()">
+                  </td>
+                  <td>
+                    <input  [disUipermission] = "['F060504']" type="text" ntsNumberInt [(ngModel)]="row.Index" name="{{'Index'+row.Name+i}}"
+                    style="height:auto; width:50px;">
+                  </td>
+                  <td style="text-align: center">
+                    <button *appUipermission = "['F060505','F060502']" type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                      placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button *appUipermission = "['F060503']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteTask(row.Id)" ngbTooltip="Xóa"
+                      placement="top">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td *ngIf="row.Type == 1">Thiết kế</td>
+                  <td *ngIf="row.Type == 2">Tài liệu</td>
+                  <td *ngIf="row.Type == 3">Chuyển giao</td>
+                  <td *ngIf="row.Type == 4">Giải pháp</td>
+                  <td *ngIf="row.Type == 5">Hỗ trợ</td>
+                  <td>
+                    <input  [disUipermission] = "['F060504']" type="text" ntsNumberInt [(ngModel)]="row.TimeStandard" name="{{'TimeStandard'+row.Name+i}}"
+                    class="form-control">
+                  </td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="11" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa cấu hình công việc</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa cấu hình công việc</small>
+          <button class="btn btn-view btn-success">
+            <i class="fas fa-plus"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Thêm nhóm module</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

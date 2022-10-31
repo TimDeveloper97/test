@@ -1,0 +1,28 @@
+<div class="nts-dropdow">
+    <dx-drop-down-box [(value)]="_selectedItems" [valueExpr]="ntsValue" [deferRendering]="false" [displayExpr]="ntsLabel"
+        [placeholder]="placeholder" [showClearButton]="true" [dataSource]="_items" [(opened)]="isShowDropDown"
+        [disabled]="ntsDisabled" (onValueChanged)="onValueChanged()">
+
+        <div *dxTemplate="let data of 'content'">
+            <div class="content-tree">
+                <dx-data-grid [dataSource]="_items" [keyExpr]="ntsValue" [selection]="{ mode: ntsMode }"
+                    [hoverStateEnabled]="true" [paging]="{ enabled: true, pageSize: 10 }"
+                    [(selectedRowKeys)]="_selectedItems" height="100%" [showBorders]="true"
+                    (onKeyDown)="onKeyDown($event)" [focusedRowIndex]="0" [focusedColumnIndex]="0"
+                    (onSelectionChanged)="onSelectionChanged()">
+                    <dxo-scrolling mode="virtual"></dxo-scrolling>
+                    <dxo-selection [mode]="ntsMode"></dxo-selection>
+                    <dxo-search-panel [visible]="true" [width]="240" placeholder="Tìm kiếm..."></dxo-search-panel>
+                    <dxi-column *ngFor="let column of _columns" [dataField]="column.Name" [caption]="column.Title" [width]="column.Name=='Code'?150:'auto'" [format]="column.Format">
+                    </dxi-column>
+
+                </dx-data-grid>
+            </div>
+            <div class="text-right mt-2">
+                <button type="button" class="btn btn-danger" (click)="close()">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </dx-drop-down-box>
+</div>

@@ -1,0 +1,521 @@
+<div class='content-wrapper' style="padding-top: 10px;">
+  <div class="exportkeep-container">
+    <div class="exportkeep-left">
+      <div class="row">
+        <div class="col-12">
+          <section class="box">
+            <header class="panel_header">
+              <h2 class="title pull-left text-header">Danh sách đã chọn (Tổng số
+                <span class="bold text-danger">{{listProductCheck.length}}</span> đã chọn )
+              </h2>
+            </header>
+            <div class="content-body ">
+              <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollProducChose>
+                  <div #scrollProducChoseHeader style="overflow-x: auto;overflow: hidden;">
+                    <table class="table table-bordered table-fixed table-hover"
+                      style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1080px;">
+                      <thead>
+                        <tr>
+                          <!-- <th width="50px" class="text-center">STT</th> -->
+                          <th width="60px" class="text-center">Xử lý</th>
+                          <th width="140px" class="text-center">Ảnh</th>
+                          <th min-width="150px" class="text-center">Tên sản phẩm</th>
+                          <th width="360px" class="text-center">Mã sản phẩm</th>
+                          <th width="100px" class="text-center">SL xuất giữ</th>
+                          <th width="100px" class="text-center">SL khả dụng</th>
+                          <th width="100px" class="text-center">SL tồn kho</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="productChooseHeight">
+                    <table class="table table-bordered table-fixed table-hover"
+                      style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1080px;">
+                      <tbody>
+                        <tr *ngFor="let row of listProductCheck; let i = index" cdkDrag>
+                          <!-- <td width="50px" class="text-center">{{row.index}}</td> -->
+                          <td width="60px" class="text-center">
+                            <button *appUipermission="['F120101','F120102']" type="button"
+                              (click)="showConfirmDelete(row)" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                              container="body" placement="bottom">
+                              <span class="fas fa-times" aria-hidden="true"></span>
+                            </button>
+                          </td>
+                          <td width="140px" class="text-center">
+                            <img
+                              [src]="row.ImagePath != null ? config.ServerFileApi + row.ImagePath : '/assets/img/noimage.png' "
+                              height="120px" min-witdh="120px" max-witdh="120px">
+                          </td>
+                          <td min-width="150px">{{row.Name}}</td>
+                          <td width="360px">{{row.Code}}</td>
+                          <td width="100px">
+                            <input [disUipermission]="['F120101','F120102']" required ntsNumberInt
+                              (change)="changeTotal()" class="form-control" [(ngModel)]="row.Quantity"
+                              [name]="'TotalExport' + row.index">
+                          </td>
+                          <td width="100px" class="text-center">
+                            {{row.AvailableQuantity | number}}
+                          </td>
+                          <td width="100px" class="text-center">
+                            {{row.Inventory | number}}
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot *ngIf="listProductCheck.length == 0">
+                        <tr class="bold">
+                          <td colspan="12" min-width="300px" class="text-center" [style.height.px]="productChooseHeight"
+                            style="font-size: 20px;">
+                            Không
+                            có sản phẩm được chọn</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <section class="box">
+            <header class="panel_header">
+              <h2 class="title pull-left text-header">Danh sách sản phẩm (Tổng số
+                <span class="bold text-danger">{{modelSearchProduct.TotalItems}}</span> sản phẩm)
+              </h2>
+            </header>
+
+            <div class="content-body">
+              <div class="export-product-container">
+                <div class="export-product-left">
+                  <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                      <dx-tree-list id="employees" [dataSource]="listProductStandTPAType" keyExpr="Id"
+                        parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                        [height]="height" (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="[1]"
+                        noDataText=" ">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" placeholder="Tìm kiếm chung loại"></dxo-search-panel>
+                        <!-- <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column> -->
+                        <dxi-column dataField="Name" caption="Danh sách chủng loại" [minWidth]="200">
+                        </dxi-column>
+                      </dx-tree-list>
+                    </div>
+                  </div>
+                </div>
+                <div class="export-product-right">
+                  <form name="searchForm">
+                    <div class="row">
+                      <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12">
+                        <div class="input-group">
+                          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelSearchProduct"
+                            name="modelProduct" (change)="searchProduct()">
+                          </nts-search-bar>
+                          <div class="input-group-append">
+                            <button type="button" (click)="clearProductCheck()"
+                              class="btn btn-default btn-default-system" placement="top" ngbTooltip="Làm mới"
+                              container="body">
+                              <span class="fas fa-redo-alt" aria-hidden="true"></span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-3 col-md-3 col-xl-3 text-right">
+                        <button [ngClass]="{'active':listType == 1}" type="button"
+                          class="btn btn-default btn-default-system" (click)="changeListType(1)" placement="top"
+                          ngbTooltip="Hiển thị dạng ảnh" container="body">
+                          <span class="fas fa-th-large" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <button [ngClass]="{'active':listType == 2}" type="button"
+                          class="btn btn-default btn-default-system" (click)="changeListType(2)" placement="top"
+                          ngbTooltip="Hiển thị dạng danh sách" container="body">
+                          <span class="fas fa-list" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="row mt-2" *ngIf="listType == 1">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                      <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="productHeight">
+                        <div class="card-columns">
+                          <div class="card" *ngFor="let item of listProduct" (click)="changpushlistproducrcheck(item)">
+                            <div class="card-body">
+                              <div class="card-body-left">
+                                <img class="img" style="width: 100%;"
+                                  [src]="item.ImagePath != null ? config.ServerFileApi + item.ImagePath : '/assets/img/noimage.png' ">
+                              </div>
+                              <div class="card-body-right">
+                                <p class="font-weight-bold product-name">{{item.Code}} - {{item.Name }}</p>
+                                <div class="row product-quantity">
+                                  <div class="col-4 text-center">
+                                    <p>Tồn kho</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p>Khả dụng</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p>Xuất giữ</p>
+                                  </div>
+                                </div>
+                                <div class="row product-quantity">
+                                  <div class="col-4 text-center">
+                                    <p class="font-weight-bold"> {{item.Inventory| number}}</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p class="font-weight-bold">{{item.AvailableQuantity | number}}</p>
+                                  </div>
+                                  <div class="col-4 text-center">
+                                    <p class="font-weight-bold">{{item.ExportQuantity | number}}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </perfect-scrollbar>
+                    </div>
+                  </div>
+                  <div class="row mt-2" *ngIf="listType == 2">
+                    <div class="col-md-12 col-sm-12 col-lg-12" #scrollProducTable>
+                      <div #scrollProducTableHeader style="overflow-x: auto;overflow: hidden;">
+                        <table class="table table-bordered table-fixed table-hover"
+                          style="word-wrap: break-word; margin-bottom:0px !important;min-width: 700px;">
+                          <thead>
+                            <tr>
+                              <th width="50px" class="text-center">STT</th>
+                              <th width="80px" class="text-center">Hình ảnh</th>
+                              <th min-width="150px" class="text-center">Tên sản phẩm</th>
+                              <th width="120px" class="text-center">Mã sản phẩm</th>
+                              <th width="100px" class="text-center">SL tồn kho</th>
+                              <th width="100px" class="text-center">SL khả dụng</th>
+                              <th width="100px" class="text-center">SL xuất giữ</th>
+                            </tr>
+                          </thead>
+                        </table>
+                      </div>
+                      <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="productHeight-32">
+                        <table class="table table-bordered table-fixed table-hover"
+                          style="word-wrap: break-word; margin-bottom:0px !important;min-width: 700px;">
+                          <tbody>
+                            <tr *ngFor="let row of listProduct; let i = index" (click)="changpushlistproducrcheck(row)">
+                              <td width="50px" class="text-center">{{startIndex+i}}</td>
+                              <td width="80px"><img style="width: 70px;"
+                                  [src]="row.ImagePath != null ? config.ServerApi + row.ImagePath : '/assets/img/noimage.png' ">
+                              </td>
+                              <td min-width="150px">{{row.Name}}</td>
+                              <td width="120px">{{row.Code}}</td>
+                              <td width="100px" class="text-center">
+                                {{row.Inventory | number}}
+                              </td>
+                              <td width="100px" class="text-center">
+                                {{row.AvailableQuantity| number}}
+                              </td>
+                              <td width="100px" class="text-center">
+                                {{row.ExportQuantity | number}}
+                              </td>
+                            </tr>
+                          </tbody>
+                          <tfoot *ngIf="listProduct.length == 0">
+                            <tr class="bold">
+                              <td colspan="12" min-width="300px" class="text-center"
+                                style="height: 300px; font-size: 20px;">
+                                Không
+                                có dữ liệu</td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </perfect-scrollbar>
+                    </div>
+                  </div>
+                  <div class="row mt-2">
+                    <div class="col-md-4  d-flex justify-content-start">
+                      <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                          [(ngModel)]="modelSearchProduct.PageSize" (ngModelChange)="searchProduct()" name="pageSize">
+                          <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                      </div>
+                      <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                    </div>
+
+                    <div class="col-md-8  d-flex justify-content-end">
+                      <ngb-pagination [collectionSize]="modelSearchProduct.TotalItems"
+                        [(page)]="modelSearchProduct.PageNumber" (pageChange)="searchProduct()"
+                        [pageSize]="modelSearchProduct.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                      </ngb-pagination>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <div class="exportkeep-right">
+
+      <form name="form" #f="ngForm" novalidate>
+        <section class="box">
+          <div class="content-body">
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h5 style="color: #116fbf;">Thông tin xuất giữ</h5>
+                <hr>
+              </div>
+
+              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Mã xuất giữ
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F120101','F120102']" disabled name="codeExport" type="text"
+                      class="form-control" [(ngModel)]="model.Code" maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                  <label class="form-label">Hạn xuất giữ
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="input-group">
+                    <input [disUipermission]="['F120101','F120102']" required class="form-control" required
+                      placeholder="dd/mm/yyyy" name="DateOfBirth" [(ngModel)]="ExpiredDateV" ngbDatepicker
+                      #DateOfBirth="ngbDatepicker" [minDate]="minDateNotificationV" [container]="'body'">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="DateOfBirth.toggle();$event.stopPropagation();"
+                        name="DateOfBirth">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Tiến độ thanh toán theo SAP </label>
+                  <div class="input-group">
+                    <input [disUipermission]="['F120101','F120102']" currencyMask
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.',precision:0  }" type="text"
+                      class="form-control" [(ngModel)]="model.PaymentPercent" name="PaymentPercent" maxlength="18">
+                    <div class="input-group-append">
+                      %
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Số tiền đã thanh toán</label>
+                  <div class="controls">
+                    <input [disUipermission]="['F120101','F120102']" currencyMask
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.',precision:0  }" type="text"
+                      class="form-control" [(ngModel)]="model.PaymentAmount" name="PaymentAmount" maxlength="18">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Ghi chú
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <textarea [(ngModel)]="model.Note" name="Note" rows="2" class="form-control"
+                      [maxLength]="300"></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h5 style="color: #116fbf;">Thông tin khách hàng
+                  <a href="javascript:void(0)" (click)="printPdf()" style="float: right;" placement="left" ngbTooltip="In thông tin khách hàng" container="body">
+                    <i class="fas fa-print"></i>
+                  </a>
+                </h5>
+                <hr>
+              </div>
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Khách hàng
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <div class="input-group">
+                      <nts-drop-down [disUipermission]="['F120101','F120102']" required [items]="listCustomer"
+                        [columns]="columnName" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.CustomerId" name="modelCustomer" (change)="changeCustomer()" required>
+                      </nts-drop-down>
+                      <div class="input-group-append">
+                        <button type="button" *appUipermission="['F120101','F120102']" (click)="showCustomerCreate()"
+                          class="btn btn-xs btn-success" placement="left" ngbTooltip="Thêm khách hàng" container="body">
+                          <span class="fa fa-plus" aria-hidden="true"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Mã khách hàng
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="code" disabled type="text" class="form-control" [(ngModel)]="modelCustomer.Code"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Nhóm khách hàng
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="codegroup" disabled type="text" class="form-control"
+                      [(ngModel)]="modelCustomer.CustomerTypeName" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Số điện thoại
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <input name="PhoneNumber" type="text" class="form-control" [(ngModel)]="model.PhoneNumber"
+                      maxlength="15" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Địa chỉ
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <input name="Address" type="text" class="form-control" [(ngModel)]="model.Address" maxlength="300"
+                      required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h5 style="color: #116fbf;">Thông tin người tạo</h5>
+                <hr>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Tên người tạo
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="employeeName" disabled type="text" class="form-control" [(ngModel)]="user.employeeName"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Mã người tạo
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="employeeCode" disabled type="text" class="form-control" [(ngModel)]="user.employeeCode"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Email
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="email" disabled type="text" class="form-control" [(ngModel)]="user.email"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">Phòng ban tạo
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="departmentName" disabled type="text" class="form-control"
+                      [(ngModel)]="user.departmentName" maxlength="300" required>
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">SBU
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="sbuName" disabled type="text" class="form-control" [(ngModel)]="user.sbuName"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+          </div>
+        </section>
+        <section class="box">
+          <div class="content-body">
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+                <button *appUipermission="['F120101','F120102']" type="button" (click)="save(false)"
+                  [disabled]="!f.form.valid" class="btn btn-success">
+                  <i class="fa fa-check"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>&nbsp;
+                <ng-container *ngIf="!model.Id">
+                  <button *appUipermission="['F120101','F120102']" type="button" (click)="save(true)"
+                    [disabled]="!f.form.valid" class="btn btn-success">
+                    <i class="fa fa-check"></i>&nbsp;
+                    <span>Lưu & tiếp tục</span>
+                  </button>&nbsp;
+                </ng-container>
+                <ng-container *ngIf="model.Id">
+                  <button type="button" (click)="showComfirmmanumitExportAndKeep()" class="btn btn-primary">
+                    <i class="far fa-arrow-alt-circle-right"></i>&nbsp;
+                    <span>Giải phóng</span>
+                  </button>&nbsp;
+                  <button type="button" (click)="showComfirSoldExportAndKeep()" class="btn btn-info">
+                    <i class="fas fa-check"></i>&nbsp;
+                    <span>Đã bán</span>
+                  </button>&nbsp;
+                </ng-container>
+                <button type="button" (click)="closeModal(false)" class="btn btn-danger">
+                  <i class="fa fa-power-off"></i> &nbsp;
+                  <span>
+                    Đóng
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+</div>

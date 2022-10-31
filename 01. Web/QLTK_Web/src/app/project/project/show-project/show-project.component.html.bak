@@ -1,0 +1,343 @@
+<div class="modal-header">
+  <!-- <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4> -->
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="content-wrapper padding-top-10">
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin chung</a>
+        <ng-template ngbNavContent>
+          <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Mã dự án
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Code"
+                      name="Codeproject" maxlength="50" required disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Tên dự án
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Name"
+                      name="Nameproject" maxlength="300" required disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Số hợp đồng
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Parameter"
+                      name="Parameterproject" maxlength="100" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Khách hàng thương mại
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerId" name="CustomerId"
+                    (change)="getCustomerType()" [disUipermission]="['F060002']" disabled>
+                  </nts-drop-down>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Nhóm khách hàng</label>
+                  <div class="controls">
+                    <select class="form-control" name="CustomerTypeId" [(ngModel)]="model.CustomerTypeId" disabled>
+                      <option *ngFor="let item of listCustomerType" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Khách hàng cuối
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerFinalId" name="CustomerFinalId" disabled>
+                  </nts-drop-down>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Ngày bắt đầu
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <div class="input-group ">
+                      <input [disUipermission]="['F060002']" class="form-control" placeholder="dd/mm/yyyy" name="DateFrom"
+                        [(ngModel)]="dateFrom" ngbDatepicker #DateFrom="ngbDatepicker" disabled>
+                      <div class="input-group-append">
+                        <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();" disabled>
+                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Ngày kết thúc
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <div class="input-group ">
+                      <input [disUipermission]="['F060002']" class="form-control" placeholder="dd/mm/yyyy" name="DateTo"
+                        [(ngModel)]="dateTo" ngbDatepicker #DateTo="ngbDatepicker" disabled>
+                      <div class="input-group-append">
+                        <span class="dtp-icon" (click)="DateTo.toggle();$event.stopPropagation();" disabled>
+                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">SBU phụ trách thiết kế/quản lý
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [items]="listSBU" [columns]="sbuColumnName" ntsValue="Id" ntsLabel="Name"
+                      ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId" required
+                      (change)="getCbbDepartment()" [disUipermission]="['F060002']" disabled>
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Phòng ban phụ trách thiết kế/quản lý
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [items]="listDepartment" [columns]="departmentColumnName" ntsValue="Id" ntsLabel="Name"
+                      ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId" name="DepartmentId" required disabled
+                      [disUipermission]="['F060002']">
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Người phụ trách/QLDA
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [items]="employees" [columns]="employeeColumnName" ntsValue="Id" ntsLabel="Name"
+                      ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ManageId" name="ManageId" required (change)="changeEmployee()" disabled>
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">SĐT Người phụ trách/QLDA
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input class="form-control" name="phonenumber" [(ngModel)]="model.PhoneNumber" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Ngày kickoff
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <div class="input-group ">
+                      <input class="form-control" placeholder="dd/mm/yyyy" name="KickOffDate" [(ngModel)]="kickOffDate"
+                        ngbDatepicker #KickOffDate="ngbDatepicker" required [disUipermission]="['F060002']" disabled>
+                      <div class="input-group-append" [disUipermission]="['F060002']">
+                        <span class="dtp-icon" (click)="KickOffDate.toggle();$event.stopPropagation();" disabled>
+                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Loại dự án</label>
+                  <div class="controls">
+                    <select class="form-control" name="type" [(ngModel)]="model.Type" disabled>
+                      <option *ngFor="let item of constant.ProjectTypes" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Giá vật tư dự kiến (FCM)
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <!-- <input type="text" class="form-control" [(ngModel)]="model.Price" name="Price" maxlength="18"
+                        required> -->
+                    <input currencyMask 
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="Price"
+                      type="text" class="form-control" [(ngModel)]="model.Price" maxlength="18"
+                      [disUipermission]="['F060002']" disabled>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Tổng tiền nhân công TK (FCM)
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <!-- <input type="text" class="form-control" [(ngModel)]="model.DesignPrice" name="DesignPrice"
+                        maxlength="18" required> -->
+                    <input currencyMask
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                      name="DesignPrice" type="text" class="form-control" [(ngModel)]="model.DesignPrice" maxlength="18"
+                      [disUipermission]="['F060002']" disabled >
+                  </div>
+                </div>
+              </div>
+  
+  
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Chi phí chuyển giao (FCM)
+                  </label>
+                  <div class="controls">
+                    <input currencyMask
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="FCMPrice"
+                      type="text" class="form-control" [(ngModel)]="model.FCMPrice" maxlength="18" disabled>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Giá bán thực tế chưa VAT
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <input currencyMask disabled
+                      [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="SaleNoVAT"
+                      type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" maxlength="18" disabled
+                      [disUipermission]="['F060002']">
+                    <!-- <input ntsNumberInt type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" name="SaleNoVAT"
+                        maxlength="100" required> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Mã kho
+                  </label>
+                  <div class="controls">
+                    <input type="text" class="form-control" [(ngModel)]="model.WarehouseCode" name="WarehouseCode"
+                      maxlength="50" [disUipermission]="['F060002']" disabled>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Tình trạng dự án
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <select class="form-control" name="Statusproject" [(ngModel)]="model.Status"
+                      [disUipermission]="['F060002']" disabled>
+                      <option *ngFor="let item of constant.ProjectStatus" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+                <ng-container>
+                  <button type="button" class="btn btn-danger" (click)="closeModal()">
+                    <i class="fa fa-power-off"></i> &nbsp;
+                    <span>
+                      Đóng
+                    </span>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </form>
+  
+        </ng-template>
+      </li>
+      <!-- Danh mục vấn đề -->
+      <li [ngbNavItem]="'show-project-errors'"
+      [disabled]="permissionService.checkPermission(['F060401','F060402','F060403','F060404','F060405','F060406','F060411'])">
+        <a ngbNavLink>Danh mục vấn đề</a>
+        <ng-template ngbNavContent>
+          <app-show-project-errors [Id]="model.Id"></app-show-project-errors>
+        </ng-template>
+      </li>
+      <!-- Tab file -->
+      <li [ngbNavItem]="'show-project-attach-tab'"
+      [disabled]="permissionService.checkPermission(['F060008','F060009','F060010','F060011'])">
+        <a ngbNavLink>Tài liệu</a>
+        <ng-template ngbNavContent>
+          <app-show-project-attach-tab [Id]="model.Id"></app-show-project-attach-tab>
+        </ng-template>
+      </li>
+      <!-- Tab biên bản chuyển giao -->
+      <li [ngbNavItem]="'show-project-transfer-attach'"
+      [disabled]="permissionService.checkPermission(['F060012','F060013','F060014','F060015'])">
+        <a ngbNavLink>Biên bản chuyển giao</a>
+        <ng-template ngbNavContent>
+          <app-show-project-transfer-attach [Id]="model.Id"></app-show-project-transfer-attach>
+        </ng-template>
+      </li>
+      <!-- Tab Sản phẩm -->
+      <li [ngbNavItem]="'show-project-product'"
+      [disabled]="permissionService.checkPermission(['F060016','F060017','F060018','F060019','F060020','F060021','F060030','F060031','F060032','F060033','F060034'])">
+        <a ngbNavLink>Sản phẩm</a>
+        <ng-template ngbNavContent>
+          <app-show-project-product [Id]="model.Id" [PriceFCM]="model.Price"></app-show-project-product>
+        </ng-template>
+      </li>
+      <!-- Tab Giải pháp -->
+      <li [ngbNavItem]="'show-project-solution'"
+      [disabled]="permissionService.checkPermission(['F060026','F060027','F060028'])">
+        <a ngbNavLink>Giải pháp</a>
+        <ng-template ngbNavContent>
+          <app-show-project-solution [Id]="model.Id"></app-show-project-solution>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'show-project-general-design'"
+      [disabled]="permissionService.checkPermission(['F060022','F060023','F060024','F060025','F060029'])">
+        <a ngbNavLink>Tổng hợp thiết kế</a>
+        <ng-template ngbNavContent>
+          <app-show-project-general-design [Id]="model.Id"></app-show-project-general-design>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>

@@ -1,0 +1,55 @@
+app-employee-user-tab {
+    
+    .select {
+        background-color: #0056ac;
+        color: white;
+    }
+
+    .table-hover .select {
+        background-color: #0056ac;
+        color: white;
+    }
+
+    .select td {
+        color: white;
+    }
+
+    table tr.selected td {
+        color: #fff;
+        background-color: #0056ac;
+    }
+    table tr.selected:hover td {
+        background-color: #0056ac;
+        color: #fff;
+    }
+
+    .select th {
+        color: white;
+    }
+
+    table tr.selected th {
+        color: #0056ac;
+    }
+
+    table tr.selected:hover th {
+        background-color: #0056ac;
+        color: #fff;
+    }
+
+    .custom-control{
+        min-height: 2rem;
+    }
+    .custom-control-label::before{
+        width: 1.5rem !important;
+    height: 1.5rem !important;
+    }
+
+    .custom-control-label::after{
+        width: 1.5rem !important;
+    height: 1.5rem !important;
+    }
+
+    .custom-control-label{
+        line-height: 2rem;
+    }
+}

@@ -1,0 +1,187 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Chọn câu hỏi</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nts-search-bar [options]="searchOptions" [(ngModel)]="modelSearch" name="modelSearch"
+                        (change)="searchQuestion()">
+                    </nts-search-bar>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                    <button class="btn btn-success btn-success-system" (click)="searchQuestion()">
+                        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listData.length}}</span> câu hỏi chưa chọn</label>
+                </div>
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listSelect.length}}</span> câu hỏi đã chọn</label>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+
+                    <div class="table-left">
+                        <virtual-scroller #scroll [items]="listData" style=" display: block;height: 400px;">
+                            <table class="table table-bordered table-fixed table-hover"
+                                style="word-wrap: break-word; margin-bottom:0px !important;min-width: 700px;">
+                                <thead #header style="background-color: white">
+                                    <tr>
+                                        <th style="text-align:center;padding-top: 10px;" width="40px">
+                                            <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll(true)">
+                                        </th>
+                                        <th width="40px" class="text-center">STT</th>
+                                        <th width="70px" class="text-center">Mã câu hỏi</th>
+                                        <th min-width="150px" class="text-center">Nội dung</th>
+                                        <th width="110px" class="text-center">Nhóm câu hỏi</th>
+                                        <th width="100px" class="text-center ">Loại câu hỏi</th>
+                                        <th width="180px" class="text-center ">Đáp án</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody #container>
+                                    <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                        <td style="text-align:center" width="40px">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;">
+                                        </td>
+                                        <td class="text-center" width="40px">{{row.Index}}</td>
+                                        <td>{{row.Code}}</td>
+                                        <td>
+                                            <div [innerHTML]="row.Content"></div>
+
+                                        </td>
+                                        <td>{{row.QuestionGroupName}}</td>
+                                        <td>
+                                            <span *ngIf="row.Type==1">Câu hỏi Đúng/ Sai</span>
+                                            <span *ngIf="row.Type==2">Câu hỏi mở</span>
+                                        </td>
+                                        <td>
+                                            <ng-container *ngIf="row.Type==1">
+                                                <span *ngIf="row.Answer=='1'">Đúng</span>
+                                                <span *ngIf="row.Answer=='2'">Sai</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="row.Type==2">
+                                                {{row.Answer}}
+                                            </ng-container>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </virtual-scroller>
+                    </div>
+
+                    <div class="table-center">
+                        <button type="button" ngbTooltip="Chọn câu hỏi" class="btn btn-success" (click)="addRow()">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                        <button type="button" ngbTooltip="Bỏ chọn câu hỏi" class="btn btn-danger" (click)="removeRow()">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-right">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <div class="row" #scrollModule>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+                                    <div #scrollModuleHeader style="height: auto; width:100%;overflow: hidden">
+                                        <table class="table table-bordered table-fixed mb-0" style="min-width:700px">
+                                            <thead>
+                                                <tr>
+                                                    <th style="text-align:center;padding-top: 10px;" width="40px">
+                                                        <input type="checkbox" [(ngModel)]="checkedBot"
+                                                            name="{{'checkedBot'}}" style="height:20px; width:20px;"
+                                                            (change)="checkAll(false)">
+                                                    </th>
+                                                    <th width="40px" class="text-center">STT</th>
+                                                    <th width="70px" class="text-center">Mã câu hỏi</th>
+                                                    <th min-width="150px" class="text-center">Nội dung</th>
+                                                    <th width="110px" class="text-center">Nhóm câu hỏi</th>
+                                                    <th width="100px" class="text-center ">Loại câu hỏi</th>
+                                                    <th width="170px" class="text-center ">Đáp án</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <perfect-scrollbar [config]="constants.ScrollConfig" [style.max-height.px]="350">
+                                        <table class="table table-bordered table-fixed" style="min-width:680px">
+                                            <colgroup>
+                                                <col width="40px">
+                                                <col width="40px">
+                                                <col width="70px">
+                                                <col min-width="150px">
+                                                <col width="110px">
+                                                <col width="100px">
+                                                <col width="170px">
+                                            </colgroup>
+                                            <tbody>
+                                                <tr *ngFor="let row of listSelect; let i = index">
+                                                    <td width="40px" style="text-align:center">
+                                                        <input type="checkbox" [(ngModel)]="row.Checked"
+                                                            name="{{'Choose_Checked_'+row.Name+j}}"
+                                                            style="height:20px; width:20px;">
+                                                    </td>
+                                                    <td class="text-center" width="40px">{{i+1}}</td>
+                                                    <td width="70px">{{row.Code}}</td>
+                                                    <td min-width="150px">
+                                                        <div [innerHTML]="row.Content"></div>
+
+                                                    </td>
+                                                    <td width="110px">{{row.QuestionGroupName}}</td>
+                                                    <td width="100px">
+                                                        <span *ngIf="row.Type==1">Câu hỏi Đúng/ Sai</span>
+                                                        <span *ngIf="row.Type==2">Câu hỏi mở</span>
+                                                    </td>
+                                                    <td width="170px">
+                                                        <ng-container *ngIf="row.Type==1">
+                                                            <span *ngIf="row.Answer=='1'">Đúng</span>
+                                                            <span *ngIf="row.Answer=='2'">Sai</span>
+                                                        </ng-container>
+                                                        <ng-container *ngIf="row.Type==2">
+                                                            {{row.Answer}}
+                                                        </ng-container>
+                                                    </td>
+
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="choose()">
+            <i class="fa fa-check"></i>&nbsp;
+            <span>Chọn</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

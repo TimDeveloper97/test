@@ -1,0 +1,222 @@
+<div class='content-wrapper page-content'>
+    <div class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{questionGroupSearchModel.TotalItems}}</span> nhóm
+                        câu hỏi</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+                    <button type="button" (click)="showCreateUpdateGroup('',false)" class="btn btn-xs btn-success"
+                        placement="bottom" ngbTooltip="Thêm nhóm module" container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 0">
+                    <dx-tree-list id="questions" [dataSource]="questionGroups" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true" noDataText=" "
+                        [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên nhóm" [minWidth]="200"></dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F020001']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-add"
+                                        ngbTooltip="Thêm nhóm" container="body"
+                                        (click)=" showCreateUpdateGroup(item.value,false)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F020002']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-update"
+                                        ngbTooltip="Sửa nhóm" container="body"
+                                        (click)=" showCreateUpdateGroup(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F020003']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete"
+                                        ngbTooltip="Xóa nhóm" container="body"
+                                        (click)=" showConfirmDeleteQuestionGroup(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#questions"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="questionSearchModel"
+                            name="questionSearchModel" (change)="searchQuestion('')">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchQuestion('')">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{questionSearchModel.TotalItems}}</span> câu hỏi; &nbsp;
+                    </label>
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-success"
+                        (click)="showCreateUpdate('')" container="body" *appUipermission="['F120921']">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1200px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Mã câu hỏi</th>
+                                    <th min-width="300px" class="text-center">Nội dung</th>
+                                    <th width="200px" class="text-center">Nhóm câu hỏi</th>
+                                    <th width="200px" class="text-center ">Loại câu hỏi</th>
+                                    <th width="200px" class="text-center ">Đáp án</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of questions; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button class="btn btn-xs btn-info" container="body" *appUipermission="['F120925']"
+                                            (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                            container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button> &nbsp;
+                                        <button type="button" (click)='showCreateUpdate(row.Id)' *appUipermission="['F120922']"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button> &nbsp;
+                                        <button  class="btn btn-xs btn-danger" *appUipermission="['F120923']"
+                                            (click)="showConfirmDeleteQuestion(row.Id)" placement="top"
+                                            ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button type="button" *appUipermission="['F120924']"
+                                            class="btn btn-xs btn-warning" (click)="showQuestion(row.Id)"
+                                            placement="top" ngbTooltip="Xem câu hỏi" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td><a class="button" (click)="showQuestion(row.Id)">{{row.Code}}</a></td>
+                                    <td>
+                                        <div [innerHTML]="row.Content"></div>
+
+                                    </td>
+                                    <td>{{row.QuestionGroupName}}</td>
+                                    <td>
+                                        <span *ngIf="row.Type==1">Câu hỏi Đúng/ Sai</span>
+                                        <span *ngIf="row.Type==2">Câu hỏi mở</span>
+                                    </td>
+                                    <td>
+                                        <ng-container *ngIf="row.Type==1">
+                                            <span *ngIf="row.Answer=='1'">Đúng</span>
+                                            <span *ngIf="row.Answer=='2'">Sai</span>
+                                        </ng-container>
+                                        <ng-container *ngIf="row.Type==2">
+                                            {{row.Answer}}
+                                        </ng-container>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="questions.length == 0">
+                                <tr class="bold">
+                                    <td colspan="8" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                            [(ngModel)]="questionSearchModel.PageSize" (ngModelChange)="searchQuestion('')"
+                            name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="questionSearchModel.TotalItems"
+                        [(page)]="questionSearchModel.PageNumber" (pageChange)="searchQuestion('')"
+                        [pageSize]="questionSearchModel.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-info">
+                        <i class="fa fa-download"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Tải tài liệu</small>
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa câu hỏi</small>
+
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa câu hỏi</small>
+                    <button class="btn btn-view btn-warning">
+                        <i class="far fa-eye"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xem câu hỏi</small>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

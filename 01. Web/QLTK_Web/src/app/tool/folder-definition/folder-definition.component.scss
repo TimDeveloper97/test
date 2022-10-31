@@ -1,0 +1,24 @@
+
+app-folder-definition{
+  .cbb-inline{
+    display: flex;
+
+    label{
+      padding-top: 7px;
+    padding-right: 10px;
+    }
+  }
+
+  .custom-checkbox{
+    height: 32px;
+    padding-top: 6px;
+  }
+
+  .selected {
+    background-color: aqua;
+  }
+
+  .menu-display{
+    display: none;
+  }
+}

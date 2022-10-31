@@ -1,0 +1,523 @@
+<div class='content-wrapper'>
+    <section class="box">
+        <header class="panel_header panel_header_body">
+            <h2 class="title pull-left div-system">Thông tin tìm kiếm</h2>
+            <div class="actions panel_actions pull-right">
+                <i class="box_toggle material-icons">expand_more</i>
+            </div>
+        </header>
+        <div class="content-body">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
+                        <div class="form-group form-group-custom">
+                            <label class="form-label">Mã dự án
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <input name="ProjectCode" type="text" class="form-control"
+                                    [(ngModel)]="model.ProjectCode" maxlength="500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-md-3 col-lg-3 col-sm-12">
+                        <div class="form-group form-group-custom">
+                            <label class="form-label">Mã PR
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <input name="PRCode" type="text" class="form-control" [(ngModel)]="model.PRCode"
+                                    maxlength="500">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Nhân viên
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <nts-drop-down [items]="listEmployee" [columns]="columnEmployee" ntsValue="Id"
+                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.EmployeeId"
+                                    name="EmployeeId" (ngModelChange)="searchData()">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Nhà cung cấp
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <nts-drop-down [items]="listSupplier" [columns]="columnSupplier" ntsValue="Id"
+                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SupplierId"
+                                    name="SupplierId" (ngModelChange)="searchData()">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Tình trạng
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select name="Status" class="form-control" [(ngModel)]="model.Status"
+                                    (ngModelChange)="searchData()">
+                                    <option value="null">Tất cả</option>
+                                    <option *ngFor="let item of constant.ListReportProblem" [ngValue]="item.Id">
+                                        {{item.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Thời gian
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select name="TimeType" class="form-control" [(ngModel)]="model.TimeType">
+                                    <option *ngFor="let item of constant.SearchDebtTimeTypes" [ngValue]="item.Id">
+                                        {{item.Name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12"
+                        *ngIf="model.TimeType=='8'||model.TimeType=='9'||model.TimeType=='12'">
+                        <div class="form-group ">
+                            <label class="form-label">Năm
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select class="form-control" (change)="searchData()" [(ngModel)]="model.Year"
+                                    name="Year">
+                                    <option *ngFor="let year of listYear" [value]="year">
+                                        {{year}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12" *ngIf="model.TimeType=='8'">
+                        <div class="form-group ">
+                            <label class="form-label">Tháng
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select class="form-control" (change)="searchData()" [(ngModel)]="model.Month"
+                                    name="Month" *ngIf="model.TimeType=='8'">
+                                    <option *ngFor="let month of listMonth" [value]="month">
+                                        Tháng {{month}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-lg-3 col-sm-12" *ngIf="model.TimeType=='9'">
+                        <div class="form-group ">
+                            <label class="form-label">Quý
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select class="form-control" (change)="searchData()" [(ngModel)]="model.Quarter"
+                                    name="Quarter" *ngIf="model.TimeType=='9'">
+                                    <option value="1"> Quý 1</option>
+                                    <option value="2"> Quý 2</option>
+                                    <option value="3"> Quý 3</option>
+                                    <option value="4"> Quý 4</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" *ngIf="model.TimeType=='13'">
+                        <div class="form-group ">
+                            <label class="form-label">Từ ngày</label>
+                            <div class="controls">
+                                <div class="input-group ">
+                                    <input class="form-control" placeholder="dd/mm/yyyy" name="dateFrom"
+                                        [(ngModel)]="dateFrom" ngbDatepicker #e="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="e.toggle();$event.stopPropagation();">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" *ngIf="model.TimeType=='13'">
+                        <div class="form-group ">
+                            <label class="form-label">Đến ngày
+                            </label>
+                            <div class="controls">
+                                <div class="input-group ">
+                                    <input class="form-control" placeholder="dd/mm/yyyy" name="dateTo"
+                                        [(ngModel)]="dateTo" ngbDatepicker #f="ngbDatepicker">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="f.toggle();$event.stopPropagation();">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+               
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchData()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+    <section class="box mt-4">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-store" style="background-color: #ff9933;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.supplierQuantity}}</p>
+                                            <p>Xác định NCC</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-file-contract" style="background-color: #007bff;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.contractQuantity}}</p>
+                                            <p>Hợp đồng</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-dollar-sign" style="background-color: #ff99cc;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.payQuantity}}</p>
+                                            <p>Thanh toán</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-calendar-alt" style="background-color: #26c6da;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.productionQuantity}}</p>
+                                            <p>Sản xuất</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-shipping-fast" style="background-color: #cc99ff;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.tranportQuantity}}</p>
+                                            <p>Vận chuyển</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-archway" style="background-color: #66bb6a;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.customsQuantity}}</p>
+                                            <p>Hải quan</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-warehouse" style="background-color: #737373;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{modelData.warehouseQuantity}}</p>
+                                            <p>Nhập kho</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row mt-3">
+        <div class="col-lg-7 col-md-7 col-sm-12 ">
+            <section class="box">
+                <div class="content-body" id="rightdiv">
+                    <div style="display: block">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <section class="box">
+                <div class="content-body" id="leftdiv">
+                    <div style="display: block">
+                        <canvas baseChart [data]="doughnutChartData" [labels]="barChartLabels"
+                            [chartType]="pieChartType" [colors]="pieChartColors">
+                        </canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <section class="box">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhân viên</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1450px">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="50px" class="text-center">STT</th>
+                                    <th rowspan="2" min-width="150px" class="text-center">Mã nhân viên</th>
+                                    <th rowspan="2" min-width="200px" class="text-center">Tên nhân viên</th>
+                                    <th rowspan="2" width="200px" class="text-center">Số lượng hồ sơ tồn đọng</th>
+                                    <th colspan="7" width="700px" class="text-center">Số lượng tồn đọng ở các bước</th>
+                                    <th rowspan="2" width="150px" class="text-center">Giá trị VNĐ</th>
+                                </tr>
+                                <tr>
+                                    <th width="100px" class="text-center">Xác định NCC</th>
+                                    <th width="100px" class="text-center">Hợp đồng</th>
+                                    <th width="100px" class="text-center">Thanh toán</th>
+                                    <th width="100px" class="text-center">Sản xuất</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of modelData.listEmployee; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.SupplierQuantity|number}}</td>
+                                    <td class="text-center">{{row.ContractQuantity|number}}</td>
+                                    <td class="text-center">{{row.PayQuantity|number}}</td>
+                                    <td class="text-center">{{row.ProductionQuantity|number}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhà cung cấp</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1450px">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="50px" class="text-center">STT</th>
+                                    <th rowspan="2" width="150px" class="text-center">Mã nhà cung cấp</th>
+                                    <th rowspan="2" min-width="200px" class="text-center">Tên nhà cung cấp</th>
+                                    <th rowspan="2" width="200px" class="text-center">Số lượng hồ sơ tồn đọng</th>
+                                    <th colspan="7" width="700px" class="text-center">Số lượng tồn đọng ở các bước</th>
+                                    <th rowspan="2" width="150px" class="text-center">Giá trị VNĐ</th>
+                                </tr>
+                                <tr>
+                                    <th width="100px" class="text-center">Xác định NCC</th>
+                                    <th width="100px" class="text-center">Hợp đồng</th>
+                                    <th width="100px" class="text-center">Thanh toán</th>
+                                    <th width="100px" class="text-center">Sản xuất</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of modelData.listSupplier; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.SupplierQuantity|number}}</td>
+                                    <td class="text-center">{{row.ContractQuantity|number}}</td>
+                                    <td class="text-center">{{row.PayQuantity|number}}</td>
+                                    <td class="text-center">{{row.ProductionQuantity|number}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo mã dự án</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1450px">
+                            <thead>
+                                <tr>
+                                    <th rowspan="2" width="50px" class="text-center">STT</th>
+                                    <th rowspan="2" width="150px" class="text-center">Mã dự án</th>
+                                    <th rowspan="2" min-width="200px" class="text-center">Tên dự án</th>
+                                    <th rowspan="2" width="200px" class="text-center">Số lượng hồ sơ tồn đọng</th>
+                                    <th colspan="7" width="700px" class="text-center">Số lượng tồn đọng ở các bước</th>
+                                    <th rowspan="2" width="150px" class="text-center">Giá trị VNĐ</th>
+                                </tr>
+                                <tr>
+                                    <th width="100px" class="text-center">Xác định NCC</th>
+                                    <th width="100px" class="text-center">Hợp đồng</th>
+                                    <th width="100px" class="text-center">Thanh toán</th>
+                                    <th width="100px" class="text-center">Sản xuất</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of modelData.listReportProjectCode; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.SupplierQuantity|number}}</td>
+                                    <td class="text-center">{{row.ContractQuantity|number}}</td>
+                                    <td class="text-center">{{row.PayQuantity|number}}</td>
+                                    <td class="text-center">{{row.ProductionQuantity|number}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box">
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Danh sách vấn đề tồn đọng</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1560px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="100px" class="text-center">Xử lý</th>
+                                    <th width="300px" class="text-center">Nội dung</th>
+                                    <th min-width="300px" class="text-center">Phương án giải quyết</th>
+                                    <th width="150px" class="text-center">Mã hồ sơ nhập khẩu</th>
+                                    <th width="200px" class="text-center">Tên NCC</th>
+                                    <th width="150px" class="text-center">Bước tồn đọng</th>
+                                    <th width="100px" class="text-center">Số ngày trễ</th>
+                                    <th width="150px" class="text-center">Tình trạng</th>
+                                    <th width="160px" class="text-center">Người phụ trách hồ sơ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of modelData.listResult; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td style="text-align: center">
+                                        <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(i)"
+                                            placement="top" ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td>{{row.Note}}</td>
+                                    <td>
+                                        <textarea type="text" [(ngModel)]="row.Plan" rows="2" class="form-control"
+                                            [name]="'Plan' + i"></textarea>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/nhap-khau/ho-so-nhap-khau/xem/'+ row.ImportProfileId]"
+                                            target="_blank" style="text-decoration: none;">
+                                            {{row.Code}}
+                                        </a>
+                                    </td>
+                                    <td>{{row.SupplierName}}</td>
+                                    <td>
+                                        {{row.Step|filterinlist:constant.ImportStep}}
+                                    </td>
+                                    <td class="text-right">{{row.LateDay|number}}</td>
+                                    <td class="text-center">
+                                        <span class="badge"
+                                            [ngClass]="row.Status|filterbadgeclassinlist:constant.ProblemStatus">{{row.Status|filterinlist:constant.ProblemStatus}}</span>
+                                    </td>
+                                    <td>{{row.EmployeeName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box" *appUipermission="['F120852']">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <button class="btn btn-success" (click)="exportExcel()">
+                        <i class="fa fa-file-excel"></i> &nbsp;Xuất excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

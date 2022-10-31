@@ -1,0 +1,100 @@
+
+          <div *ngIf="QuotationStatus == 0" class="row margin-bottom-10">
+            <div class="col-xl-4 col-lg-12 col-md-12 text-left">
+            </div>
+            <div class="col-xl-8 col-lg-12 col-md-12 text-right">
+              <button class="btn btn-success btn-upload" (click)="showImportPopup();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import Excel</button>
+              &nbsp;&nbsp;
+              <a type="button" class="btn btn-success" (click)="showCreate()" container="body">
+                <i class="fa fa-plus"></i>
+                Thêm mới
+              </a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:1590px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th *ngIf="QuotationStatus == 0" width="100px" class="text-center">Xử lý</th>
+                      <th width="100px" class="text-center">Mã TB</th>
+                      <th width="220px" class="text-center">Tên TB</th>
+                      <th width="150px" class="text-center">Hãng SX</th>
+                      <th width="100px" class="text-center">Số lượng</th>
+                      <th width="100px" class="text-center">Giá báo giá</th>
+                      <th width="100px" class="text-center">Thành tiền báo giá</th>
+                      <th width="100px" class="text-center">Đơn vị</th>
+                      <th width="250px" class="text-center">Mô tả SP</th>
+                      <th width="200px" class="text-center">Tên ngành hàng</th>
+                      <th width="120px" class="text-center">Loại thiết bị</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of listData; let i = index">
+                      <td class="text-center" width="50px">{{startIndex+i}}</td>
+                      <td *ngIf="QuotationStatus == 0" class="text-center" width="100px">
+                        <a type="button"
+                          (click)="showUpdate(row.Id)"
+                          class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                          <span class="fa fa-edit" aria-hidden="true"></span>
+                        </a>&nbsp;
+                        <button class="btn btn-xs btn-danger"
+                          (click)="showConfirmDelete(row.Id)" placement="bottom" ngbTooltip="Xóa"
+                          container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td width="100px" class="text-left">{{row.Code}}</td>
+                      <td width="220px" class="text-left">{{row.Name}}</td>
+                      <td width="150px" class="text-left">{{row.ManufactureName}}</td>
+                      <td width="100px" class="text-right">{{row.Quantity}}</td>
+                      <td width="100px" class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                      <td width="100px" class="text-right">{{row.Amount|number:'1.0-0'}}</td>
+                      <td width="100px" class="text-center">{{row.UnitName}}</td>
+                      <td width="250px" class="text-left">
+                        <nts-text-more [ntsLimit]="30" [ntsText]="row.Description"></nts-text-more>
+                      </td>
+                      <td width="200px" class="text-left">{{row.IndustryName}}</td>
+                      <td width="120px" class="text-left">
+                        <span *ngIf="row.ObjectType==1">Module</span>
+                        <span *ngIf="row.ObjectType==2">Thiết bị</span>
+                        <span *ngIf="row.ObjectType==3">Thư viện sản phẩm kinh doanh</span>
+                        <span *ngIf="row.ObjectType==4">Vật tư</span>
+                      </td>
+                      
+                    </tr>
+                    <tr><td colspan="12"class="text-right"><b>TỔNG SỐ THÀNH TIỀN&nbsp; = &nbsp;{{TotalAmount|number:'1.0-0'}} VNĐ</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td></tr>
+                  </tbody>
+                  <!-- <tfoot *ngIf="listData.length == 0">
+                    <tr class="bold">
+                      <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                        có dữ liệu</td>
+                    </tr>
+                  </tfoot> -->
+                </table>
+              </perfect-scrollbar>
+            </div> 
+          </div>
+          <hr *ngIf="QuotationStatus == 0" />
+          <div *ngIf="QuotationStatus == 0" class="row">
+            <div class="col-md-12">
+              <button class="btn btn-view btn-success">
+                <i class="fas fa-plus"></i>
+              </button>&nbsp;
+              <small class="padding-right-20">Thêm dữ liệu</small>
+    
+              <button class="btn btn-view btn-warning">
+                <i class="fa fa-edit"></i>
+              </button>&nbsp;
+              <small class="padding-right-20">Sửa dữ liệu</small>
+    
+              <button class="btn btn-view btn-danger">
+                <i class="fas fa-times"></i>
+              </button>&nbsp;
+              <small class="padding-right-20">Xóa dữ liệu</small>
+    
+            </div>
+          </div> 

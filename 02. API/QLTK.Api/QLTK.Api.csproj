@@ -1,0 +1,894 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7324CCF5-1212-4F28-A59F-07E85D463A62}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QLTK.Api</RootNamespace>
+    <AssemblyName>QLTK.Api</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+    <Use64BitIISExpress>
+    </Use64BitIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisRuleSet>ManagedMinimumRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.13.8\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\DLL\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="FastMember, Version=1.0.0.9, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.1.0\lib\net40\FastMember.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.2\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.1.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.2\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Cors">
+      <HintPath>..\packages\Microsoft.Owin.Cors.3.0.1\lib\net45\Microsoft.Owin.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook">
+      <HintPath>..\packages\Microsoft.Owin.Security.Facebook.2.1.0\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google">
+      <HintPath>..\packages\Microsoft.Owin.Security.Google.2.1.0\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp, Version=105.2.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.Formatting, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Cors">
+      <HintPath>..\packages\Microsoft.AspNet.Cors.5.0.0\lib\net45\System.Web.Cors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.5.2.3\lib\net45\System.Web.Http.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Http.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.3\lib\net45\System.Web.Http.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http.WebHost, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.5.2.3\lib\net45\System.Web.Http.WebHost.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Formatting">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fileman\css\images\animated-overlay.gif" />
+    <Content Include="fileman\css\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="fileman\css\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="fileman\css\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="fileman\css\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="fileman\css\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="fileman\css\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="fileman\css\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="fileman\css\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="fileman\css\images\ui-icons_222222_256x240.png" />
+    <Content Include="fileman\css\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="fileman\css\images\ui-icons_454545_256x240.png" />
+    <Content Include="fileman\css\images\ui-icons_888888_256x240.png" />
+    <Content Include="fileman\css\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="fileman\css\jquery-ui-1.10.4.custom.css" />
+    <Content Include="fileman\css\jquery-ui-1.10.4.custom.min.css" />
+    <Content Include="fileman\css\main.css" />
+    <Content Include="fileman\css\main.min.css" />
+    <Content Include="fileman\dev.html" />
+    <Content Include="fileman\images\action-folder-paste.png" />
+    <Content Include="fileman\images\action-folder-rename.png" />
+    <Content Include="fileman\images\arrow_down.png" />
+    <Content Include="fileman\images\arrow_up.png" />
+    <Content Include="fileman\images\blank.gif" />
+    <Content Include="fileman\images\copy.png" />
+    <Content Include="fileman\images\cut.png" />
+    <Content Include="fileman\images\dir-minus.png" />
+    <Content Include="fileman\images\dir-plus.png" />
+    <Content Include="fileman\images\file-add.png" />
+    <Content Include="fileman\images\file-delete.png" />
+    <Content Include="fileman\images\file-download.png" />
+    <Content Include="fileman\images\file-duplicate.png" />
+    <Content Include="fileman\images\file-upload.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_3gp.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_7z.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ace.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ai.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_aif.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_aiff.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_amr.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_asf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_asx.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_bat.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_bin.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_bmp.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_bup.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_cab.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_cbr.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_cda.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_cdl.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_cdr.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_chm.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dat.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_divx.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dll.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dmg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_doc.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dss.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dvf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_dwg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_eml.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_eps.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_exe.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_fla.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_flv.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_gif.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_gz.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_hqx.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_htm.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_html.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ifo.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_indd.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_iso.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_jar.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_jpeg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_jpg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_lnk.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_log.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_m4a.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_m4b.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_m4p.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_m4v.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mcd.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mdb.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mid.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mov.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mp2.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mp3.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mp4.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mpeg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mpg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_msi.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_mswmm.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ogg.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_pdf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_png.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_pps.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ps.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_psd.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_pst.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ptb.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_pub.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_qbb.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_qbw.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_qxd.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ram.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_rar.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_rm.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_rmvb.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_rtf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_sea.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ses.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_sit.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_sitx.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ss.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_swf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_tgz.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_thm.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_tif.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_tmp.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_torrent.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_ttf.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_txt.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_vcd.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_vob.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_wav.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_wma.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_wmv.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_wps.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_xls.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_xpi.png" />
+    <Content Include="fileman\images\filetypes\big\file_extension_zip.png" />
+    <Content Include="fileman\images\filetypes\big\unknown.png" />
+    <Content Include="fileman\images\filetypes\file_extension_3gp.png" />
+    <Content Include="fileman\images\filetypes\file_extension_7z.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ace.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ai.png" />
+    <Content Include="fileman\images\filetypes\file_extension_aif.png" />
+    <Content Include="fileman\images\filetypes\file_extension_aiff.png" />
+    <Content Include="fileman\images\filetypes\file_extension_amr.png" />
+    <Content Include="fileman\images\filetypes\file_extension_asf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_asx.png" />
+    <Content Include="fileman\images\filetypes\file_extension_bat.png" />
+    <Content Include="fileman\images\filetypes\file_extension_bin.png" />
+    <Content Include="fileman\images\filetypes\file_extension_bmp.png" />
+    <Content Include="fileman\images\filetypes\file_extension_bup.png" />
+    <Content Include="fileman\images\filetypes\file_extension_cab.png" />
+    <Content Include="fileman\images\filetypes\file_extension_cbr.png" />
+    <Content Include="fileman\images\filetypes\file_extension_cda.png" />
+    <Content Include="fileman\images\filetypes\file_extension_cdl.png" />
+    <Content Include="fileman\images\filetypes\file_extension_cdr.png" />
+    <Content Include="fileman\images\filetypes\file_extension_chm.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dat.png" />
+    <Content Include="fileman\images\filetypes\file_extension_divx.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dll.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dmg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_doc.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dss.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dvf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_dwg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_eml.png" />
+    <Content Include="fileman\images\filetypes\file_extension_eps.png" />
+    <Content Include="fileman\images\filetypes\file_extension_exe.png" />
+    <Content Include="fileman\images\filetypes\file_extension_fla.png" />
+    <Content Include="fileman\images\filetypes\file_extension_flv.png" />
+    <Content Include="fileman\images\filetypes\file_extension_gif.png" />
+    <Content Include="fileman\images\filetypes\file_extension_gz.png" />
+    <Content Include="fileman\images\filetypes\file_extension_hqx.png" />
+    <Content Include="fileman\images\filetypes\file_extension_htm.png" />
+    <Content Include="fileman\images\filetypes\file_extension_html.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ifo.png" />
+    <Content Include="fileman\images\filetypes\file_extension_indd.png" />
+    <Content Include="fileman\images\filetypes\file_extension_iso.png" />
+    <Content Include="fileman\images\filetypes\file_extension_jar.png" />
+    <Content Include="fileman\images\filetypes\file_extension_jpeg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_jpg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_lnk.png" />
+    <Content Include="fileman\images\filetypes\file_extension_log.png" />
+    <Content Include="fileman\images\filetypes\file_extension_m4a.png" />
+    <Content Include="fileman\images\filetypes\file_extension_m4b.png" />
+    <Content Include="fileman\images\filetypes\file_extension_m4p.png" />
+    <Content Include="fileman\images\filetypes\file_extension_m4v.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mcd.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mdb.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mid.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mov.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mp2.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mp3.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mp4.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mpeg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mpg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_msi.png" />
+    <Content Include="fileman\images\filetypes\file_extension_mswmm.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ogg.png" />
+    <Content Include="fileman\images\filetypes\file_extension_pdf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_png.png" />
+    <Content Include="fileman\images\filetypes\file_extension_pps.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ps.png" />
+    <Content Include="fileman\images\filetypes\file_extension_psd.png" />
+    <Content Include="fileman\images\filetypes\file_extension_pst.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ptb.png" />
+    <Content Include="fileman\images\filetypes\file_extension_pub.png" />
+    <Content Include="fileman\images\filetypes\file_extension_qbb.png" />
+    <Content Include="fileman\images\filetypes\file_extension_qbw.png" />
+    <Content Include="fileman\images\filetypes\file_extension_qxd.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ram.png" />
+    <Content Include="fileman\images\filetypes\file_extension_rar.png" />
+    <Content Include="fileman\images\filetypes\file_extension_rm.png" />
+    <Content Include="fileman\images\filetypes\file_extension_rmvb.png" />
+    <Content Include="fileman\images\filetypes\file_extension_rtf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_sea.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ses.png" />
+    <Content Include="fileman\images\filetypes\file_extension_sit.png" />
+    <Content Include="fileman\images\filetypes\file_extension_sitx.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ss.png" />
+    <Content Include="fileman\images\filetypes\file_extension_swf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_tgz.png" />
+    <Content Include="fileman\images\filetypes\file_extension_thm.png" />
+    <Content Include="fileman\images\filetypes\file_extension_tif.png" />
+    <Content Include="fileman\images\filetypes\file_extension_tmp.png" />
+    <Content Include="fileman\images\filetypes\file_extension_torrent.png" />
+    <Content Include="fileman\images\filetypes\file_extension_ttf.png" />
+    <Content Include="fileman\images\filetypes\file_extension_txt.png" />
+    <Content Include="fileman\images\filetypes\file_extension_vcd.png" />
+    <Content Include="fileman\images\filetypes\file_extension_vob.png" />
+    <Content Include="fileman\images\filetypes\file_extension_wav.png" />
+    <Content Include="fileman\images\filetypes\file_extension_wma.png" />
+    <Content Include="fileman\images\filetypes\file_extension_wmv.png" />
+    <Content Include="fileman\images\filetypes\file_extension_wps.png" />
+    <Content Include="fileman\images\filetypes\file_extension_xls.png" />
+    <Content Include="fileman\images\filetypes\file_extension_xpi.png" />
+    <Content Include="fileman\images\filetypes\file_extension_zip.png" />
+    <Content Include="fileman\images\filetypes\unknown.png" />
+    <Content Include="fileman\images\find.png" />
+    <Content Include="fileman\images\folder-add.png" />
+    <Content Include="fileman\images\folder-delete.png" />
+    <Content Include="fileman\images\folder-download.png" />
+    <Content Include="fileman\images\folder-green.png" />
+    <Content Include="fileman\images\folder-opened.png" />
+    <Content Include="fileman\images\folder.png" />
+    <Content Include="fileman\images\loading-dir.gif" />
+    <Content Include="fileman\images\loading.gif" />
+    <Content Include="fileman\images\paste.png" />
+    <Content Include="fileman\images\preview.png" />
+    <Content Include="fileman\images\remove-upload - Copy.png" />
+    <Content Include="fileman\images\remove-upload.png" />
+    <Content Include="fileman\images\rename.png" />
+    <Content Include="fileman\images\search.png" />
+    <Content Include="fileman\images\select.png" />
+    <Content Include="fileman\images\sprite.png" />
+    <Content Include="fileman\images\stripes-reverse.gif" />
+    <Content Include="fileman\images\stripes.gif" />
+    <Content Include="fileman\images\upload-big.png" />
+    <Content Include="fileman\images\view-list.png" />
+    <Content Include="fileman\images\view-tile.png" />
+    <Content Include="fileman\index.html" />
+    <Content Include="fileman\js\custom.js" />
+    <Content Include="fileman\js\directory.js" />
+    <Content Include="fileman\js\file.js" />
+    <Content Include="fileman\js\filetypes.js" />
+    <Content Include="fileman\js\jquery-1.10.2.min.js" />
+    <Content Include="fileman\js\jquery-1.11.1.min.js" />
+    <Content Include="fileman\js\jquery-2.1.1.min.js" />
+    <Content Include="fileman\js\jquery-dateFormat.min.js" />
+    <Content Include="fileman\js\jquery-ui-1.10.4.custom.min.js" />
+    <Content Include="fileman\js\main.js" />
+    <Content Include="fileman\js\main.min.js" />
+    <Content Include="fileman\js\mini-main.js" />
+    <Content Include="fileman\js\tiny_mce_popup.js" />
+    <Content Include="fileman\js\utils.js" />
+    <Content Include="fileman\LICENSE.txt" />
+    <Content Include="fileman\third-party.txt" />
+    <Content Include="scripts\ai.0.15.0-build58334.js" />
+    <Content Include="scripts\ai.0.15.0-build58334.min.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.js" />
+    <Content Include="scripts\jquery.signalR-2.1.2.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Attributes\ApiHandleExceptionSystemResultAttribute.cs" />
+    <Compile Include="Attributes\ApiHandleExceptionSystemAttribute.cs" />
+    <Compile Include="Attributes\MonitoringDelegate.cs" />
+    <Compile Include="Controllers\Categories\CategoryController.cs" />
+    <Compile Include="Controllers\Combobox\TiviComboboxController.cs" />
+    <Compile Include="Controllers\Employees\BankAccountController.cs" />
+    <Compile Include="Controllers\Guidelines\GuidelineController.cs" />
+    <Compile Include="Controllers\Mobile\CustomerMobileController.cs" />
+    <Compile Include="Controllers\Practices\BankController.cs" />
+    <Compile Include="Controllers\Projects\BOMDesignTwosController.cs" />
+    <Compile Include="Controllers\Projects\CustomerContactController.cs" />
+    <Compile Include="Controllers\Projects\OverallProjectController.cs" />
+    <Compile Include="Controllers\Projects\PaymentController.cs" />
+    <Compile Include="Controllers\Projects\ProductNeedPublicationController.cs" />
+    <Compile Include="Controllers\Projects\ProjectEmployeeController.cs" />
+    <Compile Include="Controllers\Projects\ProjectRoleController.cs" />
+    <Compile Include="Controllers\Recruitments\RecruitmentRequestController.cs" />
+    <Compile Include="Controllers\Reports\ReportErrorAffectController.cs" />
+    <Compile Include="Controllers\Reports\ReportErrorProgressController.cs" />
+    <Compile Include="Controllers\Reports\ReportSaleController.cs" />
+    <Compile Include="Controllers\Sales\ApplicationController.cs" />
+    <Compile Include="Controllers\Employees\ClassIficationController.cs" />
+    <Compile Include="Controllers\Sales\SaleTargetmentsController.cs" />
+    <Compile Include="Controllers\Solutions\CustomerRequirementController.cs" />
+    <Compile Include="Controllers\Mobile\MeetingMobileController.cs" />
+    <Compile Include="Controllers\Solutions\ProjectPhaseController.cs" />
+    <Compile Include="Controllers\Solutions\MeetingController.cs" />
+    <Compile Include="Controllers\Solutions\MeetingTypeController.cs" />
+    <Compile Include="Controllers\Solutions\ProjectPhaseController.cs" />
+    <Compile Include="Controllers\Solutions\SolutionSupplierController.cs" />
+    <Compile Include="Controllers\Solutions\SolutionAnalysisProductController.cs" />
+    <Compile Include="Controllers\Solutions\SummaryQuotesController.cs" />
+    <Compile Include="Controllers\Solutions\SurveyController.cs" />
+    <Compile Include="Controllers\Solutions\SurveyContentController.cs" />
+    <Compile Include="Controllers\Solutions\SurveyMaterialController.cs" />
+    <Compile Include="Controllers\Tivi\TiviReportErrorController.cs" />
+    <Compile Include="Controllers\Tivi\TiviReportTKController.cs" />
+    <Compile Include="Controllers\Tools\ClassRoomToolController.cs" />
+    <Compile Include="Controllers\ClassRooms\ClassRoomController.cs" />
+    <Compile Include="Controllers\Materials\CodeRuleController.cs" />
+    <Compile Include="Controllers\Combobox\ComboboxController.cs" />
+    <Compile Include="Controllers\Common\BaseController.cs" />
+    <Compile Include="Controllers\Common\LogController.cs" />
+    <Compile Include="Controllers\Common\NotifyController.cs" />
+    <Compile Include="Controllers\Tools\ConfigScanFilesController.cs" />
+    <Compile Include="Controllers\Tools\ConfigController.cs" />
+    <Compile Include="Controllers\Materials\ConverUnitsController.cs" />
+    <Compile Include="Controllers\Documents\DocumentGroupController.cs" />
+    <Compile Include="Controllers\Documents\DocumentMeetingController.cs" />
+    <Compile Include="Controllers\Documents\DocumentProblemController.cs" />
+    <Compile Include="Controllers\Documents\DocumentSearchController.cs" />
+    <Compile Include="Controllers\Documents\DocumentTypeController.cs" />
+    <Compile Include="Controllers\Documents\DocumentController.cs" />
+    <Compile Include="Controllers\Sales\ExportAndKeepController.cs" />
+    <Compile Include="Controllers\Employees\FlowStageController.cs" />
+    <Compile Include="Controllers\ImportProfiles\ImportProfileProblemExistController.cs" />
+    <Compile Include="Controllers\ImportProfiles\ImportProfileReportController.cs" />
+    <Compile Include="Controllers\ImportProfiles\ImportProfileController.cs" />
+    <Compile Include="Controllers\ImportProfiles\ImportProfileDocumentConfigController.cs" />
+    <Compile Include="Controllers\ImportProfiles\ImportPRController.cs" />
+    <Compile Include="Controllers\Employees\InsuranceLevelController.cs" />
+    <Compile Include="Controllers\Employees\LaborContractController.cs" />
+    <Compile Include="Controllers\Employees\OutputResultController.cs" />
+    <Compile Include="Controllers\Sales\ProductCompareSourceController.cs" />
+    <Compile Include="Controllers\Products\ProductStandardTPATypeController.cs" />
+    <Compile Include="Controllers\Recruitments\QuestionGroupController.cs" />
+    <Compile Include="Controllers\Recruitments\QuestionController.cs" />
+    <Compile Include="Controllers\Employees\ReasonChangeIncomeController.cs" />
+    <Compile Include="Controllers\Employees\ReasonChangeInsuranceController.cs" />
+    <Compile Include="Controllers\Employees\ReasonEndWorkingController.cs" />
+    <Compile Include="Controllers\Recruitments\InterviewController.cs" />
+    <Compile Include="Controllers\Recruitments\ApplyController.cs" />
+    <Compile Include="Controllers\Recruitments\CandidateController.cs" />
+    <Compile Include="Controllers\Recruitments\RecruitmentChannelController.cs" />
+    <Compile Include="Controllers\Reports\ReportProblemExistController.cs" />
+    <Compile Include="Controllers\Reports\CostWarningsController.cs" />
+    <Compile Include="Controllers\Employees\CourseController.cs" />
+    <Compile Include="Controllers\Reports\CurrentCostWarningsController.cs" />
+    <Compile Include="Controllers\Projects\CustomersController.cs" />
+    <Compile Include="Controllers\Projects\CustomerTypesController.cs" />
+    <Compile Include="Controllers\Projects\DashboardEmployeesController.cs" />
+    <Compile Include="Controllers\Projects\DashBroadProjectController.cs" />
+    <Compile Include="Controllers\Tools\DataDistributionController.cs" />
+    <Compile Include="Controllers\Practices\DegreeController.cs" />
+    <Compile Include="Controllers\Employees\DepartmentController.cs" />
+    <Compile Include="Controllers\Tools\DesignStructureController.cs" />
+    <Compile Include="Controllers\Modules\DowloadFileModuleController.cs" />
+    <Compile Include="Controllers\Tools\DMVTSapController.cs" />
+    <Compile Include="Controllers\Tools\DownloadListModuleController.cs" />
+    <Compile Include="Controllers\ClassRooms\EducationProgramController.cs" />
+    <Compile Include="Controllers\Employees\EmployeeDegreesController.cs" />
+    <Compile Include="Controllers\Employees\EmployeeGroupController.cs" />
+    <Compile Include="Controllers\Employees\EmployeeSkillDetailController.cs" />
+    <Compile Include="Controllers\Employees\EmployeeTrainingsController.cs" />
+    <Compile Include="Controllers\Errors\ErrorGroupsController.cs" />
+    <Compile Include="Controllers\Mobile\ErrorMobileController.cs" />
+    <Compile Include="Controllers\Errors\ErrorsController.cs" />
+    <Compile Include="Controllers\Practices\ExpertController.cs" />
+    <Compile Include="Controllers\Tools\FileDefinitionsController.cs" />
+    <Compile Include="Controllers\Tools\FolderDefinitionsController.cs" />
+    <Compile Include="Controllers\Reports\ForecastProjectsController.cs" />
+    <Compile Include="Controllers\Employees\FunctionGroupController.cs" />
+    <Compile Include="Controllers\Employees\FunctionController.cs" />
+    <Compile Include="Controllers\Reports\FuturePersonnelForecastController.cs" />
+    <Compile Include="Controllers\Tools\GeneralDesignsController.cs" />
+    <Compile Include="Controllers\Projects\GeneralInformationProjectsController.cs" />
+    <Compile Include="Controllers\Tools\GeneralTemplateController.cs" />
+    <Compile Include="Controllers\HistoryVersion\HistoryVersionController.cs" />
+    <Compile Include="Controllers\Projects\HolidayController.cs" />
+    <Compile Include="Controllers\Modules\IndustryController.cs" />
+    <Compile Include="Controllers\ClassRooms\JobGroupController.cs" />
+    <Compile Include="Controllers\Employees\JobPositionController.cs" />
+    <Compile Include="Controllers\ClassRooms\JobController.cs" />
+    <Compile Include="Controllers\Materials\ManufactureGroupsController.cs" />
+    <Compile Include="Controllers\Reports\MasterEmployeeLevelController.cs" />
+    <Compile Include="Controllers\Reports\MasterEmployeeController.cs" />
+    <Compile Include="Controllers\Reports\MasterLibraryController.cs" />
+    <Compile Include="Controllers\Materials\MaterialGroupTPAController.cs" />
+    <Compile Include="Controllers\Materials\MaterialGroupController.cs" />
+    <Compile Include="Controllers\Materials\ConfigMaterialController.cs" />
+    <Compile Include="Controllers\Materials\MaterialController.cs" />
+    <Compile Include="Controllers\Materials\MaterialParameterController.cs" />
+    <Compile Include="Controllers\Materials\MaterialParameterValueController.cs" />
+    <Compile Include="Controllers\Modules\ModuleErrorTypeController.cs" />
+    <Compile Include="Controllers\Modules\ModuleErrorController.cs" />
+    <Compile Include="Controllers\Employees\EmployeeController.cs" />
+    <Compile Include="Controllers\Modules\GroupModuleController.cs" />
+    <Compile Include="Controllers\Employees\GroupUserController.cs" />
+    <Compile Include="Controllers\Materials\ManufactureController.cs" />
+    <Compile Include="Controllers\Modules\ModuleMaterialsController.cs" />
+    <Compile Include="Controllers\Modules\ModulePartController.cs" />
+    <Compile Include="Controllers\Modules\ModuleController.cs" />
+    <Compile Include="Controllers\Notify\CallHubContext.cs" />
+    <Compile Include="Controllers\Mobile\MobileNotifyController.cs" />
+    <Compile Include="Controllers\Notify\PCTPMTHub.cs" />
+    <Compile Include="Controllers\Materials\NSMaterialGroupController.cs" />
+    <Compile Include="Controllers\Employees\NTSUserController.cs" />
+    <Compile Include="Controllers\Projects\PlanController.cs" />
+    <Compile Include="Controllers\Practices\PracticeExpertChooseController.cs" />
+    <Compile Include="Controllers\Practices\PracticeExpertsController.cs" />
+    <Compile Include="Controllers\Practices\PracticeFileController.cs" />
+    <Compile Include="Controllers\Practices\PracticeGroupController.cs" />
+    <Compile Include="Controllers\Practices\PracticeInProductController.cs" />
+    <Compile Include="Controllers\Practices\PracticeMaterialConsumableController.cs" />
+    <Compile Include="Controllers\Practices\PracticeMaterialsController.cs" />
+    <Compile Include="Controllers\Practices\PracticeSkillController.cs" />
+    <Compile Include="Controllers\Practices\PracticeSupMaterialsController.cs" />
+    <Compile Include="Controllers\Practices\PracticesController.cs" />
+    <Compile Include="Controllers\Products\ProductAccessoriesController.cs" />
+    <Compile Include="Controllers\Products\ProductGroupsController.cs" />
+    <Compile Include="Controllers\Products\ProductMaterialController.cs" />
+    <Compile Include="Controllers\Modules\ProductStandardGroupController.cs" />
+    <Compile Include="Controllers\Modules\ProductstandardsController.cs" />
+    <Compile Include="Controllers\Products\ProductStandardTPAController.cs" />
+    <Compile Include="Controllers\Products\ProductController.cs" />
+    <Compile Include="Controllers\Projects\ProjectAttchController.cs" />
+    <Compile Include="Controllers\Projects\ProjectErrorsController.cs" />
+    <Compile Include="Controllers\Projects\ProjectGeneralDesignsController.cs" />
+    <Compile Include="Controllers\Projects\ProjectProductsController.cs" />
+    <Compile Include="Controllers\Projects\ProjectSolutionsController.cs" />
+    <Compile Include="Controllers\Projects\ProjectTransferAttachsController.cs" />
+    <Compile Include="Controllers\Projects\ProjectController.cs" />
+    <Compile Include="Controllers\Materials\QLTKMGController.cs" />
+    <Compile Include="Controllers\Materials\QLTKMPController.cs" />
+    <Compile Include="Controllers\Materials\RawMaterialController.cs" />
+    <Compile Include="Controllers\Reports\ReportApplicationPresentController.cs" />
+    <Compile Include="Controllers\Reports\ReportEmployeePresentController.cs" />
+    <Compile Include="Controllers\Reports\ReportQualityPresentController.cs" />
+    <Compile Include="Controllers\Reports\ReportErrorController.cs" />
+    <Compile Include="Controllers\Reports\ReportStatusModuleController.cs" />
+    <Compile Include="Controllers\Reports\ReportStatusProductController.cs" />
+    <Compile Include="Controllers\Reports\ReportController.cs" />
+    <Compile Include="Controllers\ClassRooms\RoomTypeController.cs" />
+    <Compile Include="Controllers\Employees\SalaryTypeController.cs" />
+    <Compile Include="Controllers\Employees\SalaryGroupController.cs" />
+    <Compile Include="Controllers\Employees\SalaryLevelController.cs" />
+    <Compile Include="Controllers\Sales\SaleGroupController.cs" />
+    <Compile Include="Controllers\Sales\SaleProductTypeController.cs" />
+    <Compile Include="Controllers\Sales\SaleProductController.cs" />
+    <Compile Include="Controllers\Employees\SBUsController.cs" />
+    <Compile Include="Controllers\Projects\ScheduleProjectController.cs" />
+    <Compile Include="Controllers\Materials\SimilarMaterialConfigsController.cs" />
+    <Compile Include="Controllers\Materials\SimilarMaterialsController.cs" />
+    <Compile Include="Controllers\Modules\SketchesController.cs" />
+    <Compile Include="Controllers\Employees\SkillEmployeeController.cs" />
+    <Compile Include="Controllers\Practices\SkillGroupController.cs" />
+    <Compile Include="Controllers\Practices\SkillController.cs" />
+    <Compile Include="Controllers\Solutions\SolutionGroupsController.cs" />
+    <Compile Include="Controllers\Solutions\SolutionProductController.cs" />
+    <Compile Include="Controllers\Solutions\SolutionsController.cs" />
+    <Compile Include="Controllers\Practices\SpecializeController.cs" />
+    <Compile Include="Controllers\Modules\StageController.cs" />
+    <Compile Include="Controllers\Reports\StatusReportMaterialsController.cs" />
+    <Compile Include="Controllers\ClassRooms\SubjectsController.cs" />
+    <Compile Include="Controllers\Materials\SupplierGroupsController.cs" />
+    <Compile Include="Controllers\Materials\SupplierController.cs" />
+    <Compile Include="Controllers\Employees\TaskFlowStageController.cs" />
+    <Compile Include="Controllers\Projects\TaskModuleGroupController.cs" />
+    <Compile Include="Controllers\Projects\TaskTimeStandardController.cs" />
+    <Compile Include="Controllers\Projects\TaskController.cs" />
+    <Compile Include="Controllers\Modules\TestCriteriaGroupController.cs" />
+    <Compile Include="Controllers\Modules\TestCriteriaController.cs" />
+    <Compile Include="Controllers\Tools\TestDesignController.cs" />
+    <Compile Include="Controllers\Materials\UnitController.cs" />
+    <Compile Include="Controllers\Employees\UserHistoryController.cs" />
+    <Compile Include="Controllers\Employees\UserController.cs" />
+    <Compile Include="Controllers\Tools\WebServiceController.cs" />
+    <Compile Include="Controllers\Tools\DownloadController.cs" />
+    <Compile Include="Controllers\Tools\TestDesignStructureController.cs" />
+    <Compile Include="Controllers\Employees\WorkDiaryController.cs" />
+    <Compile Include="Controllers\Employees\WorkLocationController.cs" />
+    <Compile Include="Controllers\Practices\WorkPlaceController.cs" />
+    <Compile Include="Controllers\Employees\WorkSkillController.cs" />
+    <Compile Include="Controllers\Employees\WorkTimeController.cs" />
+    <Compile Include="Controllers\Employees\WorkTypeInterviewController.cs" />
+    <Compile Include="Controllers\Employees\WorkTypeController.cs" />
+    <Compile Include="NTSIPAuthorizeAttribute.cs" />
+    <Compile Include="NTSPLAuthorize.cs" />
+    <Compile Include="Utilities\HubUtilities.cs" />
+    <Compile Include="Utilities\Utilities.cs" />
+    <Compile Include="Models\UserEventLogModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="SignalR\AppointmentHub.cs" />
+    <Compile Include="SignalR\test.cs" />
+    <Compile Include="Utilities\PasswordUtil.cs" />
+    <Compile Include="Helper.cs" />
+    <Compile Include="NTSAuthorize.cs" />
+    <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
+    <Compile Include="Repositories\AuthRepository.cs" />
+    <Compile Include="Startup.cs" />
+    <Compile Include="Utilities\UploadFileServer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ApplicationInsights.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="packages.config" />
+    <Content Include="fileman\asp_net\main.ashx" />
+    <Content Include="fileman\conf.json" />
+    <Content Include="fileman\lang\bg.json" />
+    <Content Include="fileman\lang\ca.json" />
+    <Content Include="fileman\lang\cs.json" />
+    <Content Include="fileman\lang\cs1.json" />
+    <Content Include="fileman\lang\da.json" />
+    <Content Include="fileman\lang\de.json" />
+    <Content Include="fileman\lang\en.json" />
+    <Content Include="fileman\lang\es.json" />
+    <Content Include="fileman\lang\fr.json" />
+    <Content Include="fileman\lang\hu.json" />
+    <Content Include="fileman\lang\it.json" />
+    <Content Include="fileman\lang\nl.json" />
+    <Content Include="fileman\lang\pl.json" />
+    <Content Include="fileman\lang\pt.json" />
+    <Content Include="fileman\lang\ru.json" />
+    <Content Include="fileman\lang\sk.json" />
+    <Content Include="fileman\lang\tr.json" />
+    <Content Include="fileman\web.config" />
+    <Content Include="InitData\groupfunction.json" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Template\HangSanXuat.xlsx" />
+    <Content Include="Template\Module.xlsx" />
+    <Content Include="Template\ProductStandards.xlsx" />
+    <Content Include="Template\Designer.xlsx" />
+    <Content Include="Template\ProductAccessories.xlsx" />
+    <Content Include="Template\ProductMaterials.xlsx" />
+    <Content Include="Template\Skills.xlsx" />
+    <Content Include="Template\Practice.xlsx" />
+    <Content Include="Template\Customer.xlsx" />
+    <Content Include="Template\ModuleMaterial.xlsx" />
+    <Content Include="Template\Material.xlsx" />
+    <Content Include="Template\listCriteria.xlsx" />
+    <Content Include="Template\BieuMauBanVeNguyenLy_BangTinhToan.docm" />
+    <Content Include="Template\BieuMauDanhMucVatTu.xlsm" />
+    <Content Include="Template\BieuMauKiemTraBanVeMachIn.docm" />
+    <Content Include="Template\BieuMauKiemTraChatLuongSanPhamMachDienTu.docm" />
+    <Content Include="Template\BieuMauKiemTraNguyenLy.docm" />
+    <Content Include="Template\BieuMauLapRapMachDienTu.docm" />
+    <Content Include="Template\BieuMauPhuongAnThietKe.docm" />
+    <Content Include="Template\ClassRoom.xlsx" />
+    <Content Include="Template\Customers.xlsx" />
+    <Content Include="Template\EducationProgram.xlsx" />
+    <Content Include="Template\Employee.xlsx" />
+    <Content Include="Template\Expert.xlsx" />
+    <Content Include="Template\HangSanXuat_Import_Template.xls" />
+    <Content Include="Template\importvattu_phacthaothietke_template.xlsm" />
+    <Content Include="Template\Import_Nhân viên_Template.xls" />
+    <Content Include="Template\Job.xlsx" />
+    <Content Include="Template\Khách hàng_Template.xls" />
+    <Content Include="Template\ListEmployee.xlsx" />
+    <Content Include="Template\ListModule.xlsx" />
+    <Content Include="Template\Lịch sử giá mua_Template.xlsx" />
+    <Content Include="Template\ModuleError.xlsx" />
+    <Content Include="Template\NhaCungCap.xlsx" />
+    <Content Include="Template\NhaCungCap_Import_Template.xls" />
+    <Content Include="Template\project.xlsx" />
+    <Content Include="Template\ProjectModule.xlsx" />
+    <Content Include="Template\Subjects.xlsx" />
+    <Content Include="Template\VatTu_Import_Template.xlsx" />
+    <Content Include="Template\BieuMauPhuongAnThietKe_DanhMucKhoiChucNang.docm" />
+    <Content Include="Template\BieuMauPhuongAnThietKe_LinhKienChinh.docm" />
+    <Content Include="Template\HoSoThietKeDien.xlsm" />
+    <Content Include="Template\PhacThaoThietKe.docm" />
+    <Content Include="Template\DanhMucKiemTra.docm" />
+    <Content Include="Template\HoSoThietKe.docm" />
+    <Content Include="Template\HoSoThietKe_CoKhi.xlsm" />
+    <Content Include="Template\XacNhanVatTuDien.xlsm" />
+    <Content Include="Template\ProplemExist.xlsx" />
+    <Content Include="Template\Solution.xlsx" />
+    <Content Include="Template\TongHopThietKe_Template.xlsm" />
+    <Content Include="Template\BOM_ProjectProduct_Template.xls" />
+    <Content Include="Template\Import_Nhân viên_Template.xlsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="DLL\" />
+    <Folder Include="Export\" />
+    <Folder Include="fileman\tmp\" />
+    <Folder Include="fileman\Uploads\Documents\" />
+    <Folder Include="fileman\Uploads\FLV\" />
+    <Folder Include="fileman\Uploads\Images\" />
+    <Folder Include="fileUpload\customer\" />
+    <Folder Include="fileUpload\Icon\" />
+    <Folder Include="fileUpload\ImageUser\" />
+    <Folder Include="fileUpload\parking\" />
+    <Folder Include="Images\" />
+    <Folder Include="Properties\" />
+    <Folder Include="Views\CustomerContact\" />
+    <Folder Include="Views\DownloadProjectProduct\" />
+    <Folder Include="Views\EMSDT1000\" />
+    <Folder Include="Views\ImportPR\" />
+    <Folder Include="Views\MeetingMobile\" />
+    <Folder Include="Views\MeetingType\" />
+    <Folder Include="Views\Meeting\" />
+    <Folder Include="Views\ProductCompareSource\" />
+    <Folder Include="Views\RecruitmentRequest\" />
+    <Folder Include="Views\SolutionProduct\" />
+    <Folder Include="Views\Stage\" />
+    <Folder Include="Views\VMSCT2100\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTS.Common\NTS.Common.csproj">
+      <Project>{e0662561-9e58-4bd7-a629-808d2671ad29}</Project>
+      <Name>NTS.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QLTK.Business\QLTK.Business.csproj">
+      <Project>{ea8b165f-e3e0-43f7-86c0-22528b9f8827}</Project>
+      <Name>QLTK.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NTS.Model\NTS.Model.csproj">
+      <Project>{76b3e731-5736-4d6f-996b-989cf02f38a4}</Project>
+      <Name>NTS.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2031</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2031/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.1.0.0\build\Microsoft.Net.Compilers.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

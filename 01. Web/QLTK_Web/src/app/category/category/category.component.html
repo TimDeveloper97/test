@@ -1,0 +1,137 @@
+<div class="content-wrapper page-content">
+    <section class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger"> 223 </span> danh mục</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 text-right">
+                    <button *appUipermission="['F000101']" type="button" (click)="showCreateUpdate('', false)"
+                        class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm danh mục"
+                        container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <dx-tree-list id="employees" [dataSource]="listCategoryGroup" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listCategoryGroupId"
+                        noDataText=" ">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="255" placeholder="Tìm kiếm theo mã"
+                            searchVisibleColumnsOnly="true">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên nhóm danh mục" [minWidth]="200">
+                        </dxi-column>
+                        <dxi-column cellTemplate="cellEditTemplate" caption="Xử lý" width="100px" dataField="Id"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <!-- <ng-container [disUipermission]="['F000101']"> -->
+                                <ng-container *appUipermission="['F000101']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-add" ngbTooltip="Thêm nhóm" (click)=" showCreateUpdate(item.value)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F000102']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-update" ngbTooltip="Sửa nhóm"
+                                        (click)=" showCreateUpdate(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F000103']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-delete" ngbTooltip="Xóa nhóm"
+                                        (click)=" showConfirmDeleteMaterialGroup(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>
+                                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelCategory" name="modelCategory"
+                            (change)="searchCategory(categoryGroupId)">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchCategory(categoryGroupId)">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                   
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                    <button *appUipermission="['F000001']" type="button" class="btn btn-success mt-md-1 mt-xl-0"
+                        (click)='showCreate()' container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button *appUipermission="['F000007']" class="btn  btn-success" (click)="exportExcel()">
+                                <i class="fas fa-file-excel" aria-hidden="true"></i>
+                                Xuất excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                   
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-md-8  d-flex justify-content-end">
+                    
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                   
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

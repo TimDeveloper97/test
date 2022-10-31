@@ -1,0 +1,160 @@
+<form name="searchForm" #f="ngForm">
+    <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="candidateModel"
+                (change)="searchProblem()">
+            </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchProblem()">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+    </div>
+</form>
+<br />
+<div class="row margin-bottom-5">
+    <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{searchModel.TotalItems}}</span> review
+        </label>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+        <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body"  *appUipermission="['F121317']" >
+            <i class="fa fa-plus"></i>
+            Thêm mới
+        </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1030px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="80px" class="text-center">Xử lý</th>
+                        <th width="150px" class="text-center">Tình trạng</th>
+                        <th min-width="200px" class="text-center">Vấn đề cần chỉnh sửa</th>
+                        <th width="150px" class="text-center">Ngày phát hiện</th>
+                        <th width="200px" class="text-center">Ngày dự kiến hoàn thành</th>
+                        <th width="200px" class="text-center">Ngày hoàn thành</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of reviews; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                            <button type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                                placement="top" ngbTooltip="Cập nhật" container="body"  *appUipermission="['F121318']">
+                                <span class="fa fa-edit" aria-hidden="true"></span>
+                            </button>&nbsp;
+                            <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                (click)="showConfirmDelete(row.Id)" container="body"  *appUipermission="['F121319']">
+                                <span class="fas fa-times" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td class="text-center">
+                            <nts-status-badge [value]="row.Status" [items]="constants.DocumentProblemStatus">
+                            </nts-status-badge>
+                        </td>
+                        <td>
+                            {{row.Problem}}
+                        </td>
+                        <td class="text-center">
+                            {{row.ProblemDate|date:'dd/MM/yyyy'}}
+                        </td>
+                        <td class="text-center">
+                            {{row.FinishExpectedDate|date:'dd/MM/yyyy'}}
+                        </td>
+                        <td class="text-center">
+                            {{row.FinishDate|date:'dd/MM/yyyy'}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>
+
+<!-- File -->
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 text-left">
+        <p class="text" style="white-space: nowrap">Danh sách biên bản họp</p>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+        <button class="btn btn-success" (click)="fileInput.click();" *appUipermission="['F121320']">
+            <i class="fas fa-arrow-up"></i>&nbsp;
+            <span>Upload</span>
+        </button>
+
+        <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+            (change)="uploadFileClick($event)" multiple (click)="fileInput.value = null" />
+    </div>
+
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:570px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th min-width="150px" class="text-center">Tên file</th>
+                        <th width="100px" class="text-center">Dung lượng</th>
+                        <th width="200px" class="text-center">Thời gian họp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of meetingModel.MeetingFiles; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                            <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                (click)="deleteFile(i)" container="body" *appUipermission="['F121321']">
+                                <span class="fas fa-times" aria-hidden="true"></span>
+                            </button>&nbsp;
+                            <ng-container *ngIf="row.Path!=''">
+                                <button type="button" (click)="downloadAFile(row)"
+                                    style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                                    ngbTooltip="Tải và lưu" container="body" *appUipermission="['F121322']">
+                                    <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                                </button>
+                            </ng-container>
+                        </td>
+                        <td>
+                            <span>{{row.FileName}}</span>
+                        </td>
+                        <td class="text-center">
+                            <span>{{row.FileSize / (1024*1024)| number:
+                                '1.1-3'}} MB</span>
+                        </td>
+                        <td class="text-center">
+                            <div class="input-group">
+                                <input container="body" class="form-control"
+                                    placeholder="dd/mm/yyyy" [name]="'MeetingDateV' + i" [(ngModel)]="row.MeetingDateV"
+                                    ngbDatepicker #MeetingDateV="ngbDatepicker"
+                                    [minDate]="{year: 1900, month: 1, day: 1}"
+                                    [maxDate]="{year: 2100, month: 12, day: 31}">
+                                <div class="input-group-append">
+                                    <span  class="dtp-icon"
+                                        (click)="MeetingDateV.toggle();$event.stopPropagation();">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>
+
+<div class=" modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" (click)="saveMeetingFile()" *appUipermission="['F121317','F121318','F121319']">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu</span>
+        </button>
+    </ng-container>
+</div>

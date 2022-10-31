@@ -1,0 +1,64 @@
+import { Injectable } from '@angular/core';
+import { Configuration } from 'src/app/shared';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class InterviewService {
+
+  constructor(
+    private http: HttpClient,
+    private config: Configuration,
+  ) { }
+
+  searchInterviews(model:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/search', model, httpOptions);
+    return tr
+  }
+
+  deleteInterview(model:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/delete-interview', model, httpOptions);
+    return tr
+  }
+
+  getIntervewInfo(model:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/get-interviewinfo',model, httpOptions);
+    return tr
+  }
+
+  getIntervewById(id:any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'interview/get-interview-by-id/'+id, httpOptions);
+    return tr
+  }
+
+  create(model:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/create-interview', model, httpOptions);
+    return tr
+  }
+  
+  createQuestion(model:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/create-interview-question', model, httpOptions);
+    return tr
+  }
+
+  getInterviewByRecruitmentRequestId(id:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/GetInfoInterviewByRecruitmentRequestId/'+id, httpOptions);
+    return tr
+  }
+
+  getListQuestions(id:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/GetListQuestions/'+id, httpOptions);
+    return tr
+  }
+
+  delete(id:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'interview/delete/'+ id, httpOptions);
+    return tr
+  }
+}

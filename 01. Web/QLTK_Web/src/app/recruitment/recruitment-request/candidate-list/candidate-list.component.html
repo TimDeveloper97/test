@@ -1,0 +1,65 @@
+<!-- Danh sách ứng viên -->
+<div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1680px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Ảnh</th>
+                        <th width="120px" class="text-center">KQ phỏng vấn</th>
+                        <th width="120px" class="text-center">KQ ứng tuyển</th>
+                        <th width="100px" class="text-center">Số HS</th>
+                        <th min-width="200px" class="text-center">Tên ứng viên</th>
+                        <th width="100px" class="text-center">Số điện thoại</th>
+                        <th width="100px" class="text-center">Ngày sinh</th>
+                        <th width="150px" class="text-center">Email</th>
+                        <th width="120px" class="text-center">Ngày ứng tuyển</th>
+                        <th width="200px" class="text-center">Vị trí ứng tuyển</th>
+                        <th width="130px" class="text-center">Lương đề nghị</th>
+                        <th width="120px" class="text-center">Ngày hẹn PV</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of candidates; let i = index">
+                        <td class="text-center">{{startIndex+i}}</td>
+                        <td>
+                            <img class="image-thum" *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                [src]="config.ServerFileApi+row.ImagePath">
+                        </td>
+                        <td class="text-center">
+                            <nts-status-badge [items]="constant.InterviewStatus" [value]="row.InterviewStatus">
+                            </nts-status-badge>
+                        </td>
+                        <td class="text-center">
+                            <nts-status-badge [items]="constant.ApplyStatus" [value]="row.ApplyStatus">
+                            </nts-status-badge>
+                        </td>
+                        
+                        <td>
+                            <a target="_blank" [routerLink]="['/tuyen-dung/ho-so-ung-vien/chinh-sua/'+row.ApplyId]"
+                                class="bold" >{{row.Code}}</a>
+                        </td>
+                        
+                        <td><a target="_blank" [routerLink]="['/tuyen-dung/ho-so-ung-vien/chinh-sua/'+row.ApplyId]"
+                            class="bold" >{{row.Name}}</a></td>
+                        <td class="text-center">{{row.PhoneNumber}}</td>
+                        <td class="text-center">{{row.DateOfBirth|date:'dd/MM/yyyy'}}</td>
+                        <td>{{row.Email}}</td>
+                        <td class="text-center">{{row.ApplyDate|date:'dd/MM/yyyy'}}</td>
+                        <td>{{row.WorkTypeName}}</td>
+                        <td class="text-right">{{row.Salary|number}}</td>
+                        <td class="text-center">{{row.InterviewDate|date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                </tbody>
+                <tfoot *ngIf="candidates.length == 0">
+                    <tr class="bold">
+                        <td colspan="11" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">
+                            Không
+                            có dữ liệu</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>

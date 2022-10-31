@@ -1,0 +1,256 @@
+<div class="tool-search">
+  <form (submit)="search(); p.close();">
+    <div class="body-search">
+      <button type="button" class="btn btn-filter" [autoClose]="false" placement="bottom-left" [ngbPopover]="popContent"
+        #p="ngbPopover" [popoverTitle]="popTitle" [popoverClass]="'nts-popover-body'" [container]="'body'"
+        (click)="showPopover(p)" triggers="manual">
+        Tìm kiếm theo ... <i class="fas fa-caret-down"></i>
+      </button>
+      <div class="content-search">
+        <input [disUipermission]="_options.Permission" type="text" class="form-control input-content-search" name="Code"
+          [(ngModel)]="_searchModelView[_options.FieldContentName]" [placeholder]="_options.Placeholder"
+          (change)="searchContentChange(_options.FieldContentName)">
+        <!-- <span class="clear-content-search"><i class="fas fa-times"></i></span>
+          <span class="clear-content-search"><i class="fas fa-sync-alt"></i></span> -->
+      </div>
+    </div>
+    <div class="show-item-search">
+      <ul *ngIf="_searchValues">
+        <li *ngFor="let item of _searchValues; let i = index">
+          <span>{{item.Name}}: {{item.Value}} <i *appUipermission="_searchItems[item.Index].Permission"
+              (click)="removeSearch(i, item.Index)" class="fas fa-times" placement="bottom" ngbTooltip="Xóa"
+              container="body"></i></span>
+        </li>
+      </ul>
+    </div>
+
+  </form>
+  <ng-template #popTitle>Hiển thị tìm kiếm theo:</ng-template>
+  <ng-template #popContent>
+
+    <form>
+      <ng-container *ngFor="let option of _options.Items; let i = index">
+        <ng-container *ngIf="option.Type=='text'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}</label>
+                <div class="controls">
+                  <input [disUipermission]="option.Permission" type="text" class="form-control"
+                    [name]="option.FieldName" [(ngModel)]="_searchModelView[option.FieldName]"
+                    [placeholder]="option.Placeholder" (change)="textChange(i, option.FieldName)">
+                </div>
+                <span *appUipermission="option.Permission" class="remove" (click)="removeItem(i)" placement="bottom"
+                  ngbTooltip="Xóa"><i class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="option.Type=='number'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls d-flex">
+                  <select class="form-control expression-type" [name]="option.FieldNameType"
+                    [(ngModel)]="_searchModelView[option.FieldNameType]"
+                    (change)="selectChangeExpressionType($event, i, option.FieldName)">
+                    <option *ngFor="let row of constants.SearchExpressionTypes" [ngValue]="row.Id">{{row.Name}}</option>
+                  </select>
+                  <input type="text" currencyMask class="form-control" [name]="option.FieldName"
+                    [(ngModel)]="_searchModelView[option.FieldName]" [placeholder]="option.Placeholder"
+                    (ngModelChange)="numberChange(i, option.FieldName, option.FieldNameType)">
+                </div>
+                <span class="remove" (click)="removeItem(i)" placement="bottom" ngbTooltip="Xóa"><i
+                    class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="option.Type=='StageStatus'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls d-flex">
+                  <select [disUipermission]="option.Permission" class="form-control" [name]="option.FieldName"
+                    [(ngModel)]="_searchModelView[option.FieldName]"
+                    (change)="selectChange($event, i, option.FieldName)">
+                    <option value="">Tất cả</option>
+                    <option *ngFor="let row of option.Data" [ngValue]="row[option.ValueName]">
+                      {{row[option.DisplayName]}}
+                    </option>
+                  </select>
+                    &nbsp;
+                    <select class="form-control" [name]="option.FieldNameType"
+                    [(ngModel)]="_searchModelView[option.FieldNameType]"
+                    (change)="selectChangeExpressionType($event, i, option.FieldNameType)">
+                    <option *ngFor="let row of constants.StageStatus" [ngValue]="row.Id">{{row.Name}}</option>
+                  </select>
+                </div>
+                <span class="remove" (click)="removeItem(i)" placement="bottom" ngbTooltip="Xóa"><i
+                    class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="option.Type=='numberYear'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls d-flex">
+                  <input type="text" ntsNumberInt class="form-control" [name]="option.FieldName"
+                    [(ngModel)]="_searchModelView[option.FieldName]" [placeholder]="option.Placeholder"
+                    (ngModelChange)="numberChangeYear(i, option.FieldName)">
+                </div>
+                <span class="remove" (click)="removeItem(i)" placement="bottom" ngbTooltip="Xóa"><i
+                    class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="option.Type=='time'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls d-flex">
+                  <select name="TimeType" class="form-control" [(ngModel)]="model.TimeType"  [name]="option.FieldName">
+                    <option *ngFor="let item of constant.SearchDebtTimeTypes" [ngValue]="item.Id">
+                      {{item.Name}}
+                    </option>
+                  </select>
+                </div>
+                <span class="remove" (click)="removeItem(i)" placement="bottom" ngbTooltip="Xóa"><i
+                    class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="option.Type=='select'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls">
+                  <select [disUipermission]="option.Permission" class="form-control" [name]="option.FieldName"
+                    [(ngModel)]="_searchModelView[option.FieldName]"
+                    (change)="selectChange($event, i, option.FieldName)">
+                    <option value="">Tất cả</option>
+                    <option *ngFor="let row of option.Data" [ngValue]="row[option.ValueName]">
+                      {{row[option.DisplayName]}}
+                    </option>
+                  </select>
+                </div>
+                <span *appUipermission="option.Permission" class="remove" (click)="removeItem(i)" placement="bottom"
+                  ngbTooltip="Xóa"><i class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="option.Type=='date'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls date">
+                  <div class="input-group">
+                    <input [disUipermission]="option.Permission" class="form-control" [name]="option.FieldNameFrom"
+                      [(ngModel)]="_searchModelView[option.FieldNameFrom]" ngbDatepicker #dateFrom="ngbDatepicker"
+                      placeholder="Từ ngày" (click)="dateFrom.toggle();$event.stopPropagation();"
+                      (ngModelChange)="dateChange(i,option.FieldNameFrom,option.FieldNameTo)">
+                  </div>
+                  <span>-</span>
+                  <div class="input-group">
+                    <input [disUipermission]="option.Permission" class="form-control" [name]="option.FieldNameTo"
+                      [(ngModel)]="_searchModelView[option.FieldNameTo]" ngbDatepicker #dateTo="ngbDatepicker"
+                      placeholder="Đến ngày" (click)="dateTo.toggle();$event.stopPropagation();"
+                      (ngModelChange)="dateChange(i,option.FieldNameFrom,option.FieldNameTo)">
+                  </div>
+                </div>
+                <span *appUipermission="option.Permission" class="remove" (click)="removeItem(i)" placement="bottom"
+                  ngbTooltip="Xóa"><i class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="option.Type=='dropdown'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls">
+                  <nts-drop-down [disUipermission]="option.Permission" [items]="option.Data" [columns]="option.Columns"
+                    [ntsLabel]="option.DisplayName" [ntsValue]="option.ValueName" [ntsMode]="option.SelectMode"
+                    [placeholder]="option.Placeholder" [(ngModel)]="_searchModelView[option.FieldName]"
+                    ntsAutoClose="true" (change)="dropdownChange(i)" [name]="option.FieldName">
+                  </nts-drop-down>
+                </div>
+                <span *appUipermission="option.Permission" class="remove" (click)="removeItem(i)" placement="bottom"
+                  ngbTooltip="Xóa"><i class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+        <ng-container *ngIf="option.Type=='dropdowntree'">
+          <div class="row">
+            <div class="col-12">
+              <div class="form-group" *ngIf="_searchItems[i].Checked">
+                <label class="form-label">{{option.Name}}
+                </label>
+                <div class="controls">
+                  <nts-drop-down-tree [disUipermission]="option.Permission" [items]="option.Data"
+                    [columns]="option.Columns" [ntsParentId]="option.ParentId" [ntsLabel]="option.DisplayName"
+                    [ntsValue]="option.ValueName" [ntsMode]="option.SelectMode" [placeholder]="option.Placeholder"
+                    [(ngModel)]="_searchModelView[option.FieldName]" ntsAutoClose="true" (change)="dropdownChange(i)"
+                    [name]="option.FieldName">
+                  </nts-drop-down-tree>
+                </div>
+                <span *appUipermission="option.Permission" class="remove" (click)="removeItem(i)" placement="bottom"
+                  ngbTooltip="Xóa"><i class="fas fa-trash-alt"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+      </ng-container>
+      <div class="row">
+        <div class="col-12">
+          <div class="search">
+            <select *ngIf="count < _searchItems.length" class="custom-select mr-sm-2" name="_searchItemId"
+              (change)="searchItemChange($event)">
+              <option value="" selected>Chọn điều kiện lọc...</option>
+              <ng-container *ngFor="let row of _searchItems">
+                <option *ngIf="!row.Checked" [value]="row.Id">{{row.Name}}</option>
+              </ng-container>
+            </select>
+            <ng-container>
+              <button class="btn btn-success" (click)="search(); p.close();">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>
+              <button class="btn btn-danger" (click)="p.close();">
+                <i class="fa fa-times"></i> &nbsp;Đóng</button>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+
+    </form>
+  </ng-template>
+</div>

@@ -1,0 +1,176 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [options]="searchOptions" [(ngModel)]="searchModel" name="model"
+                            (change)="searchImportProfile()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchImportProfile()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> hồ sơ</label>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                    <!-- <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="btn btn-success btn-file" (click)="exportExcel()">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2060px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="110px" class="text-center">Xử lý</th>
+                                    <th width="130px" class="text-center">Tiến độ vật tư theo PR Due Date</th>
+                                    <th width="120px" class="text-center">Mã hồ sơ</th>
+                                    <th min-width="200px" class="text-center">Tên hồ sơ</th>
+                                    <th width="120px" class="text-center">Số tiền</th>
+                                    <th width="100px" class="text-center">Nhà cung cấp</th>
+                                    <th width="200px" class="text-center">Tên nhà cung cấp</th>
+                                    <th width="100px" class="text-center">Hạn thanh toán</th>
+                                    <th width="130px" class="text-center">Tình trạng thanh toán</th>
+                                    <th width="100px" class="text-center">PR Due Date</th>
+                                    <th width="100px" class="text-center">PO Due Date</th>
+                                    <th width="200px" class="text-center">Hãng sản xuất</th>
+                                    <th width="200px" class="text-center">Dự án</th>
+                                    <th width="200px" class="text-center">Người phụ trách</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button class="btn btn-xs btn-info" container="body"
+                                            (click)="downListFile(row.Id)" ngbTooltip="Xuất danh sách chứng từ"
+                                            container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button> &nbsp;
+                                        <a type="button" class="btn btn-xs btn-success" placement="top" ngbTooltip="Xem"
+                                            container="body"
+                                            [routerLink]="['/nhap-khau/ho-so-nhap-khau-ket-thuc/xem/'+ row.Id]"
+                                            *appUipermission="['F120807']">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a> &nbsp;
+                                        <a type="button" class="btn btn-xs btn-warning" placement="top"
+                                            ngbTooltip="Cập nhật" container="body"
+                                            [routerLink]="['/nhap-khau/ho-so-nhap-khau-ket-thuc/chinh-sua/'+ row.Id]"
+                                            *appUipermission="['F120802']">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge"
+                                            [ngClass]="row.Status|filterbadgeclassinlist:constant.ImportStatus">{{row.Status|filterinlist:constant.ImportStatus}}</span>
+                                    </td>
+                                    <td>
+                                        <a [routerLink]="['/nhap-khau/ho-so-nhap-khau-ket-thuc/xem/'+ row.Id]"
+                                            target="_blank" style="text-decoration: none;">
+                                            {{row.Code}}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        {{row.Name}}
+                                    </td>
+                                    <td class="text-right">
+                                        {{row.Amount|number}}
+                                    </td>
+
+                                    <td class="text-center">
+                                        {{row.SupplierCode}}
+                                    </td>
+                                    <td>
+                                        {{row.SupplierName}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.PayDueDate|date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge"
+                                            [ngClass]="row.PayStatus|filterbadgeclassinlist:constant.ImportPayStatus">{{row.PayStatus|filterinlist:constant.ImportPayStatus}}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.PRDueDate|date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.EstimatedDeliveryDate|date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td>
+                                        {{row.ManufacturerCode}}
+                                    </td>
+                                    <td>
+                                        {{row.ProjectCode}}
+                                    </td>
+                                    <td>
+                                        {{row.EmployeeName}}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="32" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                            name="pageSize" (ngModelChange)="searchImportProfile()">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                        (pageChange)="searchImportProfile()" [pageSize]="searchModel.PageSize" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa hồ sơ</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa hồ sơ</small>
+
+                    <button class="btn btn-view btn-success">
+                        <i class="fas fa-plus"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Tạo hồ sơ</small>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

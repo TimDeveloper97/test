@@ -1,0 +1,296 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+  <div class="modal-body padding-15 " >
+    <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false" (navChange)="beforeChange($event)">
+      <!-- Tab thông tin nhóm module -->
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+              <div class="form-group ">
+                <label class="form-label">Mã nhóm
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F020002','F020001']" type="text" class="form-control"
+                    [(ngModel)]="model.Code" name="codemodulegroupcreate" maxlength="20" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+              <div class="form-group ">
+                <label class="form-label">Tên nhóm
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F020002','F020001']" type="text" class="form-control"
+                    [(ngModel)]="model.Name" name="namemodulegroupcreate" maxlength="200" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+              <div class="form-group ">
+                <label class="form-label">Nhóm cha
+                </label>
+
+                <nts-drop-down-tree [items]="listGroupModule" [columns]="columnName" ntsParentId="ParentId"
+                  ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ParentId"
+                  name="Id" [disUipermission]="['F020002','F020001']"></nts-drop-down-tree>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label class="form-label">Mô tả
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [disUipermission]="['F020002','F020001']" [(ngModel)]="model.Description" name="Description"
+                    rows="5" class="form-control" [maxLength]="300"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label class="form-label">Ghi chú
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [disUipermission]="['F020002','F020001']" [(ngModel)]="model.Note" name="Note" rows="5"
+                    class="form-control" [maxLength]="300"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <!-- Tab tiêu chuẩn -->
+      <li [ngbNavItem]="'tab-product-standard'"
+        [disabled]="!f.form.valid && permissionService.checkPermission(['F020002'])">
+        <a ngbNavLink>Tiêu chuẩn</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-md-4 text-left">
+              <label class="form-label" style="line-height:35px;">Danh sách tiêu chuẩn
+              </label>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text-right">
+              <button type=" button" class="btn btn-success" (click)="showSelectProductStandard()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn tiêu chuẩn
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-4 col-sm-6 text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listData.length}} </span> tiêu chuẩn</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 " #scrollProductStandard>
+              <div #scrollProductStandardHeader style="overflow-x: auto;overflow: hidden;">
+                <table class="table table-bordered mb-0" style="min-width:1250px">
+                  <thead>
+                    <tr>
+                      <th width="40px">STT</th>
+                      <th width="70px">Xử lý</th>
+                      <th style="min-width: 150px;">Tên tiêu chuẩn</th>
+                      <th width="120px">Mã tiêu chuẩn</th>
+                      <th width="100px">Loại</th>
+                      <th width="150px">Nhóm tiêu chuẩn</th>
+                      <th width="150px">Bộ phận sử dụng</th>
+                      <th width="150px">Mục đích tiêu chuẩn</th>
+                      <th width="70px">Version</th>
+                      <th width="120px">Ngày tạo</th>
+                      <th width="120px">Người tạo</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="400">
+                <table class="table table-bordered" style="min-width:1250px">
+                  <tbody>
+                    <tr *ngFor="let row of listData; let i = index">
+                      <td width="40px" class="text-center">{{i+1}}</td>
+                      <td width="70px" class="text-center">
+                        <button *appUipermission="['F020003']" type="button" (click)="showConfirmDelete(i)"
+                          class="btn  btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td style="min-width: 150px;">{{row.Name}}</td>
+                      <td width="120px">{{row.Code}}</td>
+                      <td width="100px">{{row.DataType| filterinlist:constant.ListWorkType}}</td>
+                      <td width="150px">{{row.ProductStandardGroupName}}</td>
+                      <td width="150px">{{row.DepartmentName}}</td>
+                      <td width="150px">{{row.Target}}</td>
+                      <td width="70px">{{row.Version}}</td>
+                      <td width="120px">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+                      <td width="120px">{{row.CreateByName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <!--tab tiêu chí-->
+      <li [ngbNavItem]="'tab-critera'" [disabled]="!f.form.valid && permissionService.checkPermission(['F020002'])">
+        <a ngbNavLink>Tiêu chí</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listTestCriteri.length}} </span> tiêu chí</label>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 text-right">
+              <button type=" button" class="btn btn-success" (click)="showTestCriteria()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn tiêu chí
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12" #scrollTestCriteria>
+              <div #scrollTestCriteriaHeader style="overflow-x: auto;overflow: hidden;">
+                <table class="table table-bordered  mb-0" style="min-width:950px">
+                  <thead>
+                    <tr>
+                      <th width="50px">STT</th>
+                      <th width="70px">Xử lý</th>
+                      <th width="130px">Mã tiêu chí</th>
+                      <th min-width="200px">Tên tiêu chí</th>
+                      <th width="100px">Loại</th>
+                      <th width="200px">Yêu cầu kĩ thuật</th>
+                      <th width="200px">Ghi chú</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="400">
+                <table class="table table-bordered" style="min-width:950px">
+                  <tbody>
+                    <tr *ngFor="let row of listTestCriteri; let i = index">
+                      <td width="50px" class="text-center">{{i+1}}</td>
+                      <td width="70px" class="text-center">
+                        <button type="button" (click)="showConfirmDeleteTestCriteia(i)" class="btn  btn-xs btn-danger"
+                          ngbTooltip="Xóa" container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td width="130px">{{row.Code}}</td>
+                      <td min-width="200px">{{row.Name}}</td>
+                      <td width="100px">{{row.DataType| filterinlist:constant.ListWorkType}}</td>
+                      <td width="200px">{{row.TechnicalRequirements}}</td>
+                      <td width="200px">{{row.Note}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <!--Tab công đoạn-->
+      <li [ngbNavItem]="2" [disabled]="!f.form.valid && permissionService.checkPermission(['F020002'])">
+        <a ngbNavLink>Công đoạn</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listStage.length}} </span> công đoạn</label>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 text-right">
+              <button type=" button" class="btn btn-success" (click)="showSelectStage()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn công đoạn
+              </button>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig">
+                <table class="table table-bordered" style="min-width:1170px">
+                  <thead>
+                    <tr>
+                      <th width="50px">STT</th>
+                      <th width="70px">Xử lý</th>
+                      <th min-width="150px">Tên công đoạn</th>
+                      <th width="150px">Mã công đoạn</th>
+                      <th width="150px">Thời gian sx(ngày)</th>
+                      <th width="200px">SBU</th>
+                      <th width="200px">Phòng ban</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of listStage; let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td class="text-center">
+                        <button type="button" (click)="showConfirmDeleteStage(i)" class="btn  btn-xs btn-danger"
+                          ngbTooltip="Xóa" container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>{{row.Name}}</td>
+                      <td>{{row.Code}}</td>
+                      <td>
+                        <input ntsNumberInt type="text" [(ngModel)]="row.Time" class="form-control" [name]="'Time'+i">
+                      </td>
+                      <td>{{row.SBUName}}</td>
+                      <td>{{row.DepartmentName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </div>
+</form>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)"
+      *appUipermission="['F020001','F020002']">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="idUpdate===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()"
+      *appUipermission="['F020001']">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

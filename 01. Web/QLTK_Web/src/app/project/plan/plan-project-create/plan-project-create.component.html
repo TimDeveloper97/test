@@ -1,0 +1,78 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Phòng ban</label>
+                    <div class="form-group">
+                        <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="departmentId"
+                            name="departmentId" (ngModelChange)="getListTask()">
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Công việc
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="form-group">
+                        <!-- <nts-drop-down [items]="listTask" [columns]="taskColumnName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskId"
+                                        name="TaskId" required>
+                                    </nts-drop-down> -->
+                        <input list="brow" [(ngModel)]="model.Name" [name]="'Name'+date|date:'dd/MM/yyyy HH:mm:ss'"
+                            required style="width: 100%;border-top:none;border-left:none;border-right:none;">
+                        <datalist id="brow">
+                            <option *ngFor="let item of listTask" [ngValue]="item.Id">{{item.Name}}
+                            </option>
+                        </datalist>
+
+                        <!-- <ng-select id="planData" [items]="listTask" [searchFn]="customSearchFn"
+                                        bindValue="Id" bindLabel="Name" [(ngModel)]="taskId" name="taskId">
+                                    </ng-select> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thứ tự hiển thị
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <ng-select [items]="listOrder" [(ngModel)]="model.Index" name="index" required>
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mô tả</label>
+                    <div class="controls">
+                        <textarea type="text" class="form-control" [(ngModel)]="model.Description" name="Description"
+                            rows="10" maxlength="500"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+        <i class="fa fa-save"></i>&nbsp;
+        <span>{{modalInfo.saveText}}</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

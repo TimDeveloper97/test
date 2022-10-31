@@ -1,0 +1,117 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="NameWorkSkill"
+              (change)="searchEmployeeTraining()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchEmployeeTraining()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-9 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> chương trình đào tạo;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;
+            <span class="bold text-danger">{{startus3}}</span> chương trình đã đào tạo;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;
+            <span class="bold text-danger">{{startus4}}</span> chương trình chưa đào tạo;</label>
+        </div>
+        <div class="col-md-3 text-right">
+          <button *appUipermission="['F080601']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1220px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="100px" class="text-center">Tình trạng</th>
+                  <th width="180px" class="text-center">Mã chương trình đào tạo</th>
+                  <th width="180px" class="text-center">Tên chương trình đào tạo</th>
+                  <th width="100px" class="text-center">Ngày bắt đầu</th>
+                  <th width="100px" class="text-center">Ngày kết thúc</th>
+                  <th width="100px" class="text-center">Số khóa học</th>
+                  <th width="120px" class="text-center">Số nhân viên học</th>
+                  <th min-width="200px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{startIndex+i}}</td>
+                  <td class="text-center">
+                    <button *appUipermission="['F080602','F080604']" type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                      placement="bottom" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button *appUipermission="['F080603']" class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)" container="body"
+                      ngbTooltip="Xóa">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="row.Status == false" class="badge badge-danger">Chưa đào tạo</span>
+                    <span *ngIf="row.Status == true" class="badge badge-success ">Đã đào tạo</span>
+                  </td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.Name}}</td>
+                  <td class="text-center">{{row.StartDate|date:'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{row.EndDate|date:'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{row.CourseInEmployeeTraining}}</td>
+                  <td class="text-center">{{row.EmployeeInEmployeeTraining}}</td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchEmployeeTraining()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+            (pageChange)="searchEmployeeTraining()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa chương trình đào tạo</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa chương trình đào tạo</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

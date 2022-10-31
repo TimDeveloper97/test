@@ -1,0 +1,30 @@
+.show-export-excel-project-plan-modal
+{
+    .modal-dialog {
+        width: 100%;
+      }
+    
+      @media (min-width: 576px) {
+        .modal-dialog {
+          max-width: 540px;
+        }
+      }
+    
+      @media (min-width: 768px) {
+        .modal-dialog {
+          max-width: 720px;
+        }
+      }
+    
+      @media (min-width: 992px) {
+        .modal-dialog {
+          max-width: 960px;
+        }
+      }
+    
+      @media (min-width: 1200px) {
+        .modal-dialog {
+          max-width: 95%;
+        }
+      }
+}

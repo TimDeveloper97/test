@@ -1,0 +1,169 @@
+<form name="searchForm" #f="ngForm">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelProblem"
+          (change)="searchModuleErrors()">
+        </nts-search-bar>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+        <button class="btn btn-success btn-success-system" (click)="searchModuleErrors()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+        <button class="btn btn-default btn-default-system" (click)="clear()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+        <span class="bold text-danger">{{model.TotalItems}}</span> vấn đề;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+        <span class="bold text-danger">{{totalError}}</span> lỗi;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status1}}</span> Đang tạo;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status2}}</span> Chờ xác nhận;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status3}}</span> Đã xác nhận;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status5}}</span> Đang xử lý;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status6}}</span> Đang QC</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status7}}</span> QC đạt</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status8}}</span> QC không đạt</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status9}}</span> Đóng</label>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2 paddingcreate text-right">
+      <!-- <button *appUipermission="['F060401']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+        container="body">
+        <i class="fa fa-plus"></i>
+        Thêm mới
+      </button> -->
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:3290px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="160px" class="text-center">Tình trạng</th>
+              <th width="100px" class="text-center">Loại vấn đề</th>
+              <th width="200px" class="text-center">Nhóm vấn đề</th>
+              <th width="200px" class="text-center">Tên vấn đề</th>
+              <th width="200px" class="text-center">Mã vấn đề</th>
+              <th width="150px" class="text-center">Người phát hiện</th>
+              <th width="120px" class="text-center">Ngày phát hiện</th>
+              <th width="180px" class="text-center">Ngày dự kiến hoàn thành</th>
+              <th width="120px" class="text-center">Ngày khắc phục</th>
+              <th width="200px" class="text-center">Dự án</th>
+              <th width="200px" class="text-center">Module</th>
+              <th width="200px" class="text-center">Bộ phận chịu trách nhiệm</th>
+              <th width="170px" class="text-center">Người chịu trách nhiệm</th>
+              <th width="200px" class="text-center">Bộ phận khắc phục</th>
+              <th width="200px" class="text-center">Công đoạn</th>
+              <th width="150px" class="text-center">Người khắc phục</th>
+              <th min-width="300px" class="text-center">Nguyên nhân</th>
+              <th width="100px" class="text-center">Chi phí</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <nts-status-badge [items]="constants.ListError" [value]="row.Status">
+                </nts-status-badge>
+              </td>
+              <td class="text-center">{{row.TypeName}}</td>
+              <td>{{row.ErrorGroupName}}</td>
+              <td>{{row.Subject}}</td>
+              <td class="text-right">{{row.Code}}</td>
+              <td>{{row.AuthorName}}</td>
+              <td class="text-center">{{row.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{row.PlanFinishDate|date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{row.ActualFinishDate|date:'dd/MM/yyyy'}}</td>
+              <td>{{row.ProjectName}}</td>
+              <td class="text-right">{{row.ModuleErrorVisualCode}}</td>
+              <td>{{row.DepartmentName}}</td>
+              <td>{{row.ErrorByName}}</td>
+              <td>{{row.DepartmentProcessName}}</td>
+              <td>{{row.StageName}}</td>
+              <td>{{row.FixByName}}</td>
+              <td>{{row.Note}}</td>
+              <td class="text-right">{{row.ErrorCost|number:'1.0-0'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+    
+  </div>
+  <div class="row mt-1">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollPlan>
+      <div #scrollPlanHeader style="height: auto; width:100%;overflow: hidden">
+        <table class="table table-bordered table-hover mb-0" style="min-width:2700px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Mã module</th>
+              <th width="200px" class="text-center">Tên module</th>
+              <th width="100px" class="text-center">Mã thiết bị</th>
+              <th width="200px" class="text-center">Tên thiết bị</th>
+              <th width="100px" class="text-center">Mã vấn đề</th>
+              <th width="250px" class="text-center">Tên vấn đề</th>
+              <th width="150px" class="text-center">Bộ phận khắc phục</th>
+              <th width="150px" class="text-center">Người khắc phục</th>
+              <th width="300px" class="text-center">Giải pháp</th>
+              <th width="100px" class="text-center">Ngày bắt đầu</th>
+              <th width="100px" class="text-center">Ngày kết thúc</th>
+              <th width="100px" class="text-center">Thời gian thực hiện</th>
+              <th width="100px" class="text-center">Tình trạng khác phục</th>
+              <th width="100px" class="text-center">Ngày quá hạn</th>
+              <th width="150px" class="text-center">Người hỗ trợ</th>
+              <th width="150px" class="text-center">Người phê duyệt</th>
+              <th width="150px" class="text-center">Người tư vấn</th>
+              <th width="150px" class="text-center">Người thông báo</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+        <table class="table table-bordered table-hover" style="min-width:2700px">
+          <tbody>
+            <tr *ngFor="let row of errorFixDisplays; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>              
+              <td width="100px" class="text-center">{{row.ModuleCode}}</td>
+              <td width="200px">{{row.ModuleName}}</td>
+              <td width="100px" class="text-center">{{row.ProductCode}}</td>
+              <td width="200px">{{row.ProductName}}</td>
+              <td width="100px" class="text-center">{{row.ErrorCode}}</td>
+              <td width="250px">{{row.Subject}}</td>
+              <td width="150px">{{row.DepartmentName}}</td>
+              <td width="150px">{{row.FixByName}}</td>
+              <td width="300px">{{row.Solution}}</td>
+              <td width="100px" class="text-center">{{row.DateFrom|date:'dd/MM/yyyy'}}</td>
+              <td width="100px" class="text-center">{{row.DateTo|date:'dd/MM/yyyy'}}</td>
+              <td width="100px" class="text-center">{{row.Time}}</td>
+              <td width="100px" class="text-center">
+                <nts-status-badge [items]="constants.ErrorFixStatus" [value]="row.Status">
+                </nts-status-badge>
+              </td>
+              <td width="100px">{{row.Deadline}}</td>
+              <td width="150px" >{{row.SupportName}}</td>
+              <td width="150px">{{row.ApproveName}}</td>
+              <td width="150px">{{row.AdviseName}}</td>
+              <td width="150px">{{row.NotifyName}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="errorFixs.length == 0">
+            <tr class="bold">
+              <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>

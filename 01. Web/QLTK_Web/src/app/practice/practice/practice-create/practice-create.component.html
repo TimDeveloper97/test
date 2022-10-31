@@ -1,0 +1,230 @@
+<div class="modal-body padding-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Nhóm bài thực hành/công đoạn
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+
+                <nts-drop-down [disUipermission]="['F040701']" [items]="listPracticeGroup" [columns]="columnName"
+                  ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.PracticeGroupId"
+                  (ngModelChange)="getCodePracticeGroup(model.PracticeGroupId)" name="PracticeGroupId" required>
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên bài thực hành/công đoạn
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F040701']" type="text" class="form-control" [(ngModel)]="model.Name"
+                    name="Namepractice" maxlength="300" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã bài thực hành/công đoạn
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F040701']" type="text" class="form-control" [(ngModel)]="model.Code"
+                    name="Codepractice" maxlength="50" required>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Thời gian (Giờ)
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F040701']" ntsNumberFormatter type="text" class="form-control"
+                    [(ngModel)]="model.TrainingTime" name="TrainingTime" maxlength="50" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Phiên bản
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F040701']" ntsNumberInt type="text" class="form-control"
+                    [(ngModel)]="model.CurentVersion" name="CurentVersion" maxlength="30" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Nội dung thay đổi
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <textarea [disUipermission]="['F040701']" type="text" class="form-control"
+                    [(ngModel)]="model.EditContent" name="EditContent" maxlength="300" rows="1"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Mô tả
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [radUipermission]="['F040701']" [(ngModel)]="model.Note" name="Notepractice"
+                    class="form-control" maxLength="300"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+              <label class="form-label">Tài liệu</label>
+              <label class="radio">Có
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeFile" [(ngModel)]="model.PracticeFile"
+                  [value]="true">
+                <span class="checkround"></span>
+              </label>
+              <label class="radio">Không
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeFile" [(ngModel)]="model.PracticeFile"
+                  [value]="false">
+                <span class="checkround"></span>
+              </label>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+              <label class="form-label">Thiết bị phụ trợ</label>
+              <label class="radio">Có
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeSupMaterial"
+                  [(ngModel)]="model.SupMaterial" [value]="true">
+                <span class="checkround"></span>
+              </label>
+              <label class="radio">Không
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeSupMaterial"
+                  [(ngModel)]="model.SupMaterial" [value]="false">
+                <span class="checkround"></span>
+              </label>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+              <label class="form-label">Vật tư tiêu hao</label>
+              <label class="radio">Có
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeMaterialConsumable"
+                  [(ngModel)]="model.MaterialConsumable" [value]="true">
+                <span class="checkround"></span>
+              </label>
+              <label class="radio">Không
+                <input [disUipermission]="['F040701']" type="radio" name="PracticeMaterialConsumable"
+                  [(ngModel)]="model.MaterialConsumable" [value]="false">
+                <span class="checkround"></span>
+              </label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <p class="text-uppercase" style="white-space: nowrap"><b>Giá bài thực hành/công đoạn - Giáo trình</b>
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12">
+                  <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:800px">
+                      <thead>
+                        <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="200px" class="text-center">Loại giá</th>
+                          <th width="150px" class="text-center">Ðơn vị</th>
+                          <th width="150px" class="text-center">Giá (VND)</th>
+                          <th width="150px" class="text-center">Số luợng</th>
+                          <th width="150px" class="text-center">Thành tiền (VND)</th>
+                          <th width="150px" class="text-center">Leadtime (ngày)</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td width="50px" class="text-center">1</td>
+                          <td width="200px" class="text-center">Giá giáo trình</td>
+                          <td width="150px" class="text-center">
+                            <select [disUipermission]="['F040701']" name="UnitId" required class="form-control"
+                              [(ngModel)]="model.UnitId">
+                              <option *ngFor="let item of listUnit" [ngValue]="item.Id">
+                                {{item.Name}}</option>
+                            </select>
+                          </td>
+                          <td width="150px" class="text-center">
+                            <input [disUipermission]="['F040701']" currencyMask type="text" min="0"
+                              [(ngModel)]="LessonPrice" class="form-control" name="LessonPrice">
+                          </td>
+                          <td width="150px" class="text-center">
+                            <input [disUipermission]="['F040701']" type="number" min="0" [(ngModel)]="Quantity"
+                              class="form-control" name="Quantitypractice">
+                          </td>
+                          <td width="150px" class="text-right">{{(LessonPrice*Quantity)|number:'1.0-0'}}</td>
+                          <td width="150px" class="text-right">
+                            <input [disUipermission]="['F040701']" type="number" min="0" [(ngModel)]="model.LeadTime"
+                              class="form-control" name="LeadTimepractice">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td width="50px" class="text-center">2</td>
+                          <td width="200px" class="text-center">Giá thiết bị phần cứng</td>
+                          <td width="150px" class="text-center">
+                            <!-- <input type="text" [(ngModel)]="Unit2" class="form-control" name="Unit2"> -->
+                          </td>
+                          <td width="150px" class="text-center">
+                            <!-- <input ntsCurrencyFormatter type="number" min="0" [(ngModel)]="HardwarePrice" class="form-control" name="HardwarePrice"> -->
+                          </td>
+                          <td width="150px" class="text-center">
+                            <!-- <input type="number" min="0" [(ngModel)]="Amount2" class="form-control" name="Amount2"> -->
+                          </td>
+                          <td width="150px" class="text-right" type="number">{{0}}</td>
+                          <td width="150px" class="text-center">
+                            <!-- <input type="number" min="0" [(ngModel)]="Date2" class="form-control" name="Date2">Ngày -->
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="5" style="text-align: right"><b>Tổng số</b></td>
+                          <td width="150px" type="number" class="text-right">{{(LessonPrice*Quantity)|number:'1.0-0'}}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <ng-container>
+              <button *appUipermission="['F040701']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                (click)="save(false)">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu</span>
+              </button>
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+              <i class="fa fa-power-off"></i> &nbsp;
+              <span>
+                Đóng
+              </span>
+            </button>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

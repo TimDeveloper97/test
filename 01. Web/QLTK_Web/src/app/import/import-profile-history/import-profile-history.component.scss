@@ -1,0 +1,119 @@
+app-import-profile-manage {
+    .tasks {
+        min-height: 450px;
+    }
+
+    .mission-list {
+        display: flex;
+        flex-direction: row;
+
+        .example-custom-placeholder {
+            background: #ccc;
+            border: dotted 3px #999;
+            min-height: 60px;
+            transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+        }
+
+        > .card {
+            min-width: 270px;
+
+            &:not(:first-child) {
+                // margin-left: 15px;
+            }
+
+            > .card-body {
+                padding: 0px !important;
+                background-color: #f5f5f5;
+            }
+
+            &.card-hide {
+                min-width: 90px;
+                max-width: 90px;
+
+                .card-header {
+                    height: 300px;
+                    flex-direction: column;
+
+                    i {
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+
+        .card {
+            border-radius: 0;
+            // border: 0;
+
+            .card-header {
+                // border: 0;
+                background-color: #356ab3;
+                display: flex;
+                justify-content: space-between;
+                padding: 10px 15px;
+                border-radius:0px;
+
+                .card-title {
+                    font-size: 16px;
+                    color: #fff;
+                    margin-bottom: 0px;
+                    // text-align: center;
+                    flex: 1;
+                }
+
+                .card-total {
+                    font-size: 16px;
+                    color: #fff;
+                    margin-bottom: 0px;
+                    line-height: 1.2;
+                    background-color: #ee0033;
+                    min-width: 24px;
+                    text-align: center;
+                    border-radius: 10px;
+                    font-weight: 500;
+                }
+
+                i {
+                    justify-content: center;
+                    align-items: center;
+                    display: flex;
+                    margin-left: 5px;
+                    cursor: pointer;
+                    color: #fff;
+                }
+            }
+            .card-body {
+                padding: 15px;
+
+                small{
+                    margin-bottom: 0px !important;
+                    line-height: 16px;
+
+                    span{
+                        font-size: inherit;
+                    }
+                }
+
+                .title{
+                    display: flex;
+                    justify-content: space-between;
+
+                    span{
+                        margin-top: 5px;
+                    }
+                }
+            }
+
+            &.content {
+                border-left: 0px;
+                border-right: 0px;
+                border-top: 0px;
+
+                &:hover {
+                    cursor: pointer;
+                    background-color: #f2f4fa;
+                }
+            }
+        }
+    }
+}

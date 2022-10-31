@@ -1,0 +1,269 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <!-- <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã yêu cầu khách hàng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="requirementModel.Code" name="code"
+                maxlength="200" required>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên yêu cầu khách hàng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="requirementModel.Name" name="name" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã meeting
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="requirementModel.MeetingCode"
+                name="meetingCode" maxlength="200" disabled>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên khách hàng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.CustomerId" name="CustomerId"
+              required (change)="changeCustomer()">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã khách hàng
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+              <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.CustomerId" name="CustomerId"
+              required (change)="changeCustomer()" [disabled]="true">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Người Liên hệ
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listCustomerContact" [columns]="columnNameCustomerContact" ntsValue="Id"
+              ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+              [(ngModel)]="requirementModel.CustomerContactId" name="CustomerContactId" required
+              (change)="changeCustomerContact()" [disabled]="true">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Chức vụ
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="CustomerContactPosition"
+              [(ngModel)]="requirementModel.CustomerContactPosition" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Số điện thoại liên hệ
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="CustomerContactPhoneNumber"
+              [(ngModel)]="requirementModel.CustomerContactPhoneNumber" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Email liên hệ
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="CustomerContactEmail"
+              [(ngModel)]="requirementModel.CustomerContactEmail" disabled>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Nguồn yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select data-size="3" class="form-control" [(ngModel)]="requirementModel.RequestSource"
+              name="RequestSource">
+              <option style="height: auto;" *ngFor="let item of listCustomerRequirementRequestSource"
+                [ngValue]="item.Id">
+                {{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Phòng yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.DepartmentRequest"
+              name="DepartmentRequest" required (change)="changeDepartmentRequest()">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Người yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listEmployee" [columns]="columnNameEmployee" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.Petitioner" name="NamePetitioner"
+              required>
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Phòng tiếp nhận
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="requirementModel.DepartmentReceive"
+              name="DepartmentReceive" required (change)="changeDepartmentReceive()">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <label>
+          Danh sách yêu cầu cần xử lý
+        </label>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered " style="word-wrap: break-word ;min-width:1350px;">
+
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="300px" class="text-center">Yêu cầu cần xử lý</th>
+                <th width="300px" class="text-center">Phương án xử lý</th>
+                <th width="150px" class="text-center">Số yêu cầu khách hàng</th>
+                <th width="150px" class="text-center">Ngày yêu cầu</th>
+                <th width="150px" class="text-center">Thời điểm hoàn thành</th>
+                <th min-width="150px" class="text-center">Ghi chú</th>
+                <th width="150px" class="text-center">Người yêu cầu</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let row of requirementModel.ListContent; let i = index;"
+                [ngClass]="{'selected': selectIndex == i}" (click)="selectCustomerRequimentNeedToHandle(i)">
+                <td class="text-center" width="50px">{{i+1}}</td>
+                <td width="300px" class="text-left">{{row.Request}}</td>
+                <td width="300px" class="text-left">{{row.Solution}}</td>
+                <td width="150px" class="text-left">{{row.Code}}</td>
+                <td class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                <td width="150px" class="text-left">{{row.Note}}</td>
+                <td width="150px" class="text-left">{{row.RequestBy}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <label>
+          Tài liệu đính kèm
+          <span class='text-danger text-strong'>&nbsp;</span>
+        </label>
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:350px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <ng-container *ngFor="let row of ListAttach; let i = index">
+                <tr *ngIf="!row.IsDelete">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center">
+                    {{row.FileName}}
+                  </td>
+                  <td class="text-center">
+                    {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="save(false)" [disabled]="!f.form.valid">
+          <i class="fa fa-save"></i>&nbsp;
+          <span>{{modalInfo.SaveText}}</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+          <i class="fa fa-power-off"></i> &nbsp;
+          <span>
+            Đóng
+          </span>
+    </button>

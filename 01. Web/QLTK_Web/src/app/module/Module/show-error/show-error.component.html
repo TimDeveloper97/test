@@ -1,0 +1,103 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Thông tin chi tiết</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tình trạng: </label><br>
+          <label>
+            <span *ngIf="modelError.Status == 1" class="badge badge-info">Đang tạo</span>
+            <span *ngIf="modelError.Status == 2" class="badge badge-danger">Đang chờ xác nhận</span>
+            <span *ngIf="modelError.Status == 3" class="badge badge-warning">Đã xác nhận</span>
+            <span *ngIf="modelError.Status == 5" class="badge badge-secondary">Đã xử lý</span>
+            <span *ngIf="modelError.Status == 6" class="badge badge-warning">Đang QC</span>
+            <span *ngIf="modelError.Status == 7" class="badge badge-secondary">QC đạt</span>
+            <span *ngIf="modelError.Status == 8" class="badge badge-secondary">QC không đạt</span>
+            <span *ngIf="modelError.Status == 9" class="badge badge-secondary">Đóng vấn đề</span>
+          </label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhóm lỗi: </label><br>
+          <label>{{modelError.ErrorGroupName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã lỗi: </label><br>
+          <label>{{modelError.Code}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tên lỗi: </label><br>
+          <label>{{modelError.Subject}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mô tả: </label><br>
+          <label>{{modelError.Description}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Chi phí lỗi: </label><br>
+          <label>{{modelError.ErrorCost}}</label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Bộ phận gây lỗi: </label><br>
+          <label>{{modelError.DepartmentName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Người gây lỗi: </label><br>
+          <label>{{modelError.AuthorName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Bộ phận khắc phục: </label><br>
+          <label>{{modelError.DepartmentProcessName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Người khắc phục: </label><br>
+          <label>{{modelError.FixByName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Công đoạn: </label><br>
+          <label>{{modelError.StageName}}</label>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Ngày báo lỗi: </label><br>
+          <label>{{modelError.CreateDate|date:'dd/MM/yyyy'}}</label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

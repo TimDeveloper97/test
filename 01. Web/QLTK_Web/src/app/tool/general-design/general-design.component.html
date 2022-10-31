@@ -1,0 +1,201 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Dự án</label>
+              <div class="controls">
+                <nts-drop-down [items]="listProject" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+                  ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ProjectId" name="project"
+                  (change)="getData()"></nts-drop-down>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Sản phẩm</label>
+              <div class="controls">
+                <nts-drop-down-tree [items]="listProjectproduct" [columns]="columnName" ntsParentId="ParentId"
+                  ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.Id" name="Id"
+                  (change)="generalDesign()">
+                </nts-drop-down-tree>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Khách hàng</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="CustomerName" [(ngModel)]="model.CustomerName" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Bộ phận YC</label>
+              <div class="controls">
+                <select name="DepartmentRequestId" class="form-control" [(ngModel)]="model.DepartmentRequestId">
+                  <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Bộ phận TH</label>
+              <div class="controls">
+                <select name="DepartmentPerformId" class="form-control" [(ngModel)]="model.DepartmentPerformId">
+                  <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Phụ trách thiết kế</label>
+              <div class="controls">
+                <select name="employeeId" class="form-control" [(ngModel)]="model.EmployeeId">
+                  <option *ngFor="let item of listEmployee" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Ngày yêu cầu</label>
+              <div class="controls">
+                <div class="input-group ">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="RequestDate" [(ngModel)]="requestDate"
+                    ngbDatepicker #RequestDate="ngbDatepicker">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="RequestDate.toggle();$event.stopPropagation();">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Tên SP theo TK</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="ProjectProductName" [(ngModel)]="projectProductName"
+                  disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Mã SP theo TK</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="ProjectProductCode" [(ngModel)]="projectProductCode"
+                  disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Hạng mục</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="Categories" [(ngModel)]="model.Categories">
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-8 col-lg-8 col-md-8 col-sm-12 text-right">
+            <label class="form-label"></label>
+            <button class="btn  btn-success" (click)="exportGeneralDesign()">
+              <i class="fa fa-file-excel" aria-hidden="true"></i>
+              Xuất tổng hợp thiết kế
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="box ">
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Danh sách module</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1250px">
+              <thead>
+                <tr>
+                  <th min-width="200px" class="text-center">Tên theo HĐ</th>
+                  <th width="200px" class="text-center">Mã theo HĐ</th>
+                  <th width="200px" class="text-center">Mã</th>
+                  <th width="200px" class="text-center">Tên module</th>
+                  <th width="200px" class="text-center">Hãng</th>
+                  <th width="100px" class="text-center">Số lượng</th>
+                  <th width="50px" class="text-center">Lỗi</th>
+                  <th width="100px" class="text-center">Giá theo HĐ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listModule; let i = index">
+                  <td>{{row.ContractName}}</td>
+                  <td>{{row.ContractCode}}</td>
+                  <td>{{row.ModuleCode}}</td>
+                  <td>{{row.ModuleName}}</td>
+                  <td>{{row.Manufacture}}</td>
+                  <td>
+                    <input type="text" [(ngModel)]="row.Quantity" class="form-control" name="'Quantity'+i">
+                  </td>
+                  <td>{{row.TotalError}}</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Danh sách vật tư phụ</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1000px">
+              <thead>
+                <tr>
+                  <th width="200px" class="text-center">Mã</th>
+                  <th min-width="200px" class="text-center">Tên</th>
+                  <th width="200px" class="text-center">Hãng</th>
+                  <th width="100px" class="text-center">Số lượng</th>
+                  <th width="50px" class="text-center">Lỗi</th>
+                  <th width="150px" class="text-center">Không phù hợp</th>
+                  <th width="100px" class="text-center">Tồn kho</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listMaterial; let i = index">
+                  <td>{{row.Code}}</td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Manafacture}}</td>
+                  <td>{{row.Quantity}}</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

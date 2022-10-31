@@ -1,0 +1,110 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Nhóm tiêu chí
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <nts-drop-down required [items]="listCRI" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+                ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.TestCriteriaGroupId" name="TestCriteriaGroupId"
+                [disUipermission]="['F020302','F020301']">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Mã tiêu chí
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Code" name="Codetestcriteria" maxlength="50"
+              required  [disUipermission]="['F020302','F020301']">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Tên tiêu chí
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Name" name="Nametestcriteria" maxlength="300"
+              required  [disUipermission]="['F020302','F020301']">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Yêu cầu kỹ thuật
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <textarea type="text" class="form-control" [(ngModel)]="model.TechnicalRequirements"
+              name="TechnicalRequirementstestcriteria" maxlength="300" required  [radUipermission]="['F020302','F020301']"> </textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Loại
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F020302','F020301']" required class="form-control" [(ngModel)]="model.DataType" name="dataTypeCriteria">
+              <option *ngFor="let c of constants.ListWorkType" [ngValue]="c.Id">{{c.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Ghi chú
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Note" name="Note" rows="5" class="form-control" [maxLength]="300"  [radUipermission]="['F020302','F020301']"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)"
+      *appUipermission="['F020301','F020302']">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+
+  <ng-container *ngIf="Id===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()"
+      *appUipermission="['F020301']">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

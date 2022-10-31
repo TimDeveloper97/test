@@ -1,0 +1,155 @@
+
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> yêu cầu khách hàng</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2250px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Số YCKH</th>
+                                    <th width="200px" class="text-center">Tên yêu cầu khách hàng</th>
+                                    <th width="200px" class="text-center">Tình trạng</th>
+                                    <th Width="150px" class="text-center">Loại yêu cầu</th>
+                                    <th width="200px" class="text-center">Nguồn yêu cầu</th>
+                                    <th width="200px" class="text-center">Người yêu cầu</th>
+                                    <th width="200px" class="text-center">Phòng yêu cầu</th>
+                                    <th width="200px" class="text-center">Người nhận</th>
+                                    <th width="200px" class="text-center">Phòng tiếp nhận</th>
+                                    <th width="200px" class="text-center">Người liên hệ</th>
+                                    <th width="300px" class="text-center">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listRequest; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td [ngbTooltip]="row.Code" container="body">
+                                        <a href="javascript:void(0)" class="bold"
+                                        [routerLink]="['/giai-phap/yeu-cau-khach-hang/chinh-sua/'+ row.Id]">{{row.Code}}</a>
+                                    </td>
+                                    <td [ngbTooltip]="row.Name" container="body">
+                                        <a href="javascript:void(0)" class="bold"
+                                        [routerLink]="['/giai-phap/yeu-cau-khach-hang/chinh-sua/'+ row.Id]">{{row.Name}}</a>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="sw sw-arrows sw-sm">
+                                            <ul class="nav-step">
+                                                <li class="nav-item"
+                                                    *ngFor="let item of constant.CustomerRequirementStatus let i = index;">
+                                                    <a *ngIf="i==0" class="nav-link process-text "
+                                                    [ngClass]="{'active':row.CustomerRequirementState==0,
+                                                    'finish':row.CustomerRequirementState==1,
+                                                    'skip':row.CustomerRequirementState==2}"  >
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                    <a *ngIf="i==1" class="nav-link process-text"
+                                                        [ngClass]="{'active':row.CustomerRequirementAnalysisState==0,
+                                                        'finish':row.CustomerRequirementAnalysisState==1,
+                                                        'skip':row.CustomerRequirementAnalysisState==2}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                    <a *ngIf="i==2" class="nav-link process-text"
+                                                    [ngClass]="{'active':row.SurveyState==0,
+                                                    'finish':row.SurveyState==1,
+                                                    'skip':row.SurveyState==2}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                    <a *ngIf="i==3" class="nav-link process-text"
+                                                    [ngClass]="{'active':row.SolutionAnalysisState==0,
+                                                    'finish':row.SolutionAnalysisState==1,
+                                                    'skip':row.SolutionAnalysisState==2}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                    <a *ngIf="i==4" class="nav-link process-text"
+                                                    [ngClass]="{'active':row.EstimateState==0,
+                                                    'finish':row.EstimateState==1,
+                                                    'skip':row.EstimateState==2}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                    <a *ngIf="i==5" class="nav-link process-text"
+                                                    [ngClass]="{'active':row.DoSolutionAnalysisState==0,
+                                                    'finish':row.DoSolutionAnalysisState==1,
+                                                    'skip':row.DoSolutionAnalysisState==2}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <ng-template #elseBlock>
+                                            Hoàn thành
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.RequestType == 1" class="badge badge-primary">Làm máy</span>
+                                        <span *ngIf="row.RequestType == 2" class="badge badge-danger">Yêu cầu
+                                            khác</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.RequestSource == 1" class="badge badge-success">Khách hàng liên
+                                            hệ</span>
+                                        <span *ngIf="row.RequestSource == 2" class="badge badge-danger">TPA liên
+                                            hệ</span>
+                                        <span *ngIf="row.RequestSource == 3" class="badge badge-green">Online</span>
+                                    </td>
+                                    <td class="text-center">{{row.PetitionerName}}</td>
+                                    <td class="text-center">{{row.DepartmentRequestName}}</td>
+                                    <td class="text-center">{{row.RecieverName}}</td>
+                                    <td class="text-center">{{row.DepartmentReceiveName}}</td>
+                                    <td class="text-center">{{row.CustomerContactId}}</td>
+                                    <td class="text-center">{{row.Note}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listRequest.length == 0">
+                                <tr class="bold">
+                                    <td colspan="17" min-width="2590px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có
+                                        dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                            (ngModelChange)="getListCustomerRequiment()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                        (pageChange)="getListCustomerRequiment()" [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            
+        <hr />
+        <div class="row">
+            <div class="text-left col-xl-6 col-lg-6 col-md-6 col-sm-12" style="padding: 0 33px;">
+                <span style="font-size: 16px; color:#28a745;"> <i class="fas fa-square"></i></span> &nbsp;
+                <small class="padding-right-20">Hoàn thành</small>
+                <span style="font-size: 16px; color:#007bff;"> <i class="fas fa-square"></i></span> &nbsp;
+                <small class="padding-right-20">Đang làm</small>
+                <span style="font-size: 16px; color:#e0e0e0;"> <i class="fas fa-square"></i></span> &nbsp;
+                <small class="padding-right-20">Không cần làm</small>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right" style="padding: 0 30px 10px 0;">
+                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                    <i class="fa fa-power-off"></i> &nbsp;
+                    <span>
+                        Đóng
+                    </span>
+                </button>
+            </div>
+        </div>

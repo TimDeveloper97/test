@@ -1,0 +1,252 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Loại tham khảo
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                </div>
+            </div>
+            <div class="controls">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+                    <label class="radio">
+                        Nhập tay
+                        <input type="radio" name="ObjectType" [(ngModel)]="model.ObjectType" [value]=-1
+                            (click)="changObjectType()">
+                        <span class="checkround"></span>
+                    </label>
+                    <label class="radio">
+                        Module
+                        <input type="radio" name="ObjectType" [(ngModel)]="model.ObjectType" [value]=1
+                            (click)="changObjectType()">
+                        <span class="checkround"></span>
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <label class="radio">
+                        Thiết bị
+                        <input type="radio" name="ObjectType" [(ngModel)]="model.ObjectType" [value]=2
+                            (click)="changObjectType()">
+                        <span class="checkround"></span>
+                    </label>
+                    <label class="radio">
+                        Thư viện sản phẩm kinh doanh
+                        <input type="radio" name="ObjectType" [(ngModel)]="model.ObjectType" [value]=3
+                            (click)="changObjectType()">
+                        <span class="checkround"></span>
+                    </label>
+                    <label class="radio">
+                        Vật tư
+                        <input type="radio" name="ObjectType" [(ngModel)]="model.ObjectType" [value]=4
+                            (click)="changObjectType()">
+                        <span class="checkround"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="model.ObjectType == 1" class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Module
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down-tree [items]="listModule" [columns]="columnName" ntsParentId="ParentId"
+                            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="model.ObjectId" name="ObjectId" (change)="changeModule(model.ObjectId)">
+                        </nts-drop-down-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="model.ObjectType == 2" class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thiết bị
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down-tree [items]="listProduct" [columns]="columnName" ntsParentId="ParentId"
+                            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="model.ObjectId" name="ObjectId" (change)="changeProduct(model.ObjectId)">
+                        </nts-drop-down-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="model.ObjectType == 3" class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thư viện sản phẩm kinh doanh
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down-tree [items]="listSaleProduct" [columns]="columnName" ntsParentId="ParentId"
+                            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="model.ObjectId" name="ObjectId" (change)="changeSaleProduct(model.ObjectId)">
+                        </nts-drop-down-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="model.ObjectType == 4" class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Vật tư
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down-tree [items]="listMaterial" [columns]="columnName" ntsParentId="ParentId"
+                            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="model.ObjectId" name="ObjectId" (change)="changeMaterial(model.ObjectId)">
+                        </nts-drop-down-tree>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã sản phẩm
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Code" name="Code" maxlength="100"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên sản phẩm
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" maxlength="300"
+                            required>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Mã ngành</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                        <nts-drop-down [items]="listIndustry" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.IndustryId" name="IndustryId"
+                            required (change)="changeIndustry()">
+                        </nts-drop-down>
+                        <!-- <ng-select [items]="listIndustry" [(ngModel)]="model.IndustryId" name="IndustryId" bindValue="Id" bindLabel="Code" (ngModelChange)="changeIndustry()" required>
+                        </ng-select> -->
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Tên ngành</label>
+                    <div class="controls">
+                        <input type="text" disabled class="form-control" [(ngModel)]="model.IndustryName"
+                            name="IndustryName">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Đơn vị</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                        <select name="UnitId" required class="form-control" [(ngModel)]="model.UnitId">
+                            <option *ngFor="let item of listUnit" [ngValue]="item.Id" class="text-left">
+                                {{item.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Hãng sản xuất</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                        <nts-drop-down [items]="listManufacture" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ManufactureId" name="ManufactureId"
+                            required>
+                        </nts-drop-down>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Giá báo giá</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                        <input currencyMask
+                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                            name="Price" type="text" required class="form-control" [(ngModel)]="model.Price"
+                            maxlength="18">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Số lượng</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                        <input name="Quantity" type="number" required class="form-control" [(ngModel)]="model.Quantity">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="form-label">Ghi chú
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <textarea [(ngModel)]="model.Description" name="Description" rows="5"
+                            class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container *ngIf="!QuotationProductId">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="QuotationProductId">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="update()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="getHistoryInfo()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:500px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="100px" class="text-center">Ngày</th>
+            <th width="200px" class="text-center">Người sửa</th>
+            <th min-width="250px" class="text-center">Nội dung sửa</th>
+            <th width="100px" class="text-center">Phiên bản</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of ListHistory; let i = index">
+            <td class="text-center">{{StartIndex+i}}</td>
+            <td>{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.CreateByName}}</td>
+            <td>{{row.Content}}</td>
+            <td class="text-right">{{row.Version}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+    <div class="text-right">
+      <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span> Đóng</span>
+      </button>
+    </div>
+  </div>
+</div>

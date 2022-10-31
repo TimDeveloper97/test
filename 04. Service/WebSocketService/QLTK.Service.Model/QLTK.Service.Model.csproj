@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B4A0F739-BA67-4DDF-8879-F2BE5A32CFEE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QLTK.Service.Model</RootNamespace>
+    <AssemblyName>QLTK.Service.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Api\ResultModel.cs" />
+    <Compile Include="Checkbox\CheckModel.cs" />
+    <Compile Include="ClassRoom\ClassRoomDesignDocumentModel.cs" />
+    <Compile Include="ClassRoom\ClassRoomModel.cs" />
+    <Compile Include="ClassRoom\UploadClassRoomDataModel.cs" />
+    <Compile Include="ClassRoom\UploadClassRoomFolderModel.cs" />
+    <Compile Include="ClassRoom\UploadFolderClassRoomResultModel.cs" />
+    <Compile Include="Commons\CheckUploadEntity.cs" />
+    <Compile Include="Commons\LinkFileErrorEntity.cs" />
+    <Compile Include="Definitions\FileDefinitionModel.cs" />
+    <Compile Include="Definitions\FolderDefinitionModel.cs" />
+    <Compile Include="Design3D\Design3DFileModel.cs" />
+    <Compile Include="Design3D\Design3DFileResultModel.cs" />
+    <Compile Include="Design3D\DocumentFileSizeModel.cs" />
+    <Compile Include="Downloads\DownloadFileDesignDocumentModel.cs" />
+    <Compile Include="Manufactures\ManufactureModel.cs" />
+    <Compile Include="Materials\MaterialDesign3DModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureCreateModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureFileModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureResultModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureSearchModel.cs" />
+    <Compile Include="Downloads\DownloadModel.cs" />
+    <Compile Include="Files\FileModel.cs" />
+    <Compile Include="Files\FolderUploadModel.cs" />
+    <Compile Include="FTP\FTPServer.cs" />
+    <Compile Include="IGS\IGSFileResultModel.cs" />
+    <Compile Include="IGS\IGSModel.cs" />
+    <Compile Include="Materials\DataCheckDMVTModel.cs" />
+    <Compile Include="Materials\MaterialModel.cs" />
+    <Compile Include="Materials\RawMaterialModel.cs" />
+    <Compile Include="MAT\MATFileResultModel.cs" />
+    <Compile Include="MAT\MATModel.cs" />
+    <Compile Include="Modules\DataCheckModuleModel.cs" />
+    <Compile Include="Modules\DownloadMarterialModel.cs" />
+    <Compile Include="Modules\DownloadMaterialDesignModel.cs" />
+    <Compile Include="Modules\DownloadModuleDesignDataModel.cs" />
+    <Compile Include="Modules\DownloadModuleDesignModel.cs" />
+    <Compile Include="Modules\ModuleDesignDocumentModel.cs" />
+    <Compile Include="Modules\ModuleDesignerModel.cs" />
+    <Compile Include="Modules\ModuleMaterialResultModel.cs" />
+    <Compile Include="Products\ProductDesignDocumentModel.cs" />
+    <Compile Include="Products\UploadFolderProductResultModel.cs" />
+    <Compile Include="Products\UploadProductDataModel.cs" />
+    <Compile Include="Products\ProductModel.cs" />
+    <Compile Include="Products\UploadProductFolderModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Solution\ImageResult.cs" />
+    <Compile Include="Solution\SolutionDesignDocumentModel.cs" />
+    <Compile Include="Solution\SolutionModel.cs" />
+    <Compile Include="Solution\UploadFolderSolutionResultModel.cs" />
+    <Compile Include="Solution\UploadModel.cs" />
+    <Compile Include="Solution\UploadSolutionDataModel.cs" />
+    <Compile Include="Solution\UploadSolutionFolderModel.cs" />
+    <Compile Include="Units\ConverUnitModel.cs" />
+    <Compile Include="Units\UnitModel.cs" />
+    <Compile Include="Upload\UnitModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ApiFile\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

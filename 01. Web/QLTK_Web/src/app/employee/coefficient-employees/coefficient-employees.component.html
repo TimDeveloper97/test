@@ -1,0 +1,77 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model" (change)="coefficientEmployee()">
+          </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+          <button class="btn btn-success btn-success-system" (click)="coefficientEmployee()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+        <label class="form-label" style="line-height:35px;">
+          <span class="bold text-danger"></span>Danh sách hệ số năng lực của từng nhân viên</label>
+      </div>
+    </div>
+    <div class="row" #scrollHeaderCoefficient>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+        <div #scrollCoefficient style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+            [style.min-width.px]="1600">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên nhân viên</th>
+                <th width="150px" class="text-center">Mã nhân viên</th>
+                <th width="100px" class="text-center">Tháng 1</th>
+                <th width="100px" class="text-center">Tháng 2</th>
+                <th width="100px" class="text-center">Tháng 3</th>
+                <th width="100px" class="text-center">Tháng 4</th>
+                <th width="100px" class="text-center">Tháng 5</th>
+                <th width="100px" class="text-center">Tháng 6</th>
+                <th width="100px" class="text-center">Tháng 7</th>
+                <th width="100px" class="text-center">Tháng 8</th>
+                <th width="100px" class="text-center">Tháng 9</th>
+                <th width="100px" class="text-center">Tháng 10</th>
+                <th width="100px" class="text-center">Tháng 11</th>
+                <th width="100px" class="text-center">Tháng 12</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="heightTable">
+          <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="1600">
+            <tbody>
+              <tr *ngFor="let row of listCoefficient; let i = index">
+                <td width="50px" class="text-center">{{i+1}}</td>
+                <td min-width="200px">{{row.EmployeeName}}</td>
+                <td width="150px">{{row.EmployeeCode}}</td>
+                <ng-container *ngIf="listCoefficient.length>0">
+                  <td class="text-center" style=" width: 100px;" *ngFor="let item of row.ListCoefficient; let  j=index">
+                    <input ntsNumberInt type="number" [(ngModel)]="item.Coefficient" class="form-control"
+                      name="{{row.EmployeeCode+i+j}}">
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+        <button type="button" class="btn btn-success" (click)="updateCoefficientEmployee()">
+          <i class="fa fa-save"></i>&nbsp;
+          <span>Lưu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

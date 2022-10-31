@@ -1,0 +1,94 @@
+.btn {
+    padding: 5px 15px;
+    width: 100%;
+}
+.btn_1{
+    padding: 5px 15px;
+}
+.btn_1.btn-success {
+    background: #46be8a;
+    color: #ffffff;
+    outline: none;
+    border-block: none;
+}
+.btn_1 {
+    border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: 0px;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 25px;
+    position: relative;
+}
+.btn_2.btn-success:hover {
+    background: #388e3c;
+    color: #ffffff;
+}
+.btn_2.btn-success:hover {
+    background: #388e3c;
+    color: #ffffff;
+}
+.btn_2 {
+    border-radius: 2px;
+    -o-border-radius: 2px;
+    -ms-border-radius: 2px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: 0px;
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    text-shadow: none;
+    font-size: 14px;
+    line-height: 25px;
+    position: relative;
+}
+.btn_2{
+    padding: 5px 15px;
+    height: 60px;
+    width: 100%;
+}
+.btn_2.btn-success {
+    background: #46be8a;
+    color: #ffffff;
+    border-color: #46be8a;
+}
+
+.checkbox-input {
+    position: relative;
+    min-height: 1.5rem;
+    padding-left: 1.5rem;
+    width: 85%;
+    float: left;
+}
+.form-label {
+    width: 100%;
+}
+.control-label{
+    width: 100%;
+    margin-bottom: -0.5rem;
+}
+
+.form-label_2 {
+    font-weight: 600 !important;
+    color: #212121;
+    text-transform: uppercase;
+    margin-bottom: 0px;
+}
+
+.btn.btn-upload {
+    padding: 5px 15px;
+    width: 100%;
+    background: #46be8a;
+    color: #ffffff;
+}
+
+.width-button {
+    width: 100%;
+    white-space: nowrap;
+    padding-left: 0px;
+}

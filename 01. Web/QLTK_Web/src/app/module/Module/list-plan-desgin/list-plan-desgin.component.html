@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12 d-flex">
+      <div class="custom-control custom-checkbox pl-0">
+        <span style="font-size: 16px;"
+          [ngClass]="{'text-success':data.MechanicsExist,'text-danger':!data.MechanicsExist}"> <i
+            class="fas fa-check"></i></span>
+        <input type="checkbox" class="custom-control-input" id="PlanFileMechanics" name="PlanFileMechanics"
+          [(ngModel)]="data.FileMechanics" disabled>
+        <label class="custom-control-label  ml-4" for="PlanFileMechanics">Cơ khí</label>
+      </div>
+      <div class="custom-control custom-checkbox ml-1">
+        <span style="font-size: 16px; "
+          [ngClass]="{'text-success':data.ElectricExist,'text-danger':!data.ElectricExist}"> <i
+            class="fas fa-check"></i></span>
+        <input type="checkbox" class="custom-control-input" id="PlanFileElectric" name="PlanFileElectric"
+          [(ngModel)]="data.FileElectric" disabled>
+        <label class="custom-control-label ml-4" for="PlanFileElectric">Điện</label>
+      </div>
+      <div class="custom-control custom-checkbox  ml-1">
+        <span style="font-size: 16px; "
+          [ngClass]="{'text-success':data.ElectronicExist,'text-danger':!data.ElectronicExist}"> <i
+            class="fas fa-check"></i></span>
+        <input type="checkbox" class="custom-control-input" id="PlanFileElectronic" name="PlanFileElectronic"
+          [(ngModel)]="data.FileElectronic" disabled>
+        <label class="custom-control-label  ml-4" for="PlanFileElectronic">Điện tử</label>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:980px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="50px" class="text-center">
+                <div class="custom-control custom-checkbox">
+                  <input class="text-center" [(ngModel)]="isSelectAll" type="checkbox" class="custom-control-input"
+                    id="checkAll" name="checkAll" (change)="changeCheckAll()">
+                  <label class="custom-control-label" for="checkAll"></label>
+                </div>
+              </th>
+              <th width="150px" class="text-center">Tên công việc</th>
+              <th width="150px" class="text-center">Mã dự án</th>
+              <th width="180px" class="text-center">Người thực hiện</th>
+              <th width="200px" class="text-center">Ngày bắt đầu dự kiến</th>
+              <th min-width="200px" class="text-center">Ngày kết thúc dự kiến</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of data.ListResult; let i = index">
+              <td class="text-center">{{StartIndex+i}}</td>
+              <td class="text-center" width="50px">
+                <div class="custom-control custom-checkbox">
+                  <input class="text-center" [(ngModel)]="row.IsChecked" type="checkbox" class="custom-control-input"
+                    [id]="'b'+i" [name]="'b'+i" (ngModelChange)="checkParent()">
+                  <label class="custom-control-label" [for]="'b'+i"></label>
+                </div>
+              </td>
+              <td>{{row.NameWork}}</td>
+              <td>{{row.CodeProject}}</td>
+              <td>{{row.UserName }}</td>
+              <td>{{row.DateStart}}</td>
+              <td>{{row.DateEnd}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="!data.ListResult || data.ListResult.length == 0">
+            <tr class="bold">
+              <td colspan="10" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ
+                liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-footer">
+
+  <button *ngIf="listChecker.length > 0" type="button" class="btn btn-success" (click)='updateListStatus()'
+    container="body">
+    <i class="fa fa-save"></i>
+    Lưu
+  </button>&nbsp;
+  <button *ngIf="listChecker.length < 0" type="button" disabled class="btn btn-success" (click)='updateListStatus()'
+    container="body">
+    <i class="fa fa-save"></i>
+    Lưu
+  </button>&nbsp;
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

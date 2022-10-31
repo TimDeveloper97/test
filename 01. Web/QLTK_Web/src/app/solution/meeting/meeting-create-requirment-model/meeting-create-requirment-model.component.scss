@@ -1,0 +1,23 @@
+.project-payment-create-modal.modal-dialog {
+  max-width: 1200px !important;
+  width: 1200px !important;
+}
+
+.project-payment-create-modal {
+  .dx-popup-content {
+    padding: 0px !important;
+  }
+  .dx-popup-content {
+    padding: 0px !important;
+  }
+  .dx-treelist-search-panel.dx-textbox.dx-texteditor.dx-editor-outlined.dx-searchbox.dx-show-clear-button.dx-widget,
+  .dx-treelist-search-panel.dx-textbox.dx-texteditor.dx-editor-outlined.dx-searchbox.dx-show-clear-button.dx-texteditor-empty.dx-widget {
+    width: 100% !important;
+    margin: 0;
+    padding: 0;
+  }
+  .dx-toolbar .dx-toolbar-after {
+    padding-left: 0 !important;
+    width: 100%;
+  }
+}

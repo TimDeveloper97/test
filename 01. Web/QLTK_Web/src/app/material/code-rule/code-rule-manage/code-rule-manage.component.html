@@ -1,0 +1,174 @@
+<div class='content-wrapper page-content'>
+  <section class="body-right">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Ký tự bắt đầu của Mã Vật Tư</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="codeRuleCodeMaterialGroup" [(ngModel)]="searchModel.Code">
+              </div>
+            </div>
+          </div> -->
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="codeRuleCodeMaterialGroup"
+              (change)="searchCodeRule()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchCodeRule()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body padding-15">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered " style="word-wrap: break-word ;min-width:1150px;">
+              <thead>
+                <tr>
+                  <th colspan="6" class="text-center">Điều kiện</th>
+                  <th colspan="2" class="text-center">Cách thức xử lý</th>
+                </tr>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th width="150px" class="text-center">Ký tự bắt đầu của Mã Vật Tư</th>
+                  <th width="150px" class="text-center">Hãng sản xuất</th>
+                  <th width="150px" class="text-center">Đơn vị</th>
+                  <th width="150px" class="text-center">Loại vật tư</th>
+                  <th min-width="150px" class="text-center">Nhóm vật tư chức năng</th>
+                  <th width="200px" class="text-center">Nhóm TPA</th>
+                  <!-- <th width="100px" class="text-center">Độ dài</th> -->
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listCodeRule; let i = index;">
+                  <td class="text-center" width="50px">{{Index + i}}</td>
+                  <td class="text-center">
+                    <button *appUipermission = "['F001102']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" (click)="deleteCodeRule(i)">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>
+                    <input [disUipermission] = "['F001101']" type="text" [(ngModel)]="row.Code" class="form-control" [name]="'code' + i" required>
+                  </td>
+                  <td>
+                    <select [disUipermission] = "['F001101']" [name]="'manufacture' + i" class="form-control" [(ngModel)]="row.ManufactureId" required>
+                      <option *ngFor="let item of listManufacture" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select [disUipermission] = "['F001101']" [name]="'unit' + i" class="form-control" [(ngModel)]="row.UnitId" required>
+                      <option *ngFor="let item of listUnit" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <select [disUipermission] = "['F001101']" [name]="'type' + i" class="form-control" [(ngModel)]="row.Type" required>
+                      <option *ngFor="let item of listType" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+
+                  <td style="position: relative;">
+                    <div style="width: 80%;">
+                      <input [disUipermission] = "['F001101']" type="text" [(ngModel)]="row.MaterialGroupName" class="form-control"
+                        [name]="'materialgroup' + i" disabled>
+                    </div>
+                    <span *appUipermission = "['F001101']" class="fa fa-edit btn-edit" ngbTooltip="Sửa" container="body" placement="top"
+                      aria-hidden="true" (click)="chooseMaterialGroup(i)"></span>
+                  </td>
+                  <td>
+                    <select [disUipermission] = "['F001101']" [name]="'materialgrouptpa' + i" class="form-control" [(ngModel)]="row.MaterialGroupTPAId"
+                      required>
+                      <option *ngFor="let item of ListMaterialGroupTPA" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                    <!-- <input type="text" [(ngModel)]="row.MaterialGroupTPAName" class="form-control"
+                      [name]="'materialgrouptpa' + i" required> -->
+                  </td>
+                  <!-- <td>
+                    <input type="text" [(ngModel)]="row.Length" class="form-control" [name]="'length' + i" required>
+                  </td> -->
+                </tr>
+                <tr>
+                  <td class="text-center" width="50px"></td>
+                  <td class="text-center">
+                    <button *appUipermission = "['F001101']" type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng" (click)="addRow()">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <input [disUipermission] = "['F001101']" type="text" [(ngModel)]="code" class="form-control" name="code">
+                  </td>
+
+                  <td>
+                    <select [disUipermission] = "['F001101']" name="manufacture" class="form-control" [(ngModel)]="manufactureId" required>
+                      <option *ngFor="let item of listManufacture" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select [disUipermission] = "['F001101']" name="unit " class="form-control" [(ngModel)]="unitId" required>
+                      <option *ngFor="let item of listUnit" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <select [disUipermission] = "['F001101']" name="type" class="form-control" [(ngModel)]="type" required>
+                      <option *ngFor="let item of listType" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+
+                  <td>
+                    <!-- <input type="text" [(ngModel)]="materialGroupId" class="form-control" name="materialGroupId"> -->
+                    <dx-drop-down-box [disUipermission] = "['F001101']" #d1 [(value)]="treeBoxValueMaterialGroup" valueExpr="Id" displayExpr="Name"
+                      placeholder="Chọn nhóm vật tư" [dataSource]="ListMaterialGroup"
+                      (onValueChanged)="syncTreeViewSelectionMaterialGroup()"
+                      [(opened)]="isDropDownBoxOpenedMaterialGroup">
+
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-tree-list [disUipermission] = "['F001101']" id="Id" [dataSource]="ListMaterialGroup" keyExpr="Id" parentIdExpr="ParentId"
+                          [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                          [expandedRowKeys]="ListMaterialGroupId" [(selectedRowKeys)]="materialGroupId"
+                          [hoverStateEnabled]="true" (onSelectionChanged)="treeViewMaterialGroup($event)">
+                          <dxo-selection mode="single"></dxo-selection>
+                          <dxo-search-panel [visible]="true"></dxo-search-panel>
+                          <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                          <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+                        </dx-tree-list>
+                        <button type="button" (click)="closeDropDownBox()">
+                          Đóng
+                        </button>
+                      </div>
+                    </dx-drop-down-box>
+                  </td>
+                  <td>
+                    <select [disUipermission] = "['F001101']" name="materialGroupTPAId" class="form-control" [(ngModel)]="materialGroupTPAId" required>
+                      <option *ngFor="let item of ListMaterialGroupTPA" [ngValue]="item.Id">{{item.Name}}</option>
+                    </select>
+                  </td>
+                  <!-- <td>
+                    <input type="text" [(ngModel)]="length" class="form-control" name="length">
+                  </td> -->
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+
+      </div>
+      <div class="row">
+        <div class="col-md-12 text-right">
+          <button [disUipermission] = "['F001101','F001102']" class="btn btn-success" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,193 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã kỹ năng BTH/ứng dụng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F040502']" type="text" class="form-control" [(ngModel)]="model.Code" name="Codeskillupdate" maxlength="20" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên kỹ năng BTH/ứng dụng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F040502']" type="text" class="form-control" [(ngModel)]="model.Name" name="nameskillupdate" maxlength="200" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhóm kỹ năng BTH/ứng dụng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <nts-drop-down [disUipermission]="['F040502']" [items]="listSkillGroup" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+          ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SkillGroupId" name="SkillGroupId"
+          required>
+        </nts-drop-down>
+
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Trình độ
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <nts-drop-down [disUipermission]="['F040502']" [items]="listDegree" [columns]="columnNameDegree" ntsValue="Id" ntsLabel="Name"
+          ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DegreeId" name="DegreeId"
+          required>
+        </nts-drop-down>
+          <!-- <div class="controls">
+            <select name="DegreeId" required class="form-control" [(ngModel)]="model.DegreeId" >
+              <option *ngFor="let item of listDegree" [ngValue]="item.Id">{{item.Name}}</option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [disUipermission]="['F040502']" [(ngModel)]="model.Description" name="Description" class="form-control"
+              maxLength="300"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <p class="text-uppercase" style="white-space: nowrap"><b>Bài thực hành/công đoạn - Giáo trình</b>
+            </p>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+            <button [disUipermission]="['F040502']" type="button" class="btn btn-success" (click)="showClick()" container="body" ngbTooltip="Chọn bài thực hành" placement="bottom">
+              <i class="fa fa-plus"></i>
+              Chọn
+            </button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+              <table class="table table-bordered" style="min-width:500px">
+                <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="80px" class="text-center">Xử lý</th>
+                    <th width="150px" class="text-center">Mã bài thực hành/công đoạn</th>
+                    <th min-width="200px" class="text-center">Tên bài thực hành/công đoạn</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of listData; let i = index">
+                    <td class="text-center">{{StartIndex+i}}</td>
+                    <td class="text-center">
+                      <button [disUipermission]="['F040502']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="bottom"
+                        (click)="showConfirmDelete(row)">
+                        <span class="fas fa-times" aria-hidden="true"></span>
+                      </button>
+                    </td>
+                    <td width="150px" >{{row.Code}}</td>
+                    <td min-width="150px">{{row.Name}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12">
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <p class="text-uppercase" style="white-space: nowrap"><b>Tài liệu đính kèm</b>
+            </p>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+            <button [disUipermission]="['F040502']" class="btn btn-success btn-upload" (click)="fileInput.click();">
+              <i class="fas fa-arrow-up"> &nbsp;</i>Upload
+            </button>
+            <input [disUipermission]="['F040502']" name="file" style="display: none;" type="file" id="fileInput" #fileInput
+              (change)="uploadFileClick($event)" multiple />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+              <table class="table table-bordered" style="min-width:500px">
+                <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="80px" class="text-center">Xử lý</th>
+                    <th min-width="250px" class="text-center">Tên file</th>
+                    <th width="150px" class="text-center">Dung lượng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of ListFile; let i = index">
+                    <td class="text-center">{{StartIndex+i}}</td>
+                    <td class="text-center">
+                      <ng-container>
+                        <button [disUipermission]="['F040502']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                          (click)="showConfirmDeleteFile(i)">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </ng-container>&nbsp;
+
+                      <ng-container *ngIf="row.Path!=null && row.Path!=''">
+                        <button [disUipermission]="['F040502']" style="background-color: papayawhip" class="btn btn-xs" (click)="DownloadAFile(row)" ngbTooltip="Tải">
+                          <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                      </ng-container>
+                    </td>
+                    <td>
+                      <span *ngIf="row.Id==null">{{row.name}}</span>
+                      <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                    </td>
+                    <td class="text-center">
+                      <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                      <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button [disUipermission]="['F040502']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

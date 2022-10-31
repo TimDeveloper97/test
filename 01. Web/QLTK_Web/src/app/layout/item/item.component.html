@@ -1,0 +1,13 @@
+<ng-container>
+    <hr *ngIf="item.ishr" class="margin-bottom-0 margin-top-20 metro-hr" />
+    <li routerLinkActive="active" *appUipermission="item.permission">
+        <a [routerLink]="[item.url]" [queryParams]="item.param" *ngIf="item.icon">
+            <i *ngIf="!item.ismdi" class="material-icons notranslate">{{item.icon}}</i>
+            <i *ngIf="item.ismdi" class="{{'mdi mdi-'+item.icon}}"></i>
+            <span class="title">{{item.title}}</span>
+        </a>
+        <a [routerLink]="[item.url]" [queryParams]="item.param" *ngIf="!item.icon">
+            {{item.title}}
+        </a>
+    </li>
+</ng-container>

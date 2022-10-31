@@ -1,0 +1,552 @@
+<!-- <div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <p class="text-uppercase" style="white-space: nowrap"><b>Tài liệu pháp lý (<span
+          class="bold text-danger">{{model.JuridicalFiles.length}}</span>)</b></p>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+    <button class="btn btn-success btn-upload" (click)="showImportExcel();">
+      <i class="fas fa-arrow-up"></i> &nbsp;Import Excel</button>&nbsp;
+    <button type="button" class="btn btn-success btn-upload" (click)="exportExcel();">
+      <i class="fa fa-file-excel"></i> &nbsp;Export excel</button>&nbsp;
+    <button class="btn btn-default btn-default-system" (click)="getProjectAttach()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+    <button *appUipermission="['F060008']" type="button" class="btn btn-success btn-upload"
+      (click)="createUpdateProjectAttach(1,row);">
+      <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+    <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+      (change)="uploadFileDocument($event)" #fileInputDocument />
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1900px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Xử lý</th>
+            <th width="200px" class="text-center">Tên tài liệu</th>
+            <th width="150px" class="text-center">Mã đơn vị ban hành</th>
+            <th width="200px" class="text-center">Tên đơn vị ban hành</th>
+            <th width="120px" class="text-center">Ngày ban hành</th>
+            <th width="200px" class="text-center">Nhóm tài liệu</th>
+            <th min-width="250px" class="text-center">Mô tả</th>
+            <th width="200px" class="text-center">Tên file</th>
+            <th width="100px" class="text-center">Dung lượng</th>
+            <th width="100px" class="text-center">Ngày tải</th>
+            <th width="150px" class="text-center">Người tải</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of model.JuridicalFiles; let i = index">
+            <tr *ngIf="!row.IsDelete">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-info" (click)="showProject(row.Id)" placement="top"
+                  ngbTooltip="Xem thông tin" container="body">
+                  <span class="far fa-eye" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="uploadFile(row,i)"
+                  class="btn btn-xs btn-success" placement="top" ngbTooltip="Upload" container="body">
+                  <span class="fas fa-arrow-up" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="createUpdateProjectAttach(1,row)"
+                  class="btn btn-xs btn-warning" placement="top" ngbTooltip="Sửa tài liệu" container="body">
+                  <span class="fas fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060010']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                  (click)="showConfirmDeleteDocument(row,i,1)">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+                <ng-container *ngIf="row.Path!='' && row.Path!=null">
+                  &nbsp;<button *appUipermission="['F060009']" type="button" (click)="downloadAFile(row)"
+                    style="background-color: papayawhip" class="btn btn-xs" placement="top" ngbTooltip="Tải và lưu"
+                    container="body">
+                    <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                  </button>
+                </ng-container>
+              </td>
+              <td>
+                {{row.Name}}
+              </td>
+              <td>
+                {{row.PromulgateCode}}
+              </td>
+              <td>
+                {{row.PromulgateName}}
+              </td>
+              <td class="text-center">
+                {{row.PromulgateDate|date:'dd/MM/yyy'}}
+              </td>
+              <td>
+                {{row.GroupName}}
+              </td>
+              <td>
+                {{row.Description}}
+              </td>
+              <td>
+                <p>
+                  {{row.FileName}}
+                  <span *ngIf="row.FileName" class="fas fa-times text-danger pointer ml-1" ngbTooltip="Xóa file"
+                    container="body" (click)="showConfirmDeleteFile(row)">
+                  </span>
+                </p>
+              </td>
+              <td class="text-center">
+                {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+              </td>
+              <td class="text-center">
+                {{row.CreateDate |date:'dd/MM/yyyy'}}
+              </td>
+              <td>
+                {{row.CreateByName}}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <p class="text-uppercase" style="white-space: nowrap"><b>Tài liệu kỹ thuật(<span
+          class="bold text-danger">{{model.TechnicalFiles.length}}</span>)</b></p>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+
+    <button *appUipermission="['F060008']" type="button" class="btn btn-success btn-upload"
+      (click)="createUpdateProjectAttach(2,row);">
+      <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1900px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Xử lý</th>
+            <th width="200px" class="text-center">Tên tài liệu</th>
+            <th width="150px" class="text-center">Mã đơn vị ban hành</th>
+            <th width="200px" class="text-center">Tên đơn vị ban hành</th>
+            <th width="120px" class="text-center">Ngày ban hành</th>
+            <th width="200px" class="text-center">Nhóm tài liệu</th>
+            <th min-width="250px" class="text-center">Mô tả</th>
+            <th width="200px" class="text-center">Tên file</th>
+            <th width="100px" class="text-center">Dung lượng</th>
+            <th width="100px" class="text-center">Ngày tải</th>
+            <th width="150px" class="text-center">Người tải</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of model.TechnicalFiles; let i = index">
+            <tr *ngIf="!row.IsDelete">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-info" (click)="showProject(row.Id)" placement="top"
+                  ngbTooltip="Xem thông tin" container="body">
+                  <span class="far fa-eye" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="uploadFile(row,i)"
+                  class="btn btn-xs btn-success" placement="top" ngbTooltip="Upload" container="body">
+                  <span class="fas fa-arrow-up" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="createUpdateProjectAttach(2,row)"
+                  class="btn btn-xs btn-warning" placement="top" ngbTooltip="Upload" container="body">
+                  <span class="fas fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060010']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                  (click)="showConfirmDeleteDocument(row,i,2)">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+                <ng-container *ngIf="row.Path!='' && row.Path!=null">
+                  &nbsp;<button *appUipermission="['F060009']" type="button" (click)="downloadAFile(row)"
+                    style="background-color: papayawhip" class="btn btn-xs" placement="top" ngbTooltip="Tải và lưu"
+                    container="body">
+                    <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                  </button>
+                </ng-container>
+              </td>
+              <td>
+                {{row.Name}}
+              </td>
+              <td>
+                {{row.PromulgateCode}}
+              </td>
+              <td>
+                {{row.PromulgateName}}
+              </td>
+              <td class="text-center">
+                {{row.PromulgateDate|date:'dd/MM/yyy'}}
+              </td>
+              <td>
+                {{row.GroupName}}
+              </td>
+              <td>
+                {{row.Description}}
+              </td>
+              <td>
+                <p>
+                  {{row.FileName}}
+                  <span *ngIf="row.FileName" class="fas fa-times text-danger pointer ml-1" ngbTooltip="Xóa file"
+                    container="body" (click)="showConfirmDeleteFile(row)">
+                  </span>
+                </p>
+              </td>
+              <td class="text-center">
+                {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+              </td>
+              <td class="text-center">
+                {{row.CreateDate |date:'dd/MM/yyyy'}}
+              </td>
+              <td>
+                {{row.CreateByName}}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <p class="text-uppercase" style="white-space: nowrap"><b>Tài liệu khác (<span
+          class="bold text-danger">{{model.OtherFiles.length}}</span>)</b></p>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+
+    <button *appUipermission="['F060008']" type="button" class="btn btn-success btn-upload" value="Upload"
+      (click)="createUpdateProjectAttach(3,row);">
+      <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1900px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Xử lý</th>
+            <th width="200px" class="text-center">Tên tài liệu</th>
+            <th width="150px" class="text-center">Mã đơn vị ban hành</th>
+            <th width="200px" class="text-center">Tên đơn vị ban hành</th>
+            <th width="120px" class="text-center">Ngày ban hành</th>
+            <th width="200px" class="text-center">Nhóm tài liệu</th>
+            <th min-width="250px" class="text-center">Mô tả</th>
+            <th width="200px" class="text-center">Tên file</th>
+            <th width="100px" class="text-center">Dung lượng</th>
+            <th width="100px" class="text-center">Ngày tải</th>
+            <th width="150px" class="text-center">Người tải</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of model.OtherFiles; let i = index">
+            <tr *ngIf="!row.IsDelete">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-info" (click)="showProject(row.Id)" placement="top"
+                  ngbTooltip="Xem thông tin" container="body">
+                  <span class="far fa-eye" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="uploadFile(row,i)"
+                  class="btn btn-xs btn-success" placement="top" ngbTooltip="Upload" container="body">
+                  <span class="fas fa-arrow-up" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060008']" type="button" (click)="createUpdateProjectAttach(3,row)"
+                  class="btn btn-xs btn-warning" placement="top" ngbTooltip="Upload" container="body">
+                  <span class="fas fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060010']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                  (click)="showConfirmDeleteDocument(row,i,3)">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+                <ng-container *ngIf="row.Path!='' && row.Path!=null">
+                  &nbsp;<button *appUipermission="['F060009']" type="button" (click)="downloadAFile(row)"
+                    style="background-color: papayawhip" class="btn btn-xs" placement="top" ngbTooltip="Tải và lưu"
+                    container="body">
+                    <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                  </button>
+                </ng-container>
+              </td>
+              <td>
+                {{row.Name}}
+              </td>
+              <td>
+                {{row.PromulgateCode}}
+              </td>
+              <td>
+                {{row.PromulgateName}}
+              </td>
+              <td class="text-center">
+                {{row.PromulgateDate|date:'dd/MM/yyy'}}
+              </td>
+              <td>
+                {{row.GroupName}}
+              </td>
+              <td>
+                {{row.Description}}
+              </td>
+              <td>
+                <p>
+                  {{row.FileName}}
+                  <span *ngIf="row.FileName" class="fas fa-times text-danger pointer ml-1" ngbTooltip="Xóa file"
+                    container="body" (click)="showConfirmDeleteFile(row)">
+                  </span>
+                </p>
+              </td>
+              <td class="text-center">
+                {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+              </td>
+              <td class="text-center">
+                {{row.CreateDate |date:'dd/MM/yyyy'}}
+              </td>
+              <td>
+                {{row.CreateByName}}
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+    <button *appUipermission="['F060008','F060010']" type="button" class="btn btn-success" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+  </div>
+</div>
+<br>
+<hr />
+<div class="row">
+  <div class="col-md-12">
+    <button style="background-color: papayawhip" class="btn btn-view">
+      <i class="fas fa-download"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Tải tài liệu</small>
+    <button class="btn btn-view btn-danger">
+      <i class="fas fa-times"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Xóa tài liệu</small>
+  </div>
+</div> -->
+
+<div class='content-wrapper page-content'>
+    <section class="search-left">
+      <div class="content-body">
+        <!-- <div class="row">
+          <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+            <label class="form-label" style="line-height:25px;">Tổng số
+              <span class="bold text-danger">{{projectAttachTabTotal}}</span> chủng loại tài liệu</label>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+            <button type="button" (click)="showCreateUpdateType('', false)" class="btn btn-xs btn-success"
+              placement="bottom" ngbTooltip="Thêm chủng loại tài liệu" container="body">
+              <span class="fa fa-plus" aria-hidden="true"></span>
+            </button>
+          </div>
+        </div> -->
+        <div class="row">
+          <div class="col-md-12 col-sm-12 col-lg-12 0">
+            <dx-tree-list id="employees" [dataSource]="listProjectAttachTabType" keyExpr="Id" parentIdExpr="ParentId"
+              [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="heightLeft"
+              (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true" noDataText=" "
+              [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+              </dxo-search-panel>
+              <!-- <dxi-column dataField="Code" caption="Mã" [minWidth]="100"></dxi-column> -->
+              <dxi-column dataField="Name" caption="Tên chủng loại" [minWidth]="150"></dxi-column>
+              <!-- <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="80px"
+                [allowSearch]="false">
+                <div *dxTemplate="let item of 'cellEditTemplate'">
+                  <div *ngFor="let row of listProjectAttachTabType; let i = index">
+                    <ng-container *ngIf ="item.value == row.Id && row.Type ==''">
+                      <button type="button" placement="top" class="item-add" ngbTooltip="Thêm nhóm" container="body"
+                        (click)=" showCreateUpdateType(item.value, false)">
+                        <i class="fas fa-plus"></i></button>
+                    </ng-container>
+                    <ng-container *ngIf ="item.value == row.Id && row.Type == 1">
+                      <button type="button" placement="top" class="item-update" ngbTooltip="Sửa nhóm" container="body"
+                        (click)=" showCreateUpdateType(item.value, true)">
+                        <i class="fa fa-edit"></i></button>
+                    </ng-container>
+                    <ng-container *ngIf ="item.value == row.Id && row.Type == 1">
+                      <button type="button" placement="top" class="item-delete" ngbTooltip="Xóa nhóm" container="body"
+                        (click)=" showConfirmType(item.data.Id)">
+                        <i class="fas fa-times"></i></button>
+                    </ng-container>
+                  </div>
+                </div>
+              </dxi-column> -->
+            </dx-tree-list>
+            <!-- <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+              (onItemClick)="itemClick($event)">
+              <div *dxTemplate="let e of 'item'">
+                <div>
+                  <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                </div>
+              </div>
+            </dx-context-menu> -->
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="body-right">
+      <div class="content-body pb-0">
+        <form name="searchForm" #f="ngForm">
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+              <!-- <button class="btn btn-success btn-upload" (click)="showImportExcel();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import Excel</button>&nbsp; -->
+              <button type="button" class="btn btn-success btn-upload" (click)="exportExcel();">
+                <i class="fa fa-file-excel"></i> &nbsp;Export excel</button>&nbsp;
+              <!-- <button class="btn btn-default btn-default-system" (click)="getProjectAttach()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp; -->
+              <!-- <button *appUipermission="['F060008']" type="button" class="btn btn-success btn-upload"
+                (click)="createUpdateProjectAttach(1,row);">
+                <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button> -->
+              <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+                (change)="uploadFileDocument($event)" #fileInputDocument />
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:1900px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="100px" class="text-center">Xử lý</th>
+                      <th width="200px" class="text-center">Tên tài liệu</th>
+                      <th width="150px" class="text-center">Mã đơn vị ban hành</th>
+                      <th width="200px" class="text-center">Tên đơn vị ban hành</th>
+                      <th width="120px" class="text-center">Ngày ban hành</th>
+                      <!-- <th width="200px" class="text-center">Nhóm tài liệu</th> -->
+                      <th min-width="250px" class="text-center">Mô tả</th>
+                      <th width="200px" class="text-center">Tên file</th>
+                      <th width="100px" class="text-center">Dung lượng</th>
+                      <th width="100px" class="text-center">Ngày tải</th>
+                      <th width="150px" class="text-center">Người tải</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngFor="let row of model.JuridicalFiles; let i = index">
+                      <tr *ngIf="!row.IsDelete">
+                        <td class="text-center">{{i+1}}</td>
+                        <td class="text-center">
+                          <button type="button" class="btn btn-xs btn-info" (click)="showProject(row.Id)" placement="top"
+                            ngbTooltip="Xem thông tin" container="body">
+                            <span class="far fa-eye" aria-hidden="true"></span>
+                          </button>&nbsp;
+                          <!-- <button *appUipermission="['F060008']" type="button" (click)="uploadFile(row,i)"
+                            class="btn btn-xs btn-success" placement="top" ngbTooltip="Upload" container="body">
+                            <span class="fas fa-arrow-up" aria-hidden="true"></span>
+                          </button>&nbsp; -->
+                          <!-- <button *appUipermission="['F060008']" type="button" (click)="createUpdateProjectAttach(1,row)"
+                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Sửa tài liệu" container="body">
+                            <span class="fas fa-edit" aria-hidden="true"></span>
+                          </button>&nbsp;
+                          <button *appUipermission="['F060010']" type="button" class="btn btn-xs btn-danger"
+                            ngbTooltip="Xóa" (click)="showConfirmDeleteDocument(row,i,1)">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        -->
+                          <ng-container *ngIf="row.Path!='' && row.Path!=null">
+                            &nbsp;<button *appUipermission="['F060009']" type="button" (click)="downloadAFile(row)"
+                              style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                              ngbTooltip="Tải và lưu" container="body">
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>
+                          </ng-container>
+                          <!--
+                          <ng-container *ngIf="row.Path=='' || row.Path==null">
+                            &nbsp;<button *appUipermission="['F060009']" type="button" (click)="downloadAFile(row)"
+                              style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                              ngbTooltip="Tải và lưu" container="body" disabled>
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>
+                          </ng-container> -->
+                        </td>
+                        <td>
+                          {{row.Name}}
+                        </td>
+                        <td>
+                          {{row.PromulgateCode}}
+                        </td>
+                        <td>
+                          {{row.PromulgateName}}
+                        </td>
+                        <td class="text-center">
+                          {{row.PromulgateDate|date:'dd/MM/yyy'}}
+                        </td>
+                        <!-- <td>
+                          {{row.GroupName}}
+                        </td> -->
+                        <td>
+                          {{row.Description}}
+                        </td>
+                        <td>
+                          <p>
+                            {{row.FileName}}
+                            <span *ngIf="row.FileName" class="fas fa-times text-danger pointer ml-1" ngbTooltip="Xóa file"
+                              container="body" (click)="showConfirmDeleteFile(row)">
+                            </span>
+                          </p>
+                        </td>
+                        <td class="text-center">
+                          {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                        </td>
+                        <td class="text-center">
+                          {{row.CreateDate |date:'dd/MM/yyyy'}}
+                        </td>
+                        <td>
+                          {{row.CreateByName}}
+                        </td>
+                      </tr>
+                    </ng-container>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+              <button *appUipermission="['F060008','F060010']" type="button" class="btn btn-success"
+                (click)="save()">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu</span>
+              </button>
+            </div> -->
+  
+            <br>
+            <hr />
+  
+            <!-- <div class="col-md-12">
+              <button style="background-color: papayawhip" class="btn btn-view">
+                <i class="fas fa-download"></i>
+              </button>&nbsp;
+              <small class="padding-right-20">Tải tài liệu</small>
+              <button class="btn btn-view btn-danger">
+                <i class="fas fa-times"></i>
+              </button>&nbsp;
+              <small class="padding-right-20">Xóa tài liệu</small>
+            </div> -->
+          </div>
+        </form>
+      </div>
+    </section>
+  </div>

@@ -1,0 +1,335 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+  <div class="modal-body padding-15">
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Sản phẩm cha
+          </label>
+          <nts-drop-down-tree [items]="listProjectProduct" [columns]="columnProjectProduct" ntsParentId="ParentId"
+            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ParentId"
+            name="projectproduct" [disUipermission]="['F060016']">
+          </nts-drop-down-tree>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã theo hợp đồng
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.ContractCode" name="ContractCode" maxlength="50"
+              [disUipermission]="['F060016']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên theo hợp đồng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.ContractName" name="ContractName" maxlength="300"
+              required [disUipermission]="['F060016']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Kiểu dữ liệu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select name="DataType" required class="form-control" [(ngModel)]="model.DataType"
+              [disUipermission]="['F060016']">
+              <option *ngFor="let item of listDataType" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" *ngIf="model.DataType==3 || model.DataType==4">
+        <div class="form-group">
+          <label class="form-label">Mã theo thiết kế
+          </label>
+          <nts-drop-down-tree [items]="listModule" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+            ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ModuleId" name="moduleId"
+            placeholder="Chọn thiết kế" [disUipermission]="['F060016']"></nts-drop-down-tree>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12" *ngIf="model.DataType==2">
+        <div class="form-group ">
+          <label class="form-label">Mã theo thiết kế
+          </label>
+          <nts-drop-down-tree [items]="listProduct" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+            ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ProductId" name="productId"
+            placeholder="Chọn thiết kế" [disUipermission]="['F060016']"></nts-drop-down-tree>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tình trạng module
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select name="ModuleStatus" required class="form-control" [(ngModel)]="model.ModuleStatus"
+              [disUipermission]="['F060016']">
+              <option *ngFor="let item of listModuleStatus" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tình trạng thiết kế
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select name="DesignStatus" required class="form-control" [(ngModel)]="model.DesignStatus"
+              [disUipermission]="['F060016']">
+              <option *ngFor="let item of listDesignStatus" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group form-group-custom">
+          <label class="form-label">Số lượng <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input currencyMask [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+              name="Quantity" type="text" class="form-control" [(ngModel)]="model.Quantity" maxlength="18" required
+              [disUipermission]="['F060016']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày dự kiến hoàn thành thiết kế
+          </label>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group input-date">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="ExpectedDesignFinishDate"
+                  [(ngModel)]="expectedDesignFinishDate" ngbDatepicker #ExpectedDesignFinishDate="ngbDatepicker"
+                  [disUipermission]="['F060016']">
+                <div class="input-group-append" [disUipermission]="['F060016']">
+                  <span class="dtp-icon" (click)="ExpectedDesignFinishDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày dự kiến hoàn thành sản xuất
+          </label>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group input-date">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="ExpectedMakeFinishDate"
+                  [(ngModel)]="expectedMakeFinishDate" ngbDatepicker #ExpectedMakeFinishDate="ngbDatepicker"
+                  [disUipermission]="['F060016']">
+                <div class="input-group-append" [disUipermission]="['F060016']">
+                  <span class="dtp-icon" (click)="ExpectedMakeFinishDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày dự kiến chuyển giao
+          </label>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group input-date">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="ExpectedTransferDate"
+                  [(ngModel)]="expectedTransferDate" ngbDatepicker #ExpectedTransferDate="ngbDatepicker"
+                  [disUipermission]="['F060016']">
+                <div class="input-group-append" [disUipermission]="['F060016']">
+                  <span class="dtp-icon" (click)="ExpectedTransferDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày dự kiến giao hàng
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="DeliveryDate"
+                [(ngModel)]="deliveryDate" ngbDatepicker #DeliveryDate="ngbDatepicker" [disUipermission]="['F060016']">
+              <div class="input-group-append" [disUipermission]="['F060016']">
+                <span class="dtp-icon" (click)="DeliveryDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày chuyển giao
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="TransferDate"
+                [(ngModel)]="transferDate" ngbDatepicker #TransferDate="ngbDatepicker" [disUipermission]="['F060016']">
+              <div class="input-group-append" [disUipermission]="['F060016']">
+                <span class="dtp-icon" (click)="TransferDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group form-group-custom">
+          <label class="form-label">Giá
+          </label>
+          <div class="controls">
+            <input currencyMask [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+              name="Price" type="text" class="form-control" [(ngModel)]="model.Price" maxlength="18"
+              [disUipermission]="['F060016']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Hạng mục</label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.ContractIndex" name="ContractIndex"
+              maxlength="50" [disUipermission]="['F060016']">
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày đóng thiết kế
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="designCloseDate"
+                [(ngModel)]="designCloseDate" ngbDatepicker #DesignCloseDate="ngbDatepicker"
+                [disUipermission]="['F060016']">
+              <div class="input-group-append" [disUipermission]="['F060016']">
+                <span class="dtp-icon" (click)="DesignCloseDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày tạo THTK gần nhất
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="generalDesignLastDate"
+                [(ngModel)]="generalDesignLastDate" ngbDatepicker #GeneralDesignLastDate="ngbDatepicker"
+                [disUipermission]="['F060016']">
+              <div class="input-group-append" [disUipermission]="['F060016']">
+                <span class="dtp-icon" (click)="GeneralDesignLastDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 radio">
+        <div class="form-group ">
+          <label class="form-label">Trạng thái làm thiết kế
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <ng-container>
+            <label class="radio">Đang thiết kế
+              <input type="radio" name="valueTrueFalse" [(ngModel)]="model.DesignWorkStatus" [value]="false">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio">Đã xong
+              <input type="radio" name="valueTrueFalse" [(ngModel)]="model.DesignWorkStatus" [value]="true">
+              <span class="checkround"></span>
+            </label>
+          </ng-container>
+
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Thông số
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Specifications" name="Specifications" rows="10" class="form-control"
+              [disUipermission]="['F060016']"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Note" name="Note" rows="2" class="form-control" [maxLength]="300"
+              [disUipermission]="['F060016']"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F060016','F060017']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="idUpdate==='' || idUpdate==null">
+    <button *appUipermission="['F060016']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

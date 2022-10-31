@@ -1,0 +1,63 @@
+* {
+  font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+.header-report {
+  margin-bottom: 1rem;
+}
+.input-field {
+  border: 1px solid black;
+  width: 85%;
+  padding: 10px 5px 10px 20px;
+  border-radius: 20px;
+  float: right;
+}
+label {
+  font-weight: 700;
+}
+select {
+  margin: 0 10px;
+  padding: 0.25em;
+  border: 0;
+  border-bottom: 2px solid currentcolor;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  border-radius: 0;
+  &:focus,
+  &:active {
+    outline: 0;
+    border-bottom-color: red;
+  }
+}
+input[type="date"] {
+  margin: 0 10px;
+}
+.label {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+  top: -10px;
+}
+.right-content {
+  padding-top: 10px;
+}
+#visualization {
+  height: 80vh;
+}
+.left-geochart {
+  overflow: hidden;
+}
+.ul-chart {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  border: 1px solid blue;
+  border-radius: 20px;
+  padding: 10px;
+}
+.dl-chart {
+  margin-top: 20px;
+  width: 100%;
+  border: 1px solid blue;
+  border-radius: 20px;
+  padding: 10px;
+}

@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Quản lý file phân bổ dữ liệu</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <form name="searchForm" #f="ngForm">
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="dataDistributionFileSearchModel"
+          name="dataDistributionFileSearchModel" (change)="searchDataDistributionFile()">
+        </nts-search-bar>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+        <button class="btn btn-success btn-success-system" (click)="searchDataDistributionFile()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+        <button class="btn btn-default btn-default-system" (click)="clear()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      </div>
+    </div>
+
+    <div class="row margin-bottom-10 mt-3">
+      <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listAllFile.length}}</span> file</label>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+        <button *appUipermission="['F090806']"  type="button" class="btn btn-success mt-md-1 mt-xl-0" (click)="showCreateUpdateFile('') "
+          container="body">
+          <i class="fa fa-plus"></i>
+          Thêm mới
+        </button>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <table class="table table-bordered mb-0" style="min-width:500px">
+        <thead #header style="background-color: white">
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="100px" class="text-center">Xử lý</th>
+            <th min-width="150px">Tên file</th>
+            <th width="300px" >Đường dẫn</th>
+          </tr>
+        </thead>
+      </table>
+      <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+        <table class="table table-bordered" style="min-width:500px">         
+          <tbody>
+            <tr *ngFor="let row of listAllFile; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>
+              <td width="100px" class="text-center">
+                <button *appUipermission="['F090806']"  type="button" (click)='showCreateUpdateFile(row.Id)' class="btn btn-xs btn-warning"
+                  placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button> &nbsp;
+                <button *appUipermission="['F090806']"  class="btn btn-xs btn-danger" (click)="showConfirmDeleteFile(row.Id)" placement="bottom"
+                  ngbTooltip="Xóa" container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+              <td min-width="150px">{{row.Name}}</td>
+              <td width="300px">{{row.FolderContain}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+<div class="modal-footer"> 
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

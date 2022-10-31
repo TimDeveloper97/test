@@ -1,0 +1,57 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{totalItems}}</span> cấu hình</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn btn-default btn-default-system" (click)="searchConfig()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1000px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên cấu hình</th>
+                  <th width="200px" class="text-center">Giá trị</th>
+                  <th width="100px" class="text-center">Đơn vị</th>
+                  <th width="200px" class="text-center">Người cập nhật</th>
+                  <th width="200px" class="text-center">Ngày cập nhật</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td style="text-align: center">
+                    <button type="button" (click)="ShowCreateUpdate(row.Id)" class="btn btn-xs btn-warning"
+                      placement="bottom" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>
+                    <span *ngIf="row.ValueType==1">{{row.Value}}</span>
+                    <span *ngIf="row.ValueType==2">{{row.Value|number}}</span>
+                    <span *ngIf="row.ValueType==3">{{row.Value|date:'dd/MM/yyyy'}}</span>
+                    <span *ngIf="row.ValueType==4">{{row.Value}}</span>
+                  </td>
+                  <td>{{row.Unit}}</td>
+                  <td>{{row.UpdateByName}}</td>
+                  <td>{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+    </div>
+  </section>
+</div>

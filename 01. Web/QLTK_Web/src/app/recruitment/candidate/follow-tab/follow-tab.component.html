@@ -1,0 +1,112 @@
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{follows.length}}</span> lần phỏng vấn &nbsp;
+            </label>
+        </div>
+        <div class="col-md-6 text-right">
+            <button *appUipermission="['F080001']" type="button" class="btn btn-success" (click)='showCreateUpdate()'
+                container="body">
+                <i class="fa fa-plus"></i>
+                Thêm mới
+            </button>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:440px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="70px" class="text-center">Xử lý</th>
+                            <th width="120px" class="text-center">Ngày gọi điện</th>
+                            <th min-width="200px" class="text-center">Nội dung trao đổi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of follows; let i = index;">
+                            <td class="text-center" width="50px">{{startIndex+i}}
+                            </td>
+                            <td class="text-center" width="70px">
+                                <button class="btn btn-xs btn-danger" (click)="deleteFollow(i)" placement="bottom"
+                                    ngbTooltip="Xóa" container="body">
+                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input container="body" class="form-control" placeholder="dd/mm/yyyy"
+                                        [name]="'DateChange'+i" [(ngModel)]="row.DateFollow" ngbDatepicker
+                                        #DateFollow="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                                        [maxDate]="{year: 2100, month: 12, day: 31}">
+                                    <div class="input-group-append">
+                                        <span [disUipermission]="['F080002']" class="dtp-icon"
+                                            (click)="DateFollow.toggle();$event.stopPropagation();">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="controls">
+                                    <input type="text" [(ngModel)]="row.Content" class="form-control"
+                                        [name]="'Content' + i" maxlength="300">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr class="bold">
+                            <td></td>
+                            <td class="text-center">
+                                <button type="button" (click)='validateFollow()' class="btn btn-xs btn-success"
+                                    placement="bottom" ngbTooltip="Thêm mới" container="body">
+                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                </button>
+                            </td>
+                            <td>
+                                <div class="input-group">
+                                    <input container="body" class="form-control" placeholder="dd/mm/yyyy"
+                                        name="DateChange" [(ngModel)]="followModel.DateFollow" ngbDatepicker
+                                        #DateFollow="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                                        [maxDate]="{year: 2100, month: 12, day: 31}">
+                                    <div class="input-group-append">
+                                        <span [disUipermission]="['F080002']" class="dtp-icon"
+                                            (click)="DateFollow.toggle();$event.stopPropagation();">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="controls">
+                                    <input type="text" [(ngModel)]="followModel.Content" class="form-control"
+                                        name="Content" maxlength="300">
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <ng-container>
+            <button *appUipermission="['F080001']" type="button" class="btn btn-success" (click)="save(false)"
+                [disabled]="!f.form.valid">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu</span>
+            </button>
+        </ng-container>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</form>

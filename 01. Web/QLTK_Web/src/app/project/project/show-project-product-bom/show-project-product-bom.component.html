@@ -1,0 +1,45 @@
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+      <label class="form-label" style="line-height:35px;">Danh sách BOM của sản phẩm
+      </label>
+    </div>
+    <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+      <button *appUipermission="['F060030']" type="button" class="btn btn-success" (click)="showCreate()"
+        container="body">
+        <i class="fa fa-plus"></i>
+        Thêm mới
+      </button>
+    </div> -->
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig">
+        <table class="table table-bordered table-fixed" style="min-width:700px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="150px" class="text-center">Xử lý</th>
+              <th width="100px" class="text-center">Version</th>
+              <th width="100px" class="text-center">Lần tạo</th>
+              <th width="100px" class="text-center">Ngày tạo</th>
+              <th min-width="200px" class="text-center">Người tạo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <ng-container *ngIf="row.ListFile.length>0">
+                <button *appUipermission="['F060033']" type="button" (click)="downAllDocumentProcess(row.ListFile)"
+                  style="background-color: papayawhip" class="btn btn-xs" placement="bottom" placement="top"
+                  ngbTooltip="Tải và lưu" container="body">
+                  <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                </button>
+              </ng-container>
+              <td class="text-center">{{row.Version}}</td>
+              <td class="text-center">{{row.Index}}</td>
+              <td class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+              <td>{{row.CreateByName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>

@@ -1,0 +1,32 @@
+<div class="login_page">
+    <div class="login-wrapper">
+        <div class="row justify-content-center">
+            <div id="login" class="login loginpage col-xl-6 col-lg-8 col-md-8 col-sm-10">
+
+                <h2 style="color:white; text-align:center">PHẦN MỀM QUẢN LÝ HỆ THỐNG</h2>
+                <h3 style="color:white; text-align:center"></h3>
+
+                <form name="form" class="form-validation" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+                    <div class="row justify-content-center">
+                        <div class="col-xl-6 col-lg-8 col-md-8">
+
+                            <input type="text" name="text" id="user_login" class="input input-border-color" placeholder="Tên đăng nhập" [(ngModel)]="model.username" #username="ngModel"
+                                required/>
+                            <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+
+                            <input type="password" name="pwd" id="user_login_p" class="input input-border-color" placeholder="Mật khẩu" [(ngModel)]="model.password" required/>
+
+                            <!--  <button type="submit" data-ng-click="login()" ng-disabled='form.$invalid' class="btn btn-accent btn-block">ĐĂNG NHẬP</button>-->
+                            <button class="btn btn-accent btn-block mt-3">ĐĂNG NHẬP</button>
+
+                        </div>
+                    </div>
+                </form>
+
+                <div class="text-danger text-center">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

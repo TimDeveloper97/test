@@ -1,0 +1,634 @@
+<div class='content-wrapper'>
+    <form name="form" class="tab-form-demo mt-2" #f="ngForm" novalidate>
+
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin tài liệu</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <label class="form-label font-weight-bold">Thông tin chung
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Nhóm tài liệu
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+
+                                    <nts-drop-down-tree [items]="documentGroups" [columns]="columnName"
+                                        ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                        ntsAutoClose="true" [(ngModel)]="documentModel.DocumentGroupId"
+                                        name="DocumentGroupId">
+                                    </nts-drop-down-tree>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Loại tài liệu
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="documnetTypes"
+                                        [columns]="columnName" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                        ntsAutoClose="true" [(ngModel)]="documentModel.DocumentTypeId"
+                                        name="DocumentTypeId" required>
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Mã tài liệu
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="documentModel.Code" name="Code"
+                                        maxlength="50" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Tên tài liệu
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="documentModel.Name" name="Name"
+                                        maxlength="500" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Vesion
+                                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="documentModel.Version"
+                                        name="Version" maxlength="20" disabled>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Bộ phận quản lý tài liệu
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="departments" [columns]="columnName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="documentModel.DepartmentId" name="DepartmentId">
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Vị trí kiểm duyệt/ kiểm tra
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="documentModel.ApproveWorkTypeId" name="ApproveWorkTypeId">
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Giá tài liệu (VNĐ)
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="documentModel.Price"
+                                        name="Price" maxlength="18" currencyMask>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4 radio">
+                            <div class="form-group ">
+                                <label class="form-label">Loại ban hành
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <ng-container>
+                                        <label class="radio">Công ty
+                                            <input type="radio" name="type" [(ngModel)]="documentModel.CompilationType"
+                                                [value]="1">
+                                            <span class="checkround"></span>
+                                        </label>
+                                        <label class="radio">Nhà cung cấp
+                                            <input type="radio" name="type" [(ngModel)]="documentModel.CompilationType"
+                                                [value]="2">
+                                            <span class="checkround"></span>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="documentModel.CompilationType==1" class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Người biên soạn/ Ban hành
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="employees" [columns]="columnEmployeeName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="documentModel.CompilationEmployeeId" name="CompilationEmployeeId"
+                                        required>
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="documentModel.CompilationType==2" class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Nhà cung cấp ban hành
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="suppliers" [columns]="columnSupplierName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="documentModel.CompilationSuppliserId" name="CompilationSuppliserId"
+                                        required>
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày phê duyệt
+                                </label>
+                                <div class="input-group">
+                                    <input  class="form-control" placeholder="dd/mm/yyyy"
+                                        name="promulgateDate" [(ngModel)]="promulgateDate" ngbDatepicker
+                                        #PromulgateDate="ngbDatepicker" [minDate]="minDateNotificationV">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="PromulgateDate.toggle()" name="promulgateDate">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4" *ngIf="documentModel.Id">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày ban hành hiện tại
+                                </label>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                        name="promulgateLastDate" [(ngModel)]="promulgateLastDate" ngbDatepicker
+                                        #PromulgateLastDate="ngbDatepicker" [minDate]="minDateNotificationV">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="PromulgateLastDate.toggle()"
+                                            name="promulgateLastDate">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian hiệu lực từ ngày
+                                </label>
+                                <div class="input-group">
+                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                        name="reviewDateFrom" [(ngModel)]="reviewDateFrom" ngbDatepicker
+                                        #ReviewDateFrom="ngbDatepicker" [minDate]="minDateNotificationV">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="ReviewDateFrom.toggle()" name="reviewDateFrom">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian hết hiệu lực
+                                </label>
+                                <div class="input-group">
+                                    <input  class="form-control" placeholder="dd/mm/yyyy"
+                                        name="reviewDateTo" [(ngModel)]="reviewDateTo" ngbDatepicker
+                                        #ReviewDateTo="ngbDatepicker" [minDate]="minDateNotificationV">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="ReviewDateTo.toggle()" name="reviewDateTo">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                            <div class="form-group ">
+                                <label class="form-label">Trạng thái
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-status-badge [value]="documentModel.Status" [items]="constants.DocumentStatus">
+                                    </nts-status-badge>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group ">
+                                <label class="form-label">Keyword
+                                </label>
+                                <div class="controls">                                    
+                                    <ng-select [items]="documentTags" [addTag]="addTagFn" [hideSelected]="true" 
+                                        multiple="true"  bindValue="Name"  bindLabel="Name" [(ngModel)]="documentModel.Keywords" name="Keyword">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-label">Mô tả
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <textarea [(ngModel)]="documentModel.Description" name="Question" rows="5"
+                                        class="form-control" [maxLength]="500"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Chọn đối tượng áp dụng -->
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <label class="form-label font-weight-bold">Đối tượng sử dụng/áp dụng
+                            </label>
+                        </div>
+                        <!-- Chọn thiết bị -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                            <div class="row  margin-bottom-5">
+                                <div class="col-md-6 text-left">
+                                    <label class="form-label" style="line-height:35px;">Tổng số
+                                        <span class="bold text-danger">{{documentModel.Devices.length}}</span> thiết bị
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button  type="button" class="btn btn-success"
+                                        (click)='chooseDevice()' container="body">
+                                        <i class="fa fa-plus"></i>
+                                        Chọn thiết bị
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <perfect-scrollbar [config]="constants.ScrollConfig"
+                                        style="height:auto;max-height: 300px; width:100%;">
+                                        <table class="table table-bordered" style="min-width:380px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="80px" class="text-center">Xử lý</th>
+                                                    <th width="100px" class="text-center">Mã thiết bị</th>
+                                                    <th min-width="150px" class="text-center">Tên thiết bị</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of documentModel.Devices; let i = index">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            ngbTooltip="Xóa" placement="top"
+                                                            (click)="showConfirmDeleteDevices(i)" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {{row.Code}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.Name}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chọn module -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                            <div class="row  margin-bottom-5">
+                                <div class="col-md-6 text-left">
+                                    <label class="form-label" style="line-height:35px;">Tổng số
+                                        <span class="bold text-danger">{{documentModel.Modules.length}}</span> module
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button  type="button" class="btn btn-success"
+                                        (click)='chooseModule()' container="body">
+                                        <i class="fa fa-plus"></i>
+                                        Chọn module
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <perfect-scrollbar [config]="constants.ScrollConfig"
+                                        style="height:auto;max-height: 300px; width:100%;">
+                                        <table class="table table-bordered" style="min-width:380px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="80px" class="text-center">Xử lý</th>
+                                                    <th width="150px" class="text-center">Mã module</th>
+                                                    <th min-width="150px" class="text-center">Tên module</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of documentModel.Modules let i = index">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            ngbTooltip="Xóa" placement="top"
+                                                            (click)="showConfirmDeleteModule(i)" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {{row.Code}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.Name}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chọn công việc -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                            <div class="row  margin-bottom-5">
+                                <div class="col-md-6 text-left">
+                                    <label class="form-label" style="line-height:35px;">Tổng số
+                                        <span class="bold text-danger">{{documentModel.Works.length}}</span> công việc
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button  type="button" class="btn btn-success"
+                                        (click)='chooseTask()' container="body">
+                                        <i class="fa fa-plus"></i>
+                                        Chọn công việc
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <perfect-scrollbar [config]="constants.ScrollConfig"
+                                        style="height:auto;max-height: 300px; width:100%;">
+                                        <table class="table table-bordered" style="min-width:380px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="80px" class="text-center">Xử lý</th>
+                                                    <th width="100px" class="text-center">Mã công việc</th>
+                                                    <th min-width="150px" class="text-center">Tên công việc</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of documentModel.Works let i = index">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            ngbTooltip="Xóa" placement="top"
+                                                            (click)="showConfirmDeleteTask(i)" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {{row.Code}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.Name}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chọn phòng ban -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                            <div class="row  margin-bottom-5">
+                                <div class="col-md-6 text-left">
+                                    <label class="form-label" style="line-height:35px;">Tổng số
+                                        <span class="bold text-danger">{{documentModel.Departments.length}}</span> phòng
+                                        ban
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button  type="button" class="btn btn-success"
+                                        (click)='chooseDepartment()' container="body">
+                                        <i class="fa fa-plus"></i>
+                                        Chọn phòng ban
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <perfect-scrollbar [config]="constants.ScrollConfig"
+                                        style="height:auto;max-height: 300px; width:100%;">
+                                        <table class="table table-bordered" style="min-width:580px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="80px" class="text-center">Xử lý</th>
+                                                    <th width="150px" class="text-center">Mã phòng ban</th>
+                                                    <th min-width="150px" class="text-center">Tên phòng ban</th>
+                                                    <th width="200px" class="text-center">SBU</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of documentModel.Departments; let i = index">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            ngbTooltip="Xóa" placement="top"
+                                                            (click)="showConfirmDeleteDepartment(i)" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {{row.Code}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.Name}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.SBUName}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chọn vị trí công việc -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                            <div class="row  margin-bottom-5">
+                                <div class="col-md-6 text-left">
+                                    <label class="form-label" style="line-height:35px;">Tổng số
+                                        <span class="bold text-danger">{{documentModel.WorkTypes.length}}</span> vị trí
+                                        công việc
+                                    </label>
+                                </div>
+                                <div class="col-md-6 text-right">
+                                    <button  type="button" class="btn btn-success"
+                                        (click)='chooseWorkType()' container="body">
+                                        <i class="fa fa-plus"></i>
+                                        Chọn vị trí công việc
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <perfect-scrollbar [config]="constants.ScrollConfig"
+                                        style="height:auto;max-height: 300px; width:100%;">
+                                        <table class="table table-bordered" style="min-width:380px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="80px" class="text-center">Xử lý</th>
+                                                    <th width="150px" class="text-center">Mã vị trí công việc</th>
+                                                    <th min-width="150px" class="text-center">Tên vị trí công việc</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of documentModel.WorkTypes; let i = index">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            ngbTooltip="Xóa" placement="top"
+                                                            (click)="showConfirmDeleteWorkType(i)" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        {{row.Code}}
+                                                    </td>
+                                                    <td>
+                                                        {{row.Name}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <ng-container>
+                            <button type="button" class="btn btn-success" *appUipermission="['F121301','F121302']" 
+                                (click)="save(false)" [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu</span>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="documentModel.Id==''">
+                            <button type="button" class="btn btn-success" *appUipermission="['F121301']"
+                                (click)="save(true)" [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu và tiếp tục</span>
+                            </button>
+                        </ng-container>
+                        <!-- <ng-container>
+                            <button *appUipermission="['F080001']" type="button" class="btn btn-success"
+                                (click)="save(false)" [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Ban hành</span>
+                            </button>
+                        </ng-container> -->
+                        <ng-container *ngIf="documentModel.Id &&  documentModel.Status==1">
+                            <button  type="button" class="btn btn-danger" *appUipermission="['F121304']"
+                                (click)="cancelPromulgate()" [disabled]="!f.form.valid">
+                                <i class="fas fa-times-circle"></i>&nbsp;
+                                <span>Hủy ban hành</span>
+                            </button>
+                        </ng-container>
+                        <ng-container *ngIf="documentModel.Id &&  documentModel.Status==1">
+                            <button  type="button" class="btn btn-warning" *appUipermission="['F121305']"
+                                (click)="reviewDocument()" [disabled]="!f.form.valid">
+                                <i class="fas fa-user-check"></i>&nbsp;
+                                <span>Review</span>
+                            </button>
+                        </ng-container>
+                        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </ng-template>
+            </li>
+
+            <li *ngIf="documentModel.Id!=''" [ngbNavItem]="'tai-lieu'">
+                <a ngbNavLink>Tài liệu</a>
+                <ng-template ngbNavContent>
+                    <app-document-file-tab [id]="documentModel.Id" [documentStatus]="documentModel.Status">
+                    </app-document-file-tab>
+                </ng-template>
+            </li>
+
+            <li *ngIf="documentModel.Id!=''" [ngbNavItem]="'tai-lieu-sua-doi'">
+                <a ngbNavLink>Quản lý ban hành</a>
+                <ng-template ngbNavContent>
+                    <app-document-promulgate-tab [documentId]="documentModel.Id" (onNewPromugate)="onNewPromugate()">
+                    </app-document-promulgate-tab>
+                </ng-template>
+            </li>
+
+            <li *ngIf="documentModel.Id!=''" [ngbNavItem]="'tai-lieu-review'">
+                <a ngbNavLink>Review</a>
+                <ng-template ngbNavContent>
+                    <app-document-review-tab [documentId]="documentModel.Id">
+                    </app-document-review-tab>
+                </ng-template>
+            </li>
+
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

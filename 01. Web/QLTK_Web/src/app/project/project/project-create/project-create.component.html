@@ -1,0 +1,316 @@
+<div class="content-wrapper padding-top-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin chung</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã dự án
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="model.Code" name="Codeproject" maxlength="50"
+                    required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên dự án
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="model.Name" name="Nameproject" maxlength="300"
+                    required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Số hợp đồng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="model.Parameter" name="Parameterproject"
+                    maxlength="100">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Khách hàng thương mại
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                  ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerId" name="CustomerId"
+                  (change)="getCustomerType()">
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Nhóm khách hàng</label>
+                <div class="controls">
+                  <select class="form-control" name="CustomerTypeId" [(ngModel)]="model.CustomerTypeId" disabled>
+                    <option *ngFor="let item of listCustomerType" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Khách hàng cuối
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                  ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerFinalId" name="CustomerFinalId">
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngày bắt đầu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input class="form-control" placeholder="dd/mm/yyyy" name="DateFrom" [(ngModel)]="dateFrom"
+                      ngbDatepicker #DateFrom="ngbDatepicker">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngày kết thúc
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input class="form-control" placeholder="dd/mm/yyyy" name="DateTo" [(ngModel)]="dateTo"
+                      ngbDatepicker #DateTo="ngbDatepicker">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="DateTo.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">SBU phụ trách thiết kế/quản lý
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listSBU" [columns]="sbuColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId" required
+                    (change)="getCbbDepartment()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Phòng ban phụ trách thiết kế/quản lý
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listDepartment" [columns]="departmentColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId" name="DepartmentId" required>
+                  </nts-drop-down>
+                  <!-- <select name="DepartmentId" required class="form-control" [(ngModel)]="model.DepartmentId">
+                    <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Người phụ trách/QLDA
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="employees" [columns]="employeeColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ManageId" name="ManageId" required (change)="changeEmployee()">
+                  </nts-drop-down>
+                  <!-- <select name="DepartmentId" required class="form-control" [(ngModel)]="model.DepartmentId">
+                    <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">SĐT Người phụ trách/QLDA
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input class="form-control" name="phonenumber" [(ngModel)]="model.PhoneNumber" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Ngày kickoff
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input class="form-control" placeholder="dd/mm/yyyy" name="KickOffDate" [(ngModel)]="kickOffDate"
+                      ngbDatepicker #KickOffDate="ngbDatepicker" required>
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="KickOffDate.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Loại dự án</label>
+                <div class="controls">
+                  <select class="form-control" name="type" [(ngModel)]="model.Type">
+                    <option *ngFor="let item of constant.ProjectTypes" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá vật tư dự kiến (FCM)
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <!-- <input type="text" class="form-control" [(ngModel)]="model.Price" name="Price" maxlength="18"
+                    required> -->
+                  <input currencyMask
+                    [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="Price"
+                    type="text" class="form-control" [(ngModel)]="model.Price" maxlength="18">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tổng tiền nhân công TK (FCM)
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <!-- <input type="text" class="form-control" [(ngModel)]="model.DesignPrice" name="DesignPrice"
+                    maxlength="18" required> -->
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    name="DesignPrice" type="text" class="form-control" [(ngModel)]="model.DesignPrice" maxlength="18">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Chi phí chuyển giao (FCM)
+                </label>
+                <div class="controls">
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="FCMPrice"
+                    type="text" class="form-control" [(ngModel)]="model.FCMPrice" maxlength="18">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá bán thực tế chưa VAT
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="SaleNoVAT"
+                    type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" maxlength="18">
+                  <!-- <input ntsNumberInt type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" name="SaleNoVAT"
+                    maxlength="100" required> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã kho</label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="model.WarehouseCode" name="WarehouseCode"
+                    maxlength="50">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Tình trạng dự án
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <select class="form-control" name="Statusproject" [(ngModel)]="model.Status">
+                    <option *ngFor="let item of constant.ProjectStatus" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Mức độ ưu tiên dự án
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <select class="form-control" name="PriorityProject" [(ngModel)]="model.Priority"
+                    [disUipermission]="['F060002']">
+                    <option *ngFor="let item of constant.ProjectPriority" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+              <ng-container>
+                <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>
+              </ng-container>&nbsp;
+              <ng-container>
+                <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu & tiếp tục</span>
+                </button>
+              </ng-container>&nbsp;
+              <ng-container>
+                <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                  <i class="fa fa-power-off"></i> &nbsp;
+                  <span>
+                    Đóng
+                  </span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

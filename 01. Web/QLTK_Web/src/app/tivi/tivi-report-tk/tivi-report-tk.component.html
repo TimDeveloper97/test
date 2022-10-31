@@ -1,0 +1,440 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeTabId" (navChange)="changeTab($event)"
+            [destroyOnHide]="false">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Vấn đề tồn đọng</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left ">
+                                    <label class="form-label bold" style="line-height:30px;font-size: 16px;">Danh
+                                        sách Phòng ban quản lý dự án
+                                        <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-right">
+                                    <!-- <button class="btn btn-success btn-file" (click)="exportExcel()">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>         -->
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollDepartmentManage>
+                                    <div #scrollDepartmentManageHeader
+                                        style="height: auto; width:100%;overflow: hidden">
+                                        <table class="table table-bordered table-hover mb-0" style="min-width: 490px;">
+                                            <thead>
+                                                <tr>
+                                                    <th min-width="150px" rowspan="2" class="text-center">Phòng ban
+                                                        quản lý</th>
+                                                    <th width="60px" rowspan="2" class="text-center">Số dự án có vấn
+                                                        đề</th>
+                                                    <th width="100px" rowspan="2" class="text-center">Số vấn đề đang
+                                                        giải quyết </th>
+                                                    <th width="60px" rowspan="2" class="text-center">Số vấn đề trễ
+                                                    </th>
+                                                    <th width="150px" rowspan="2" class="text-center">Tổng giá trị
+                                                        dự án</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                                        style="height:auto;max-height: 400px; width:100%;">
+                                        <table class="table table-bordered table-fixed table-hover"
+                                            style="min-width: 490px;">
+                                            <tbody>
+                                                <tr *ngFor="let row of errorProjects; let i = index"
+                                                    [ngClass]="{'selected':manageSelectIndex==i}">
+                                                    <td min-width="200px" class="bold" style="font-size: 16px;">
+                                                        {{row.Name}}</td>
+                                                    <td width="60px" class="text-center bold" style="font-size: 16px;">
+                                                        <a target="_blank" *ngIf="row.ProjectQuantity>0"
+                                                            [routerLink]="['/du-an/quan-ly-du-an']" class="bold"
+                                                            [queryParams]="{errorStatus:2,departmentId:row.Id, sbuId:row.SBUId}">{{row.ProjectQuantity}}</a>
+                                                        <span *ngIf="!row.ProjectQuantity">-</span>
+                                                    </td>
+                                                    <td width="100px" class="text-center bold" style="font-size: 16px;">
+                                                        <a target="_blank" *ngIf="row.ErrorQuantity>0"
+                                                            [routerLink]="['/du-an/quan-ly-van-de']" class="bold"
+                                                            [queryParams]="{fixStatus:1,departmentManageId:row.Id}">{{row.ErrorQuantity}}</a>
+                                                        <span *ngIf="!row.ErrorQuantity">-</span>
+                                                    </td>
+                                                    <td width="60px" class="text-center bold" style="font-size: 16px;">
+                                                        <a target="_blank" *ngIf="row.ErrorDelay>0"
+                                                            [routerLink]="['/du-an/quan-ly-van-de']" class="bold"
+                                                            [queryParams]="{fixStatus:2,departmentManageId:row.Id}">{{row.ErrorDelay}}</a>
+                                                        <span *ngIf="!row.ErrorDelay">-</span>
+                                                    </td>
+                                                    <td width="150px" class="text-right bold" style="font-size: 16px;">
+                                                        {{row.ProjectAmount|number}}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                            <div class="row mt-1">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+                                    <label class="form-label bold" style="line-height:30px;font-size: 16px;">Danh
+                                        sách theo dòng chảy
+                                        <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+                                    </label>
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollDepartment>
+                                    <div #scrollDepartmentHeader style="height: auto; width:100%;overflow: hidden">
+                                        <table class="table table-bordered table-hover mb-0"
+                                            [style.min-width.px]="depMinWidth">
+                                            <thead>
+                                                <tr>
+                                                    <th min-width="200px" rowspan="2" class="text-center">Dòng chảy
+                                                    </th>
+                                                    <th width="50px" class="text-center">Ngày trễ</th>
+                                                    <th width="50px" class="text-center">Vấn đề</th>
+                                                    <th width="50px" class="text-center">C.việc</th>
+                                                    <th width="60px" class="text-center">CV trễ</th>
+                                                    <th width="60px" class="text-center">CV tr.khai</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                                        style="height:auto;max-height: 400px; width:100%;">
+                                        <table class="table table-bordered table-fixed table-hover"
+                                            [style.min-width.px]="depMinWidth" style="font-size: 16px;">
+                                            <tbody>
+                                                <ng-container *ngFor="let row of errorFixs; let i = index"
+                                                    (click)="selectDepartment(i)">
+                                                    <tr *ngFor="let item of row.Values;"
+                                                        [ngClass]="{'selected':departmentSelectIndex==i}">
+                                                        <td min-width="200px">
+                                                            {{item.Name}}
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a href="javascript:void(0)" *ngIf="item.Deadline>0"
+                                                                class="bold">{{item.Deadline}}</a>
+                                                            <span *ngIf="!item.Deadline">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a target="_blank" *ngIf="item.ErrorQuantity>0"
+                                                                [routerLink]="['/du-an/quan-ly-van-de']" class="bold"
+                                                                [queryParams]="{departmentId: row.Id, stageId:item.Id, dateFrom: model.DateFrom, dateTo: model.DateTo, projectId: model.ProjectId}">{{item.ErrorQuantity}}</a>
+                                                            <span *ngIf="!item.ErrorQuantity">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a *ngIf="item.WorkQuantity>0" href="javascript:void(0)"
+                                                                class="bold">{{item.WorkQuantity}}</a>
+                                                            <span *ngIf="!item.WorkQuantity">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-danger':item.WorkDelay>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkDelay>0"
+                                                                class="bold">{{item.WorkDelay}}</a>
+                                                            <span *ngIf="!item.WorkDelay">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-accent':item.WorkToDo>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkToDo>0"
+                                                                class="bold">{{item.WorkToDo}}</a>
+                                                            <span *ngIf="!item.WorkToDo">-</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr class="bold">
+                                                        <td colspan="4">Tổng</td>
+                                                        <td width="60px" class="text-center">{{row.TotalWorkDelay}}
+                                                        </td>
+                                                        <td width="60px" class="text-center">{{row.TotalWorkToDo}}
+                                                        </td>
+                                                    </tr>
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+                                    <label class="form-label bold" style="line-height:30px;font-size: 16px;">Danh
+                                        sách Người khắc phục
+                                        <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+                                    </label>
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollEmployee>
+                                    <div #scrollEmployeeHeader style="height: auto; width:100%;overflow: hidden">
+                                        <table class="table table-bordered table-hover mb-0"
+                                            [style.min-width.px]="empMinWidth">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th min-width="200px" class="text-center">Người khắc phục</th>
+                                                    <th width="50px" class="text-center">Ngày trễ</th>
+                                                    <th width="50px" class="text-center">Vấn đề</th>
+                                                    <th width="50px" class="text-center">C.việc</th>
+                                                    <th width="60px" class="text-center">CV trễ</th>
+                                                    <th width="60px" class="text-center">CV tr.khai</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                                        style="height:auto; width:100%;">
+                                        <table class="table table-bordered table-fixed table-hover"
+                                            [style.min-width.px]="empMinWidth" style="font-size: 16px;">
+                                            <tbody>
+                                                <tr *ngFor="let row of errorFixBys; let i = index"
+                                                    [ngClass]="{'selected':employeeSelectIndex==i}"
+                                                    (click)="selectEmployee(i)">
+                                                    <td width="50px" class="text-center">{{i+1}}</td>
+                                                    <td min-width="200px">{{row.Name}}</td>
+                                                    <ng-container *ngFor="let item of row.Values;">
+                                                        <td width="50px" class="text-center">
+                                                            <a href="javascript:void(0)" *ngIf="item.Deadline>0"
+                                                                class="bold">{{item.Deadline}}</a>
+                                                            <span *ngIf="!item.Deadline">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a target="_blank" [routerLink]="['/du-an/quan-ly-van-de']"
+                                                                *ngIf="item.ErrorQuantity>0" class="bold"
+                                                                [queryParams]="{employeeId: row.Id, departmentId:item.Id, dateFrom: model.DateFrom, dateTo: model.DateTo, projectId: model.ProjectId }">{{item.ErrorQuantity}}</a>
+                                                            <span *ngIf="!item.ErrorQuantity">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkQuantity>0"
+                                                                class="bold">{{item.WorkQuantity}}</a>
+                                                            <span *ngIf="!item.WorkQuantity">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-danger':item.WorkDelay>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkDelay>0"
+                                                                class="bold">{{item.WorkDelay}}</a>
+                                                            <span *ngIf="!item.WorkDelay">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-accent':item.WorkToDo>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkToDo>0"
+                                                                class="bold">{{item.WorkToDo}}</a>
+                                                            <span *ngIf="!item.WorkToDo">-</span>
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+                                    <label class="form-label bold" style="line-height:30px;font-size: 16px;">Danh
+                                        sách Người khắc phục
+                                        <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+                                    </label>
+                                </div>
+                                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollEmployee>
+                                    <div #scrollEmployeeHeader style="height: auto; width:100%;overflow: hidden">
+                                        <table class="table table-bordered table-hover mb-0"
+                                            [style.min-width.px]="empMinWidth">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th min-width="200px" class="text-center">Người khắc phục</th>
+                                                    <th width="50px" class="text-center">Ngày trễ</th>
+                                                    <th width="50px" class="text-center">Vấn đề</th>
+                                                    <th width="50px" class="text-center">C.việc</th>
+                                                    <th width="60px" class="text-center">CV trễ</th>
+                                                    <th width="60px" class="text-center">CV tr.khai</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;width:100%;">
+                                        <table class="table table-bordered table-fixed table-hover"
+                                            [style.min-width.px]="empMinWidth" style="font-size: 16px;">
+                                            <tbody>
+                                                <tr *ngFor="let row of errorFixBys2; let i = index"
+                                                    [ngClass]="{'selected':employeeSelectIndex==i}"
+                                                    (click)="selectEmployee(i)">
+                                                    <td width="50px" class="text-center">{{errorFixBys.length+ i+1}}
+                                                    </td>
+                                                    <td min-width="200px">{{row.Name}}</td>
+                                                    <ng-container *ngFor="let item of row.Values;">
+                                                        <td width="50px" class="text-center">
+                                                            <a href="javascript:void(0)" *ngIf="item.Deadline>0"
+                                                                class="bold">{{item.Deadline}}</a>
+                                                            <span *ngIf="!item.Deadline">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a target="_blank" [routerLink]="['/du-an/quan-ly-van-de']"
+                                                                *ngIf="item.ErrorQuantity>0" class="bold"
+                                                                [queryParams]="{employeeId: row.Id, departmentId:item.Id, dateFrom: model.DateFrom, dateTo: model.DateTo, projectId: model.ProjectId }">{{item.ErrorQuantity}}</a>
+                                                            <span *ngIf="!item.ErrorQuantity">-</span>
+                                                        </td>
+                                                        <td width="50px" class="text-center">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkQuantity>0"
+                                                                class="bold">{{item.WorkQuantity}}</a>
+                                                            <span *ngIf="!item.WorkQuantity">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-danger':item.WorkDelay>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkDelay>0"
+                                                                class="bold">{{item.WorkDelay}}</a>
+                                                            <span *ngIf="!item.WorkDelay">-</span>
+                                                        </td>
+                                                        <td width="60px" class="text-center"
+                                                            [ngClass]="{'bg-accent':item.WorkToDo>0}">
+                                                            <a href="javascript:void(0)" *ngIf="item.WorkToDo>0"
+                                                                class="bold">{{item.WorkToDo}}</a>
+                                                            <span *ngIf="!item.WorkToDo">-</span>
+                                                        </td>
+                                                    </ng-container>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>Thời gian làm việc</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollWorkingTime>
+                            <div #scrollWorkingTimeHeader style="overflow-x: auto;overflow: hidden;">
+                                <table class="table table-bordered table-fixed mb-0" style="min-width:1690px">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="2" width="50px" class="text-center">STT</th>
+                                            <th rowspan="2" width="80px" class="text-center">Mã NV</th>
+                                            <th rowspan="2" width="150px" class="text-center">Tên nhân viên</th>
+                                            <th rowspan="2" width="180px" class="text-center">Vị trí công việc</th>
+
+                                            <th min-width="30px" class="text-center tems"
+                                                *ngFor="let row of tems; let i = index">
+                                                {{row!=1?'T'+row:'CN'}}
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th min-width="30px" class="text-center"
+                                                *ngFor="let item of days; let j=index">
+                                                {{item.DateTime | date:'dd'}}</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <perfect-scrollbar #workingTimeScroll [config]="constant.ScrollConfig" style="width:100%;"
+                                [style.height.px]="worktimeHeight">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width:1690px">
+                                    <tbody>
+                                        <tr *ngFor="let row of workTimes; let i = index">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td width="80px">{{row.EmployeeCode}}</td>
+                                            <td width="150px">{{row.EmployeeName}}</td>
+                                            <td width="180px">{{row.WorkType}}</td>
+                                            <td min-width="30px" class="text-center text-nowrap"
+                                                *ngFor="let item of row.ListWorkingTime; let  j=index"
+                                                [ngClass]="{'warning_time': item.EstimateTime ==8,'warning_time1': item.EstimateTime > 8,'holiday':item.IsHoliday,'warning_time2':item.EstimateTime>0 && item.EstimateTime<8 }">
+                                                <a (click)="loadParam(item)" href=" javascript:void(0)"
+                                                    *ngIf="item.EstimateTime!=0"> {{item.EstimateTime}}</a>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>Dự án về mặt thiết kế</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollProject>
+                            <div #scrollProjectHeader style="overflow-x: auto;overflow: hidden;">
+                                <table class="table table-bordered mb-0" style="min-width:1380px">
+                                    <thead>
+                                        <tr>
+                                            <th rowspan="3" width="150px" class="text-center">Mã dự án</th>
+                                            <th rowspan="3" min-width="300px" class="text-center">Tên dự án</th>
+                                            <th rowspan="3" width="80px" class="text-center">% hoàn thành dự án</th>
+                                            <th colspan="2" width="170px" class="text-center">Số lượng công việc chưa có
+                                                kế hoạch</th>
+                                            <th colspan="2" width="260px" class="text-center">Tổng số lượng công việc
+                                                cần làm </th>
+                                            <th colspan="2" width="220px" class="text-center">Tổng số lượng công việc bị
+                                                chậm so với
+                                                deadline sản phẩm</th>
+                                            <th rowspan="3" width="100px" class="text-center">Công việc đến deadline
+                                                kickoff nhưng chưa hoàn
+                                                thành
+                                            </th>
+                                            <th rowspan="3" width="100px" class="text-center">Số ngày chậm lớn nhất so
+                                                với deadline
+                                            </th>
+                                        </tr>
+                                        <tr>
+                                            <th rowspan="2" width="85px" class="text-center">Theo Module</th>
+                                            <th rowspan="2" width="85px" class="text-center">Theo mô hình</th>
+                                            <th width="130px" class="text-center">Theo Module</th>
+                                            <th width="130px" class="text-center">Theo mô hình</th>
+                                            <th rowspan="2" width="110px" class="text-center"> Module</th>
+                                            <th rowspan="2" width="110px" class="text-center"> Mô hình</th>
+                                        </tr>
+                                        <tr>
+                                            <th width="130px" class="text-center">Chưa hoàn thành</th>
+                                            <th width="130px" class="text-center">Chưa hoàn thành</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <perfect-scrollbar #projectScroll [config]="constant.ScrollConfig" style="width:100%;"
+                                [style.height.px]="projectHeight">
+                                <table class="table table-bordered table-hover"
+                                    style="min-width:1380px;font-size: 14px;font-weight: 600;">
+                                    <tbody>
+                                        <tr *ngFor="let row of projectInPlans; let i = index">
+                                            <td width="150px">{{row.ProjectCode}}</td>
+                                            <td min-width="300px">{{row.ProjectName}}</td>
+                                            <td width="80px" class="text-center">{{row.PercentDesign}}</td>
+                                            <td width="85px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 1)" href=" javascript:void(0)">
+                                                    {{row.TotalModuleTaskNotPlan}}</a></td>
+                                            <td width="85px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 2)" href=" javascript:void(0)">
+                                                    {{row.TotalParadigmTaskNotPlan}}</a></td>
+                                            <td width="130px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 4)" href=" javascript:void(0)">
+                                                    {{row.TotalModuleMakeDesign}}</a></td>
+                                            <td width="130px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 6)" href=" javascript:void(0)">
+                                                    {{row.TotalParadigmMakeDesign}}</a></td>
+                                            <td width="110px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 7)" href=" javascript:void(0)">
+                                                    {{row.TotalModuleDelay}}</a></td>
+                                            <td width="110px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 8)" href=" javascript:void(0)">
+                                                    {{row.TotalParadigmDelay}}</a></td>
+                                            <td width="100px" class="text-center"><a
+                                                    (click)="viewDetail(1,row.ProjectId, 9)" href=" javascript:void(0)">
+                                                    {{row.Total_Task_Design_Delay}}</a></td>
+                                            <td width="100px" class="text-center">{{row.TotalDelayDay_Design_Max}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+
+        <div [ngbNavOutlet]="nav"></div>
+    </section>
+</div>

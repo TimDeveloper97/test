@@ -1,0 +1,52 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:850px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="200px" class="text-center">Mã module</th>
+              <th min-width="200px" class="text-center">Tên module</th>
+              <th width="200px" class="text-center">Người cập nhật</th>
+              <th width="200px" class="text-center">Ngày cập nhật</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listProductModuleUpdate; let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td>{{row.Code}}</td>
+              <td>{{row.Name}}</td>
+              <td>{{row.UpdateByName}}</td>
+              <td>{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listProductModuleUpdate.length == 0">
+            <tr class="bold">
+              <td colspan="10" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ
+                liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)='updateProductModuleUpdate()' container="body">
+    <i class="fas fa-check"></i>
+    Xác nhận
+  </button>&nbsp;
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i>
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

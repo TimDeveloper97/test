@@ -1,0 +1,47 @@
+app-project-general-design-managa {
+  .custom-checkbox i.fas.fa-exclamation-triangle,
+  .custom-checkbox i.fas.fa-check {
+    position: relative !important;
+    right: 17px;
+  }
+  .custom-checkbox i.fas.fa-exclamation-triangle,
+  .custom-checkbox i.fas.fa-check {
+    position: relative !important;
+    right: 17px;
+  }
+  .custom-checkbox {
+    width: 30%;
+    float: left !important;
+  }
+
+  .DMTV {
+    width: 50% !important;
+    float: left !important;
+  }
+
+  .btn.btn-xs,
+  .btn-xs,
+  .btn-group-xs .btn {
+    padding: 0px !important;
+    font-size: 10px !important;
+  }
+
+  .btn-xs {
+    width: 20px !important;
+    height: 20px !important;
+  }
+
+  span.dx-checkbox-icon {
+    border-color: #212529 !important;
+    background-color: #fff !important;
+  }
+
+  .dx-header-row {
+    .plan-header-cell {
+      .dx-treelist-text-content {
+        white-space: normal !important;
+        text-align: center;
+      }
+    }
+  }
+}

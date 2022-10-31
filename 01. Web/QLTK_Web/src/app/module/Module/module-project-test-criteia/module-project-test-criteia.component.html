@@ -1,0 +1,89 @@
+<div class="modal-header">
+  <h3>Kết quả tiêu chí kiểm tra module dự án</h3>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 col-sm-12 ">
+          <div class="form-group">
+            <label class="form-label">Tên dự án</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Namemoduleproject" [(ngModel)]="model.Name">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 ">
+          <div class="form-group">
+            <label class="form-label">Mã dự án</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Codemoduleproject" [(ngModel)]="model.Code">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 text-right margin-top-20">
+          <button class="btn btn-success btn-success-system" (click)="searchTestCriteria()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row padding-15">
+        <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1050px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center" >STT</th>
+                  <th width="150px" class="text-center">Nhóm tiêu chí</th>
+                  <th width="150px" class="text-center">Tên tính năng</th>
+                  <th width="100px" class="text-center">Mã tính năng</th>
+                  <th width="200px" class="text-center">Yêu cầu kĩ thuật</th>
+                  <th width="200px" class="text-center">Ghi chú</th>
+                  <th width="100px" class="text-center">Kết quả test</th>
+                  <th min-width="100px" class="text-center ">Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listDA; let i = index">
+                  <td  class="text-center">{{startIndex+i}}</td>
+                  <td>{{row.TestCriteriaGroupName}}</td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <td class="text-center">{{row.TechnicalRequirements}}</td>
+                  <td class="text-center">{{row.Note}}</td>
+                  <td class="text-center">
+                      <span *ngIf="row.ResuldStatusTest == '0'">Không đạt</span>
+                      <span *ngIf="row.ResuldStatusTest == '1'" >Đạt</span>
+                  </td>
+                  <td class="text-center">{{row.NoteResuld}}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+    </div>
+  </form>
+  </div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success btn-file" (click)="exportExcel()">
+    <i class="fas fa-file-excel"></i> &nbsp;
+      <span>
+          Xuất excel
+      </span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

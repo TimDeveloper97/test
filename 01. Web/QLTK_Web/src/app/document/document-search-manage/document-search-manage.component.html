@@ -1,0 +1,146 @@
+<div class='content-wrapper page-content'>
+    <div class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{documentGroupSearchModel.TotalItems}}</span> nhóm
+                        tài liệu</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 0">
+                    <dx-tree-list id="employees" [dataSource]="documentGroups" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true" noDataText=" "
+                        [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên nhóm" [minWidth]="200"></dxi-column>
+                    </dx-tree-list>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <nts-search-bar [options]="searchOptions" [(ngModel)]="documentSearchModel"
+                            name="documentSearchModel" (change)="searchDocument()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchDocument()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{documentSearchModel.TotalItems}}</span> tài
+                        liệu</label>&nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1350px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="70px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Trạng thái</th>
+                                    <th width="200px" class="text-center">Mã tài liệu</th>
+                                    <th width="300px" class="text-center">Tên tài liệu</th>
+                                    <th min-width="300px" class="text-center">Mô tả</th>
+                                    <th width="150px" class="text-center">Loại tài liệu</th>
+                                    <th width="80px" class="text-center">Phiên bản</th>
+                                    <th width="100px" class="text-center">Ngày ban hành hiện tại</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of documents; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button class="btn btn-xs btn-info" container="body" *appUipermission="['F121352','F121354']" 
+                                            (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu" container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button type="button" *appUipermission="['F121351','F121353']" 
+                                            class="btn btn-xs btn-success" (click)="viewDocument(row)"
+                                            placement="top" ngbTooltip="Xem tài liệu" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <nts-status-badge [value]="row.Status" [items]="constant.DocumentStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.Description}}</td>
+                                    <td>{{row.DocumentTypeName}}</td>
+                                    <td class="text-center">{{row.Version}}</td>
+                                    <td class="text-center">{{row.PromulgateLastDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="documents.length == 0">
+                                <tr class="bold">
+                                    <td colspan="10" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                            [(ngModel)]="documentSearchModel.PageSize"
+                            (ngModelChange)="searchDocument()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="documentSearchModel.TotalItems"
+                        [(page)]="documentSearchModel.PageNumber"
+                        (pageChange)="searchDocument()"
+                        [pageSize]="documentSearchModel.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-info">
+                        <i class="fa fa-download"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Tải tài liệu</small>
+                    <button class="btn btn-view btn-success">
+                        <i class="far fa-eye"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xem tài liệu</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,19 @@
+app-plan-manage {
+    .td-progressbar {
+        p {
+            margin: 0px;
+        }
+    }
+
+    .progress {
+        position: relative;
+    }
+
+    .progress-bar {
+        span {
+            position: absolute;
+            padding-left: 10px;
+            color: #000;
+        }
+    }
+}

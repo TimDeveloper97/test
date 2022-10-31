@@ -1,0 +1,86 @@
+.app-module-create {
+  .custom-control.custom-checkbox.margin-top-15 {
+    display: inline-block;
+    margin: 0 15px 0 0px;
+  }
+  .checkbox .form-label {
+    display: block !important;
+  }
+
+  .radio .form-label {
+    display: block !important;
+  }
+  .radio .form-check-label input.form-check-input {
+    height: auto;
+  }
+  .radio label.radio {
+    display: inline-block;
+    margin: 19px 20px 0 0;
+    padding-left: 30px;
+  }
+  .radio {
+    position: relative;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  /* Hide the browser's default radio button */
+  .radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  /* Create a custom radio button */
+  .checkround {
+    position: absolute;
+    top: 0px;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border-color: #65a9f3;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 50%;
+  }
+
+  /* When the radio button is checked, add a blue background */
+  .radio input:checked ~ .checkround {
+    background-color: #fff;
+  }
+
+  /* Create the indicator (the dot/circle - hidden when not checked) */
+  .checkround:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  /* Show the indicator (dot/circle) when checked */
+  .radio input:checked ~ .checkround:after {
+    display: block;
+  }
+
+  /* Style the indicator (dot/circle) */
+  .radio .checkround:after {
+    left: 2px;
+    top: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #65a9f3;
+  }
+
+  .upload-btn-wrapper {
+    float: right;
+    margin: 0 0 0 7px;
+  }
+  .dx-popup-wrapper > .dx-overlay-content {
+    width: 600px !important;
+  }
+}

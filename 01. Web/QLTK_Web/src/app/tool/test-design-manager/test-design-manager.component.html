@@ -1,0 +1,358 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <!-- <header class="panel_header panel_header_body">
+      <h2 class="title pull-left">Kiểm tra dữ liệu thiết kế</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header> -->
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Mã module</label>
+              <span class="text-danger text-strong">&nbsp;*</span>
+              <div class="controls">
+                <input [disUipermission]="['F090701']" type="text" class="form-control" name="ProductCode"
+                  [(ngModel)]="modelCheck.ProductCode">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 radio mt-2">
+            <label class="radio">Thiết kế cơ khí
+              <input [disUipermission]="['F090701']" type="radio" name="FileTypechoosefolderupload" [value]="1"
+                [(ngModel)]="modelTest.Type" (change)="changeCheck()">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio">Thiết kế điện
+              <input [disUipermission]="['F090701']" type="radio" name="FileTypechoosefolderupload" [value]="2"
+                [(ngModel)]="modelTest.Type" (change)="changeCheck()">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio">Thiết kế điện tử
+              <input [disUipermission]="['F090701']" type="radio" name="FileTypechoosefolderupload" [value]="3"
+                [(ngModel)]="modelTest.Type" (change)="changeCheck()">
+              <span class="checkround"></span>
+            </label>
+
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 margin-top-20 text-right">
+            <button *appUipermission="['F090701']" class="btn btn-success btn-success-system" (click)="check()">
+              Kiểm tra</button>&nbsp; &nbsp;
+            <div ngbDropdown class="d-inline-block">
+              <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                  class="fas fa-cog"></i></button>
+              <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                <button class="btn btn-success " (click)="GeneralCheck()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Tạo danh mục kiểm tra
+                </button>
+                <button class="btn btn-success btn-success-system" (click)="showChooseFolderWindow()">
+                  <i class="fa fa-plus"></i> &nbsp;Chọn thư mục</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span *ngIf="modelTest.Type == 1 || modelTest.Type == 3">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckDMVT" name="chkDMVT" style="height:15px; width:15px;">
+            Danh mục vật tư &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 1">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckDesignCAD" name="chkDesignCAD"
+              style="height:15px; width:15px;"> Thư mục CAD &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 1">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckSoftHardCAD" name="chkSoftHardCAD"
+              style="height:15px; width:15px;"> Bản cứng - Bản mềm CAD &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 1">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckMatch" name="chkMatch"
+              style="height:15px; width:15px;"> Bản mềm (ipt) - Bản cứng (jpg) &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type != 3">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckDesignFolder" name="chkDesignFolder"
+              style="height:15px; width:15px;"> Cấu trúc thiết kế &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 2">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckElectric" name="chkCheckElectric"
+              style="height:15px; width:15px;"> Thiết kế điện &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 3">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckElectronic" name="chkCheckElectronic"
+              style="height:15px; width:15px;"> Thiết kế điện tử &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 1">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckMAT" name="chkMAT" style="height:15px; width:15px;">
+            Thư mục MAT &nbsp;&nbsp;
+          </span>
+          <span *ngIf="modelTest.Type == 1">
+            <input type="checkbox" [(ngModel)]="checkModel.IsCheckIGS" name="chkIGS" style="height:15px; width:15px;">
+            Thư mục IGS
+          </span>
+        </div>
+        <!-- <div class="row">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Đường dẫn bản mềm</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="txtPathSC" [(ngModel)]="txtPathSC" readonly>
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <ng-container *ngIf="modelTest.Type == 1 || modelTest.Type  == 2 || modelTest.Type  == 3">
+          <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <!-- Kiểm tra danh mục vật tư -->
+            <li [ngbNavItem]="1" *ngIf="modelTest.Type == 1 || modelTest.Type == 3">
+              <a ngbNavLink>Danh mục vật tư
+                <span class="badge badge-danger" *ngIf="isDMVTError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-file-dmvt [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listDMVT]="listDMVTError" [listDMVTNotDB]="listDMVTNotDB">
+                </app-test-file-dmvt>
+              </ng-template>
+            </li>
+            <!-- Kiểm tra thư mực CAD -->
+            <li [ngbNavItem]="2" *ngIf="modelTest.Type  == 1">
+              <a ngbNavLink>Thư mục CAD
+                <span class="badge badge-danger" *ngIf="isDesignCADError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-design-cad [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listErrorCAD]="listErrorDesignCAD"
+                  [listErrorCheckCAD]="listErrorCheckCAD" [isDesignCADError]="isDesignCADError"></app-test-design-cad>
+              </ng-template>
+            </li>
+            <!-- Kiểm tra Bản cứng - Bản mềm CAD -->
+            <li [ngbNavItem]="3" *ngIf="modelTest.Type  == 1">
+              <a ngbNavLink>Bản cứng - Bản mềm CAD
+                <span class="badge badge-danger" *ngIf="isSoftHardCADError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-soft-hard-cad [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listHardCAD]="listHardCAD" [listSoftCAD]="listSoftCAD"
+                  [isSuccess]="isSoftHardCADError"></app-test-soft-hard-cad>
+              </ng-template>
+            </li>
+            <!-- Bản cứng -bản mềm -->
+            <li [ngbNavItem]="4" *ngIf="modelTest.Type  == 1">
+              <a ngbNavLink> Bản mềm (ipt)- Bản cứng (jpg)
+                <span class="badge badge-danger" *ngIf="!isMatch">!</span></a>
+              <ng-template ngbNavContent>
+                <!-- <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 margin-top-20 text-right">
+                  <button class="btn btn-success btn-success-system" (click)="showChooseFolderWindow()">
+                    <i class="fa fa-plus"></i> &nbsp;Chọn thư mục</button>&nbsp; &nbsp;
+                  <button class="btn btn-success btn-success-system" (click)="loadHardDesign()" [disabled]="!txtPathSC">
+                    <i class="fa fa-plus"></i> &nbsp;Tải dữ liệu</button>&nbsp; &nbsp;
+                  <button class="btn btn-success btn-success-system" (click)="checkDesign()"
+                    [disabled]="listHardDesgin.length==0">
+                    <i class=""></i> &nbsp;Kiểm tra</button>&nbsp; &nbsp;
+                  <button class="btn btn-success btn-file" (click)="ExportExcel()" [disabled]="!isCheckDesign">
+                    <i class="fas fa-file-excel"></i> &nbsp;Xem báo cáo</button>
+                </div>
+              </div> -->
+
+                <div class="row">
+                  <div class="col-md-6 col-sm-12 col-lg-6 col-lg-6 col-xl-6 ">
+
+                    <label class="form-label">Bản mềm (ipt)
+                    </label>
+
+                    <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+                      <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:670px;">
+                        <thead>
+                          <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th min-width="200px" class="text-center ">Tên file</th>
+                            <th width="100px" class="text-center">Size</th>
+                            <th width="120px" class="text-center ">Date modified</th>
+                            <th width="200px" class="text-center ">Ngày</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+
+                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height: 500px;">
+                      <table class="table table-bordered" style="min-width:670px; ">
+                        <!-- <thead>
+                        <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="120px" class="text-center ">Tên file</th>
+                          <th width="100px" class="text-center">Size</th>
+                          <th min-width="100px" class="text-center ">Date modified</th>
+                          <th min-width="120px" class="text-center ">Ngày</th>
+                        </tr>
+                      </thead> -->
+                        <tbody>
+                          <tr *ngFor="let row of listSoftDesign; let i = index">
+
+                            <ng-container *ngIf="row.IsExistName==true || isCheckDesign==false">
+                              <td width="50px" class="text-center" style="background-color: white;">{{i+1}}</td>
+                              <td min-width="200px" style="background-color: white;">{{row.Name}}</td>
+                              <td width="100px" class="text-center" style="background-color: white;">{{row.IValue}}</td>
+                              <td width="120px" class="text-center" style="background-color: white;">{{row.WValue}}</td>
+                              <td width="200px" class="text-center" style="background-color: white;">{{row.Date}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="row.IsExistName==false && isCheckDesign==true">
+                              <td width="50px" class="text-center" style="background-color: yellow;">{{i+1}}</td>
+                              <td min-width="200px" style="background-color: yellow;">{{row.Name}}</td>
+                              <td width="100px" class="text-center" style="background-color: yellow;">{{row.IValue}}
+                              </td>
+                              <td width="120px" class="text-center" style="background-color: yellow;">{{row.WValue}}
+                              </td>
+                              <td width="200px" class="text-center" style="background-color: yellow;">{{row.Date}}
+                              </td>
+                            </ng-container>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </perfect-scrollbar>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#tableIPG"
+                      (onItemClick)="itemClickSoftDesign($event)">
+                      <div *dxTemplate="let e of 'item'">
+                        <div>
+                          <span [ngClass]="e.icon"></span>
+                          <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                        </div>
+                      </div>
+                    </dx-context-menu>
+                  </div>
+
+                  <div class="col-md-6 col-sm-12 col-lg-6 col-lg-6 col-xl-6">
+                    <label class="form-label">Bản cứng (jpg)
+                    </label>
+                    <div #scrollHeaderTwo style="height: auto; width:100%;overflow: hidden">
+                      <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:670px;">
+                        <thead>
+                          <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th min-width="200px" class="text-center ">Tên file</th>
+                            <th width="100px" class="text-center">Size</th>
+                            <th width="120px" class="text-center ">Date modified</th>
+                            <th width="200px" class="text-center ">Ngày</th>
+                          </tr>
+                        </thead>
+                      </table>
+                    </div>
+
+                    <perfect-scrollbar id="tableIPG" [config]="constant.ScrollConfig" style="height: 500px;">
+                      <table class="table table-bordered" style="min-width:670px; ">
+                        <!-- <thead>
+                        <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="120px" class="text-center ">Tên file</th>
+                          <th width="100px" class="text-center">Size</th>
+                          <th width="120px" class="text-center ">Date modified</th>
+                          <th min-width="120px" class="text-center ">Ngày</th>
+                        </tr>
+                      </thead> -->
+                        <tbody>
+                          <tr *ngFor="let row of listHardDesgin; let i = index">
+                            <td width="50px" class="text-center">{{i+1}}</td>
+                            <ng-container *ngIf="row.IsExistName==true || isCheckDesign==false">
+                              <td min-width="200px" style="background-color: white;">{{row.Code}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="row.IsExistName==false  && isCheckDesign==true">
+                              <td min-width="200px" style="background-color:yellow;">{{row.Code}}</td>
+                            </ng-container>
+
+                            <ng-container *ngIf="row.IsDifferentSize==false">
+                              <td width="100px" class="text-center" style="background-color: white;">{{row.Size}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="row.IsDifferentSize==true && isCheckDesign==true">
+                              <td width="100px" class="text-center" style="background-color:greenyellow;">{{row.Size}}
+                              </td>
+                            </ng-container>
+                            <ng-container *ngIf="row.IsDifferentDate==false">
+                              <td width="120px" class="text-center" style="background-color: white;">{{row.Date}}</td>
+                            </ng-container>
+                            <ng-container *ngIf="row.IsDifferentDate==true  && isCheckDesign==true ">
+                              <td width="120px" class="text-center" style="background-color:greenyellow;">{{row.Date}}
+                              </td>
+                            </ng-container>
+
+                            <td width="200px" class="text-center">{{row.FullDate}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </perfect-scrollbar>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#tableIPG"
+                      (onItemClick)="itemClickHardDesgin($event)">
+                      <div *dxTemplate="let e of 'item'">
+                        <div>
+                          <span [ngClass]="e.icon"></span>
+                          <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                        </div>
+                      </div>
+                    </dx-context-menu>
+                  </div>
+                </div>
+              </ng-template>
+            </li>
+            <!-- Chuẩn danh mục vật tư -->
+            <!-- <li [ngbNavItem]="5" *ngIf="modelTest.Type  == 1">
+            <a ngbNavLink>Chuẩn danh mục vật tư</a>
+            <ng-template ngbNavContent>
+              <app-test-standard-supplies [pathDMVT]="pathDMVT" [moduleCode]="moduleCode" [listDMVT]="listMaterial">
+              </app-test-standard-supplies>
+            </ng-template>
+          </li> -->
+            <!-- Cấu trúc thiết kế -->
+            <li [ngbNavItem]="5" *ngIf="modelTest.Type  != 3">
+              <a ngbNavLink>Cấu trúc thiết kế
+                <span class="badge badge-danger" *ngIf="isDesignFolderError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-design-structure-folder [listErrorDesignFolder]="listError"
+                  [listErrorDownload]="listErrorDownload" [listFileRedundant]="listFileRedundant"
+                  [txtPathSC]="txtPathSC" [moduleCode]="modelCheck.ProductCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listDocumentFileSize]="listDocumentFileSize">
+                </app-test-design-structure-folder>
+              </ng-template>
+            </li>
+            <!-- Kiểm tra tab điện -->
+            <li [ngbNavItem]="6" *ngIf="modelTest.Type == 2">
+              <a ngbNavLink>Thiết kế điện
+                <span class="badge badge-danger" *ngIf="isCheckElectric">!</span></a>
+              <ng-template ngbNavContent>
+                <app-check-file-electric [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath"></app-check-file-electric>
+              </ng-template>
+            </li>
+            <!-- Kiểm tra điện tử -->
+            <li [ngbNavItem]="7" *ngIf="modelTest.Type == 3">
+              <a ngbNavLink>Thiết kế điện tử
+                <span class="badge badge-danger" *ngIf="isCheckElectronic">!</span></a>
+              <ng-template ngbNavContent>
+                <app-check-electronic [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listError]="listError"></app-check-electronic>
+              </ng-template>
+            </li>
+            <!-- Kiểm tra thư mục MAT -->
+            <li [ngbNavItem]="8" *ngIf="modelTest.Type == 1">
+              <a ngbNavLink>Thư mục MAT
+                <span class="badge badge-danger" *ngIf="isMATError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-folder-mat [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listFileMAT]="listFileMAT"></app-test-folder-mat>
+              </ng-template>
+            </li>
+            <!--Kiểm tra thư mục IGS-->
+            <li [ngbNavItem]="9" *ngIf="modelTest.Type == 1">
+              <a ngbNavLink>Thư mục IGS
+                <span class="badge badge-danger" *ngIf="isIGSError">!</span></a>
+              <ng-template ngbNavContent>
+                <app-test-folder-igs [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                  [selectedPath]="selectedPath" [listFileIGS]="listFileIGS">
+                </app-test-folder-igs>
+                <!-- <app-test-folder-mat [txtPathSC]="txtPathSC" [moduleCode]="moduleCode" [pathDMVT]="pathDMVT"
+                [selectedPath]="selectedPath" [listFileJGS]="listFileJGS"></app-test-folder-mat> -->
+              </ng-template>
+            </li>
+          </ul>
+          <div [ngbNavOutlet]="nav"></div>
+        </ng-container>
+      </form>
+    </div>
+  </section>
+</div>

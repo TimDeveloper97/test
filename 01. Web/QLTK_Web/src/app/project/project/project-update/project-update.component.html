@@ -1,0 +1,826 @@
+<div class="content-wrapper padding-top-10">
+  <ul [activeId]="tabId" ngbNav #nav="ngbNav" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Thông tin chung</a>
+      <ng-template ngbNavContent>
+        <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã dự án
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Code"
+                    name="Codeproject" maxlength="50" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên dự án
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Name"
+                    name="Nameproject" maxlength="300" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Số hợp đồng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060002']" type="text" class="form-control" [(ngModel)]="model.Parameter"
+                    name="Parameterproject" maxlength="100">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Khách hàng thương mại
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                  ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerId" name="CustomerId"
+                  (change)="getCustomerType()" [disUipermission]="['F060002']">
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Nhóm khách hàng</label>
+                <div class="controls">
+                  <select class="form-control" name="CustomerTypeId" [(ngModel)]="model.CustomerTypeId" disabled>
+                    <option *ngFor="let item of listCustomerType" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Khách hàng cuối
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                  ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerFinalId" name="CustomerFinalId">
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngày bắt đầu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input [disUipermission]="['F060002']" class="form-control" placeholder="dd/mm/yyyy" name="DateFrom"
+                      [(ngModel)]="dateFrom" ngbDatepicker #DateFrom="ngbDatepicker">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Ngày kết thúc
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input [disUipermission]="['F060002']" class="form-control" placeholder="dd/mm/yyyy" name="DateTo"
+                      [(ngModel)]="dateTo" ngbDatepicker #DateTo="ngbDatepicker">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="DateTo.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">SBU phụ trách thiết kế/quản lý
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="listSBU" [columns]="sbuColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId" required
+                    (change)="getCbbDepartment()" [disUipermission]="['F060002']">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Phòng ban phụ trách thiết kế/quản lý
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <!-- <select name="DepartmentId" required class="form-control" [(ngModel)]="model.DepartmentId"
+                      [disUipermission]="['F060002']">
+                      <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  <nts-drop-down [items]="listDepartment" [columns]="departmentColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId" name="DepartmentId" required
+                    [disUipermission]="['F060002']">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Người phụ trách/QLDA
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="employees" [columns]="employeeColumnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ManageId" name="ManageId" required
+                    (change)="changeEmployee()">
+                  </nts-drop-down>
+                  <!-- <select name="DepartmentId" required class="form-control" [(ngModel)]="model.DepartmentId">
+                    <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select> -->
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">SĐT Người phụ trách/QLDA
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input class="form-control" name="phonenumber" [(ngModel)]="model.PhoneNumber" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Ngày kickoff
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group ">
+                    <input class="form-control" placeholder="dd/mm/yyyy" name="KickOffDate" [(ngModel)]="kickOffDate"
+                      ngbDatepicker #KickOffDate="ngbDatepicker" required [disUipermission]="['F060002']">
+                    <div class="input-group-append" [disUipermission]="['F060002']">
+                      <span class="dtp-icon" (click)="KickOffDate.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Loại dự án</label>
+                <div class="controls">
+                  <select class="form-control" name="type" [(ngModel)]="model.Type">
+                    <option *ngFor="let item of constant.ProjectTypes" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá vật tư dự kiến (FCM)
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <!-- <input type="text" class="form-control" [(ngModel)]="model.Price" name="Price" maxlength="18"
+                      required> -->
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="Price"
+                    type="text" class="form-control" [(ngModel)]="model.Price" maxlength="18"
+                    [disUipermission]="['F060002']">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tổng tiền nhân công TK (FCM)
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <!-- <input type="text" class="form-control" [(ngModel)]="model.DesignPrice" name="DesignPrice"
+                      maxlength="18" required> -->
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    name="DesignPrice" type="text" class="form-control" [(ngModel)]="model.DesignPrice" maxlength="18"
+                    [disUipermission]="['F060002']">
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Chi phí chuyển giao (FCM)
+                </label>
+                <div class="controls">
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="FCMPrice"
+                    type="text" class="form-control" [(ngModel)]="model.FCMPrice" maxlength="18">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá bán thực tế chưa VAT
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <input currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" name="SaleNoVAT"
+                    type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" maxlength="18"
+                    [disUipermission]="['F060002']">
+                  <!-- <input ntsNumberInt type="text" class="form-control" [(ngModel)]="model.SaleNoVAT" name="SaleNoVAT"
+                      maxlength="100" required> -->
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 radio">
+              <div class="form-group">
+                <label class="form-label">Tình trạng công nợ
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <select class="form-control" name="PaymentStatus-main" [(ngModel)]="model.PaymentStatus">
+                    <option *ngFor="let item of constant.PaymentStatus" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã kho
+                </label>
+                <div class="controls">
+                  <input type="text" class="form-control" [(ngModel)]="model.WarehouseCode" name="WarehouseCode"
+                    maxlength="50" [disUipermission]="['F060002']">
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Tình trạng dự án
+                  <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                </label>
+                <div class="controls">
+                  <select class="form-control" name="Statusproject" [(ngModel)]="model.Status"
+                    [disUipermission]="['F060002']">
+                    <option *ngFor="let item of constant.ProjectStatus" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Mức độ ưu tiên dự án
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <select class="form-control" name="PriorityProject" [(ngModel)]="model.Priority"
+                      [disUipermission]="['F060002']">
+                      <option *ngFor="let item of constant.ProjectPriority" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <div class="form-group ">
+                  <label class="form-label">Các vấn đề/ tiến trình/đề xuất của dự án
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <textarea [(ngModel)]="model.Progress" name="Progress" rows="3" class="form-control"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+              <ng-container>
+                <button *appUipermission="['F060002']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                  (click)="save()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>
+              </ng-container>&nbsp;
+              <ng-container>
+                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                  <i class="fa fa-power-off"></i> &nbsp;
+                  <span>
+                    Đóng
+                  </span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </li>
+    <!-- Danh mục vấn đề -->
+    <li [ngbNavItem]="'project-error'"
+      [disabled]="permissionService.checkPermission(['F060401','F060402','F060403','F060404','F060405','F060406','F060411'])">
+      <a ngbNavLink>Danh mục vấn đề</a>
+      <ng-template ngbNavContent>
+        <app-project-error [Id]="model.Id"></app-project-error>
+      </ng-template>
+    </li>
+    <!-- Tab file -->
+    <li [ngbNavItem]="'project-attach-tab'"
+      [disabled]="permissionService.checkPermission(['F060008','F060009','F060010','F060011','F060037','F060038'])">
+      <a ngbNavLink>Tài liệu</a>
+      <ng-template ngbNavContent>
+        <app-project-attach-tab [Id]="model.Id"></app-project-attach-tab>
+      </ng-template>
+    </li>
+    <!-- Tab biên bản chuyển giao -->
+    <li [ngbNavItem]="'project-transfer-attach'"
+      [disabled]="permissionService.checkPermission(['F060012','F060013','F060014','F060015'])">
+      <a ngbNavLink>Biên bản chuyển giao</a>
+      <ng-template ngbNavContent>
+        <app-project-transfer-attach [Id]="model.Id"></app-project-transfer-attach>
+      </ng-template>
+    </li>
+    <!-- Tab Sản phẩm -->
+    <li [ngbNavItem]="'project-product'"
+      [disabled]="permissionService.checkPermission(['F060016','F060017','F060018','F060019','F060020','F060021','F060030','F060031','F060032','F060033','F060034'])">
+      <a ngbNavLink>Sản phẩm</a>
+      <ng-template ngbNavContent>
+        <app-project-product [Id]="model.Id" [PriceFCM]="model.Price"></app-project-product>
+      </ng-template>
+    </li>
+    <!-- Tab Giải pháp -->
+    <li [ngbNavItem]="'project-solution'"
+      [disabled]="permissionService.checkPermission(['F060026','F060027','F060028'])">
+      <a ngbNavLink>Giải pháp</a>
+      <ng-template ngbNavContent>
+        <app-project-solution [Id]="model.Id"></app-project-solution>
+      </ng-template>
+    </li>
+    <!-- Tab Nhân sự -->
+    <li [ngbNavItem]="'project-employee'">
+      <a ngbNavLink>Nhân sự</a>
+      <ng-template ngbNavContent>
+        <app-project-employee [Id]="model.Id" ></app-project-employee>
+      </ng-template>
+    </li>
+    <!--Kế hoạch dự án -->
+    <li [ngbNavItem]="'schedule-project'" (click)="checkPermission()">
+      <a ngbNavLink>Kế hoạch dự án</a>
+      <ng-template ngbNavContent>
+        <app-schedule-project [idProject]="model.Id" [hide]="true" [Name]="model.Name" [IsChange]="IsChange" [IsChangeDate]="IsChangeDate" [PlanId] = "PlanId" (change)="setStageDelay($event)"></app-schedule-project>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="'Dashboard-project'" (click)="checkTabId()">
+      <a ngbNavLink>Dashboard kế hoạch</a>
+      <ng-template ngbNavContent>
+        <app-dashboard-project [idProject]="model.Id" [hide]="true" [Name]="model.Name" (change) = "getStageDelayId($event)"></app-dashboard-project>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="'project-general-design'"
+      [disabled]="permissionService.checkPermission(['F060022','F060023','F060024','F060025','F060029'])">
+      <a ngbNavLink>Tổng hợp thiết kế</a>
+      <ng-template ngbNavContent>
+        <app-project-general-design-managa [Id]="model.Id"></app-project-general-design-managa>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="'project-payment'" [disabled]="permissionService.checkPermission(['F060040'])" (click)="getAllPayment()">
+      <a ngbNavLink>Tiến độ thu tiền</a>
+      <ng-template ngbNavContent>
+        <form name="form1" class="tab-form-demo" #g="ngForm" novalidate>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> Tình trạng dự án
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+              <!--
+                <label>
+                  <b>Tình trạng dự án</b>
+                </label> -->
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <div class="controls">
+                  <nts-status-badge [items]="constant.ProjectStatus" [value]="model.Status"></nts-status-badge>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá trị phải thu theo HĐ
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <div class="controls">
+                  <label class="form-label">{{TotalWithPaymentModel.TotalPlanAmount|number:'1.0-0'}}
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> Tổng đã thu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <div class="controls">
+                  <label class="form-label">{{TotalWithPaymentModel.ActualPlanAmount|number:'1.0-0'}}
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Còn phải thu về
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label
+                  class="form-label">{{TotalWithPaymentModel.TotalPlanAmount-TotalWithPaymentModel.ActualPlanAmount|number:'1.0-0'}}
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tỷ lệ đã về
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"
+                  maxlength="4">{{TotalWithPaymentModel.ActualPlanAmount/TotalWithPaymentModel.TotalPlanAmount*100|number:0.0}}
+                  %
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tình trạng công nợ theo hợp đồng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label"> :
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <nts-status-badge [items]="constant.PaymentStatus" [value]="model.PaymentStatus"></nts-status-badge>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label text-strong">Nợ xấu
+                </label>
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group ">
+                <input type="checkbox" [(ngModel)]="model.IsBadDebt" name="checkeds" (change)="selectBedDebt()"
+                  style="height:20px; width:20px;">
+              </div>
+            </div>
+
+            <div class="col-xl-1 col-lg-1 col-md-12 col-sm-12">
+              <div class="form-group">
+                <div class="controls">
+                  <div class="input-group ">
+                    <input class="form-control" placeholder="dd/mm/yyyy" name="badDebtDate" [(ngModel)]="model.BadDebtDate"
+                      ngbDatepicker #d="ngbDatepicker" (ngModelChange)="updateBadDebtDate()">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="d.toggle();$event.stopPropagation();">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <label>
+                <b>Danh sách thanh toán</b>
+              </label>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+              <button type="button" *appUipermission="['F060041']" class="btn btn-success"
+                (click)="showCreatePayment('')" container="body">
+                <i class="fa fa-plus"></i>
+                Thêm mới
+              </button>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:2300px">
+                  <thead>
+                    <tr>
+                      <th rowspan="3" width="30px" class="text-center">TT</th>
+                      <th rowspan="3" width="80px" class="text-center">Xử lý</th>
+                      <th rowspan="3" width="110px" class="text-center">Tên lần thanh toán</th>
+
+                      <th colspan="3" rowspan="2" width="200px" class="text-center">Ngày dự kiến thu theo hợp đồng</th>
+
+                      <th colspan="6" rowspan="2" width="200px" class="text-center">Ngày dự kiến thu theo thực tế triển khai</th>
+                      <th rowspan="3" width="110px" class="text-center">Ngày điều chỉnh thu tiền</th>
+                      <th rowspan="3" width="110px" class="text-center">Tổng số tiền đã thanh toán</th>
+
+                      <th colspan="10" class="text-center">Thực tế</th>
+                    </tr>
+
+                    <tr>
+                      <th colspan="2" width="150px" class="text-center">Lần 1</th>
+                      <th colspan="2" width="150px" class="text-center">Lần 2</th>
+                      <th colspan="2" width="150px" class="text-center">Lần 3</th>
+                      <th colspan="2" width="150px" class="text-center">Lần 4</th>
+                      <th colspan="2" width="150px" class="text-center">Lần 5</th>
+                    </tr>
+                    <tr>
+                      <th colspan="1" rowspan="2" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" rowspan="2" width="110px" class="text-center">Số tiền</th>
+                      <th colspan="1" rowspan="2" width="160px" class="text-center">Ghi chú</th>
+
+                      <th colspan="1" rowspan="2" width="80px" class="text-center">Số CV chưa xong/ Tổng CV</th>
+                      <th colspan="1" rowspan="2" width="80px" class="text-center">Số CV trễ</th>
+                      <th colspan="1" rowspan="2" width="80px" class="text-center">% Hoàn thành trung bình</th>
+                      <th colspan="1" rowspan="2" width="80px" class="text-center">Ngày theo mốc thu tiền</th>
+                      <th colspan="1" rowspan="2" width="80px" class="text-center">Thời gian thu tiền</th>
+                      <th colspan="1" rowspan="2" width="100px" class="text-center">Ngày thu tiền</th>
+
+                      <th colspan="1" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" width="100px" class="text-center">Số tiền</th>
+
+                      <th colspan="1" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" width="100px" class="text-center">Số tiền</th>
+
+                      <th colspan="1" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" width="100px" class="text-center">Số tiền</th>
+
+                      <th colspan="1" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" width="100px" class="text-center">Số tiền</th>
+
+                      <th colspan="1" width="100px" class="text-center">Ngày thanh toán</th>
+                      <th colspan="1" width="100px" class="text-center">Số tiền</th>
+                    </tr>
+
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of TotalWithPaymentModel.PaymentModels, let i = index;" (click)="select(i)"
+                    [ngClass]="{'selected':selectIndex==i}">
+                      <td width="30px" class="text-center">{{i+1}}</td>
+                      <td width="80px" class="text-center">
+                        <button *appUipermission="['F060042']" type="button" (click)='showCreatePayment(row.Id)'
+                          class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                          <span class="fa fa-edit" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <button *appUipermission="['F060043']" class="btn btn-xs btn-danger"
+                          (click)="showConfirmDeletePayment(row.Id,i)" placement="top" ngbTooltip="Xóa"
+                          container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td class="text-center">{{row.Name}}</td>
+                      <td class="text-center">{{row.PlanPaymentDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.PlanAmount|number:'1.0-0'}}</td>
+                      <td class="text-center">{{row.PaymentCondition}}</td>
+
+                      <td class="text-center">{{row.UnfinishedPlan}} / {{row.TotalPlan}}</td>
+                      <td class="text-center">{{row.LatePlan}}</td>
+                      <td class="text-center">{{row.AverageDoneRatio}} %</td>
+                      <td class="text-center">{{row.PaymentMilestone|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.MoneyCollectionTime}}</td>
+                      <td class="text-center">{{row.CollectionDate|date:'dd/MM/yyyy'}}</td>
+
+                      <td class="text-center">{{row.AdjustmentDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.TotalAmount|number:'1.0-0'}}</td>
+
+                      <td class="text-center">{{row.ActualPaymentDate1|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ActualAmount1|number:'1.0-0'}}</td>
+
+                      <td class="text-center">{{row.ActualPaymentDate2|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ActualAmount2|number:'1.0-0'}}</td>
+
+                      <td class="text-center">{{row.ActualPaymentDate3|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ActualAmount3|number:'1.0-0'}}</td>
+
+                      <td class="text-center">{{row.ActualPaymentDate4|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ActualAmount4|number:'1.0-0'}}</td>
+
+                      <td class="text-center">{{row.ActualPaymentDate5|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ActualAmount5|number:'1.0-0'}}</td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <div class="row mt-3" *ngIf="selectIndex != -1">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <label>
+                <b>Danh sách công việc</b>
+              </label>
+            </div>
+            <!-- <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+              <button type="button" *appUipermission="['F060041']" class="btn btn-success"
+                (click)="showCreatePayment('')" container="body">
+                <i class="fa fa-plus"></i>
+                Thêm mới
+              </button>
+            </div> -->
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered " style="word-wrap: break-word ;">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="50px" class="text-center">Xử lý</th>
+                      <th min-width="200px" class="text-center">Tên công việc</th>
+                      <th width="150px" class="text-center">Ngày BĐ HĐ</th>
+                      <th width="150px" class="text-center">Ngày KT HĐ</th>
+                      <th width="150px" class="text-center">Ngày bắt đầu triển khai</th>
+                      <th width="150px" class="text-center">Ngày kết thúc triển khai</th>
+                      <th width="150px" class="text-center">Tình trạng công việc</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of ListPlan; let i = index">
+                      <td class="text-center">{{Index+i}}</td>
+                      <td style="text-align: center">
+                      <button class="btn btn-xs btn-danger"
+                        (click)="showConfirmDelete(row.Id,i)" placement="top" ngbTooltip="Xóa"
+                        container="body">
+                        <span class="fas fa-times" aria-hidden="true"></span>
+                      </button>&nbsp;
+                      </td>
+                      <td class="text-left">{{row.Name}}</td>
+                      <td class="text-center">{{row.ContractStartDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.ContractEndDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">{{row.PlanEndtDate|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">
+                        <div class="text-center">
+                        <nts-status-badge [value]="row.Status" [items]="constant.Plan_Status">
+                        </nts-status-badge>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+              <!-- <ng-container>
+                <button *appUipermission="['F060002']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                  (click)="savePayment()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>
+              </ng-container>&nbsp; -->
+              <ng-container>
+                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                  <i class="fa fa-power-off"></i> &nbsp;
+                  <span>
+                    Đóng
+                  </span>
+                </button>
+              </ng-container>
+            </div>
+          </div>
+        </form>
+      </ng-template>
+    </li>
+    <!-- Tab Sản phẩm Cần Qc -->
+    <li [ngbNavItem]="'project-product-qc'">
+      <a ngbNavLink>QC</a>
+      <ng-template ngbNavContent>
+        <app-project-product-qc [Id]="model.Id" [PriceFCM]="model.Price"></app-project-product-qc>
+      </ng-template>
+    </li>
+    <!-- <li [ngbNavItem]="'project-product-status-perform'">
+      <a ngbNavLink>Kế hoạch dự án</a>
+      <ng-template ngbNavContent>
+        <app-project-product-status-perform [Id]="model.Id"></app-project-product-status-perform>
+      </ng-template>
+    </li> -->
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>

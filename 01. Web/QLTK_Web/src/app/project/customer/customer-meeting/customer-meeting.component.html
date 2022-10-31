@@ -1,0 +1,87 @@
+
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{TotalItems}}</span> cuộc họp</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1000px">
+                            <thead>
+                                <tr>
+                                    <th width="30px" class="text-center">STT</th>
+                                    <th width="70px" class="text-center">Mã</th>
+                                    <th width="200px" class="text-center">Tên</th>
+                                    <th width="80px" class="text-center">Loại</th>
+                                    <th width="80px" class="text-center">Tình trạng</th>
+                                    <th width="150px" class="text-center">Nội dung yêu cầu</th>
+                                    <th width="80px" class="text-center">Ngày yêu cầu</th>
+                                    <th width="250px" class="text-center">Địa điểm</th>
+                                    <th width="80px" class="text-center">Ngày họp</th>
+                                    <th width="120px" class="text-center">Người tạo</th>
+                                    <th width="180px" class="text-center">Phòng họp</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of Meetings; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td class="text-center">{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.TypeName}}</td>
+                                    <td class="text-center">
+                                      <nts-status-badge [items]="constant.MeetingStatus" [value]="row.Status"></nts-status-badge>
+                                    </td>
+                                    <td>{{row.Request}}</td>
+                                    <td class="text-center">{{row.RequestDate|date:'dd/MM/yyyy'}}</td>
+                                    <td>{{row.Address}}</td>
+                                    <td class="text-center">{{row.MeetingDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.EmployeeName}}</td>
+                                    <td>{{row.DepartmentName}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="Meetings.length == 0">
+                                <tr class="bold">
+                                    <td colspan="17" min-width="2590px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có
+                                        dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                            (ngModelChange)="getListCustomerMeeting()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="TotalItems" [(page)]="searchModel.PageNumber"
+                        (pageChange)="getListCustomerMeeting()" [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            
+        <hr />
+        <div class="row">
+            <div class="text-left col-xl-6 col-lg-6 col-md-6 col-sm-12" style="padding: 0 33px;">
+               
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right" style="padding: 0 30px 10px 0;">
+                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                    <i class="fa fa-power-off"></i> &nbsp;
+                    <span>
+                        Đóng
+                    </span>
+                </button>
+            </div>
+        </div>

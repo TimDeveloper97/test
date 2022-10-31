@@ -1,0 +1,85 @@
+<form name="searchForm" #f="ngForm">
+    <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label class="form-label">Tên vật tư</label>
+                <div class="controls">
+                    <input type="text" class="form-control" name="MaterialName" [(ngModel)]="model.Name">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+                <label class="form-label">Mã vật tư</label>
+                <div class="controls">
+                    <input type="text" class="form-control" name="MaterialCode" [(ngModel)]="model.Code">
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+            <div class="form-group">
+                <label class="form-label"></label>
+                <div class="controls">
+                    <button class="btn btn-success btn-success-system" (click)="getIncurredMaterial()">
+                        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row margin-bottom-10">
+        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 text-left">
+            <label class="form-label" style="line-height:35px;">Danh sách vật tư theo Module</label>
+        </div>
+        <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng số tiền: <span
+                    class="bold text-danger">{{total|number:'1.0-0'}}</span>
+            </label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+            <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+                <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:1200px;">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th min-width="250px" class="text-center">Tên vật tư</th>
+                            <th width="200px" class="text-center">Mã vật tư</th>
+                            <th width="250px" class="text-center">Hãng sản xuất</th>
+                            <th width="150px" class="text-center">Số lượng</th>
+                            <th width="150px" class="text-center">Giá</th>
+                            <th width="150px" class="text-center">Thành tiền</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+            <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="height" style="height: auto;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:1200px; ">
+                    <tbody>
+                        <tr *ngFor="let row of listData; let i = index" [ngClass]="{'selected':selectIndex == i}"
+                            (click)="selectRow( i)">
+                            <td class="text-center" width="50px">{{i+1}}</td>
+                            <td min-width="250px">{{row.MaterialName}}
+                            </td>
+                            <td width="200px">{{row.MaterialCode}}</td>
+                            <td width="250px">{{row.ManufactureName}}</td>
+                            <td class="text-right" width="150px">{{row.Quantity}}</td>
+                            <td class="text-right" width="150px">{{row.Pricing|number:'1.0-0'}}</td>
+                            <td class="text-right" width="150px">{{row.Amount|number:'1.0-0'}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td class="text-center bold" colspan="6">Tổng tiền</td>
+                            <td class="text-right bold text-danger" width="150px">
+                                {{total|number:'1.0-0'}}
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+</form>

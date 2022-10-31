@@ -1,0 +1,301 @@
+<div class='content-wrapper page-content'>
+    <div class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{flowStageSearchModel.TotalItems}}</span> dòng chảy</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+                    <button type="button" (click)="showCreatUpdateFlowStage('',false)" class="btn btn-xs btn-success" *appUipermission="['F121571']" 
+                        placement="bottom" ngbTooltip="Thêm dòng chảy" container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 0">
+                    <dx-tree-list id="questions" [dataSource]="flowStages" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true" noDataText=" "
+                        [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã dòng chảy"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên dòng chảy" [minWidth]="200"></dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F121571']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-add"
+                                        ngbTooltip="Thêm dòng chảy" container="body"
+                                        (click)=" showCreatUpdateFlowStage(item.value,false)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F121572']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-update"
+                                        ngbTooltip="Sửa dòng chảy" container="body"
+                                        (click)=" showCreatUpdateFlowStage(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F121573']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete"
+                                        ngbTooltip="Xóa dòng chảy" container="body" 
+                                        (click)=" showConfirmDeleteFlowStage(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#questions"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="taskSearchModel" name="taskSearchModel"
+                            (change)="searchTask()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchTask()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{taskSearchModel.TotalItems}}</span> công việc; &nbsp;
+                    </label>
+                </div>
+
+                <div class="col-md-6 text-right">
+                    <button  type="button" class="btn btn-success"
+                    (click)="exportExcel();" container="body">
+                        <i class="fa fa-file-excel"></i>
+                        Xuất excel
+                    </button>
+                    &nbsp;
+                    <button *appUipermission="['F121551']" type="button" class="btn btn-success"
+                        (click)="showCreateUpdateTask('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                    &nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2230px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Mã công việc</th>
+                                    <th min-width="100px" class="text-center">Tên công việc</th>
+                                    <th width="200px" class="text-center">Dòng chảy</th>
+                                    <th width="200px" class="text-center">Vị trí thực hiện</th>
+                                    <th width="200px" class="text-center">Vị trí phê duyệt</th>
+                                    <th width="200px" class="text-center">Vị trí hỗ trợ</th>
+                                    <th width="200px" class="text-center">Vị trí tư vấn</th>
+                                    <th width="200px" class="text-center">Vị trí thông báo</th>
+                                    <th width="200px" class="text-center">SBU</th>
+                                    <th width="200px" class="text-center">Phòng ban</th>
+                                    <th width="100px" class="text-center">Công việc theo dự án</th>
+                                    <th width="100px" class="text-center"> Mã kết quả đầu vào</th>
+                                    <th width="100px" class="text-center"> Mã kết quả đầu ra</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of tasks; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <!-- <button class="btn btn-xs btn-info" container="body"
+                                            (click)="downListFile(row.Id)" ngbTooltip="Tải tài liệu" container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button> &nbsp; -->
+                                        <button type="button" (click)='showCreateUpdateTask(row.Id)' *appUipermission="['F121552']"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button *appUipermission="['F121553']" class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDeleteTask(row.Id)" placement="top"
+                                            ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <!-- <button *appUipermission="['F000906']" type="button"
+                                            class="btn btn-xs btn-warning" (click)="showQuestion(row.Id)"
+                                            placement="top" ngbTooltip="Xem công việc" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp; -->
+                                    </td>
+                                    <td>{{row.Code}}</td>
+                                    <td><a>{{row.Name}}</a></td>   
+                                    <td>{{row.FlowStageName}}</td>
+
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.R}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.A}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+                                    
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.S}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+                                    
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.C}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+                                    
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.I}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.SBU}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+                                    <td style="padding: 0" width="150px">
+                                        <table class="table table-bordered margin-bottom-0" *ngIf="row.RASCI.length > 0">
+                                          <tbody>
+                                            <tr *ngFor="let row2 of row.RASCI; let i = index">
+                                              <td>{{row2.Department}}</td>
+                                            </tr>
+                                          </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsProjectWork == true" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="row.IsProjectWork == false" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-times"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{row.CodeInput}}</td>
+                                    <td>{{row.CodeOutput}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="tasks.length == 0">
+                                <tr class="bold">
+                                    <td colspan="8" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                            [(ngModel)]="taskSearchModel.PageSize" (ngModelChange)="searchTask()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="taskSearchModel.TotalItems" [(page)]="taskSearchModel.PageNumber"
+                        (pageChange)="searchTask()" [pageSize]="taskSearchModel.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <!-- <button class="btn btn-view btn-info">
+                        <i class="fa fa-download"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Tải tài liệu</small> -->
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa công việc</small>
+
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa công việc</small>
+                    <!-- <button class="btn btn-view btn-warning">
+                        <i class="far fa-eye"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xem công việc</small> -->
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

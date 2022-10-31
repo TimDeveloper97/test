@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { createPortal } from 'inferno';\nexport const Portal = ({\n  container,\n  children\n}) => {\n  if (container) {\n    return createPortal(children, container);\n  }\n\n  return null;\n};","map":null,"metadata":{},"sourceType":"module"}

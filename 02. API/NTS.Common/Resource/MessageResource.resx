@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ERR0001" xml:space="preserve">
+    <value>Có lỗi phát sinh trong quy trình xử lý!</value>
+    <comment>Lỗi phát sinh</comment>
+  </data>
+  <data name="MSG0001" xml:space="preserve">
+    <value>{0} không tồn tại!</value>
+    <comment>Không tìm thấy</comment>
+  </data>
+  <data name="MSG0002" xml:space="preserve">
+    <value>Tên {0} đã tồn tại. Vui lòng nhập tên {0} khác!</value>
+    <comment>Trùng tên</comment>
+  </data>
+  <data name="MSG0003" xml:space="preserve">
+    <value>Mã {0} đã tồn tại. Vui lòng nhập mã {0} khác!</value>
+    <comment>Trùng mã</comment>
+  </data>
+  <data name="MSG0004" xml:space="preserve">
+    <value>{0} đang được sử dụng. Không được phép xóa</value>
+  </data>
+  <data name="MSG0005" xml:space="preserve">
+    <value>Version {0} đã tồn tại.Nhập Version khác!</value>
+    <comment>Trùng Version</comment>
+  </data>
+  <data name="MSG0006" xml:space="preserve">
+    <value>Nhân viên đã có trong danh sách. Bạn vui lòng chọn nhân viên khác </value>
+    <comment>Trùng nhân viên</comment>
+  </data>
+  <data name="MSG0007" xml:space="preserve">
+    <value>Email {0} đã tồn tại. Vui lòng nhập email{0} khác!</value>
+    <comment>Trùng email</comment>
+  </data>
+  <data name="MSG0008" xml:space="preserve">
+    <value>Thời gian chỉ nhập số</value>
+    <comment>Check chuỗi (chỉ nhập số)</comment>
+  </data>
+  <data name="MSG0009" xml:space="preserve">
+    <value>Version chỉ được nhập số</value>
+  </data>
+  <data name="MSG0010" xml:space="preserve">
+    <value>Version phải lớn hơn 0</value>
+  </data>
+  <data name="MSG0011" xml:space="preserve">
+    <value>Version mới phải lớn hơn version cũ</value>
+  </data>
+  <data name="MSG0012" xml:space="preserve">
+    <value>Thời gian kết thúc phải lớn hơn thời gian bắt đầu</value>
+  </data>
+  <data name="MSG0013" xml:space="preserve">
+    <value>Ngày làm việc phải nhỏ hơn ngày nghỉ</value>
+  </data>
+  <data name="MSG0014" xml:space="preserve">
+    <value>Số điện thoại này đã tồn tại</value>
+  </data>
+  <data name="MSG0015" xml:space="preserve">
+    <value>Không có dữ liệu {0}</value>
+  </data>
+  <data name="MSG0016" xml:space="preserve">
+    <value>Nhóm vật tư tương tự đã có vật tư không được phép xóa</value>
+  </data>
+  <data name="MSG0017" xml:space="preserve">
+    <value>Vật tư đã có trong nhóm khác</value>
+  </data>
+  <data name="MSG0018" xml:space="preserve">
+    <value>{0} đang làm việc. Không thể xóa</value>
+  </data>
+  <data name="MSG0019" xml:space="preserve">
+    <value>{0} chưa được cấu hình. Vui lòng cấu hình!</value>
+  </data>
+  <data name="MSG0020" xml:space="preserve">
+    <value>Loại công việc của nhân viên đã tồn tại!</value>
+  </data>
+  <data name="MSG0023" xml:space="preserve">
+    <value>Tên theo hợp đồng đã tồn tại. Nhập tên theo hợp đồng khác!</value>
+  </data>
+  <data name="MSG0024" xml:space="preserve">
+    <value>Mã theo hợp đồng đã tồn tại. Nhập mã theo hợp đồng khác!</value>
+  </data>
+  <data name="MSG0025" xml:space="preserve">
+    <value>Mã {0} không bắt đầu bằng nhóm {0}. Vui lòng kiểm tra lại!</value>
+  </data>
+  <data name="MSG0026" xml:space="preserve">
+    <value>Thư mục upload chưa được cấu hình</value>
+  </data>
+  <data name="MSG0027" xml:space="preserve">
+    <value>Không được sửa {0} thành con của chính nó hoặc con của nó</value>
+  </data>
+  <data name="MSG0028" xml:space="preserve">
+    <value>Mã {0} phải bắt đầu bằng mã nhóm {0}</value>
+  </data>
+  <data name="MSG0029" xml:space="preserve">
+    <value>{0} không thuộc phòng ban của bạn. Không được phép chỉnh sửa</value>
+  </data>
+  <data name="MSG0030" xml:space="preserve">
+    <value>Bạn không có quyền thao tac {0} này.</value>
+  </data>
+  <data name="MSG0031" xml:space="preserve">
+    <value>{0} không thuộc SBU của bạn. Không được phép thực hiện thao tác này</value>
+  </data>
+  <data name="MSG0032" xml:space="preserve">
+    <value>{0} không phải do bạn tạo ra. Không được phép chỉnh sửa</value>
+  </data>
+  <data name="MSG0033" xml:space="preserve">
+    <value>{0} không thuộc phòng ban. Không được phép thêm mới</value>
+  </data>
+  <data name="MSG0034" xml:space="preserve">
+    <value>{0} không thuộc phòng ban. Không được phép chỉnh sửa</value>
+  </data>
+  <data name="MSG0035" xml:space="preserve">
+    <value>{0} không thuộc phòng ban. Không được phép xóa</value>
+  </data>
+  <data name="MSG0036" xml:space="preserve">
+    <value>{0} Không thuộc SBU của bạn. Không được phép xóa</value>
+  </data>
+  <data name="MSG0037" xml:space="preserve">
+    <value>{0} không phải do bạn tạo ra. Không được phép xóa</value>
+  </data>
+  <data name="MSG0038" xml:space="preserve">
+    <value>{0} dữ liệu phải là file Exel</value>
+  </data>
+  <data name="MSG0039" xml:space="preserve">
+    <value>{0} không có dữ liệu!</value>
+  </data>
+  <data name="MSG0040" xml:space="preserve">
+    <value>{0} thất bại</value>
+  </data>
+  <data name="MSG0052" xml:space="preserve">
+    <value>Mật khẩu cũ không đúng!</value>
+  </data>
+  <data name="MSG0053" xml:space="preserve">
+    <value>Thêm mới {0} Tên/Mã: {1}</value>
+  </data>
+  <data name="MSG0054" xml:space="preserve">
+    <value>Cập nhật {0} Tên/Mã: {1}</value>
+  </data>
+  <data name="MSG0055" xml:space="preserve">
+    <value>Cập nhật {0} của {1} Tên/Mã: {2}</value>
+  </data>
+  <data name="MSG0056" xml:space="preserve">
+    <value>Xóa {0} Tên/Mã: {1}</value>
+  </data>
+  <data name="MSG0057" xml:space="preserve">
+    <value>Xóa {0} Tên/mã {1} của {2} Tên/Mã: {3}</value>
+  </data>
+  <data name="MSG0058" xml:space="preserve">
+    <value>{0} của {1} Tên/Mã: {2}</value>
+  </data>
+  <data name="MSG0059" xml:space="preserve">
+    <value>Cập nhật {0}</value>
+  </data>
+  <data name="MSG0060" xml:space="preserve">
+    <value>Tạo {0}</value>
+  </data>
+  <data name="MSG0061" xml:space="preserve">
+    <value>Yều xác nhận {0}</value>
+  </data>
+  <data name="MSG0062" xml:space="preserve">
+    <value>Hủy yều xác nhận {0}</value>
+  </data>
+  <data name="MSG0063" xml:space="preserve">
+    <value>Xác nhận {0}</value>
+  </data>
+  <data name="MSG0064" xml:space="preserve">
+    <value>Hủy xác nhận {0}</value>
+  </data>
+  <data name="MSG0065" xml:space="preserve">
+    <value>Đã xử lý {0}</value>
+  </data>
+  <data name="MSG0066" xml:space="preserve">
+    <value>Hủy đã xử lý {0}</value>
+  </data>
+  <data name="MSG0067" xml:space="preserve">
+    <value>QC đạt {0}</value>
+  </data>
+  <data name="MSG0068" xml:space="preserve">
+    <value>QC không đạt {0}</value>
+  </data>
+  <data name="MSG0069" xml:space="preserve">
+    <value>Hủy kết quả QC {0}</value>
+  </data>
+  <data name="MSG0070" xml:space="preserve">
+    <value>Đóng {0}</value>
+  </data>
+  <data name="MSG0071" xml:space="preserve">
+    <value>Hủy đóng {0}</value>
+  </data>
+  <data name="MSG0072" xml:space="preserve">
+    <value>Có module thiếu giá không được xuất THTK.</value>
+  </data>
+  <data name="MSG0073" xml:space="preserve">
+    <value>{0} có mã: {1} không tồn tại trên hệ thống!</value>
+  </data>
+  <data name="MSG0074" xml:space="preserve">
+    <value>Hạn nhập nhật ký công việc là: {0}. Bạn đã nhập nhật ký quá hạn!</value>
+  </data>
+  <data name="MSG0075" xml:space="preserve">
+    <value>Tên {0} không được để trống</value>
+  </data>
+  <data name="MSG0076" xml:space="preserve">
+    <value>Mã {0} không được để trống</value>
+  </data>
+  <data name="MSG0077" xml:space="preserve">
+    <value>{0} đã hoàn thành không được phép xóa!</value>
+  </data>
+  <data name="MSG0078" xml:space="preserve">
+    <value>Vật tư đã được tạo hồ sơ không được phép xóa</value>
+  </data>
+  <data name="MSG0079" xml:space="preserve">
+    <value>Vật tư: {}, đã được tạo hồ sơ không được tạo hồ sơ nữa</value>
+  </data>
+  <data name="MSG0081" xml:space="preserve">
+    <value>{0} đang được sử dụng ở {1}. Không được phép xóa</value>
+  </data>
+  <data name="MSG0082" xml:space="preserve">
+    <value>{0} Không thuộc SBU của bạn. Không được phép thêm mới.</value>
+  </data>
+  <data name="MSG0083" xml:space="preserve">
+    <value>{0} đã ban hành.</value>
+  </data>
+  <data name="MSG0084" xml:space="preserve">
+    <value>{0} {1} đã tồn tại. Vui lòng nhập {1} {0} khác!</value>
+  </data>
+  <data name="MSG0085" xml:space="preserve">
+    <value>Đã có kế hoạch {0}</value>
+  </data>
+  <data name="MSG0086" xml:space="preserve">
+    <value>Hủy Đã có kế hoạch {0}</value>
+  </data>
+  <data name="MSG0087" xml:space="preserve">
+    <value>Vấn đề đã có kế hoạch không được phép hủy</value>
+  </data>
+  <data name="MSG0088" xml:space="preserve">
+    <value>{0} đã LogTime. Không được phép xóa!</value>
+  </data>
+  <data name="MSG0089" xml:space="preserve">
+    <value>{0} chỉ nhận giá trị nguyên dương!</value>
+  </data>
+</root>

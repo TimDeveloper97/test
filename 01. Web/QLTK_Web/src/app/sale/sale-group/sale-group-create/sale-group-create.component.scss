@@ -1,0 +1,19 @@
+.sale-group-create-model {
+    .badge{
+        position: unset;
+    }
+
+    .modal-dialog {
+        max-width: 1000px !important;
+        width: 1000px !important;
+    }
+
+    table{
+        .btn{
+            position: inherit;
+            &::after{
+                position: inherit;
+            }
+        }
+    }
+}

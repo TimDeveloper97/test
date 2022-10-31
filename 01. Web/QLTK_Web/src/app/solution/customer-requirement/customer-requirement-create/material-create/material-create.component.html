@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên vật tư
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" maxlength="200"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã vật tư
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Code" name="Code" maxlength="200"
+                            required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group form-group-custom">
+                    <label class="form-label">Số lượng
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input name="Quantity" type="text" class="form-control" [(ngModel)]="model.Quantity"
+                            ntsNumberInt maxlength="9">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group form-group-custom">
+                    <label class="form-label">Giá
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input name="Pricing" type="text" class="form-control" [(ngModel)]="model.Pricing"
+                            ntsCurrencyFormatter maxlength="18">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Nhóm vật tư
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="listMaterialGroupName" [columns]="columnName" ntsValue="Name"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.MaterialGroupName"
+                            name="MaterialGroupName" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã hãng sản xuất
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="listManufactureCode" [columns]="columnName" ntsValue="Code"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ManufactureCode"
+                            name="ManufactureCode" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & Tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(true)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

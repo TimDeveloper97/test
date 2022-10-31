@@ -1,0 +1,788 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ContentModelStore">
+    <e p="\app" t="IncludeRecursive" />
+    <e p="\d2fce02d" t="IncludeRecursive" />
+    <e p="C:\Users\fseve\.Rider2018.2\config\extensions" t="IncludeRecursive" />
+    <e p="C:\Users\fseve\.Rider2018.2\system\extResources" t="IncludeRecursive" />
+    <e p="C:\Users\fseve\.Rider2018.2\system\resharper-host\local\Transient\ReSharperHost\v182\SolutionCaches\_QLTK_Admin.-766740117.00" t="ExcludeRecursive" />
+    <e p="F:\Working\NTS_Project\01. SourceCode\02. API" t="IncludeFlat">
+      <e p="NTS.Caching" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="NTS.Caching.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="RedisConnectionFactory.cs" t="Include" />
+        <e p="RedisService.cs" t="Include" />
+      </e>
+      <e p="NTS.Common" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="CommonModel.cs" t="Include" />
+        <e p="Constants.cs" t="Include" />
+        <e p="IniFile.cs" t="Include" />
+        <e p="LocalSettingFileReader.cs" t="Include" />
+        <e p="Log.cs" t="Include" />
+        <e p="Model" t="Include">
+          <e p="CamaraModel.cs" t="Include" />
+          <e p="CleanServerModel.cs" t="Include" />
+          <e p="ConfigSyncNewsModel.cs" t="Include" />
+          <e p="ConnectionAPIModel.cs" t="Include" />
+          <e p="DbConnection.cs" t="Include" />
+          <e p="MessageCamera.cs" t="Include" />
+          <e p="MessageRadarLane.cs" t="Include" />
+          <e p="RabbitModel.cs" t="Include" />
+          <e p="RadarModel.cs" t="Include" />
+          <e p="RadarSetting.cs" t="Include" />
+          <e p="RadarViewMapModel.cs" t="Include" />
+          <e p="RedisSettingModel.cs" t="Include" />
+          <e p="ServerUploadFileModel.cs" t="Include" />
+          <e p="SettingSyncNewsModel.cs" t="Include" />
+          <e p="TCPSetting.cs" t="Include" />
+        </e>
+        <e p="NTS.Common.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="Util.cs" t="Include" />
+        <e p="UtilByte.cs" t="Include" />
+        <e p="UtilDateTime.cs" t="Include" />
+        <e p="UtilFile.cs" t="Include" />
+      </e>
+      <e p="NTS.Model" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="Base" t="Include">
+          <e p="BaseModel.cs" t="Include" />
+        </e>
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="Combobox" t="Include">
+          <e p="ComboboxResult.cs" t="Include" />
+          <e p="DateTimeUtils.cs" t="Include" />
+          <e p="SearchCommonBase.cs" t="Include" />
+          <e p="SearchResultObject.cs" t="Include" />
+        </e>
+        <e p="Common" t="Include">
+          <e p="CbbBuildingModel.cs" t="Include" />
+          <e p="CbbColorsModel.cs" t="Include" />
+          <e p="CbbConfigResults.cs" t="Include" />
+          <e p="CbbCustomerModel.cs" t="Include" />
+          <e p="CbbDeviceTypeModel.cs" t="Include" />
+          <e p="CbbDistrictModel.cs" t="Include" />
+          <e p="CbbFunctionModel.cs" t="Include" />
+          <e p="CbbGroupModel.cs" t="Include" />
+          <e p="CbbManuafacturerModel.cs" t="Include" />
+          <e p="CbbModelDeviceModel.cs" t="Include" />
+          <e p="CbbOriginModel.cs" t="Include" />
+          <e p="CbbPositionModel.cs" t="Include" />
+          <e p="CbbPriceModel.cs" t="Include" />
+          <e p="CbbProductModel.cs" t="Include" />
+          <e p="CbbProvinceModel.cs" t="Include" />
+          <e p="CbbReaderModel.cs" t="Include" />
+          <e p="CbbTypeFeedback.cs" t="Include" />
+          <e p="CbbWarningTypeModel.cs" t="Include" />
+          <e p="CommonModel.cs" t="Include" />
+          <e p="ConfigModel.cs" t="Include" />
+          <e p="ConfigSpeedModel.cs" t="Include" />
+          <e p="ConfigUserModel.cs" t="Include" />
+          <e p="DistrictModel.cs" t="Include" />
+          <e p="EmailModel.cs" t="Include" />
+          <e p="FunctionInfoModel.cs" t="Include" />
+          <e p="GroupFunctionsModel.cs" t="Include" />
+          <e p="ProvinceModel.cs" t="Include" />
+          <e p="SearchCommonModel.cs" t="Include" />
+          <e p="UploadModel.cs" t="Include" />
+          <e p="UserEventLogSearchCondition.cs" t="Include" />
+          <e p="UserEventLogSearchResult.cs" t="Include" />
+        </e>
+        <e p="Device" t="Include">
+          <e p="DeviceCommans.cs" t="Include" />
+          <e p="InfoSendMail.cs" t="Include" />
+          <e p="Messager.cs" t="Include" />
+        </e>
+        <e p="EMSEP" t="Include">
+          <e p="EMSEP1000.cs" t="Include" />
+          <e p="EMSEP1000SearchEmployee.cs" t="Include" />
+          <e p="EMSEP1100EmployeeModel.cs" t="Include" />
+          <e p="EMSEP1100FunctionModel.cs" t="Include" />
+          <e p="EMSEP1100GroupFunctionsModel.cs" t="Include" />
+          <e p="EMSEP1100UserPermissionModel.cs" t="Include" />
+          <e p="EMSEP2000FunctionModel.cs" t="Include" />
+          <e p="EMSEP2000GroupModel.cs" t="Include" />
+          <e p="EMSEP2000GroupPermissionModel.cs" t="Include" />
+          <e p="EMSEP2000GroupSearchModel.cs" t="Include" />
+        </e>
+        <e p="EMSST" t="Include">
+          <e p="EMSST1200PermissionModel.cs" t="Include" />
+          <e p="EMSST1200UserInfoModel.cs" t="Include" />
+        </e>
+        <e p="Entities" t="Include">
+          <e p="Client.cs" t="Include" />
+          <e p="EnumsEntitty.cs" t="Include" />
+          <e p="LoginEntity.cs" t="Include" />
+          <e p="RefreshToken.cs" t="Include" />
+          <e p="UserEntity.cs" t="Include" />
+        </e>
+        <e p="GroupModule" t="Include">
+          <e p="GroupModuleModel.cs" t="Include" />
+          <e p="GroupModuleResultModel.cs" t="Include" />
+          <e p="GroupModuleSearchModel.cs" t="Include" />
+        </e>
+        <e p="GroupUser" t="Include">
+          <e p="GroupUserModel.cs" t="Include" />
+          <e p="GroupUserResultModel.cs" t="Include" />
+          <e p="GroupUserSearchModel.cs" t="Include" />
+          <e p="PermissionModel.cs" t="Include" />
+        </e>
+        <e p="LLADGS" t="Include">
+          <e p="LLADGS1000Model.cs" t="Include" />
+          <e p="LLADGS1000SearchModel.cs" t="Include" />
+        </e>
+        <e p="Module" t="Include">
+          <e p="ModuleModel.cs" t="Include" />
+          <e p="ModuleResultModel.cs" t="Include" />
+          <e p="ModuleSearchModel.cs" t="Include" />
+        </e>
+        <e p="NTS.Model.csproj" t="IncludeRecursive" />
+        <e p="NTSDepartment" t="Include">
+          <e p="NTSDepartmentModel.cs" t="Include" />
+          <e p="NTSDepartmentResultModel.cs" t="Include" />
+          <e p="NTSDepartmentSearchModel.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="QLTKEP" t="Include">
+          <e p="QLTKEPModel.cs" t="Include" />
+          <e p="QLTKEPResultModel.cs" t="Include" />
+          <e p="QLTKEPSearchModel.cs" t="Include" />
+        </e>
+        <e p="QLTKMG" t="Include">
+          <e p="QLTKMGModel.cs" t="Include" />
+          <e p="QLTKMGResultModel.cs" t="Include" />
+          <e p="QLTKMGSearchModel.cs" t="Include" />
+        </e>
+        <e p="Repositories" t="Include">
+          <e p="ActivityLog.cs" t="Include" />
+          <e p="ApplicationClient.cs" t="Include" />
+          <e p="Component.cs" t="Include" />
+          <e p="DataSheet.cs" t="Include" />
+          <e p="Degree.cs" t="Include" />
+          <e p="Department.cs" t="Include" />
+          <e p="Design3D.cs" t="Include" />
+          <e p="Designer.cs" t="Include" />
+          <e p="Employee.cs" t="Include" />
+          <e p="GroupFunction.cs" t="Include" />
+          <e p="GroupPermission.cs" t="Include" />
+          <e p="GroupUser.cs" t="Include" />
+          <e p="JobPosition.cs" t="Include" />
+          <e p="Manufacture.cs" t="Include" />
+          <e p="ManufactureAvailable.cs" t="Include" />
+          <e p="Material.cs" t="Include" />
+          <e p="MaterialDataSheet.cs" t="Include" />
+          <e p="MaterialDesign3D.cs" t="Include" />
+          <e p="MaterialGroup.cs" t="Include" />
+          <e p="MaterialParameter.cs" t="Include" />
+          <e p="MaterialParameterValue.cs" t="Include" />
+          <e p="MisMatch.cs" t="Include" />
+          <e p="ModelQLTK.Context.cs" t="Include" />
+          <e p="ModelQLTK.Context.tt" t="Include" />
+          <e p="ModelQLTK.cs" t="Include" />
+          <e p="ModelQLTK.Designer.cs" t="Include" />
+          <e p="ModelQLTK.edmx" t="Include" />
+          <e p="ModelQLTK.edmx.diagram" t="Include" />
+          <e p="ModelQLTK.tt" t="Include" />
+          <e p="Module.cs" t="Include" />
+          <e p="ModuleChangeType.cs" t="Include" />
+          <e p="ModuleError.cs" t="Include" />
+          <e p="ModuleErrorImage.cs" t="Include" />
+          <e p="ModuleErrorType.cs" t="Include" />
+          <e p="ModuleErrorVideo.cs" t="Include" />
+          <e p="ModuleGroup.cs" t="Include" />
+          <e p="ModuleHistory.cs" t="Include" />
+          <e p="ModuleInPractice.cs" t="Include" />
+          <e p="ModuleInProduct.cs" t="Include" />
+          <e p="ModuleOldVersion.cs" t="Include" />
+          <e p="ModulePart.cs" t="Include" />
+          <e p="NSMaterial.cs" t="Include" />
+          <e p="NSMaterialGroup.cs" t="Include" />
+          <e p="NSMaterialParameter.cs" t="Include" />
+          <e p="NSMaterialParameterValue.cs" t="Include" />
+          <e p="NSMaterialType.cs" t="Include" />
+          <e p="Permission.cs" t="Include" />
+          <e p="Practice.cs" t="Include" />
+          <e p="PracticeFile.cs" t="Include" />
+          <e p="PracticeGroup.cs" t="Include" />
+          <e p="PracticeOldVersion.cs" t="Include" />
+          <e p="PracticInProduct.cs" t="Include" />
+          <e p="Product.cs" t="Include" />
+          <e p="ProductGroup.cs" t="Include" />
+          <e p="ProductVersion.cs" t="Include" />
+          <e p="Qualification.cs" t="Include" />
+          <e p="Responsibility.cs" t="Include" />
+          <e p="Specification.cs" t="Include" />
+          <e p="Unit.cs" t="Include" />
+          <e p="User.cs" t="Include" />
+          <e p="UserGuide.cs" t="Include" />
+          <e p="UserGuideVersion.cs" t="Include" />
+          <e p="UserPermission.cs" t="Include" />
+        </e>
+        <e p="SQLHelpper.cs" t="Include" />
+        <e p="VMSEP" t="Include">
+          <e p="VMSEP1200EmployeeModel.cs" t="Include" />
+          <e p="VMSEP1200SearchEmployeeModel.cs" t="Include" />
+          <e p="VMSEP2000GroupModel.cs" t="Include" />
+          <e p="VMSEP2000SearchGroupModel.cs" t="Include" />
+          <e p="VMSEP2100FunctionModel.cs" t="Include" />
+          <e p="VMSEP2100GroupModel.cs" t="Include" />
+          <e p="VMSEP3000SearchGroupModel.cs" t="Include" />
+        </e>
+        <e p="VMSMF" t="Include">
+          <e p="VMSMF1000ManuafacturerModel.cs" t="Include" />
+          <e p="VMSMF1000ManuafacturerSearchModel.cs" t="Include" />
+        </e>
+      </e>
+      <e p="NTS.Utils" t="IncludeRecursive">
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="BusinessException.cs" t="Include" />
+        <e p="ClientRequestHelper.cs" t="Include" />
+        <e p="DateTimeUtils.cs" t="Include" />
+        <e p="ErrorException.cs" t="Include" />
+        <e p="ErrorMessage.cs" t="Include" />
+        <e p="NTS.Utils.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="PasswordUtils.cs" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="SQLHelpper.cs" t="Include" />
+      </e>
+      <e p="NTSFile.Api" t="IncludeRecursive">
+        <e p="App_Data" t="Include" />
+        <e p="App_Start" t="Include">
+          <e p="WebApiConfig.cs" t="Include" />
+        </e>
+        <e p="ApplicationInsights.config" t="Include" />
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="HandlingImageController.cs" t="Include" />
+        </e>
+        <e p="fileman" t="Include" />
+        <e p="fileUpload" t="Include" />
+        <e p="Helper.cs" t="Include" />
+        <e p="images" t="Include" />
+        <e p="NTSFile.Api.csproj" t="IncludeRecursive" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="PublishProfiles" t="Include">
+            <e p="apifile.pubxml" t="Include" />
+            <e p="apiImg.pubxml" t="Include" />
+            <e p="FolderProfile.pubxml" t="Include" />
+            <e p="FolderProfile1.pubxml" t="Include" />
+          </e>
+        </e>
+        <e p="roslyn" t="Include" />
+        <e p="Startup.cs" t="Include" />
+        <e p="Utilities" t="Include">
+          <e p="Constants.cs" t="Include" />
+          <e p="UploadFileServer.cs" t="Include" />
+          <e p="UploadModel.cs" t="Include" />
+        </e>
+        <e p="web.config" t="Include" />
+        <e p="Web.Debug.config" t="Include" />
+        <e p="Web.Release.config" t="Include" />
+      </e>
+      <e p="packages" t="ExcludeRecursive">
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\csc.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.Build.Tasks.CodeAnalysis.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.CSharp.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CodeAnalysis.VisualBasic.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.CSharp.Core.targets" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\Microsoft.VisualBasic.Core.targets" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\System.Collections.Immutable.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\System.Reflection.Metadata.dll" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\vbc.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\VBCSCompiler.exe" t="Include" />
+        <e p="Microsoft.Net.Compilers.1.0.0\tools\VBCSCompiler.exe.config" t="Include" />
+      </e>
+      <e p="QLTK.Api" t="IncludeRecursive">
+        <e p="App_Data" t="Include" />
+        <e p="App_Start" t="Include">
+          <e p="WebApiConfig.cs" t="Include" />
+        </e>
+        <e p="ApplicationInsights.config" t="Include" />
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="Controllers" t="Include">
+          <e p="Combobox" t="Include">
+            <e p="ComboboxController.cs" t="Include" />
+          </e>
+          <e p="Common" t="Include">
+            <e p="Constants.cs" t="Include" />
+            <e p="LogController.cs" t="Include" />
+            <e p="NotifyController.cs" t="Include" />
+          </e>
+          <e p="Department" t="Include">
+            <e p="DepartmentController.cs" t="Include" />
+          </e>
+          <e p="GroupModule" t="Include">
+            <e p="GroupModuleController.cs" t="Include" />
+          </e>
+          <e p="GroupUser" t="Include">
+            <e p="GroupUserController.cs" t="Include" />
+          </e>
+          <e p="Module" t="Include">
+            <e p="ModuleController.cs" t="Include" />
+          </e>
+          <e p="Notify" t="Include">
+            <e p="CallHubContext.cs" t="Include" />
+            <e p="PCTPMTHub.cs" t="Include" />
+          </e>
+          <e p="NTSUser" t="Include">
+            <e p="NTSUserController.cs" t="Include" />
+          </e>
+          <e p="QLTKEP" t="Include">
+            <e p="QLTKEP1000Controller.cs" t="Include" />
+          </e>
+          <e p="QLTKMG" t="Include">
+            <e p="QLTKMGController.cs" t="Include" />
+          </e>
+        </e>
+        <e p="DLL" t="Include">
+          <e p="EPPlus.dll" t="Include" />
+          <e p="Spire.XLS.dll" t="Include" />
+          <e p="Syncfusion.ExcelToPDFConverter.Base.dll" t="Include" />
+          <e p="Syncfusion.Pdf.Base.dll" t="Include" />
+        </e>
+        <e p="Export" t="Include" />
+        <e p="fileman" t="Include">
+          <e p="asp_net" t="Include">
+            <e p="main.ashx" t="Include" />
+          </e>
+          <e p="conf.json" t="Include" />
+          <e p="css" t="Include">
+            <e p="images" t="Include">
+              <e p="animated-overlay.gif" t="Include" />
+              <e p="ui-bg_flat_0_aaaaaa_40x100.png" t="Include" />
+              <e p="ui-bg_flat_75_ffffff_40x100.png" t="Include" />
+              <e p="ui-bg_glass_55_fbf9ee_1x400.png" t="Include" />
+              <e p="ui-bg_glass_65_ffffff_1x400.png" t="Include" />
+              <e p="ui-bg_glass_75_dadada_1x400.png" t="Include" />
+              <e p="ui-bg_glass_75_e6e6e6_1x400.png" t="Include" />
+              <e p="ui-bg_glass_95_fef1ec_1x400.png" t="Include" />
+              <e p="ui-bg_highlight-soft_75_cccccc_1x100.png" t="Include" />
+              <e p="ui-icons_222222_256x240.png" t="Include" />
+              <e p="ui-icons_2e83ff_256x240.png" t="Include" />
+              <e p="ui-icons_454545_256x240.png" t="Include" />
+              <e p="ui-icons_888888_256x240.png" t="Include" />
+              <e p="ui-icons_cd0a0a_256x240.png" t="Include" />
+            </e>
+            <e p="jquery-ui-1.10.4.custom.css" t="Include" />
+            <e p="jquery-ui-1.10.4.custom.min.css" t="Include" />
+            <e p="main.css" t="Include" />
+            <e p="main.min.css" t="Include" />
+          </e>
+          <e p="dev.html" t="Include" />
+          <e p="images" t="Include">
+            <e p="action-folder-paste.png" t="Include" />
+            <e p="action-folder-rename.png" t="Include" />
+            <e p="arrow_down.png" t="Include" />
+            <e p="arrow_up.png" t="Include" />
+            <e p="blank.gif" t="Include" />
+            <e p="copy.png" t="Include" />
+            <e p="cut.png" t="Include" />
+            <e p="dir-minus.png" t="Include" />
+            <e p="dir-plus.png" t="Include" />
+            <e p="file-add.png" t="Include" />
+            <e p="file-delete.png" t="Include" />
+            <e p="file-download.png" t="Include" />
+            <e p="file-duplicate.png" t="Include" />
+            <e p="file-upload.png" t="Include" />
+            <e p="filetypes" t="Include">
+              <e p="big" t="Include">
+                <e p="file_extension_3gp.png" t="Include" />
+                <e p="file_extension_7z.png" t="Include" />
+                <e p="file_extension_ace.png" t="Include" />
+                <e p="file_extension_ai.png" t="Include" />
+                <e p="file_extension_aif.png" t="Include" />
+                <e p="file_extension_aiff.png" t="Include" />
+                <e p="file_extension_amr.png" t="Include" />
+                <e p="file_extension_asf.png" t="Include" />
+                <e p="file_extension_asx.png" t="Include" />
+                <e p="file_extension_bat.png" t="Include" />
+                <e p="file_extension_bin.png" t="Include" />
+                <e p="file_extension_bmp.png" t="Include" />
+                <e p="file_extension_bup.png" t="Include" />
+                <e p="file_extension_cab.png" t="Include" />
+                <e p="file_extension_cbr.png" t="Include" />
+                <e p="file_extension_cda.png" t="Include" />
+                <e p="file_extension_cdl.png" t="Include" />
+                <e p="file_extension_cdr.png" t="Include" />
+                <e p="file_extension_chm.png" t="Include" />
+                <e p="file_extension_dat.png" t="Include" />
+                <e p="file_extension_divx.png" t="Include" />
+                <e p="file_extension_dll.png" t="Include" />
+                <e p="file_extension_dmg.png" t="Include" />
+                <e p="file_extension_doc.png" t="Include" />
+                <e p="file_extension_dss.png" t="Include" />
+                <e p="file_extension_dvf.png" t="Include" />
+                <e p="file_extension_dwg.png" t="Include" />
+                <e p="file_extension_eml.png" t="Include" />
+                <e p="file_extension_eps.png" t="Include" />
+                <e p="file_extension_exe.png" t="Include" />
+                <e p="file_extension_fla.png" t="Include" />
+                <e p="file_extension_flv.png" t="Include" />
+                <e p="file_extension_gif.png" t="Include" />
+                <e p="file_extension_gz.png" t="Include" />
+                <e p="file_extension_hqx.png" t="Include" />
+                <e p="file_extension_htm.png" t="Include" />
+                <e p="file_extension_html.png" t="Include" />
+                <e p="file_extension_ifo.png" t="Include" />
+                <e p="file_extension_indd.png" t="Include" />
+                <e p="file_extension_iso.png" t="Include" />
+                <e p="file_extension_jar.png" t="Include" />
+                <e p="file_extension_jpeg.png" t="Include" />
+                <e p="file_extension_jpg.png" t="Include" />
+                <e p="file_extension_lnk.png" t="Include" />
+                <e p="file_extension_log.png" t="Include" />
+                <e p="file_extension_m4a.png" t="Include" />
+                <e p="file_extension_m4b.png" t="Include" />
+                <e p="file_extension_m4p.png" t="Include" />
+                <e p="file_extension_m4v.png" t="Include" />
+                <e p="file_extension_mcd.png" t="Include" />
+                <e p="file_extension_mdb.png" t="Include" />
+                <e p="file_extension_mid.png" t="Include" />
+                <e p="file_extension_mov.png" t="Include" />
+                <e p="file_extension_mp2.png" t="Include" />
+                <e p="file_extension_mp3.png" t="Include" />
+                <e p="file_extension_mp4.png" t="Include" />
+                <e p="file_extension_mpeg.png" t="Include" />
+                <e p="file_extension_mpg.png" t="Include" />
+                <e p="file_extension_msi.png" t="Include" />
+                <e p="file_extension_mswmm.png" t="Include" />
+                <e p="file_extension_ogg.png" t="Include" />
+                <e p="file_extension_pdf.png" t="Include" />
+                <e p="file_extension_png.png" t="Include" />
+                <e p="file_extension_pps.png" t="Include" />
+                <e p="file_extension_ps.png" t="Include" />
+                <e p="file_extension_psd.png" t="Include" />
+                <e p="file_extension_pst.png" t="Include" />
+                <e p="file_extension_ptb.png" t="Include" />
+                <e p="file_extension_pub.png" t="Include" />
+                <e p="file_extension_qbb.png" t="Include" />
+                <e p="file_extension_qbw.png" t="Include" />
+                <e p="file_extension_qxd.png" t="Include" />
+                <e p="file_extension_ram.png" t="Include" />
+                <e p="file_extension_rar.png" t="Include" />
+                <e p="file_extension_rm.png" t="Include" />
+                <e p="file_extension_rmvb.png" t="Include" />
+                <e p="file_extension_rtf.png" t="Include" />
+                <e p="file_extension_sea.png" t="Include" />
+                <e p="file_extension_ses.png" t="Include" />
+                <e p="file_extension_sit.png" t="Include" />
+                <e p="file_extension_sitx.png" t="Include" />
+                <e p="file_extension_ss.png" t="Include" />
+                <e p="file_extension_swf.png" t="Include" />
+                <e p="file_extension_tgz.png" t="Include" />
+                <e p="file_extension_thm.png" t="Include" />
+                <e p="file_extension_tif.png" t="Include" />
+                <e p="file_extension_tmp.png" t="Include" />
+                <e p="file_extension_torrent.png" t="Include" />
+                <e p="file_extension_ttf.png" t="Include" />
+                <e p="file_extension_txt.png" t="Include" />
+                <e p="file_extension_vcd.png" t="Include" />
+                <e p="file_extension_vob.png" t="Include" />
+                <e p="file_extension_wav.png" t="Include" />
+                <e p="file_extension_wma.png" t="Include" />
+                <e p="file_extension_wmv.png" t="Include" />
+                <e p="file_extension_wps.png" t="Include" />
+                <e p="file_extension_xls.png" t="Include" />
+                <e p="file_extension_xpi.png" t="Include" />
+                <e p="file_extension_zip.png" t="Include" />
+                <e p="unknown.png" t="Include" />
+              </e>
+              <e p="file_extension_3gp.png" t="Include" />
+              <e p="file_extension_7z.png" t="Include" />
+              <e p="file_extension_ace.png" t="Include" />
+              <e p="file_extension_ai.png" t="Include" />
+              <e p="file_extension_aif.png" t="Include" />
+              <e p="file_extension_aiff.png" t="Include" />
+              <e p="file_extension_amr.png" t="Include" />
+              <e p="file_extension_asf.png" t="Include" />
+              <e p="file_extension_asx.png" t="Include" />
+              <e p="file_extension_bat.png" t="Include" />
+              <e p="file_extension_bin.png" t="Include" />
+              <e p="file_extension_bmp.png" t="Include" />
+              <e p="file_extension_bup.png" t="Include" />
+              <e p="file_extension_cab.png" t="Include" />
+              <e p="file_extension_cbr.png" t="Include" />
+              <e p="file_extension_cda.png" t="Include" />
+              <e p="file_extension_cdl.png" t="Include" />
+              <e p="file_extension_cdr.png" t="Include" />
+              <e p="file_extension_chm.png" t="Include" />
+              <e p="file_extension_dat.png" t="Include" />
+              <e p="file_extension_divx.png" t="Include" />
+              <e p="file_extension_dll.png" t="Include" />
+              <e p="file_extension_dmg.png" t="Include" />
+              <e p="file_extension_doc.png" t="Include" />
+              <e p="file_extension_dss.png" t="Include" />
+              <e p="file_extension_dvf.png" t="Include" />
+              <e p="file_extension_dwg.png" t="Include" />
+              <e p="file_extension_eml.png" t="Include" />
+              <e p="file_extension_eps.png" t="Include" />
+              <e p="file_extension_exe.png" t="Include" />
+              <e p="file_extension_fla.png" t="Include" />
+              <e p="file_extension_flv.png" t="Include" />
+              <e p="file_extension_gif.png" t="Include" />
+              <e p="file_extension_gz.png" t="Include" />
+              <e p="file_extension_hqx.png" t="Include" />
+              <e p="file_extension_htm.png" t="Include" />
+              <e p="file_extension_html.png" t="Include" />
+              <e p="file_extension_ifo.png" t="Include" />
+              <e p="file_extension_indd.png" t="Include" />
+              <e p="file_extension_iso.png" t="Include" />
+              <e p="file_extension_jar.png" t="Include" />
+              <e p="file_extension_jpeg.png" t="Include" />
+              <e p="file_extension_jpg.png" t="Include" />
+              <e p="file_extension_lnk.png" t="Include" />
+              <e p="file_extension_log.png" t="Include" />
+              <e p="file_extension_m4a.png" t="Include" />
+              <e p="file_extension_m4b.png" t="Include" />
+              <e p="file_extension_m4p.png" t="Include" />
+              <e p="file_extension_m4v.png" t="Include" />
+              <e p="file_extension_mcd.png" t="Include" />
+              <e p="file_extension_mdb.png" t="Include" />
+              <e p="file_extension_mid.png" t="Include" />
+              <e p="file_extension_mov.png" t="Include" />
+              <e p="file_extension_mp2.png" t="Include" />
+              <e p="file_extension_mp3.png" t="Include" />
+              <e p="file_extension_mp4.png" t="Include" />
+              <e p="file_extension_mpeg.png" t="Include" />
+              <e p="file_extension_mpg.png" t="Include" />
+              <e p="file_extension_msi.png" t="Include" />
+              <e p="file_extension_mswmm.png" t="Include" />
+              <e p="file_extension_ogg.png" t="Include" />
+              <e p="file_extension_pdf.png" t="Include" />
+              <e p="file_extension_png.png" t="Include" />
+              <e p="file_extension_pps.png" t="Include" />
+              <e p="file_extension_ps.png" t="Include" />
+              <e p="file_extension_psd.png" t="Include" />
+              <e p="file_extension_pst.png" t="Include" />
+              <e p="file_extension_ptb.png" t="Include" />
+              <e p="file_extension_pub.png" t="Include" />
+              <e p="file_extension_qbb.png" t="Include" />
+              <e p="file_extension_qbw.png" t="Include" />
+              <e p="file_extension_qxd.png" t="Include" />
+              <e p="file_extension_ram.png" t="Include" />
+              <e p="file_extension_rar.png" t="Include" />
+              <e p="file_extension_rm.png" t="Include" />
+              <e p="file_extension_rmvb.png" t="Include" />
+              <e p="file_extension_rtf.png" t="Include" />
+              <e p="file_extension_sea.png" t="Include" />
+              <e p="file_extension_ses.png" t="Include" />
+              <e p="file_extension_sit.png" t="Include" />
+              <e p="file_extension_sitx.png" t="Include" />
+              <e p="file_extension_ss.png" t="Include" />
+              <e p="file_extension_swf.png" t="Include" />
+              <e p="file_extension_tgz.png" t="Include" />
+              <e p="file_extension_thm.png" t="Include" />
+              <e p="file_extension_tif.png" t="Include" />
+              <e p="file_extension_tmp.png" t="Include" />
+              <e p="file_extension_torrent.png" t="Include" />
+              <e p="file_extension_ttf.png" t="Include" />
+              <e p="file_extension_txt.png" t="Include" />
+              <e p="file_extension_vcd.png" t="Include" />
+              <e p="file_extension_vob.png" t="Include" />
+              <e p="file_extension_wav.png" t="Include" />
+              <e p="file_extension_wma.png" t="Include" />
+              <e p="file_extension_wmv.png" t="Include" />
+              <e p="file_extension_wps.png" t="Include" />
+              <e p="file_extension_xls.png" t="Include" />
+              <e p="file_extension_xpi.png" t="Include" />
+              <e p="file_extension_zip.png" t="Include" />
+              <e p="unknown.png" t="Include" />
+            </e>
+            <e p="find.png" t="Include" />
+            <e p="folder-add.png" t="Include" />
+            <e p="folder-delete.png" t="Include" />
+            <e p="folder-download.png" t="Include" />
+            <e p="folder-green.png" t="Include" />
+            <e p="folder-opened.png" t="Include" />
+            <e p="folder.png" t="Include" />
+            <e p="loading-dir.gif" t="Include" />
+            <e p="loading.gif" t="Include" />
+            <e p="paste.png" t="Include" />
+            <e p="preview.png" t="Include" />
+            <e p="remove-upload - Copy.png" t="Include" />
+            <e p="remove-upload.png" t="Include" />
+            <e p="rename.png" t="Include" />
+            <e p="search.png" t="Include" />
+            <e p="select.png" t="Include" />
+            <e p="sprite.png" t="Include" />
+            <e p="stripes-reverse.gif" t="Include" />
+            <e p="stripes.gif" t="Include" />
+            <e p="upload-big.png" t="Include" />
+            <e p="view-list.png" t="Include" />
+            <e p="view-tile.png" t="Include" />
+          </e>
+          <e p="index.html" t="Include" />
+          <e p="js" t="Include">
+            <e p="custom.js" t="Include" />
+            <e p="directory.js" t="Include" />
+            <e p="file.js" t="Include" />
+            <e p="filetypes.js" t="Include" />
+            <e p="jquery-1.10.2.min.js" t="Include" />
+            <e p="jquery-1.11.1.min.js" t="Include" />
+            <e p="jquery-2.1.1.min.js" t="Include" />
+            <e p="jquery-dateFormat.min.js" t="Include" />
+            <e p="jquery-ui-1.10.4.custom.min.js" t="Include" />
+            <e p="main.js" t="Include" />
+            <e p="main.min.js" t="Include" />
+            <e p="mini-main.js" t="Include" />
+            <e p="tiny_mce_popup.js" t="Include" />
+            <e p="utils.js" t="Include" />
+          </e>
+          <e p="lang" t="Include">
+            <e p="bg.json" t="Include" />
+            <e p="ca.json" t="Include" />
+            <e p="cs.json" t="Include" />
+            <e p="cs1.json" t="Include" />
+            <e p="da.json" t="Include" />
+            <e p="de.json" t="Include" />
+            <e p="en.json" t="Include" />
+            <e p="es.json" t="Include" />
+            <e p="fr.json" t="Include" />
+            <e p="hu.json" t="Include" />
+            <e p="it.json" t="Include" />
+            <e p="nl.json" t="Include" />
+            <e p="pl.json" t="Include" />
+            <e p="pt.json" t="Include" />
+            <e p="ru.json" t="Include" />
+            <e p="sk.json" t="Include" />
+            <e p="tr.json" t="Include" />
+          </e>
+          <e p="LICENSE.txt" t="Include" />
+          <e p="third-party.txt" t="Include" />
+          <e p="tmp" t="Include" />
+          <e p="Uploads" t="Include">
+            <e p="Documents" t="Include">
+              <e p="4.png" t="Include" />
+            </e>
+            <e p="embe1-1515732302477.jpg" t="Include" />
+            <e p="FLV" t="Include" />
+            <e p="icon.png" t="Include" />
+            <e p="images" t="Include" />
+          </e>
+          <e p="web.config" t="Include" />
+        </e>
+        <e p="fileUpload" t="Include">
+          <e p="customer" t="Include" />
+          <e p="Icon" t="Include" />
+          <e p="ImageUser" t="Include" />
+          <e p="parking" t="Include" />
+        </e>
+        <e p="Helper.cs" t="Include" />
+        <e p="images" t="Include" />
+        <e p="Models" t="Include">
+          <e p="UserEventLogModel.cs" t="Include" />
+          <e p="UserModel.cs" t="Include" />
+        </e>
+        <e p="NTSAuthorize.cs" t="Include" />
+        <e p="NTSPLAuthorize.cs" t="Include" />
+        <e p="NTSPLSearchAuthorize.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="PublishProfiles" t="Include">
+            <e p="apiadmin.pubxml" t="Include" />
+            <e p="apiweb.pubxml" t="Include" />
+            <e p="FolderProfile.pubxml" t="Include" />
+            <e p="FolderProfile1.pubxml" t="Include" />
+          </e>
+        </e>
+        <e p="Providers" t="Include">
+          <e p="SimpleAuthorizationServerProvider.cs" t="Include" />
+        </e>
+        <e p="QLTK.Api.csproj" t="IncludeRecursive" />
+        <e p="Repositories" t="Include">
+          <e p="AuthRepository.cs" t="Include" />
+        </e>
+        <e p="roslyn" t="Include" />
+        <e p="scripts" t="Include">
+          <e p="ai.0.15.0-build58334.js" t="Include" />
+          <e p="ai.0.15.0-build58334.min.js" t="Include" />
+          <e p="jquery.signalR-2.1.2.js" t="Include" />
+          <e p="jquery.signalR-2.1.2.min.js" t="Include" />
+        </e>
+        <e p="SignalR" t="Include">
+          <e p="AppointmentHub.cs" t="Include" />
+          <e p="test.cs" t="Include" />
+        </e>
+        <e p="Startup.cs" t="Include" />
+        <e p="Template" t="Include">
+          <e p="Books.xlsx" t="Include" />
+          <e p="Export" t="Include" />
+          <e p="templateEmail.html" t="Include" />
+          <e p="TSMWH8000Template.xlsx" t="Include" />
+        </e>
+        <e p="Utilities" t="Include">
+          <e p="HubUtilities.cs" t="Include" />
+          <e p="PasswordUtil.cs" t="Include" />
+          <e p="UploadFileServer.cs" t="Include" />
+          <e p="Utilities.cs" t="Include" />
+        </e>
+        <e p="Views" t="Include">
+          <e p="EMSDT1000" t="Include" />
+          <e p="VMSCT2100" t="Include" />
+        </e>
+        <e p="web.config" t="Include" />
+      </e>
+      <e p="QLTK.Business" t="IncludeRecursive">
+        <e p="App.config" t="Include" />
+        <e p="Bin" t="ExcludeRecursive" />
+        <e p="Combobox" t="Include">
+          <e p="ComboboxBusiness.cs" t="Include" />
+        </e>
+        <e p="Common" t="Include">
+          <e p="AuthenBussiness.cs" t="Include" />
+          <e p="EventLogBusiness.cs" t="Include" />
+          <e p="GenerateBussiness.cs" t="Include" />
+          <e p="LogBusiness.cs" t="Include" />
+        </e>
+        <e p="Department" t="Include">
+          <e p="DepartmentBusiness.cs" t="Include" />
+        </e>
+        <e p="GroupModule" t="Include">
+          <e p="GroupModuleBussiness.cs" t="Include" />
+        </e>
+        <e p="GroupUser" t="Include">
+          <e p="GroupUserBusiness.cs" t="Include" />
+        </e>
+        <e p="Module" t="Include">
+          <e p="ModuleBussiness.cs" t="Include" />
+        </e>
+        <e p="NTSUser" t="Include">
+          <e p="NTSUserBusiness.cs" t="Include" />
+        </e>
+        <e p="obj" t="ExcludeRecursive" />
+        <e p="packages.config" t="Include" />
+        <e p="Properties" t="Include">
+          <e p="AssemblyInfo.cs" t="Include" />
+        </e>
+        <e p="QLTK.Business.csproj" t="IncludeRecursive" />
+        <e p="QLTKEP" t="Include">
+          <e p="QLTKEPBusiness.cs" t="Include" />
+        </e>
+        <e p="QLTKMG" t="Include">
+          <e p="QLTKMGBusiness.cs" t="Include" />
+        </e>
+      </e>
+      <e p="QLTK_Admin.sln" t="IncludeFlat" />
+    </e>
+  </component>
+</project>

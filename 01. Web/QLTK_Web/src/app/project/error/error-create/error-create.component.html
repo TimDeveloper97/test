@@ -1,0 +1,233 @@
+<div class='content-wrapper app-module-create'>
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin lỗi</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Nhóm lỗi
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <!-- <select name="ErrorGroupId" required class="form-control" [(ngModel)]="model.ErrorGroupId">
+                        <option *ngFor="let item of listErrorGroup" [ngValue]="item.Id">{{item.Name}}
+                        </option>
+                      </select> -->
+                      <nts-drop-down [items]="listErrorGroup" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ErrorGroupId" name="ErrorGroupId"
+                        required>
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Tên lỗi
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input type="text" class="form-control" name="Subjecterror" [(ngModel)]="model.Subject"
+                        maxlength="300" required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Mã lỗi
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input type="text" class="form-control" name="Codeerror" [(ngModel)]="model.Code" maxlength="20"
+                        required>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ngày phát hiện
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="dd/mm/yyyy" name="PlanStartDate"
+                          [(ngModel)]="planStartDate" ngbDatepicker #PlanStartDate="ngbDatepicker" required>
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="PlanStartDate.toggle();$event.stopPropagation();">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ngày kết thúc dự kiến
+                    </label>
+                    <div class="controls">
+                      <div class="input-group">
+                        <input class="form-control" placeholder="dd/mm/yyyy" name="PlanFinishDate"
+                          [(ngModel)]="planFinishDate" ngbDatepicker #PlanFinishDate="ngbDatepicker">
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="PlanFinishDate.toggle();$event.stopPropagation();">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Giá
+                    </label>
+                    <div class="controls">
+                      <!-- <input type="text" class="form-control" [(ngModel)]="model.Price" name="Price" maxlength="18"
+                        required> -->
+                      <input currencyMask
+                        [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                        name="Price" type="text" class="form-control" [(ngModel)]="model.Price" maxlength="18">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Mô tả
+                    </label>
+                    <div class="controls">
+                      <textarea type="text" class="form-control" rows="2" name="Description"
+                        [(ngModel)]="model.Description"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Dự án<span class='text-danger text-strong'>&nbsp;*</span></label>
+                    <div class="controls">
+                      <!-- <select name="ProjectId" class="form-control" [(ngModel)]="model.ProjectId"
+                        (ngModelChange)="getCbbModule(model.ProjectId)" required>
+                        <option *ngFor="let item of listProject" [ngValue]="item.Id">{{item.Code}}
+                        </option>
+                      </select> -->
+                      <nts-drop-down [items]="listProject" [columns]="columnProject" ntsValue="Id" ntsLabel="Code"
+                        ntsMode="single" ntsAutoClose="true" (ngModelChange)="getCbbModule(model.ProjectId)"
+                        [(ngModel)]="model.ProjectId" name="ProjectId" required>
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Module</label>
+                    <!-- <div class="controls">
+                      <select name="ObjectId" class="form-control" [(ngModel)]="model.ObjectId">
+                        <option *ngFor="let item of listModule" [ngValue]="item.Id">{{item.Name}}
+                        </option>
+                      </select>
+                    </div> -->
+                    <nts-drop-down [items]="listModule" [columns]="columnModule" ntsValue="Id" ntsLabel="Code"
+                      ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ObjectId" name="ObjectId">
+                    </nts-drop-down>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Bộ phận gây lỗi</label>
+                    <div class="controls">
+                      <!-- <select name="DepartmentId" class="form-control" [(ngModel)]="model.DepartmentId">
+                        <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                        </option>
+                      </select> -->
+                      <nts-drop-down [items]="listDepartment" [columns]="columnDeparterment" ntsValue="Id"
+                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId"
+                        name="DepartmentId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Nhân viên phát hiện</label>
+                    <div class="controls">
+                      <!-- <select name="AuthorId" class="form-control" [(ngModel)]="model.AuthorId">
+                        <option *ngFor="let item of listEmployee" [ngValue]="item.Id">{{item.Name}}
+                        </option>
+                      </select> -->
+                      <nts-drop-down [items]="listEmployee" [columns]="columnEmployee" ntsValue="Id" ntsLabel="Code"
+                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.AuthorId" name="AuthorId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <label class="form-label">Ảnh lỗi</label>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                  <div style="margin-left: 5px" class="upload-btn-wrapper">
+                    <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                      <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+                    <input name="fileDataSheet" style="display: none;" type="file" id="fileDataSheet" #fileImage
+                      (change)="uploadFileClickImage($event)" multiple accept="image/*" />
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-left">
+              <label class="form-label">Tình trạng:
+                <span *ngIf="model.Status == 1 || model.Status==''" class="badge badge-info">Đang tạo</span>
+                <span *ngIf="model.Status == 2" class="badge badge-danger">Đang chờ xử lý</span>
+                <span *ngIf="model.Status == 3" class="badge badge-warning">Đang xử lý</span>
+                <span *ngIf="model.Status == 4" class="badge badge-success">Đã xử lý</span>
+                <span *ngIf="model.Status == 5" class="badge badge-secondary">Đã đóng</span>
+              </label>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+    <section class="body-right">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3 mb-3">
+          <ng-container *ngIf="model.Status=='1' || model.Status==''">
+            <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>Lưu</span>
+            </button>
+          </ng-container>&nbsp;
+          <ng-container *ngIf="model.Id!=''">
+            <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="request()">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>Yêu cầu xác nhận</span>
+            </button>&nbsp;
+          </ng-container>
+          <ng-container *ngIf="model.Status!='1' && model.Status!=''">
+            <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="showConfirm(model.Id)">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>Xác nhận</span>
+            </button>&nbsp;
+          </ng-container>
+          <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+              Đóng
+            </span>
+          </button>
+        </div>
+      </div>
+    </section>
+  </form>
+</div>

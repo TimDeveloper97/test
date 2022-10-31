@@ -1,0 +1,486 @@
+<div class="content-wrapper app-module-create padding-top-10">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <!-- Tab thông tin tiêu chuẩn -->
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin</a>
+                <ng-template ngbNavContent>
+                    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+                        <div class="row">
+                            <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label class="form-label">Tên khách hàng
+                                                <span class='text-danger text-strong'>&nbsp;*</span>
+                                            </label>
+                                            <nts-drop-down [items]="listCustomer" [columns]="columnName"
+                                            ntsValue="CustomerId" ntsLabel="CustomerName" ntsMode="single"
+                                            ntsAutoClose="true" [(ngModel)]="model.CustomerId" name="CustomerId"
+                                            required (change)="changeCustomer(model.CustomerId)">
+                                        </nts-drop-down>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label class="form-label">Số YCKH
+                                                <span class='text-danger text-strong'>&nbsp;*</span>
+                                            </label>
+                                            <nts-drop-down [items]="ListNumberYCKH" [columns]="columnNameRequire"
+                                                ntsValue="CustomerRequirementId" ntsLabel="NumberRequire"
+                                                ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="model.CustomerRequirementId" name="CustomerRequirementId"
+                                                required (change)="changeRequire(model.CustomerRequirementId)">
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="formGroup">
+                                            <label class="form-label">Ngày báo giá<span
+                                                    class="text-danger text-strong">&nbsp;*</span></label>
+                                            <div class="controls">
+                                                <div class="input-group ">
+                                                    <input required class="form-control" placeholder="dd/mm/yyyy" name="QuotationDate"
+                                                        [(ngModel)]="model.QuotationDateV" ngbDatepicker #QuotationDate="ngbDatepicker"
+                                                        >
+                                                    <div class="input-group-append">
+                                                        <span class="dtp-icon"
+                                                            (click)="QuotationDate.toggle();$event.stopPropagation();">
+                                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label class="form-label">Hiệu lực báo giá (ngày)
+                                                <span class='text-danger text-strong'>&nbsp;*</span>
+                                            </label>
+                                            <div class="controls">
+                                                <input type="number" class="form-control" required min="0"
+                                                    [(ngModel)]="model.EffectiveLength" name="EffectiveLength">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Nội dung yêu cầu
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <textarea disabled [(ngModel)]="model.ContentRequire" name="ContentRequire" rows="4.5"
+                                            class="form-control">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label class="form-label">Nhân viên KD phụ trách
+                                            </label>
+                                            <div class="controls">
+                                                <div class="controls">
+                                                    <input type="text"
+                                                        class="form-control" disabled [(ngModel)]="modelIn.EmployeeChargeName" name="EmployeeChargeName" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                        <div class="form-group ">
+                                            <label class="form-label">Mã nhân viên
+                                            </label>
+                                            <div class="controls">
+                                                <input type="text"
+                                                    class="form-control" disabled [(ngModel)]="modelIn.EmployeeChargeCode" name="EmployeeChargeCode" >
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Số điện thoại
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text"
+                                            class="form-control" disabled [(ngModel)]="modelIn.EmployeeChargePhone" name="EmployeeChargePhone" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Email
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text"
+                                            class="form-control" disabled [(ngModel)]="modelIn.EmployeeChargeEmail" name="EmployeeChargeEmail" >
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Người yêu cầu
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text"
+                                        class="form-control" disabled [(ngModel)]="modelIn.EmployeeName" name="EmployeeName">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Số điện thoại
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text"
+                                            class="form-control" disabled [(ngModel)]="modelIn.EmployeePhone" name="EmployeePhone">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Email
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text"
+                                            class="form-control" disabled [(ngModel)]="modelIn.EmployeeEmail" name="EmployeeEmail">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Thời gian bảo hành (Ngày)
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Warranty" name="Warranty">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Thời gian giao hàng (Ngày)
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Delivery" name="Delivery">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Giá trị dự kiến mua
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <input currencyMask
+                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                            name="ExpectedPrice" type="text" class="form-control"
+                                            [(ngModel)]="model.ExpectedPrice" maxlength="18">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Thời gian triển khai dự kiến
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <div class="input-group ">
+                                            <input class="form-control" placeholder="dd/mm/yyyy" name="ImplementationDate"
+                                                [(ngModel)]="model.ImplementationDateV" ngbDatepicker #ImplementationDate="ngbDatepicker">
+                                            <div class="input-group-append">
+                                                <span class="dtp-icon"
+                                                    (click)="ImplementationDate.toggle();$event.stopPropagation();">
+                                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Tỷ lệ tạm ứng
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <div class="controls">
+                                        <select required name="AdvanceRate" class="form-control"
+                                            [(ngModel)]="model.AdvanceRate">
+                                            <option *ngFor="let item of constant.WorkDiary_Done" [ngValue]="item.Id">
+                                                {{item.Name}}
+                                            </option>
+                                        </select>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Ghi chú
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <textarea [(ngModel)]="model.Description" name="Description" rows="1"
+                                            class="form-control">
+                                        </textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Tổng giá trị báo giá
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <div class="controls">
+                                        <input disabled currencyMask
+                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                            name="QuotationPrice" type="text" class="form-control"
+                                            [(ngModel)]="model.QuotationPrice" maxlength="18">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Tỷ lệ thành công (%)
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input disabled required type="text" class="form-control" [(ngModel)]="model.SuccessRate" name="SuccessRate">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">SBU
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <div class="controls">
+                                        <nts-drop-down [items]="listSBU" [columns]="columnNameSBU" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="model.SBUid" name="SBUid" required
+                                        (change)="changeSBU(model.SBUid)">
+                                    </nts-drop-down>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Tình trạng
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <div class="controls">
+                                        <span class="badge badge-danger" *ngIf="model.Status == 0" style="margin-top: 13px">Chưa chốt</span>
+                                        <span class="badge badge-success" *ngIf="model.Status == 1" style="margin-top: 13px">Chốt</span>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <label class="form-label">Phương thức thanh toán
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" [(ngModel)]="model.PaymentMethod" name="PaymentMethod">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <br>
+                       <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="row mb-1">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+                                        <label class="form-label"><b>Các bước báo giá</b>
+                                        </label>
+                                    </div>
+                                    <div *ngIf="model.SBUid" class="col-lg-6 col-md-6 col-sm-6 text-right">
+                                        <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                            <a type="button" class="btn btn-success" (click)="showChoose(model.SBUid)"
+                                                container="body">
+                                                <i class="fa fa-plus"></i>
+                                                Chọn bước
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <div class="row mb-1">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+                                        <label class="form-label">File đính kèm
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                                        <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                            <button *appUipermission="['F020101']" class="btn btn-success btn-upload"
+                                                (click)="fileInputDataSheet.click();">
+                                                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+                                            <input name="fileDataSheet" style="display: none;" type="file"
+                                                id="fileDataSheet" #fileInputDataSheet
+                                                (change)="uploadFileClick($event)" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                                    <table class="table table-bordered" style="min-width:770px">
+                                        <thead>
+                                            <tr>
+                                                <th width="40px" class="text-center">STT</th>
+                                                <th width="80px" class="text-center">Mã bước</th>
+                                                <th width="250px" class="text-center">Tên bước</th>
+                                                <th width="100px" class="text-center">% Hoàn thành</th>
+                                                <th width="150px" class="text-center">Ngày HT dự kiến</th>
+                                                <th width="150px" class="text-center">Ngày HT thực tế</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of listQuotesOutput; let i = index">
+                                                <td class="text-center" width="40px">{{i+1}}</td>
+                                                <td width="40px">{{row.QuotesCode}}</td>
+                                                <td width="80px">{{row.QuotesName}}</td>
+                                                <td class="text-center" width="100px">{{row.SuccessRatio}} %</td>
+                                                <td class="text-center" width="150px">{{row.PlanDueDate|date:'dd/MM/yyyy'}}</td>
+                                                <td class="text-center" width="150px">{{row.ActualEndDate|date:'dd/MM/yyyy'}}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </perfect-scrollbar>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                                    <table class="table table-bordered" style="min-width:480px">
+                                        <thead>
+                                            <tr>
+                                                <th width="50px" class="text-center">STT</th>
+                                                <th width="80px" class="text-center">Xử lý</th>
+                                                <th min-width="200px">Tên file</th>
+                                                <th width="150px">Mô tả</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr *ngFor="let row of ListFileQuoteDocument;let i=index">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <button *ngIf="row.FilePath" class="btn btn-xs btn-info" container="body"
+                                                        (click)="downAllDocumentProcess(row)" ngbTooltip="Tải tài liệu" container="body">
+                                                        <span class="fa fa-download" aria-hidden="true"></span>
+                                                    </button>&nbsp;
+                                                    <ng-container>
+                                                        <button class="btn btn-xs btn-danger"
+                                                            (click)="showConfirmDeleteFile(i)" ngbTooltip="Xóa"
+                                                            placement="top" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </ng-container>
+                                                </td>
+                                                <td>
+                                                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                                                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="controls">
+                                                    <textarea [(ngModel)]="row.Description" rows="1"  maxlength="100" [name]="'rowDescription'+i"
+                                                        class="form-control" [disabled]="row.IsDocument">
+                                                    </textarea>
+                                                    
+                                                    </div>
+                                                </td>
+    
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" [disabled]="!f.form.valid" class="btn btn-success"
+                        *ngIf="model.Status == 0" (click)="clickQuote(model.Status)">
+                            <span>Chốt báo giá</span>
+                        </button>
+                        <button *ngIf="model.Status == 1" [disabled]="!f.form.valid" type="button" class="btn btn-danger"
+                        (click)="clickQuote(model.Status)">
+                        <span>Hủy báo giá</span>
+                        </button>
+                        <button type="button" class="btn btn-success"
+                            [disabled]="!f.form.valid" (click)="UpdateQuotation()">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>Lưu</span>
+                        </button>
+                        <button class="btn  btn-success" (click)="exportExcel(Id)">
+                            <i class="fas fa-file-excel" aria-hidden="true"></i>
+                            Xuất excel
+                        </button>
+                        <button type="button" class="btn btn-danger" (click)="closeModal()">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>Danh mục thiết bị</a>
+                <ng-template ngbNavContent>
+                    <app-summary-quotes-product></app-summary-quotes-product>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>Công việc</a>
+                <ng-template ngbNavContent>
+                    <app-summary-quotes-plan></app-summary-quotes-plan>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

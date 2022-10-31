@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-md-8 text-left">
+    <label class="form-label" style="line-height:35px;">Danh sách thiết bị có bài thực hành/công đoạn |
+    </label>
+    <label class="form-label" style="line-height:35px;">Tổng số
+      <span class="bold text-danger">{{ListProduct.length}}</span> thiết bị
+    </label>
+  </div>
+  <div class="col-md-4 text-right">
+    <button *appUipermission = "['F040729']" class="btn btn-success btn-file" (click)="exportExcel()">
+      <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>&nbsp;
+      <button class="btn btn-default btn-default-system" (click)="SearchPracticeProduct()">
+        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig">
+      <table class="table table-bordered table-fixed" style="min-width:870px">
+        <thead>
+          <tr>
+            <th class="text-center" width="50px">STT</th>
+            <th class="text-center" width="150px">Mã thiết bị</th>
+            <th class="text-center" min-width="150px">Tên thiết bị</th>
+            <th class="text-center" width="150px">Nhóm thiết bị</th>
+            <th class="text-center" width="120px">Giá</th>
+            <th class="text-center" width="100px">Số lượng</th>
+            <th class="text-center" width="150px">Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of ListProduct; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{row.Code}}</td>
+            <td>{{row.Name}}</td>
+            <td>{{row.ProductGroupCode}}</td>
+            <td class="text-right">{{row.Pricing|number:'1.0-0'}}</td>
+            <td class="text-center">{{row.Quantity|number}}</td>
+            <td class="text-right">{{(row.Quantity * row.Pricing)|number:'1.0-0'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-md-10 text-left">
+    <label class="form-label" style="line-height:35px;">Danh sách module của bài thực hành/công đoạn |
+    </label>
+    <label class="form-label" style="line-height:35px;">Tổng số
+      <span class="bold text-danger">{{modules.length}}</span> module |
+    </label>
+    <label class="form-label" style="line-height:35px;">Tổng số tiền
+      <span class="bold text-danger">{{totalAmount|number:'1.0-0'}}</span> 
+    </label>
+  </div>
+  <div class="col-md-2 text-right">
+   
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig">
+      <table class="table table-bordered table-fixed" style="min-width:870px">
+        <thead>
+          <tr>
+            <th class="text-center" width="50px">STT</th>
+            <th class="text-center" width="150px">Mã module</th>
+            <th class="text-center" min-width="150px">Tên module</th>
+            <th class="text-center" width="150px">Nhóm module</th>
+            <th class="text-center" width="120px">Giá</th>
+            <th class="text-center" width="100px">Số lượng</th>
+            <th class="text-center" width="150px">Thành tiền</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of modules; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{row.ModuleCode}}</td>
+            <td>{{row.ModuleName}}</td>
+            <td>{{row.ModuleGroupCode}}</td>
+            <td class="text-right">{{row.Pricing|number:'1.0-0'}}</td>
+            <td class="text-center">{{row.Qty|number}}</td>
+            <td class="text-right">{{(row.Qty * row.Pricing)|number:'1.0-0'}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="6" class="text-right bold">Tổng số</td>
+            <td class="text-right bold">{{totalAmount|number:'1.0-0'}}</td>
+          </tr>
+        </tfoot>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

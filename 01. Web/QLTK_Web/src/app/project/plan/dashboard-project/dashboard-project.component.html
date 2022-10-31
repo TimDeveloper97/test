@@ -1,0 +1,331 @@
+<div class="modal-body padding-5">
+
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <div style="display: flex;padding: 5px;">
+      <div class="plan">
+        <div class="plan1"><b>Sản phẩm</b></div>
+        <div class="plan2">
+          <span><b style="color : red">{{ParentProductEmptyEnd}}</b> SP thiếu ngày hợp đồng</span>
+          <span><b style="color : red">{{ParentProductEmptyStart}}</b> SP thiếu ngày triển khai</span>
+          <span><b style="color : red">{{ParentProductIncurred}}</b> SP phát sinh</span>
+        </div>
+
+      </div>
+      <div style="width: 8%"></div>
+      <div class="plan">
+        <div class="plan1"><b>Module</b></div>
+        <div class="plan2">
+          <span><b style="color : red">{{ChildProductEmptyEnd}}</b> Module thiếu ngày hợp đồng</span>
+          <span><b style="color : red">{{ChildProductEmptyStart}}</b> Module thiếu ngày triển khai</span>
+          <span><b style="color : red">{{ChildProductIncurred}}</b> Module phát sinh</span>
+        </div>
+      </div>
+      <div style="width: 8%"></div>
+      <div class="plan">
+        <div class="plan1"><b>Công đoạn</b></div>
+        <div class="plan2">
+          <span><b style="color : red">{{StageEmptyEnd}}</b> CĐ thiếu ngày hợp đồng</span>
+          <span><b style="color : red">{{StageEmptyStart}}</b> CĐ thiếu ngày triển khai</span>
+          <span><b style="color : red">{{StageLate}}</b> CĐ quá hạn HĐ</span>
+        </div>
+      </div>
+      <div style="width: 8%"></div>
+      <div class="plan">
+        <div class="plan1"><b>Công việc</b></div>
+        <div class="plan2">
+          <span><b style="color : red">{{WorkEmptyStart}}</b> CV thiếu ngày triển khai</span>
+          <span><b style="color : red">{{WorkLate}}</b> CV quá hạn hoàn thành</span>
+          <span><b style="color : red">{{WorkIncurred}}</b> CV phát sinh</span>
+        </div>
+      </div>
+      <div style="width: 8%"></div>
+      <div class="plan">
+        <div class="plan1"><b>Triển khai</b></div>
+        <div class="plan2">
+          <span><b style="color : red">{{ThieuNhaThau}}</b> CV thiếu nhà thầu</span>
+          <span><b style="color : red">{{ThieuNguoiPhutrach}}</b> CV thiếu người phụ trách</span>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="input-group padding-5">
+      <div style=" width:100%; border-color: gray;border-width: 1px;border-style: solid; border-radius: 10px;">
+        <div class="">
+          <div class="divType" style="display: flex;">
+            <div style="text-align: right; width: 7%;margin-top: 6px;">
+              <div>
+                <label>
+                  <b>Hợp đồng</b>
+                </label>
+              </div>
+              <!---->
+              <div style="margin-top: 48px;">
+                <label>
+                  <b>KH triển khai</b>
+                </label>
+              </div>
+              <!---->
+              <div style="margin-top: 43px;">
+                <label>
+                  <b>Số ngày lệch</b>
+                </label>
+              </div>
+            </div>
+            <!---->
+            <div style=" width:10px"></div>
+            <!---->
+            <div style=" width: 70%;">
+              <div class="divType">
+                <ng-container *ngFor="let item of ListStageOfProject; let i = index">
+                  <div [style.width]="(90/ListStageOfProject.length)+'%'">
+                    <hr color="blue" class="hr1">
+                    <div style="display:  grid;">
+                      <label style="margin-right: -10px;">{{item.StageName}}</label>
+                      <b style="margin-top: -15px;font-size: 10px;"><label style="margin-right: -28px;">{{item.ContractDate|date:'dd/MM/yyyy'}}&nbsp;</label></b>
+                    </div>
+                  </div>
+                  <div class="vly"></div>
+                </ng-container>
+                <div *ngIf="ListStageOfProject.length >0" style=" width: 10%;">
+                  <hr color="blue" class="hr1">
+                </div>
+              </div>
+              <!---->
+              <div class="divType">
+                <ng-container *ngFor="let item of ListStageOfProject; let i = index">
+                  <div [style.width]="(item.Width)+'%'">
+                    <hr color="pink" class="hr1">
+                    <div style="display:  grid;">
+                      <label style="margin-right: -10px;">{{item.StageName}}</label>
+                      <b style="margin-top: -15px;font-size: 10px;"><label style="margin-right: -28px;">{{item.PlanDate|date:'dd/MM/yyyy'}}&nbsp;</label></b>
+                    </div>
+                  </div>
+                  <div class="vly"></div>
+
+                  <div *ngIf="i == ListStageOfProject.length -1 && TotalWidth > 90 " style=" width: 8%;">
+                    <hr color="pink" class="hr1">
+                  </div>
+                  <div *ngIf="i == ListStageOfProject.length -1 && TotalWidth < 90 " style=" width: 12%;">
+                    <hr color="pink" class="hr1">
+                  </div>
+                  <div *ngIf="i == ListStageOfProject.length -1 && TotalWidth  ==90 " style=" width: 10%;">
+                    <hr color="pink" class="hr1">
+                  </div>
+                </ng-container>
+              </div>
+              <!---->
+              <div class="divType">
+                <ng-container *ngFor="let item of ListStageOfProject; let i = index">
+                  <div *ngIf="i==0" [style.width]="(item.Width-2)+'%'">
+                  </div>
+                  <div *ngIf="i>0" [style.width]="(item.Width-4)+'%'">
+                  </div>
+                  <div
+                    style="width:4%; border-color: gray;border-width: 1px;border-style: solid ;border-radius: 1%;height: 25px; text-align: center;">
+                    <a (click)="getStageDelay(item.StageId)">
+                      <b *ngIf="item.IsDelay ==true " style="color: red;">{{item.DateDelay}}</b>
+                      <b *ngIf="item.IsDelay ==false " style="color: green;">{{item.DateDelay}}</b>
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+
+            </div>
+            <div style="padding-left: 20px;width: 20%;text-align: center;">
+              <b style="    font-size: 120%;">
+                Tỷ lệ hoàn thành của dự án
+              </b>
+              <div style="padding-top: 60px;">
+                <b style="color: green; font-size: 400%;">{{DoneRatioOfProject}}</b>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+    &nbsp;&nbsp;
+    <div class="input-group">
+      <div style="width:24%; border-color: gray;border-width: 1px;border-style: solid ;border-radius: 10px;">
+        <div class=" text-center">
+          <label>
+            <b>Tỷ lệ trạng thái sản phẩm</b>
+          </label>
+        </div>
+        <br />
+        <div>
+          <div style="display: block;">
+            <canvas baseChart [data]="doughnutChartData" [labels]="barChartLabels" [chartType]="pieChartType"
+              [colors]="pieChartColors" [plugins]="chartPlugins" [options]="barChartOptionsPie">
+            </canvas>
+          </div>
+        </div>
+      </div>
+      <div style=" width:14%"></div>
+      <div style="width:24%;border-color: gray;border-width: 1px;border-style: solid; border-radius: 10px;">
+        <div class=" text-center">
+          <label>
+            <b>Tổng hợp tình trạng công việc của dự án</b>
+          </label>
+          <div class="row">
+            <div class="col-md-12">
+              <div style="display: block">
+                <canvas #barChart1 baseChart [datasets]="barChartData1" [labels]="barChartLabels1"
+                  [chartType]="barChartType1" [options]="barChartOptions1"></canvas>
+              </div>
+            </div>
+            <div style="margin-left: 20px;">
+              <b style="    font-size: 120%;">
+                Tổng số công việc : <b>{{TotalWork}}</b>
+              </b>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style=" width:14%"></div>
+      <div style="width:24% ;border-color: gray;border-width: 1px;border-style: solid ;border-radius: 10px;">
+        <div class=" text-center">
+          <label>
+            <b>Tổng hợp vấn đề tồn đọng của dự án</b>
+          </label>
+          <div class="row">
+            <div class="col-md-12">
+              <div style="display: block">
+                <canvas #barChart2 baseChart [datasets]="barChartData2" [labels]="barChartLabels2"
+                  [chartType]="barChartType2" [options]="barChartOptions2"></canvas>
+              </div>
+            </div>
+            <div style="margin-left: 20px;">
+              <b style="    font-size: 120%;">
+                Tổng số vấn đề : <b>{{TotalError}}</b>
+              </b>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    &nbsp;
+    &nbsp;
+    <div style="border-color: gray;border-width: 1px;border-style: solid ;border-radius: 10px;">
+      <div class=" text-center">
+        <label>
+          <b>Tình trạng triển khai sản phẩm của dự án</b>
+        </label>
+      </div>
+      <div class="">
+        <div style="width:100%">
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered "
+              style="word-wrap: break-word; border-color: white; background-color: white;">
+              <thead>
+                <tr>
+                  <th min-width="100" class="text-center tableColor"
+                    style=" border-color: white;background-color: white;color: black;">
+                    <p class="" style="font-size: 120%;white-space: nowrap;">Tên sản phẩm</p>
+                  </th>
+                  <ng-container *ngFor="let item of ProjectPlan.StageModels; let i = index">
+                    <th [width]="120" class="text-center tableColor" style=" border-color: white;">
+                      <div style="text-align: center;">{{item.StageName}}
+                      </div>
+                    </th>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of ProjectPlan.ProductPlans, let i = index;">
+                  <td min-width="100px" class="text-center" style=" border-color: white;">
+                    <div style="border-color: gray;border-width: 1px;border-style: solid ;height: 50px;
+                      overflow: hidden;
+                      text-overflow: inherit;
+                      white-space: pre-line;
+                      justify-content: center;
+    flex-direction: column;
+    display: flex;text-align: left;" [title]="row.ProductName">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{row.ProductName}}</div>
+                  </td>
+
+                  <td *ngFor="let item of row.StageModels; let i = index" [width]="100"
+                    style=" border-color: white; text-align: -webkit-center;">
+                    <ng-container *ngIf="item.Status ==2">
+                      <div style="width: 80%;
+                        border-radius: 9px;
+                        background-color: lightyellow;
+                        height: 50px;
+                        justify-content: center;
+    flex-direction: column;
+    display: flex;">
+                        <span class="test ">
+                          <ngb-progressbar class="edit-text" type="warning" textType="dark" [value]="item.DoneRatio"
+                            [showValue]="true">
+                          </ngb-progressbar>
+                        </span>
+                        <div class="text-center  edit-text">{{item.Date|date:'dd/MM/yyyy'}}</div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Status ==1">
+                      <div class="text-center" style="width: 80%;
+                        border-radius: 9px;
+                        background-color: pink;
+                        height: 50px;
+                        justify-content: center;
+    flex-direction: column;
+    display: flex;">
+                        <div>
+                          <b class=" edit-text" style="color: red;">Chưa TK</b>
+                        </div>
+                        <div class="text-center edit-text">{{item.Date|date:'dd/MM/yyyy'}}</div>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Status ==3">
+                      <div class="text-center" style="width: 80%;
+                        border-radius: 9px;
+                        background-color: palegreen;
+                        height: 50px;
+                        justify-content: center;
+    flex-direction: column;
+    display: flex;">
+                        <b class=" edit-text" style="color: green; ">Hoàn thành</b>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Status ==4">
+                      <div class="text-center" style="width: 80%;
+                        border-radius: 9px;
+                        background-color: lightgray;
+                        height: 50px;
+                        justify-content: center;
+    flex-direction: column;
+    display: flex;">
+                        <b class=" edit-text" style="color: gray;">Không TK</b>
+                      </div>
+                    </ng-container>
+                    <ng-container *ngIf="item.Status ==0">
+                      <div class="text-center" style="width: 80%;
+                        border-radius: 9px;
+                        background-color: lightgray;
+                        height: 50px;
+                        justify-content: center;
+    flex-direction: column;
+    display: flex;">
+                        <b class=" edit-text" style="color: gray;">Không TK</b>
+                      </div>
+                    </ng-container>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+    <div class="text-right mt-3">
+      <ng-container>
+        <button class="btn btn-success">
+          <i class="fa fa-save" aria-hidden="true"></i>&nbsp;
+          <span>In</span>
+        </button>
+      </ng-container>&nbsp;
+    </div>
+  </div>
+</div>

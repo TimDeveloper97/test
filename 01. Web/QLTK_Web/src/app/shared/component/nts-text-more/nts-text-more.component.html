@@ -1,0 +1,3 @@
+<p class="nts-text-more">{{firstText}}<span *ngIf="isMore" [ngClass]="{'nts-more-dot-none':isMoreShow}">... </span><span *ngIf="isMore" [ngClass]="{'nts-more-none':!isMoreShow}">{{moreText}}</span>
+    <a href="javascript:void(0)" *ngIf="isMore" (click)="showMore()">  {{!isMoreShow?'Xem thêm':'Ẩn'}}</a>
+</p>

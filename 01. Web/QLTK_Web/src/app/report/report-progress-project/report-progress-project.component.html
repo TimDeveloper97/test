@@ -1,0 +1,240 @@
+<div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelReport" (change)="search()">
+                </nts-search-bar>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+                <button class="btn btn-success btn-success-system" (click)="search()">
+                    <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+                <button class="btn btn-default btn-default-system" (click)="clear()">
+                    <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+                <button class="btn btn-success" (click)="reload()">
+                    <i class="fas fa-sync-alt"></i> &nbsp;Đồng bộ công đoạn</button>
+            </div>
+        </div>
+    </form>
+    <br>
+    <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{model.TotalItems}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Đang triển khai
+                <span class="bold text-danger">{{CountDTK}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Hoàn thành
+                <span class="bold text-danger">{{CountDTL}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Tạm dừng
+                <span class="bold text-danger">{{CountTD}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Chưa kickoff
+                <span class="bold text-danger">{{CountCKO}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Sản xuất
+                <span class="bold text-danger">{{CountSx}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Lắp đặt
+                <span class="bold text-danger">{{CountLD}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Hiệu chỉnh
+                <span class="bold text-danger">{{CountHC}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Đưa vào sử dụng
+                <span class="bold text-danger">{{CountDVSD}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Đóng dự án và thu hồi công nợ
+                <span class="bold text-danger">{{CountDDA}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Thiết kế
+                <span class="bold text-danger">{{CountTK}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Nghiệm thu
+                <span class="bold text-danger">{{CountNT}}</span> dự án | </label>&nbsp;
+            <label class="form-label" style="line-height:35px;">Vật tư
+                <span class="bold text-danger">{{CountVT}}</span> dự án</label>&nbsp;
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+            <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" [style.min-width]=" (1970+Stages.length*100)+'px'">
+                    <thead>
+                        <tr>
+                            <th width="50px" style="background-color: white;border-color: white;"></th>
+                            <th min-width="300px" style="background-color: white;border-color: white;"></th>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="150px" style="background-color: white;border-color: white;"></th>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="80px" style="background-color: white;border-color: white;"></th>
+                            <th width="70px"
+                                style="background-color: white;border-color: white;border-right-color: #dee2e6;"></th>
+                            <th width="100px" class="text-right" style="background-color: white;color: red;">
+                                {{TongTienHopDong|number:'1.0-0'}}</th>
+                            <th width="100px" class="text-right" style="background-color: white;color: red;">
+                                {{TongSoTienDaThu|number:'1.0-0'}}</th>
+                            <th width="70px" style="background-color: white;border-color: white;"></th>
+                            <ng-container *ngFor="let item of Stages; let i = index">
+                                <th [width]="100" style="background-color: white;border-color: white;">
+                                    <div style="text-align: center; color: red;">{{item.InfoStage}}
+                                    </div>
+                                </th>
+                            </ng-container>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="100px" style="background-color: white;border-color: white;"></th>
+                            <th width="50px" style="background-color: white;border-color: white;"></th>
+                            <th width="400px" style="background-color: white;border-color: white;"></th>
+                        </tr>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th min-width="300px" class="text-center">Tên và mã dự án</th>
+                            <th width="100px" class="text-center">Mã dự án</th>
+                            <th width="100px" class="text-center">Ngày bắt đầu</th>
+                            <th width="150px" class="text-center">SBU phụ trách</th>
+                            <th width="100px" class="text-center">Mức độ ưu tiên</th>
+                            <th width="100px" class="text-center">Người phụ trách/ QLDA</th>
+                            <th width="80px" class="text-center">Trạng thái dự án</th>
+                            <th width="70px" class="text-center">Tình trạng công nợ</th>
+                            <th width="100px" class="text-center">Tổng tiền HĐ</th>
+                            <th width="100px" class="text-center">Số tiền đã thu</th>
+                            <th width="70px" class="text-center">VĐTĐ</th>
+                            <ng-container *ngFor="let item of Stages; let i = index">
+                                <th [width]="100" class="text-center">
+                                    <div style="text-align: center;">{{item.Name}}
+                                    </div>
+                                </th>
+                            </ng-container>
+                            <th width="100px" class="text-center">Kế hoạch xác nhận KH</th>
+                            <th width="100px" class="text-center">Kế hoạch triển khai</th>
+                            <th width="50px" class="text-center">Chênh lệch (ngày)</th>
+                            <th width="400px" class="text-center">Tình trạng dự án</th>
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of ReportProgressProjects; let i = index">
+                            <td class="text-center">{{statIndex+i}}</td>
+                            <td>{{row.TenVaMaDuAn}}</td>
+                            <td class="text-center">{{row.MaDuAn}}</td>
+                            <td class="text-center">{{row.StartDate|date:'dd/MM/yyyy' }}</td>
+                            <td>{{row.SBUName}}</td>
+                            <td class="text-center">{{row.MucdoUuTien}}</td>
+                            <td>{{row.NguoiPhuTrach}}</td>
+                            <td class="text-center">{{row.TinhTrangDuAn}}</td>
+                            <td class="text-center">{{row.TinhTrangCongNo}}</td>
+                            <td class="text-right">{{row.TongTienHD|number:'1.0-0'}}</td>
+                            <td class="text-right">{{row.SoTienDaThu|number:'1.0-0'}}</td>
+                            <td class="text-center"><span
+                                    class='text-danger text-strong'>{{row.CountNoImplementError}}</span>/<span
+                                    class='text-success text-strong'>{{row.CountImplementError}}</span>/<span>{{row.TotalError}}</span>
+                            </td>
+                            <td *ngFor="let item of row.Stages; let i = index" [width]="100"
+                                style=" border-color: white; text-align: -webkit-center;">
+                                <ng-container *ngIf="item.Status ==2">
+                                    <div style="width: 80%;
+                                    border-radius: 9px;
+                                    background-color: lightyellow;
+                                    height: 50px;
+                                    justify-content: center;
+                flex-direction: column;
+                display: flex;">
+                                        <span class="test ">
+                                            <ngb-progressbar class="edit-text" type="warning" textType="dark"
+                                                [value]="item.DoneRatio" [showValue]="true">
+                                            </ngb-progressbar>
+                                        </span>
+                                        <div class="text-center  edit-text">{{item.MaxContractDate|date:'dd/MM/yyyy'}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="item.Status ==1">
+                                    <div class="text-center" style="width: 80%;
+                                    border-radius: 9px;
+                                    background-color: pink;
+                                    height: 50px;
+                                    justify-content: center;
+                flex-direction: column;
+                display: flex;">
+                                        <div>
+                                            <b class=" edit-text" style="color: red;">Chưa TK</b>
+                                        </div>
+                                        <div class="text-center edit-text">{{item.MaxContractDate|date:'dd/MM/yyyy'}}
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="item.Status ==3">
+                                    <div class="text-center" style="width: 80%;
+                                    border-radius: 9px;
+                                    background-color: palegreen;
+                                    height: 50px;
+                                    justify-content: center;
+                flex-direction: column;
+                display: flex;">
+                                        <b class=" edit-text" style="color: green; ">Hoàn thành</b>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="item.Status ==4">
+                                    <div class="text-center" style="width: 80%;
+                                    border-radius: 9px;
+                                    background-color: lightgray;
+                                    height: 50px;
+                                    justify-content: center;
+                flex-direction: column;
+                display: flex;">
+                                        <b class=" edit-text" style="color: gray;">Không TK</b>
+                                    </div>
+                                </ng-container>
+                                <ng-container *ngIf="item.Status ==0">
+                                    <div class="text-center" style="width: 80%;
+                                    border-radius: 9px;
+                                    background-color: lightgray;
+                                    height: 50px;
+                                    justify-content: center;
+                flex-direction: column;
+                display: flex;">
+                                        <b class=" edit-text" style="color: gray;">Không TK</b>
+                                    </div>
+                                </ng-container>
+                            </td>
+                            <td class="text-center">{{row.KeHoachHoanThanh|date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{row.KeHoachKickoff|date:'dd/MM/yyyy'}}</td>
+                            <td *ngIf="row.StatusChenhLech ==0" class="text-center">
+                                {{row.ChenhLech}}</td>
+                            <td *ngIf="row.StatusChenhLech ==1" style="background-color: red ;" class="text-center">{{row.ChenhLech}}</td>
+                            <td *ngIf="row.StatusChenhLech ==2" style="background-color: green ;" class="text-center">{{row.ChenhLech}}</td>
+                            <td class="text-center">{{row.ThongTinDuAn}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot *ngIf="ReportProgressProjects.length == 0">
+                        <tr class="bold">
+                            <td colspan="19" min-width="300px" class="text-center"
+                                style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4  d-flex justify-content-start">
+            <div class="controls ">
+                <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                    (ngModelChange)="search()" name="pageSize">
+                    <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                </select>
+            </div>
+            <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-md-8  d-flex justify-content-end">
+            <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber" (pageChange)="search()"
+                [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-view btn-danger">
+            </button>&nbsp;
+            <span style="font-size: 13px; color:red;"> </span> &nbsp;
+            <small class="padding-right-20">Vấn đề chưa triển khai</small>
+            <button class="btn btn-view btn-success">
+            </button>&nbsp;
+            <span style="font-size: 13px; color:green;"> </span> &nbsp;
+            <small class="padding-right-20">Vấn đề đang triển khai</small>
+            <button class="btn btn-view btn-default">
+            </button>&nbsp;
+            <span style="font-size: 13px; color:grey;"> </span> &nbsp;
+            <small class="padding-right-20">Tổng số vấn đề</small>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">SBU
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <select name="SBUId" required class="form-control" [(ngModel)]="model.SBUId" (change)="getCbbDepartment()">
+              <option *ngFor="let item of listSBU" [ngValue]="item.Id" class="text-center">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Phòng ban
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <select name="DepartmentId" required class="form-control" [(ngModel)]="model.DepartmentId"
+              (change)="getListEmployee()">
+              <option *ngFor="let item of listDepartment" [ngValue]="item.Id" class="text-center">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhân viên
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <select name="EmployeeId" required class="form-control" [(ngModel)]="model.EmployeeId">
+              <option *ngFor="let item of listEmployee" [ngValue]="item.Id" class="text-center">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Loại công việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <select name="Type" required class="form-control" [(ngModel)]="model.Type">
+              <option *ngFor="let item of constant.ListType" [ngValue]="item.Id" class="text-center">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Thời gian tiêu chuẩn giờ làm việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input ntsNumberInt type="text" class="form-control" [(ngModel)]="model.TimeStandard" name="TimeStandard" maxlength="9"
+              required>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

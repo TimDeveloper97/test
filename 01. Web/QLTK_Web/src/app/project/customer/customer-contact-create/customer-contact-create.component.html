@@ -1,0 +1,182 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+
+    <div class="row">
+      
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Tên người liên hệ
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" maxlength="50" required>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Địa chỉ (Bộ phân, phòng ban...)
+              </label>
+              <div class="controls">
+                <input type="text" class="form-control" [(ngModel)]="model.Address" name="Address" maxlength="300">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Chức vụ
+              </label>
+              <div class="controls">
+                <input type="text" class="form-control" [(ngModel)]="model.Position" name="Position" maxlength="300">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Ngày sinh
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="input-group">
+                <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy" name="DateOfBirth"
+                  [(ngModel)]="dateOfBirth" ngbDatepicker #DateOfBirth="ngbDatepicker">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="DateOfBirth.toggle()" name="DateOfBirth">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <label class="form-label">Giới tính
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <label class="radio">Nam
+                <input type="radio" name="Gender" [(ngModel)]="model.Gender" required [value]="'1'">
+                <span class="checkround"></span>
+              </label>
+              <label class="radio ml-3">Nữ
+                <input type="radio" name="Gender" [(ngModel)]="model.Gender" required [value]="'2'">
+                <span class="checkround"></span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="actions panel_actions">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 ">
+                <label class="form-label font-weight-bold">Ảnh đại diện
+                </label>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 text-right ">
+                <label class="form-label">Chọn ảnh
+                </label>
+                <i class="box_toggle material-icons actions-camera btn-file padding-top-5" ngbTooltip="Thay ảnh">
+                  photo_camera
+                  <input [disUipermission]="['F080001']" type="file" id="fileInput" #fileInput accept="image/*"
+                    (change)="onFileChange($event)" />
+                </i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 img-avata  padding-0">
+          <img class="img-thumbnail"
+            [src]="model.customerAvatar?model.customerAvatar: ('/assets/img/noavatar.gif')">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group">
+          <label class="form-label">Email
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Email" name="Email" maxlength="300">
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group">
+          <label class="form-label">Số điện thoại
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.PhoneNumber" name="PhoneNumber" maxlength="20">
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group">
+          <label class="form-label">Trạng thái
+          </label>
+          <div class="controls">
+            <label class="radio">Active
+              <input type="radio" name="Status" [(ngModel)]="model.Status" required [value]="1">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio ml-3">InActive
+              <input type="radio" name="Status" [(ngModel)]="model.Status" required [value]="2">
+              <span class="checkround"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group">
+          <label class="form-label">Các lưu ý khi tương tác
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <textarea class="form-control" [(ngModel)]="model.Note" name="Note" maxlength="500"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

@@ -1,0 +1,903 @@
+<div class="content-wrapper">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="sw sw-arrows">
+                            <ul class="nav-step">
+                              <!-- <li class="nav-item"
+                                    *ngFor="let item of constant.CustomerRequirementStatus; let i = index; let isLast = last">
+                                    <a class="nav-link process-text" (click)="seclect(item, i)"
+                                        [ngClass]="{'finish':i!=requirementModel.Status,'active':requirementModel.Status==i, 'select': i==indexNumber}">
+                                        <strong>{{item.Name}}</strong>
+                                    </a>
+                               </li> -->
+
+                                <li class="nav-item"
+                                    *ngFor="let item of constant.MeetingStep; let i = index; let isLast = last">
+                                    <a class="nav-link process-text" (click)="select(item, i)"
+                                        [ngClass]="{'finish':i<model.Step,'active':model.Step==i, 'select': i==indexNumber}">
+                                        <strong>{{item.Name}}</strong>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <ng-container *ngIf="constant.MeetingStep[indexNumber].Id == 0">
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Chủng loại cuộc họp
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <nts-drop-down-tree [items]="listMeetingType" [columns]="columnNameMeetingType"
+                                    ntsParentId="Exten" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                    ntsAutoClose="true" [(ngModel)]="model.MeetingTypeId" name="Id"
+                                    (change)="getMeetingTypeCode()" required>
+                                </nts-drop-down-tree>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Mã meeting
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.Code" name="MeetingCode"
+                                        maxlength="300" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Tên meeting
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.Name" name="MeetingName"
+                                        maxlength="300" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Loại meeting
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <select class="form-control" [(ngModel)]="model.Type" name="MeetingType" required>
+                                        <option *ngFor="let row of constant.MeetingType" [value]="row.Id">{{row.Name}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Mã Khách hàng
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id"
+                                    ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerId"
+                                    name="CustomerId" (change)="getCustomerContactByCustomerId()" required>
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Tên khách hàng
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.CustomerName"
+                                        name="CustomerName" maxlength="300" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Người liên hệ
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <nts-drop-down [items]="listCustomerContactByCustomer"
+                                    [columns]="columnNameCustomerContact" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                    ntsAutoClose="true" [(ngModel)]="model.CustomerContactId" name="CustomerContactId"
+                                    required (change)="getCustomerContactInfo()">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Số điện thoại
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.PhoneNumber"
+                                        name="PhoneNumber" maxlength="300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Email
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.email" name="Email"
+                                        maxlength="300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thông tin chung
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.Description"
+                                        name="description" maxlength="300">
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <ng-container *ngIf="Id">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Trạng thái
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div class="controls">
+                                        <select class="form-control" [(ngModel)]="model.Status" name="Status">
+                                            <option *ngFor="let row of constant.MeetingStatus" [value]="row.Id">
+                                                {{row.Name}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container> -->
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>
+                                Danh sách tài liệu
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success btn-upload" (click)="fileAttachInput.click()">
+                                <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+                            <input name="file" style="display: none;" type="file" id="fileAttachInput" #fileAttachInput
+                                (change)="uploadFile($event,0)" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1180px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th width="200px" class="text-center">Tên tài liệu</th>
+                                            <th min-width="200px" class="text-center">Ghi chú</th>
+                                            <th width="300px" class="text-center">Tên file</th>
+                                            <th width="100px" class="text-center">Dung lượng</th>
+                                            <th width="100px" class="text-center">Ngày tải</th>
+                                            <th width="150px" class="text-center">Người tải</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let row of model.ListAttach; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <ng-container *ngIf="row.FilePath">
+                                                        <button type="button" (click)="downloadAFile(row)"
+                                                            style="background-color: papayawhip" class="btn btn-xs"
+                                                            placement="top" ngbTooltip="Download" container="body">
+                                                            <span class="fas fa-download" aria-hidden="true"
+                                                                style="color: black"></span>
+                                                        </button>&nbsp;
+                                                    </ng-container>
+                                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                        (click)="showConfirmDeleteFile(row,i,1)">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="text" [(ngModel)]="row.Name" class="form-control"
+                                                        [name]="'name' + i">
+                                                </td>
+                                                <td>
+                                                    <textarea [(ngModel)]="row.Note" class="form-control"
+                                                        [name]="'note' + i" rows="2"></textarea>
+                                                </td>
+                                                <td>
+                                                    {{row.FileName}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateName}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+
+
+                </ng-container>
+
+                <ng-container *ngIf="constant.MeetingStep[indexNumber].Id == 1">
+                    <div class="row mt-3">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>
+                                <b>Danh sách người tham dự phía TPA</b>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success" (click)="showSelectEmployee()">
+                                <i class="fa fa-plus"></i> &nbsp;Thêm nhân viên</button>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <div style="height: auto; width:100%;overflow: hidden">
+                                <table class="table table-bordered table-fixed table-hover"
+                                    style="word-wrap: break-word; margin-bottom:0px !important;min-width: 900px;">
+                                    <thead #header style="background-color: white">
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="70px" class="text-center">Xử lý </th>
+                                            <!-- <th width="150px">Tình trạng làm việc</th> -->
+                                            <th width="80px" class="text-center">Ảnh</th>
+                                            <th width="150px" class="text-center">Tên nhân viên</th>
+                                            <th width="150px" class="text-center">Mã nhân viên</th>
+                                            <th width="150px" class="text-center">Email</th>
+                                            <th width="100px" class="text-center">Số điện thoại</th>
+                                            <th min-width="150px" class="text-center">Phòng ban</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <perfect-scrollbar [config]="constant.ScrollConfig"
+                                style="height:auto;max-height: 200px; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover"
+                                    style="word-wrap: break-word; margin-bottom:0px !important;min-width: 900px;">
+                                    <tbody>
+                                        <tr *ngFor="let row of model.ListUser; let i = index;">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td width="70px" class="text-center">
+                                                <button type="button" (click)="showComfirmDeleteEmployee(i)"
+                                                    class="btn btn-xs btn-danger" ngbTooltip="Xóa" container="body"
+                                                    placement="bottom">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <!-- <td class="text-center" width="150px">
+                                                <span class="badge"
+                                                    [ngClass]="row.Status|filterbadgeclassinlist:constant.EmployeeStatus">{{row.Status|filterinlist:constant.EmployeeStatus}}</span>
+                                            </td> -->
+                                            <td width="80px"><img *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                                    [src]="config.ServerFileApi+row.ImagePath" height="80px"
+                                                    min-witdh="60px" max-witdh="60px"></td>
+                                            <td width="150px">{{row.Name}}</td>
+                                            <td width="150px">{{row.Code}}</td>
+                                            <td width="150px">{{row.Email}}</td>
+                                            <td width="100px">{{row.PhoneNumber}}</td>
+                                            <td min-width="150px">{{row.DepartmentName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    <div class="row mt-3">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>
+                                <b>Thông tin lịch meeting</b>
+                            </label>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Địa điểm meeting
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.Address" name="Address"
+                                        maxlength="300" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày meeting
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="input-group">
+                                    <input container="body" class="form-control" placeholder="dd/mm/yyyy"
+                                        [name]="meetingDate" [(ngModel)]="model.MeetingDate" ngbDatepicker
+                                        #meetingDate="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                                        [maxDate]="{year: 2100, month: 12, day: 31}">
+                                    <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="meetingDate.toggle();$event.stopPropagation();">
+                                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thời lượng cuộc họp (phút)
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="model.Time" name="Time"
+                                        maxlength="300" (change)="meetingTimeChange()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian bắt đầu dự kiến
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div>
+                                    <ngb-timepicker [(ngModel)]="model.StartTime" name="StartTime" [spinners]="false"
+                                        (change)="meetingTimeChange()"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian kết thúc dự kiến
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div>
+                                    <ngb-timepicker [(ngModel)]="model.EndTime" name="EndTime" [spinners]="false">
+                                    </ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="constant.MeetingStep[indexNumber].Id == 2">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <label>
+                                <b>Danh sách người tham dự phía khách hàng</b>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <!-- <button type="button" class="btn btn-success" (click)="showSelectCustomerContact()">
+                                <i class="fa fa-plus"></i> &nbsp;Chọn người tham dự</button> &nbsp; &nbsp; -->
+
+                            <button type="button" class="btn btn-success" (click)="showSelectCustomerContact()">
+                                <i class="fa fa-plus"></i> &nbsp;Chọn người tham dự</button>
+                        </div>
+
+
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <div style="height: auto; width:100%;overflow: hidden">
+                                <table class="table table-bordered table-fixed table-hover"
+                                    style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1050px;">
+                                    <thead #header style="background-color: white">
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="100px" class="text-center">Xử lý </th>
+                                            <th width="150px" class="text-center">Ảnh</th>
+                                            <th width="150px" class="text-center">Tên nhân viên</th>
+                                            <th width="150px" class="text-center">Chức vụ</th>
+                                            <th width="150px" class="text-center">Email</th>
+                                            <th width="100px" class="text-center">Số điện thoại</th>
+                                            <th min-width="150px" class="text-center">Công ty</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <perfect-scrollbar [config]="constant.ScrollConfig"
+                                style="height:auto;max-height: 200px; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover"
+                                    style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1000px;">
+                                    <tbody #container>
+                                        <ng-container *ngFor="let row of model.ListCustomerContact; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td width="100px" class="text-center">
+
+                                                <!-- <ng-container *ngIf="row.MeetingCustomerContactId">
+                                                    <ng-container *ngIf="!row.CustomerContactId"> -->
+                                                <button type="button"
+                                                    (click)='showCreateUpdate(row.MeetingCustomerContactId,row,row.CustomerContactId)'
+                                                    class="btn btn-xs btn-warning" placement="bottom"
+                                                    ngbTooltip="Cập nhật" container="body">
+                                                    <span class="fa fa-edit" aria-hidden="true"></span>
+                                                </button> &nbsp;
+                                                <!-- </ng-container>
+                                                </ng-container> -->
+                                                <!-- <ng-container *ngIf="row.CustomerContactId">
+                                                <button *appUipermission="['F060201','F060202']" type="button"
+                                                (click)='showCreateUpdateCustomerContact(row,i,false)' class="btn btn-xs btn-warning"
+                                                placement="bottom" ngbTooltip="Cập nhật" container="body">
+                                                <span class="fa fa-edit" aria-hidden="true"></span>
+                                              </button>&nbsp;
+                                                </ng-container> -->
+
+                                                <button type="button" (click)="showComfirmDeleteCustomerContact(i)"
+                                                    class="btn btn-xs btn-danger" ngbTooltip="Xóa" container="body"
+                                                    placement="bottom">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td width="150px"><img *ngIf="row.Avatar!='' && row.Avatar!=null"
+                                                [src]="config.ServerFileApi+row.Avatar" height="80px"
+                                                min-witdh="60px" max-witdh="60px"></td>
+                                            <td width="150px">{{row.Name}}</td>
+                                            <td width="150px">{{row.Position}}</td>
+                                            <td width="150px">{{row.Email}}</td>
+                                            <td width="100px">{{row.PhoneNumber}}</td>
+                                            <td min-width="150px">{{row.CustomerName}}</td>
+                                        </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-3">
+                      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+                        <label>
+                          <b>Danh sách yêu cầu cần xử lý</b>
+                      </label>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+
+                        <ng-container *ngIf="model.Status <3">
+                          <button type="button" class="btn btn-success" (click)="showCreateCustomerRequirement()"
+                          container="body">
+                          <i class="fa fa-plus"></i>
+                          Thêm mới
+                        </button>
+                        </ng-container>
+
+                      </div>
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                            <table class="table table-bordered " style="word-wrap: break-word ;min-width:1800px;">
+                              <thead>
+                                <tr>
+                                  <ng-container *appUipermission="['F110813']">
+                                    <th rowspan="4" style="text-align:center; padding-top: 10px" width="60px">
+                                      <input type="checkbox" [(ngModel)]="checkeds" name="checkeds" (change)="selectAllFunction()"
+                                        style="height:20px; width:20px;">
+                                    </th>
+                                  </ng-container>
+                                  <th width="50px" class="text-center">STT</th>
+                                  <th width="100px" class="text-center">Xử lý</th>
+                                  <th width="100px" class="text-center">Trạng thái</th>
+                                  <th width="300px" class="text-center">Yêu cầu cần xử lý</th>
+                                  <th width="300px" class="text-center">Phương án xử lý</th>
+                                  <th width="100px" class="text-center">Số Y/C</th>
+                                  <th width="150px" class="text-center">Ngày yêu cầu</th>
+                                  <th width="150px" class="text-center">Thời điểm hoàn thành</th>
+                                  <th width="200px" class="text-center">Danh sách File</th>
+                                  <th min-width="150px" class="text-center">Ghi chú</th>
+                                  <th width="150px" class="text-center">Người yêu cầu</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let row of model.ListContent; let i = index;" >
+                                  <ng-container *appUipermission="['F110813']">
+                                    <td *ngIf="row.status==true" width="60px" style="text-align:center">
+                                      <input type="checkbox" [(ngModel)]="row.status" name="{{'Checked'+row.Name+i}}"
+                                        style="height:20px; width:20px;" (change)="pushChecker(row)" disabled>
+                                    </td>
+                                    <td *ngIf="row.status==false" width="60px" style="text-align:center">
+                                        <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                                          style="height:20px; width:20px;" (change)="pushChecker(row)" >
+                                      </td>
+                                  </ng-container>
+                                  <td class="text-center" width="50px">{{i+1}}</td>
+                                  <td width="100px" class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" (click)="deleteContent(i)">
+                                      <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button> &nbsp;
+                                    <button type="button" class="btn btn-xs btn-warning" ngbTooltip="Chỉnh sửa" (click)="updateContent(i)">
+                                        <span class="fas fa-edit" aria-hidden="true"></span>
+                                      </button> &nbsp;
+                                  </td>
+                                  <td *ngIf="row.status==true" class="text-center"> 
+                                      <nts-status-badge [items]="constant.MeetingStatusContent"
+                                    [value]="2"></nts-status-badge>
+                                  </td>
+                                  <td *ngIf="row.status==false" class="text-center">
+                                    <nts-status-badge [items]="constant.MeetingStatusContent"
+                                    [value]="1"></nts-status-badge>
+                                  </td>
+                                  <td  class="text-center">{{row.Request}}
+                                  </td>
+                                  <td class="text-center">{{row.Solution}}
+                                  </td>
+                                  <td class="text-center">{{row.Code}}</td>
+                                  <td class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+                                  <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                                  <td class="text-center">{{row.NameFiles}}
+                                  <td class="text-center">{{row.Note}}
+                                  </td>
+                                  <td>
+                                    {{row.EmployeeName}}
+                                  </td>
+                                </tr>
+                                <!-- <tr>
+                                  <td width="60px" style="text-align:center"></td>
+                                  <td class="text-center" width="50px"></td>
+                                  <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng" (click)="addRow()">
+                                      <i class="fa fa-plus"></i>
+                                    </button>
+                                  </td>
+                                  <td>
+                                    <textarea type="text" [(ngModel)]="contentModel.Request" class="form-control"
+                                      name="requests"></textarea>
+                                  </td>
+                                  <td>
+                                    <textarea type="text" [(ngModel)]="contentModel.Solution" class="form-control"
+                                      name="solutions"></textarea>
+                                  </td>
+                                  <td>
+                                    <textarea type="text" [(ngModel)]="contentModel.Code" class="form-control"
+                                      name="codes"></textarea>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="finishDate1"
+                                        [(ngModel)]="contentModel.CreateDate" ngbDatepicker #finishDate1="ngbDatepicker"
+                                        [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+                                      <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="finishDate1.toggle();$event.stopPropagation();">
+                                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <div class="input-group">
+                                      <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="finishDate"
+                                        [(ngModel)]="contentModel.FinishDate" ngbDatepicker #finishDate="ngbDatepicker"
+                                        [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+                                      <div class="input-group-append">
+                                        <span class="dtp-icon" (click)="finishDate.toggle();$event.stopPropagation();">
+                                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <textarea type="text" [(ngModel)]="contentModel.Note" class="form-control"
+                                      name="note"></textarea>
+                                  </td>
+                                  <td>
+
+                                  </td>
+                                </tr> -->
+                              </tbody>
+                            </table>
+                          </perfect-scrollbar>
+                      </div>
+                      <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+                        <ng-container *ngIf="model.Status >3" >
+                          <button type="button" class="btn btn-success" (click)="addCustomerRequirement()">
+                            <i class="fas fa-play"></i>&nbsp;
+                            <span>Tạo yêu cầu khách hàng</span>
+                          </button>&nbsp;
+                        </ng-container>
+                      </div> -->
+                    </div>
+                    <!-- <div class="row mt-3">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>
+                                <b>Danh sách file đính</b>
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                        </div>
+                        <div *ngIf="IdCheck !=null && IdCheck != ''" class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success btn-upload"
+                                (click)="fileAttachMeetingContent.click()">
+                                <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+                            <input name="file" style="display: none;" type="file" id="fileAttachMeetingContent"
+                                #fileAttachMeetingContent (change)="handleFileInput($event.target.files,0)" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:780px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th width="300px" class="text-center">Tên file</th>
+                                            <th width="100px" class="text-center">Dung lượng</th>
+                                            <th width="100px" class="text-center">Ngày tải</th>
+                                            <th width="150px" class="text-center">Người tải</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let row of MeetingContentAttachs; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <ng-container *ngIf="row.FilePath">
+                                                        <button type="button" (click)="downloadAFile(row)"
+                                                            style="background-color: papayawhip" class="btn btn-xs"
+                                                            placement="top" ngbTooltip="Download" container="body">
+                                                            <span class="fas fa-download" aria-hidden="true"
+                                                                style="color: black"></span>
+                                                        </button>&nbsp;
+                                                    </ng-container>
+                                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                        (click)="showConfirmDeleteFileMeetingContentAttach(row,i,1)">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    {{row.FileName}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateName}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div> -->
+
+                    <div class="row mt-3">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>
+                                <b>Danh sách tài liệu thực hiện Meeting</b>
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success btn-upload"
+                                (click)="fileAttachInputPerformStep.click()">
+                                <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+                            <input name="file" style="display: none;" type="file" id="fileAttachInputPerformStep"
+                                #fileAttachInputPerformStep (change)="uploadFile($event,1)" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1180px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th width="200px" class="text-center">Tên tài liệu</th>
+                                            <th min-width="200px" class="text-center">Ghi chú</th>
+                                            <th width="300px" class="text-center">Tên file</th>
+                                            <th width="100px" class="text-center">Dung lượng</th>
+                                            <th width="100px" class="text-center">Ngày tải</th>
+                                            <th width="150px" class="text-center">Người tải</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let row of model.ListAttachPerformStep; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <ng-container *ngIf="row.FilePath">
+                                                        <button type="button" (click)="downloadAFile(row)"
+                                                            style="background-color: papayawhip" class="btn btn-xs"
+                                                            placement="top" ngbTooltip="Download" container="body">
+                                                            <span class="fas fa-download" aria-hidden="true"
+                                                                style="color: black"></span>
+                                                        </button>&nbsp;
+                                                    </ng-container>
+                                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                        (click)="showConfirmDeleteFilePerformStep(row,i,1)">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    <input type="text" [(ngModel)]="row.Name" class="form-control"
+                                                        [name]="'name' + i">
+                                                </td>
+                                                <td>
+                                                    <textarea [(ngModel)]="row.Note" class="form-control"
+                                                        [name]="'note' + i" rows="2"></textarea>
+                                                </td>
+                                                <td>
+                                                    {{row.FileName}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateName}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <label>
+                                <b>Thời gian thực tế Meeting</b>
+                            </label>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 justify-content-center">
+                            <div class="form-group">
+                                <label class="form-label ">Thời gian bắt đầu thực tế
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div>
+                                    <ngb-timepicker [(ngModel)]="model.RealStartTime" [spinners]="false"
+                                        name="RealStartTime"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian kết thúc thực tế
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div>
+                                    <ngb-timepicker [(ngModel)]="model.RealEndTime" [spinners]="false"
+                                        name="RealEndTime">
+                                    </ngb-timepicker>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </ng-container>
+                <ng-template id="content" #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title text-uppercase text-danger"  id="modal-basic-title">Yêu cầu hủy meeting</h4>
+                        <button style="color: brown" type="button"  class="close" aria-label="Close"
+                        (click)="modal.dismiss('Cross click')">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="dateOfBirth">Lý do</label>
+                                <div class="input-group">
+                                    <textarea [(ngModel)]="model.ReasonCancel" name="ReasonCancel" rows="5"
+                                        class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </form>
+                        <form>
+                          <div class="row mt-3">
+                          <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                            <ng-container>
+                              <button type="button" class="btn btn-success" (click)="saveV()" (click)="modal.dismiss('Cross click')">
+                                  <i class="fa fa-save"></i>&nbsp;
+                                  <span>Xác nhận hủy</span>
+                              </button>&nbsp;
+                          </ng-container>
+                          </div>
+                        </div>
+                        </form>
+                        <!-- <ng-container>
+                            <button type="button" class="btn btn-success" (click)="saveV()">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Xác nhận hủy</span>
+                            </button>&nbsp;
+                        </ng-container> -->
+
+                    </div>
+
+
+                </ng-template>
+            </div>
+        </section>
+
+
+
+
+
+
+    <section class="box">
+      <div class="content-body">
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+
+            <ng-container *ngIf="Id && model.Status != 3 && model.Step < 2">
+              <button type="button" class="btn btn-warning" (click)="open(content)">
+                <i class="fa fa-times"></i>&nbsp;
+                <span>Hủy meeting</span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container *ngIf="model.Step == 1 && model.Status == 2">
+              <button type="button" class="btn btn-info" (click)="showConfirmDoMeeting()">
+                <i class="fas fa-play"></i>&nbsp;
+                <span>Thực hiện meeting</span>
+              </button>&nbsp;
+            </ng-container>
+
+            <!-- <ng-container *ngIf="model.Step == 1 && model.Status == 2">
+              <button type="button" class="btn btn-info" (click)="showConfirmDoMeeting()">
+                <i class="fas fa-play"></i>&nbsp;
+                <span>Thực hiện meeting</span>
+              </button>&nbsp;
+            </ng-container> -->
+
+            <ng-container *ngIf="model.Step == 2">
+              <button type="button" class="btn btn-info" (click)="showConfirmFinish(0)">
+                <i class="fas fa-play"></i>&nbsp;
+                <span>Kết thúc meeting</span>
+              </button>&nbsp;
+              <!-- <button class="btn  btn-success" (click)="ExportExcel()">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                Xuất excel
+              </button>&nbsp; &nbsp; -->
+            </ng-container>
+
+            <ng-container *ngIf="model.Step == 2">
+              <button class="btn  btn-success" (click)="ExportExcel()">
+                <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+               <span> Xuất excel</span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container *ngIf="model.Step ==3 && CheckChoose==true"  >
+              <button  type="button" class="btn btn-success" (click)="showConfirmFinish(1)">
+                <i class="fas fa-play"></i>&nbsp;
+                <span>Tạo yêu cầu khách hàng</span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container *ngIf="model.Status!=3">
+              <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAll()">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>{{modalInfo.SaveText}}</span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container>
+              <button type="button" class="btn btn-danger" (click)="close()">
+                <i class="fa fa-power-off"></i> &nbsp;
+                <span>
+                  Ðóng
+                </span>
+              </button>&nbsp;
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    </form>
+</div>

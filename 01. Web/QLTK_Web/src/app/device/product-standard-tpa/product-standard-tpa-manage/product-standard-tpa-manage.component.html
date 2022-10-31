@@ -1,0 +1,706 @@
+<div class='content-wrapper page-content'>
+    <div class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{productStandardTPA}}</span> chủng loại hàng hóa</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+                    <button type="button" (click)="showCreateUpdateType('', false)" class="btn btn-xs btn-success"
+                        placement="bottom" ngbTooltip="Thêm chủng loại" container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 0">
+                    <dx-tree-list id="employees" [dataSource]="listProductStandardTPAType" keyExpr="Id"
+                        parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                        [height]="heightLeft" (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true"
+                        noDataText=" " [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Name" caption="Tên chủng loại" [minWidth]="200"></dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F020001']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-add"
+                                        ngbTooltip="Thêm chủng loại" container="body"
+                                        (click)=" showCreateUpdateType(item.value, false)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F020002']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-update"
+                                        ngbTooltip="Sửa chủng loại" container="body"
+                                        (click)=" showCreateUpdateType(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F020003']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete"
+                                        ngbTooltip="Xóa chủng loại" container="body"
+                                        (click)=" showConfirmType(item.data)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model"
+                            (change)="searchProductStandardTPA()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right mt-2">
+                        <button class="btn btn-success btn-success-system" (click)="searchProductStandardTPA()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{model.TotalItems}}</span> thiết bị nhập khẩu;</label>&nbsp;
+                    <label class="form-label" style="line-height:35px;">Ngày đồng bộ gần nhất:
+                        <span class="bold text-danger">{{model.Date|date:'dd/MM/yyyy'}}</span></label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                    <button type="button" class="btn btn-success" *appUipermission="['F110801']"
+                        (click)='showCreateUpdate("")' container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <button *appUipermission="['F110813']" type="button" class="btn btn-success"
+                        (click)='syncSaleProductStandardTPA(false)' container="body">
+                        <i class="fas fa-sync-alt"></i>
+                        Đồng bộ sản phẩm
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        &nbsp;
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button type="button" class="btn btn-success" *appUipermission="['F110804']"
+                                (click)="importProductStandardTPA()" container="body">
+                                <i class="fa fa-file-excel"></i> &nbsp;
+                                Import thiết bị nhập khẩu
+                            </button>
+                            <button class="btn btn-success btn-file" (click)="exportExcel()"
+                                *appUipermission="['F110808']">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất dữ liệu phòng XNK</button>
+                            <button class="btn btn-success btn-file" (click)="exportExcelAccountant()"
+                                *appUipermission="['F110810']">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất dữ liệu phòng KT</button>
+                            <button class="btn btn-success btn-file" (click)="exportExcelBusiness()"
+                                *appUipermission="['F110809']">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất dữ liệu phòng KD</button>
+                            <button *appUipermission="['F110813']" class="btn btn-success btn-file"
+                                (click)="showImportSyncSaleProductStandardTPA()">
+                                <i class="fas fa-sync-alt"></i> &nbsp;Import đồng bộ sản phẩm kinh doanh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12" #scrollProducStandard>
+                    <div #scrollProducStandardHeader style="overflow-x: auto;overflow: hidden;">
+                        <table class="table table-bordered table-hover mb-0" [style.min-width.px]="minWidth">
+                            <thead>
+                                <tr>
+                                    <ng-container *appUipermission="['F110813']">
+                                        <th rowspan="4" style="text-align:center; padding-top: 10px" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkeds" name="checkeds"
+                                                (change)="selectAllFunction()" style="height:20px; width:20px;">
+                                        </th>
+                                    </ng-container>
+                                    <th rowspan="4" width="50px" class="text-center">STT</th>
+                                    <th rowspan="4" width="100px" class="text-center">Xử lý</th>
+                                    <th rowspan="4" min-width="200px" class="text-center">Tên Tiếng Việt</th>
+                                    <th rowspan="4" width="200px" class="text-center">Tên Tiếng Anh</th>
+                                    <th rowspan="4" width="150px" class="text-center">MODEL</th>
+                                    <th rowspan="4" width="100px" class="text-center">Hãng</th>
+                                    <th rowspan="4" width="100px" class="text-center">Chủng loại hàng hóa</th>
+                                    <ng-container *appUipermission="['F110805','F110806','F110807']">
+                                        <th colspan="15" width="2600px" class="text-center">Thông tin NCC/nhà SX</th>
+                                    </ng-container>
+                                    <ng-container *ngIf="isKD">
+                                        <th colspan="3" width="600px" class="text-center">Thông tin NCC/nhà SX</th>
+                                    </ng-container>
+                                    <ng-container *appUipermission="['F110805','F110807']">
+                                        <th rowspan="4" width="80px" class="text-center">Giá niêm yết</th>
+                                        <th rowspan="4" width="80px" class="text-center">Giá theo số lượng</th>
+                                        <th rowspan="4" width="100px" class="text-center">Chính sách giá</th>
+                                        <th rowspan="4" width="100px" class="text-center">Số lượng tối thiểu</th>
+                                        <th rowspan="4" width="100px" class="text-center">Phương thức VC</th>
+                                        <th rowspan="4" width="100px" class="text-center">Cảng xếp hàng</th>
+                                        <th colspan="5" width="500px" class="text-center">Giá hàng hóa</th>
+                                        <th colspan="41" width="3400px" class="text-center">Chi phí vận chuyển quốc tế
+                                        </th>
+                                        <th rowspan="4" width="100px" class="text-center">Ngày cập nhật đơn giá</th>
+                                        <th colspan="4" width="400px" class="text-center">Phí LC đầu xuất</th>
+                                        <th rowspan="4" width="100px" class="text-center">Loại bảo hiểm</th>
+                                        <th colspan="1" width="150px" class="text-center">Phí bảo hiểm</th>
+                                        <th colspan="40" width="4000px" class="text-center">Phí LC đầu nhập</th>
+                                        <th rowspan="4" width="100px" class="text-center">HS Code</th>
+                                        <th rowspan="4" width="100px" class="text-center">Thuế NK</th>
+                                        <th rowspan="4" width="100px" class="text-center">CP thuế NK</th>
+                                        <th rowspan="4" width="100px" class="text-center">Ngày thay đổi HS Code</th>
+                                        <th rowspan="4" width="100px" class="text-center">Tên thuế khác</th>
+                                        <th rowspan="4" width="100px" class="text-center">Thuế khác</th>
+                                        <th rowspan="4" width="100px" class="text-center">CP thuế NK</th>
+                                        <th rowspan="4" width="80px" class="text-center">VAT</th>
+                                        <th rowspan="4" width="150px" class="text-center">Phí khác theo YC hải quan</th>
+                                        <th rowspan="4" width="100px" class="text-center">Phí FW</th>
+                                        <th rowspan="4" width="100px" class="text-center">Phụ phí phát sinh</th>
+                                        <th rowspan="4" width="100px" class="text-center">Thời gian tồn kho</th>
+                                        <th colspan="2" width="200px" class="text-center">Lãi suất vay</th>
+                                        <th colspan="10" width="1000px" class="text-center">Cấu thành giá EXW TPA</th>
+                                    </ng-container>
+                                    <ng-container *appUipermission="['F110806','F110807']">
+                                        <th width="100px" rowspan="4" class="text-right">Giá bán L1</th>
+                                        <th width="100px" rowspan="4" class="text-right">Giá bán L2</th>
+                                        <th width="100px" rowspan="4" class="text-right">Giá bán L3</th>
+                                        <th width="100px" rowspan="4" class="text-right">Giá bán L4</th>
+                                        <th width="100px" rowspan="4" class="text-right">Giá bán L5</th>
+                                    </ng-container>
+                                    <th rowspan="4" width="100px" class="text-center">Chuyển từ thư viện</th>
+                                    <th rowspan="4" width="100px" class="text-center">Ngày đồng bộ</th>
+                                </tr>
+                                <tr>
+                                    <ng-container *appUipermission="['F110805','F110806','F110807']">
+                                        <th rowspan="3" width="200px" class="text-center">Nhà SX</th>
+                                        <th rowspan="3" width="200px" class="text-center">Mã NCC</th>
+                                        <th rowspan="3" width="200px" class="text-center">Tên</th>
+                                    </ng-container>
+                                    <ng-container *appUipermission="['F110805','F110807']">
+                                        <th rowspan="3" width="300px" class="text-center">Địa chỉ</th>
+                                        <th rowspan="3" width="100px" class="text-center">PIC</th>
+                                        <th rowspan="3" width="100px" class="text-center">SĐT</th>
+                                        <th rowspan="3" width="100px" class="text-center">Email</th>
+                                        <th rowspan="3" width="200px" class="text-center">Chức danh</th>
+                                        <th rowspan="3" width="300px" class="text-center">Thông tin ngân hàng thanh toán
+                                        </th>
+                                        <th rowspan="3" width="200px" class="text-center">Loại hình thanh toán</th>
+                                        <th rowspan="3" width="200px" class="text-center">Điều khoản thanh toán</th>
+                                        <th rowspan="3" width="200px" class="text-center">Điều khoản giao hàng</th>
+                                        <th rowspan="3" width="100px" class="text-center">Thời gian giao hàng</th>
+                                        <th rowspan="3" width="100px" class="text-center">Quốc gia</th>
+                                        <th rowspan="3" width="100px" class="text-center">Website</th>
+
+                                        <th rowspan="3" width="100px" class="text-center">Đơn giá theo sản phẩm</th>
+                                        <th colspan="4" width="400px" class="text-center">Đơn giá theo PO</th>
+                                        <th colspan="7" width="700px" class="text-center">Chi phí chuyển phát nhanh</th>
+                                        <th colspan="7" width="700px" class="text-center">Chi phí vận chuyển hàng không
+                                        </th>
+                                        <th colspan="6" width="400px" class="text-center">Kích thước đóng gói(MM)</th>
+                                        <th colspan="5" width="400px" class="text-center">CP VC LCL theo CBM(m3)</th>
+                                        <th colspan="4" width="400px" class="text-center">CP VC CONT 20"</th>
+                                        <th colspan="4" width="400px" class="text-center">CP VC CONT 20 OT</th>
+                                        <th colspan="4" width="400px" class="text-center">CP VC CONT 40"</th>
+                                        <th colspan="4" width="400px" class="text-center">CP VC CONT 40 OT</th>
+                                        <!-- Phí LC đầu xuất -->
+                                        <th rowspan="3" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="3" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="3" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="3" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí bảo hiểm -->
+                                        <th rowspan="3" width="100px" class="text-center">Giá VNĐ</th>
+                                        <th colspan="4" width="400px" class="text-center">LSS</th>
+                                        <th colspan="4" width="400px" class="text-center">THC</th>
+                                        <th colspan="4" width="400px" class="text-center">DO</th>
+                                        <th colspan="4" width="400px" class="text-center">CIC</th>
+                                        <th colspan="4" width="400px" class="text-center">HL</th>
+                                        <th colspan="4" width="400px" class="text-center">CLF</th>
+                                        <th colspan="4" width="400px" class="text-center">CFS</th>
+                                        <th colspan="4" width="400px" class="text-center">Lift on/of</th>
+                                        <th colspan="4" width="400px" class="text-center">IF(CSHT)</th>
+                                        <th colspan="4" width="400px" class="text-center">Other</th>
+                                        <th rowspan="3" width="100px" class="text-center">Ngắn hạn</th>
+                                        <th rowspan="3" width="100px" class="text-center">Trung hạn</th>
+                                        <th rowspan="3" width="100px" class="text-center">Giá SP</th>
+                                        <th rowspan="3" width="100px" class="text-center">VC</th>
+                                        <th rowspan="3" width="100px" class="text-center">CP NK</th>
+                                        <th rowspan="3" width="100px" class="text-center">Thuế NK</th>
+                                        <th rowspan="3" width="100px" class="text-center">VAT</th>
+                                        <th rowspan="3" width="100px" class="text-center">Lãi vay</th>
+                                        <th rowspan="3" width="100px" class="text-center">Tổng CP</th>
+                                        <th rowspan="3" width="100px" class="text-center">Lợi nhuận(%)</th>
+                                        <th rowspan="3" width="100px" class="text-center">Giá bán EXW TPA</th>
+                                        <th rowspan="3" width="100px" class="text-center">Ngày cập nhật giá EXW TPA</th>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <ng-container *appUipermission="['F110805','F110807']">
+                                        <!-- Đơn giá theo PO -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+
+                                        <th rowspan="2" width="100px" class="text-center">Trọng lượng</th>
+                                        <th rowspan="2" width="100px" class="text-center">Khối lượng quy đổi theo kích
+                                            thước</th>
+                                        <th rowspan="2" width="100px" class="text-center">Khối lượng để tính giá</th>
+                                        <th colspan="4" width="400px" class="text-center">CP chuyển phát nhanh theo
+                                            trọng lượng</th>
+                                        <th rowspan="2" width="100px" class="text-center">Trọng lượng</th>
+                                        <th rowspan="2" width="100px" class="text-center">Khối lượng quy đổi theo kích
+                                            thước</th>
+                                        <th rowspan="2" width="100px" class="text-center">Khối lượng để tính giá</th>
+                                        <th colspan="4" width="400px" class="text-center">CP vận chuyển hàng không theo
+                                            trọng lượng</th>
+
+                                        <!-- Kích thước đóng gói -->
+                                        <th rowspan="2" width="50px" class="text-center">D</th>
+                                        <th rowspan="2" width="50px" class="text-center">R</th>
+                                        <th rowspan="2" width="50px" class="text-center">C</th>
+                                        <th rowspan="2" width="100px" class="text-center">Dung sai đóng gói</th>
+                                        <th rowspan="2" width="100px" class="text-center">Thể tích thực tế</th>
+                                        <th rowspan="2" width="100px" class="text-center">Thể tích để tính giá</th>
+                                        <!-- Chi phí VC LCL theo BCM -->
+                                        <th rowspan="2" width="100px" class="text-center">1,000,000,000</th>
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- CP VC count 20 -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Chi phí VC count 20 ot -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Chi phí VC count 40 -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Chi phí VC count 40 OT -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập LSS -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập THC -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập DO -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập CIC -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập HL -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập CLF -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập CFS -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập Lift -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập IF -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                        <!-- Phí LC đầu nhập OTher -->
+                                        <th rowspan="2" width="100px" class="text-center">Đơn giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th rowspan="2" width="100px" class="text-center">Tỷ giá</th>
+                                        <th rowspan="2" width="100px" class="text-center">Giá VNĐ</th>
+                                    </ng-container>
+                                </tr>
+                                <tr>
+                                    <ng-container *appUipermission="['F110805','F110807']">
+                                        <th width="100px" class="text-center">Đơn giá</th>
+                                        <th width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th width="100px" class="text-center">Tỷ giá</th>
+                                        <th width="100px" class="text-center">Giá VNĐ</th>
+                                        <th width="100px" class="text-center">Đơn giá</th>
+                                        <th width="100px" class="text-center">Loại tiền tệ</th>
+                                        <th width="100px" class="text-center">Tỷ giá</th>
+                                        <th width="100px" class="text-center">Giá VNĐ</th>
+                                    </ng-container>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;"
+                        [style.height.px]="height">
+                        <table class="table table-bordered table-hover" [style.min-width.px]="minWidth">
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index"
+                                    [ngClass]="{'selected': selectIndex == i}" (click)="selectProduct(i)">
+                                    <ng-container *appUipermission="['F110813']">
+                                        <td width="60px" style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;"
+                                                (change)="pushChecker(row)">
+                                        </td>
+                                    </ng-container>
+                                    <td width="50px" class="text-center">{{startIndex+i}}</td>
+                                    <td width="100px" class="text-center">
+                                        <a *appUipermission="['F110802','F110804','F110811']" type="button"
+                                            [routerLink]="['/thiet-bi/quan-ly-thiet-bi-nhap-khau/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <a *appUipermission="['F110805','F110806','F110807']" type="button"
+                                            [routerLink]="['/thiet-bi/quan-ly-thiet-bi-nhap-khau/xem/'+ row.Id]"
+                                            class="btn btn-xs btn-success" placement="top" ngbTooltip="Xem"
+                                            container="body">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button *appUipermission="['F110803']" class="btn btn-xs btn-danger"
+                                            container="body" (click)="showConfirmDelete(row.Id)" ngbTooltip="Xóa"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td min-width="200px">{{row.VietNamName}}</td>
+                                    <td width="200px">{{row.EnglishName}}</td>
+                                    <td width="150px">{{row.Model}}</td>
+                                    <td width="100px">{{row.TheFirm}}</td>
+                                    <td width="100px">{{row.ProductStandardTPATypeName}}
+                                        <!-- <span *ngIf="row.TypeMerchandise==1">Linh kiện</span>
+                    <span *ngIf="row.TypeMerchandise==2">Máy</span> -->
+                                    </td>
+                                    <ng-container *appUipermission="['F110805','F110806','F110807']">
+                                        <td width="200px">{{row.Manufacture_NCC_SX}}</td>
+                                        <td width="200px">{{row.Supplier_NCC_SX}}</td>
+                                        <td width="200px">{{row.Name_NCC_SX}}</td>
+                                    </ng-container>
+                                    <ng-container *appUipermission="['F110805','F110807']">
+                                        <td width="300px">{{row.Address_NCC_SX}}</td>
+                                        <td width="100px">{{row.PIC_NCC_SX}}</td>
+                                        <td width="100px">{{row.PhoneNumber_NCC_SX}}</td>
+                                        <td width="100px">{{row.Email_NCC_SX}}</td>
+                                        <td width="200px">{{row.Title_NCC_SX}}</td>
+                                        <td width="300px">{{row.BankPayment_NCC_SX}}</td>
+                                        <td width="200px">{{row.TypePayment_NCC_SX|
+                                            filterinlist:constant.TypePayment_NCC_SX}}
+                                            <!-- <span *ngIf="row.TypePayment_NCC_SX==1">LC</span>
+                    <span *ngIf="row.TypePayment_NCC_SX==2">TT</span> -->
+                                        </td>
+
+                                        <td width="200px">{{row.RulesPayment_NCC_SX}}</td>
+                                        <td width="200px">{{row.RulesDelivery|
+                                            filterinlist:constant.RulesPayment_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.DeliveryTime}}</td>
+                                        <td width="100px">{{row.Country_NCC_SX}}</td>
+                                        <td width="100px">{{row.Website_NCC_SX}}</td>
+
+                                        <td width="80px" class="text-right">{{row.ListedPrice|number}}</td>
+                                        <td width="80px">{{row.PriceConformQuantity}}</td>
+                                        <td width="100px">{{row.PricePolicy}}</td>
+                                        <td width="100px" class="text-right">{{row.MinimumQuantity|number}}</td>
+                                        <td width="100px">{{row.MethodVC| filterinlist:constant.MethodVC}}
+                                            <!-- <span *ngIf="row.MethodVC==1">Biển</span>
+                    <span *ngIf="row.MethodVC==2">Bộ</span>
+                    <span *ngIf="row.MethodVC==3">Hàng không</span> -->
+                                        </td>
+                                        <td width="100px">{{row.LoadingPort}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceInSP_Price|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceInPO_Price|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PO|filterinlist:constant.Currency_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PO|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amout_PO|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Weight_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceVCInWeight_PriceWord|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.VolumePricing_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">{{row.CPVCInWeight_Price_PriceWord|number}}
+                                        </td>
+                                        <td width="100px" class="text-center">
+                                            {{row.CPVCInWeight_Currency_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.CPVCInWeight_Ratio_PriceWord|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.CPVCInWeight_AmoutVND_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Weight_Air_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.MassConvertedBySize_Air_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">{{row.VolumePricing_Air_PriceWord|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_AirTransport_Air_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.
+                                            Curency_AirTransport_Air_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_AirTransport_Air_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amount_AirTransport_Air_PriceWord|number}}</td>
+                                        <td width="50px" class="text-right">{{row.PackingSize_D_PriceWord|number}}</td>
+                                        <td width="50px" class="text-right">{{row.PackingSize_R_PriceWord|number}}</td>
+                                        <td width="50px" class="text-right">{{row.PackingSize_C_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.PackingSize_Tolerance_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.PackingSize_RealVolume_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.PackingSize_PiceVolume_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceVCInCBM_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_PriceVC_LCLInBCM_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceVC_LCLInBCM_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_PriceVC_LCLInBCM_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amout_PriceVC_LCLInBCM_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_PriceVC_Cont20_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceVC_Cont20_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_PriceVC_Cont20_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amout_PriceVC_Cont20_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_PriceVC_Cont20OT_PiceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceVC_Cont20OT_PiceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_PriceVC_Cont20OT_PiceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amount_PriceVC_Cont20OT_PiceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_PriceVC_Cont40_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceVC_Cont40_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_PriceVC_Cont40_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amount_PriceVC_Cont40_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price_PriceVC_Cont40OT_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceVC_Cont40OT_PriceWord|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Ratio_PriceVC_Cont40OT_PriceWord|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Amount_PriceVC_Cont40OT_PriceWord|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.UpdateDatePice_PriceWord|date:'ddMMyyyy'}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCExport|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCExport|filterinlist:constant.Currency_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCExport|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCExport|number}}</td>
+                                        <td width="100px">{{row.InsurranceType}}</td>
+                                        <td width="150px" class="text-right">{{row.Price_InsurrancePrice|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_LSS|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_LSS|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_LSS|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_LSS|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_THC|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_THC|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_THC|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_THC|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_DO|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_DO|filterinlist:constant.Currency_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_DO|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_DO|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_CIC|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_CIC|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_CIC|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_CIC|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_HL|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_HL|filterinlist:constant.Currency_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_HL|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_HL|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_CLF|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_CLF|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_CLF|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_CLF|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_CFS|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_CFS|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_CFS|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_CFS|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_Lift|number}}
+                                        </td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_Lift|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_Lift|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_Lift|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_IF|number}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_IF|filterinlist:constant.Currency_NCC_SX}}</td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_IF|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_IF|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_PriceLCImport_Other|number}}
+                                        </td>
+                                        <td width="100px" class="text-center">
+                                            {{row.Currency_PriceLCImport_Other|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Ratio_PriceLCImport_Other|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">{{row.Amount_PriceLCImport_Other|number}}
+                                        </td>
+                                        <td width="100px" class="text-center">{{row.HSCode}}</td>
+                                        <td width="100px" class="text-right">{{row.ImportTax|number}}</td>
+                                        <td width="100px" class="text-right">{{row.ImportTaxPrice|number}}</td>
+                                        <td width="100px" class="text-right">{{row.UpdateDateHSCode|date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td width="100px">{{row.NameTaxOther}}</td>
+                                        <td width="100px" class="text-right">{{row.TaxOther|number}}</td>
+                                        <td width="100px" class="text-right">{{row.ImportTaxPriceOther|number}}</td>
+                                        <td width="80px" class="text-right">{{row.VAT|number}}</td>
+                                        <td width="150px" class="text-right">{{row.PriceOther|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceFW|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Surcharge|number}}</td>
+                                        <td width="100px" class="text-right">{{row.InventoryTime|number}}</td>
+                                        <td width="100px" class="text-right">{{row.ShortInterest|number}}</td>
+                                        <td width="100px" class="text-right">{{row.MidtermInterest|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceProduct_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceVC_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.ImportTaxPrice_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.ImportTax_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.VAT_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Interest_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.TotalPrice|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Profit_TPA|number}}</td>
+                                        <td width="100px" class="text-right">{{row.PriceEXW_TPA|number}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.UpdateDatePrice_TPA|date:'dd/MM/yyyy'}}</td>
+                                    </ng-container>
+                                    <ng-container *appUipermission="['F110806','F110807']">
+                                        <td width="100px" class="text-right">{{row.Price_L1|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_L2|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_L3|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_L4|number}}</td>
+                                        <td width="100px" class="text-right">{{row.Price_L5|number}}</td>
+                                    </ng-container>
+                                    <td width="100px" class="text-center">
+                                        <span class="badge badge-pill badge-success" *ngIf="row.IsSendSale">Đã
+                                            chuyển</span>
+                                        <span class="badge badge-pill badge-danger" *ngIf="!row.IsSendSale">Chưa
+                                            chuyển</span>
+                                    </td>
+                                    <td width="100px" class="text-center">{{row.SyncDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="15" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="searchProductStandardTPA()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+                        (pageChange)="searchProductStandardTPA()" [pageSize]="model.PageSize" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa thiết bị nhập khẩu</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa thiết bị nhập khẩu</small>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

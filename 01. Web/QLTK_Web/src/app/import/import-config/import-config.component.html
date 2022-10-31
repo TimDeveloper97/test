@@ -1,0 +1,107 @@
+<div class="content-wrapper ">
+    <form name="form" #f="ngForm" novalidate>
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 ">
+                        <div class="form-group ">
+                            <label class="form-label">Loại tài liệu
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <select class="form-control" style="border: 1px solid #ddd;"
+                                    [(ngModel)]="documentConfig.Step" (ngModelChange)="getConfigByType()"
+                                    name="pageSize">
+                                    <option *ngFor="let item of constant.ImportConfigStep" [value]="item.Id">{{item.Name}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 ">
+                        Danh sách tài liệu
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+                        <button type="button" class="btn btn-success"  *appUipermission="['F120601']" (click)='createConfig()' container="body">
+                            <i class="fa fa-plus"></i>
+                            Thêm mới
+                        </button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 ">
+                        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                            <table class="table table-bordered" style="min-width:780px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT
+                                        </th>
+                                        <th width="80px" class="text-center">Xử lý
+                                        </th>
+                                        <th width="400px" class="text-center">
+                                            Tên tài liệu
+                                        </th>
+                                        <th min-width="150px" class="text-center">
+                                            Ghi chú
+                                        </th>
+                                        <th width="100px" class="text-center">
+                                            Bắt buộc
+                                            <input (change)="checkAll()" [(ngModel)]="isAll" type="checkbox"
+                                                name="isALL" style="height:20px; width:20px;">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of documentConfig.Documents; let i = index">
+                                        <td class="text-center">{{i+1}}
+                                        </td>
+                                        <td class="text-center">
+                                            <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(i)"
+                                                placement="bottom" ngbTooltip="Xóa" container="body">
+                                                <span class="fas fa-times" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <input [(ngModel)]="row.Name" class="form-control" type="text"
+                                                name="{{'Name'+i}}" maxlength="300" [disUipermission]="['F120601']">
+                                        </td>
+                                        <td>
+                                            <input [(ngModel)]="row.Note" class="form-control" type="text"
+                                                name="{{'Note'+i}}" maxlength="500" [disUipermission]="['F120601']">
+                                        </td>
+                                        <td style="text-align:center">
+                                            <input (change)="checkItem(row)" [(ngModel)]="row.IsRequired"
+                                                type="checkbox" name="{{'Checked'+row.name+i}}"
+                                                style="height:20px; width:20px;">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot *ngIf="documentConfig.Documents.length == 0 && !isLoad">
+                                    <tr class="bold">
+                                        <td colspan="5" min-width="300px" class="text-center"
+                                            style="height: 300px; font-size: 20px;">
+                                            Không có dữ liệu
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+                        <button type="button" class="btn btn-success" (click)="updateConfig()"  *appUipermission="['F120601']">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>Lưu</span>
+                        </button>                     
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

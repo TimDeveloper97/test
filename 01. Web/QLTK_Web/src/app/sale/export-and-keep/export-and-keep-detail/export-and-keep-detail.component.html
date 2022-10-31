@@ -1,0 +1,69 @@
+<div class="modal-header">
+  <h3 class="modal-title text-danger text-uppercase">Chi tiết xuất giữ - Robot tự động - Mh001 </h3>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <div class="row margin-bottom-10">
+    <div class="col-md-6 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{total}}</span> xuất giữ &nbsp; </label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-lg-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:1110px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Trạng thái</th>
+              <th width="150px" class="text-center">Mã xuất giữ</th>
+              <th width="150px" class="text-center">Người tạo</th>
+              <th min-width="180px" class="text-center">Khách hàng</th>
+              <th width="140px" class="text-center">Số lượng sản phẩm</th>
+              <th width="140px" class="text-center">Số lượng đang giữ</th>
+              <th width="100px" class="text-center">Ngày tạo</th>
+              <th width="100px" class="text-center ">Hạn xuất giữ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td class="text-center">{{startIndex+i}}</td>
+              <td class="text-center">
+                <span class="badge badge-primary" *ngIf ="row.Status == 1">Đã bán</span>
+                <span class="badge badge-secondary" *ngIf ="row.Status == 3">Trả về kho</span>
+                <span class="badge badge-danger" *ngIf ="row.Status == 5">Quá hạn</span>
+                <span class="badge badge-success" *ngIf ="row.Status == 6">Đúng hạn</span>
+                <!-- {{row.Status |filterbadgeclassinlist:constant.exportandkeepstatus}}</td> -->
+              <td>{{row.Code}}</td>
+              <td>{{row.CreateBy}}</td>
+              <td>{{row.Customer}}</td>
+              <td>{{row.TotalProduct}}</td>
+              <td>{{row.AvailableQuantity | number}}</td>
+              <td>{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+              <td>{{row.ExpirationDate|date:'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listData.length == 0">
+            <tr class="bold">
+              <td colspan="12" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

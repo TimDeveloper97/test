@@ -1,0 +1,204 @@
+<div class="row">
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+        <span class="bold text-danger">{{model.ListResult.length}}</span> giải pháp |</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số sản phẩm đã có giải pháp:
+        <span class="bold text-danger">{{totalProjectSolutionProduct}} / {{totalProduct }}</span> |</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Trạng thái:
+        <span class="bold text-danger">{{statusProduct}}</span></label>
+    </div>
+    <div class="col-xl-4 col-md-4 col-sm-4 col-xs-12 text-right mb-1">
+      <button class="btn btn-default btn-default-system" (click)="searchProjectSolution()">
+        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      &nbsp;
+      <!-- <button *appUipermission="['F060026']" type=" button" class="btn btn-success" (click)="showClick()">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+        Chọn
+      </button> -->
+  
+    </div>
+  
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:3100px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="200px" class="text-center">Tên giải pháp</th>
+              <th width="200px" class="text-center">Mã giải pháp</th>
+              <th width="200px" class="text-center">Nhóm giải pháp</th>
+              <th width="200px" class="text-center">Mã dự án</th>
+              <th width="200px" class="text-center">Tên dự án</th>
+              <th width="150px" class="text-center">Khách hàng</th>
+              <th width="150px" class="text-center">Khách hàng cuối</th>
+              <th width="200px" class="text-center">Người phụ trách kinh doanh</th>
+              <th width="160px" class="text-center">Người làm giải pháp</th>
+              <th width="150px" class="text-center">3D giải pháp</th>
+              <th width="150px" class="text-center">BV tổng 2D</th>
+              <th width="150px" class="text-center">Bản giải trình</th>
+              <th width="150px" class="text-center">DMVT</th>
+              <th width="150px" class="text-center">FCM</th>
+              <th width="150px" class="text-center">TSKT</th>
+              <th width="100px" class="text-center">Giá</th>
+              <th width="130px" class="text-center">Ngày hoàn thành</th>
+              <th min-width="200px" class="text-center">Mô tả</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of model.ListResult; let i = index" [ngClass]="{'selected':selectIndex == i}"
+              (click)="loadParam(i, row.ProjectSolutionId, row.Id);">
+              <ng-container *ngIf="row.IsDelete == false">
+  
+                <td class="text-center">{{i+1}}</td>
+                <td>{{row.Name}}</td>
+                <td>{{row.Code}}</td>
+                <td>{{row.SolutionGroupName}}</td>
+                <td>{{row.ProjectCode}}</td>
+                <td>{{row.ProjectName}}</td>
+                <td>{{row.CustomerName}}</td>
+                <td>{{row.EndCustomerName}}</td>
+                <td>{{row.TPAUName}}</td>
+                <td>{{row.SolutionMakerName}}</td>
+                <td>
+                  <div>
+                    <div  class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.Has3DSolution" type="checkbox" class="custom-control-input" [id]="i" [name]="i" disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+  
+                    <div *ngIf="row.Design3DExist " class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.Design3DExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>                  
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.Has2D" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                        disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+  
+                    <div *ngIf="row.Design2DExist " class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.Design2DExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.HasExplan" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                        disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+  
+                    <div *ngIf="row.ExplanExist" class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.ExplanExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.HasDMVT" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                        disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+  
+                    <div *ngIf="row.DMVTExist " class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.DMVTExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.HasFCM" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                        disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+  
+                    <div *ngIf="row.FCMExist " class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.FCMExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <div>
+                    <div class="custom-control custom-checkbox  margin-left-25">
+                      <input [ngModel]="row.HasTSKT" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                        disabled>
+                      <label class="custom-control-label" [for]="i"></label>
+                    </div>
+                    <div *ngIf="row.TSTKExist " class="custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                    </div>
+  
+                    <div *ngIf="!row.TSTKExist" class=" custom-control custom-checkbox">
+                      <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                <td>{{row.Description}}</td>
+              </ng-container>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <p class="text-uppercase" style="white-space: nowrap"><b>Tổng số <span
+            class="bold text-danger">{{listProjectProduct.length}}</span> sản phẩm</b></p>
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:500px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="130px" class="text-center">Mã theo hợp đồng</th>
+              <th width="140px" class="text-center">Tên theo hợp đồng</th>
+              <th width="150px" class="text-center">Mã TK</th>
+              <th min-width="200px" class="text-center">Tên TK</th>
+              <th width="100px" class="text-center">Giá</th>
+              <th width="200px" class="text-center">Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listProjectProduct; let i = index">
+              <td class="text-center">{{StartIndex+i}}</td>
+              <td>{{row.ContractCode  }}</td>
+              <td>{{row.ContractName}}</td>
+              <td>{{row.Code}}</td>
+              <td>{{row.Name}}</td>
+              <td class="text-right">{{row.Price|number}}</td>
+              <td>{{row.Note}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>

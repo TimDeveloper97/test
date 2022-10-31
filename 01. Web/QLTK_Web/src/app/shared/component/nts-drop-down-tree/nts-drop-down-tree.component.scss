@@ -1,0 +1,17 @@
+.dx-toolbar {
+  .dx-toolbar-after {
+    width: 100%;
+    padding-left: 0px;
+
+    .dx-treelist-search-panel {
+      margin-left: 0px;
+      width: 100% !important;
+    }
+  }
+}
+
+.dx-popup-content{
+  .content-tree{
+    height: calc(100% - 40px);
+  }
+}

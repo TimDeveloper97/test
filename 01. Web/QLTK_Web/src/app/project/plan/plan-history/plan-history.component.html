@@ -1,0 +1,79 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Lịch sử thay đổi kế hoạch</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width: 1360px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="100px" class="text-center">Xử lý</th>
+                                    <th min-width="100px" class="text-center">Tên version</th>
+                                    <th width="150px" class="text-center">Trạng thái</th>
+                                    <th width="150px" class="text-center">Ngày KH chấp nhận</th>
+                                    <th width="200px" class="text-center">Tài liệu</th>
+                                    <th width="150px" class="text-center">Người cập nhật</th>
+                                    <th width="120px" class="text-center">Ngày cập nhật</th>
+                                    <th width="360px" class="text-center">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td class="text-center">
+                                        <a type="button" class="btn btn-xs btn-info"
+                                            [routerLink]="['/du-an/quan-ly-du-an/lich-su-thay-doi-gia-han-hop-dong/'+ row.Id]"
+                                            placement="top" ngbTooltip="Xem thông tin" container="body" target="_blank">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button type="button" (click)="exportExcelProjectPlan(row.Id)"
+                                            class="btn btn-xs btn-success" placement="top" ngbTooltip="Xuất excel"
+                                            container="body">
+                                            <span class="fas fa-file-excel" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">{{row.Version}}</td>
+                                    <td class="text-center">
+                                        <nts-status [items]="Status" [value]="row.Status">
+                                        </nts-status>
+                                    </td>
+                                    <td class="text-center">{{row.AcceptDate|date:'dd/MM/yyyy'}}</td>
+                                    <td><a href="javascript:void(0)" style="text-decoration: none;"
+                                            (click)="downloadAFile(row)" [ngbTooltip]="row.FileName"
+                                            container="body">{{row.FileName|limitTo:26}}</a></td>
+                                    <td>{{row.CreateByName}}</td>
+                                    <td class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+                                    <td>
+                                        <textarea [(ngModel)]="row.Description" [name]="'Description' + i" rows="2"
+                                            class="form-control"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="8" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

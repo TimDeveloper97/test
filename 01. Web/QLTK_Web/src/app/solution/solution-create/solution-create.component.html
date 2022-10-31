@@ -1,0 +1,532 @@
+<div class="content-wrapper app-module-create padding-top-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <!-- Tab thông tin tiêu chuẩn -->
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+              <div class="row">
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Nhóm giải pháp
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down-tree [disUipermission]="['F070101','F070102']" [items]="listSolutionGroup"
+                        [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                        required ntsAutoClose="true" [(ngModel)]="model.SolutionGroupId" name="SolutionGroupId">
+                      </nts-drop-down-tree>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Mã giải pháp
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F070101','F070102']" type="text" class="form-control"
+                        [(ngModel)]="model.Code" name="Codesolution" maxlength="50" required disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Tên giải pháp
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F070101','F070102']" type="text" class="form-control"
+                        [(ngModel)]="model.Name" name="namesolution" maxlength="300" required>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Khách hàng
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+
+                    <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listCustomer"
+                      [columns]="columnCustomer" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.CustomerId" name="CustomerId" (change)="getListCustomerRequirementAndJob()"
+                      required>
+                    </nts-drop-down>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Yêu cầu khách hàng
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listCustomerRequirements"
+                        [columns]="columnCustomerRequirements" ntsValue="Id" ntsLabel="Name" ntsMode="single" required
+                        ntsAutoClose="true" [(ngModel)]="model.CustomerRequirementId" name="CustomerRequirementId"
+                        (change)="getCustomerRequirementCode()">
+                      </nts-drop-down>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Số yêu cầu làm giải pháp</label>
+                    <div class="controls">
+                      <input type="text" class="form-control" [(ngModel)]="model.CustomerRequirementCode"
+                        name="CustomerRequirementCode" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Lĩnh vực
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <input type="text" class="form-control" [(ngModel)]="model.CustomerRequirementJob"
+                        name="CustomerRequirementJob" disabled>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Khách hàng cuối
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+
+                    <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listCustomer"
+                      [columns]="columnCustomer" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.EndCustomerId" name="EndCustomerId">
+                    </nts-drop-down>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Trạng thái</label>
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                    <div class="controls">
+                      <select name="Status" [disUipermission]="['F070101','F070102']" class="form-control"
+                        [(ngModel)]="model.Status" disabled required>
+                        <option *ngFor="let item of listStatus" [ngValue]="item.Id">{{item.Name}}</option>
+                      </select>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12" *ngIf="model.Status == 2">
+                  <div class="form-group ">
+                    <label class="form-label">Dự án</label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listProject"
+                        [columns]="columnProject" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.ProjectId" name="ProjectId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">SBU phụ trách kinh doanh
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listSBU" [columns]="columnSBU"
+                        ntsValue="Id" ntsLabel="Name" ntsMode="single" required ntsAutoClose="true"
+                        [(ngModel)]="model.SBUBusinessId" name="SBUBusinessId" (change)="getListDepartmentBusiness()">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Phòng ban phụ trách kinh doanh
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listDepartmentBusiness"
+                        [columns]="columnDepartment" ntsValue="Id" ntsLabel="Name" ntsMode="single" required
+                        ntsAutoClose="true" [(ngModel)]="model.DepartmentBusinessId" name="DepartmentBusinessId"
+                        (change)="getListEmployeeBusiness()">
+                      </nts-drop-down>
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Người phụ trách kinh doanh
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listEmployeeBusiness"
+                        [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name" ntsMode="single" required
+                        ntsAutoClose="true" [(ngModel)]="model.BusinessUserId" name="BusinessUserId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">SBU làm giải pháp
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listSBU" [columns]="columnSBU"
+                        ntsValue="Id" ntsLabel="Name" ntsMode="single" required ntsAutoClose="true"
+                        (change)="getListDepartmentMaker()" [(ngModel)]="model.SBUSolutionMakerId"
+                        name="SBUSolutionMakerId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Phòng ban làm giải pháp
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listDepartmentMaker"
+                        [columns]="columnDepartment" ntsValue="Id" ntsLabel="Name" ntsMode="single" required
+                        ntsAutoClose="true" (change)="getListEmployeeMaker()"
+                        [(ngModel)]="model.DepartmentSolutionMakerId" name="DepartmentSolutionMakerId">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Người phụ trách chính
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listEmployeesMaker"
+                        [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name" ntsMode="single" required
+                        ntsAutoClose="true" [(ngModel)]="model.SolutionMaker" name="SolutionMaker">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Người làm cơ khí
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listEmployeesMaker"
+                        [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.MechanicalMaker" name="MechanicalMaker">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Người làm điện
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listEmployeesMaker"
+                        [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.ElectricMaker" name="ElectricMaker">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Người làm điện tử / Phần mềm
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [disUipermission]="['F070101','F070102']" [items]="listEmployeesMaker"
+                        [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.ElectronicMaker" name="ElectronicMaker">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Giá</label>
+                    <div class="controls">
+                      <input [disUipermission]="['F070101','F070102']" currencyMask
+                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.',precision:0  }" type="text"
+                        class="form-control" [(ngModel)]="model.Price" name="Price" maxlength="18">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Giá bán thực tế chưa VAT
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F070101','F070102']" currencyMask
+                        [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                        name="SaleNoVat" type="text" class="form-control" [(ngModel)]="model.SaleNoVat" maxlength="18">
+                      <!-- <input ntsNumberInt type="text" class="form-control" [(ngModel)]="model.SaleNoVat" name="SaleNoVat"
+                        maxlength="300" required> -->
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ngày bắt đầu</label>
+                    <div class="controls">
+                      <div class="input-group ">
+                        <input [disUipermission]="['F070101','F070102']" class="form-control" placeholder="dd/mm/yyyy"
+                          name="StartDate" [(ngModel)]="startDate" ngbDatepicker #StartDate="ngbDatepicker">
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="StartDate.toggle();$event.stopPropagation();">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ngày hoàn thành</label>
+                    <div class="controls">
+                      <div class="input-group ">
+                        <input [disUipermission]="['F070101','F070102']" class="form-control" placeholder="dd/mm/yyyy"
+                          name="FinishDate" [(ngModel)]="finishDate" ngbDatepicker #FinishDate="ngbDatepicker">
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="FinishDate.toggle();$event.stopPropagation();">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Công nghệ
+                    </label>
+                    <div class="controls">
+                      <ng-select [items]="dropdownList" [addTag]="addTagFn" [hideSelected]="true" multiple="true"
+                        bindValue="Name" bindLabel="Name" [(ngModel)]="model.SolutionTechnologies"
+                        name="solutionTechnologie">
+                      </ng-select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Mảng kinh doanh
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <label class="radio">FAS
+                        <input type="radio" name="BusinessDomain" [(ngModel)]="model.BusinessDomain" value="FAS">
+                        <span class="checkround"></span>
+                      </label>&nbsp;
+                      <label class="radio ml-1">LAS
+                        <input type="radio" name="BusinessDomain" [(ngModel)]="model.BusinessDomain" value="LAS">
+                        <span class="checkround"></span>
+                      </label>&nbsp;
+                      <label class="radio">ETS
+                        <input type="radio" name="BusinessDomain" [(ngModel)]="model.BusinessDomain" value="ETS">
+                        <span class="checkround"></span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group ">
+                    <label class="form-label">Tình trạng hồ sơ
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <br>
+                    <input type="checkbox" [disUipermission]="['F070101','F070102','F070114']"
+                      [(ngModel)]="model.IsEnoughDocument" name="IsEnoughDocument"
+                      style="height:15px; width:15px;">&nbsp;&nbsp; Đã đủ tài liệu
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ngành nghề
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [items]="listJob" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.JobId" name="Job" >
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ứng Dụng
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <nts-drop-down [items]="listApplication" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ApplicationId" name="Application">
+                      </nts-drop-down>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <label class="form-label">Mô tả
+                      <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                      <textarea [radUipermission]="['F070101','F070102']" [(ngModel)]="model.Description" rows="2"
+                        name="Description" class="form-control"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                  <label class="form-label" style="line-height:35px;">Ảnh giải pháp</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                  <div style="margin-left: 5px" class="upload-btn-wrapper">
+                    <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                      <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                    <input name="fileDataSheet" style="display: none;" type="file" id="fileDataSheet" #fileImage
+                      (change)="uploadFileClickImage($event)" multiple accept="image/*" />
+                  </div>
+                </div>
+              </div>
+              <!-- <div class=" img-avata" *ngIf="galleryImages.length == 0">
+                <img class="img-thumbnail"
+                  [src]="fileProcess.fileModel.DataURL?fileProcess.fileModel.DataURL: ('/assets/img/noavatar.gif')">
+              </div> -->
+              <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right mt-3">
+              <ng-container>
+                <button *appUipermission="['F070101','F070102']" type="button" class="btn btn-success"
+                  [disabled]="!f.form.valid" (click)="save(false)">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>&nbsp;
+              </ng-container>
+              <ng-container>
+                <button *appUipermission="['F070101']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                  (click)="saveAndContinue()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu & Tiếp tục</span>
+                </button>&nbsp;
+              </ng-container>
+              <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                <i class="fa fa-power-off"></i> &nbsp;
+                <span>
+                  Đóng
+                </span>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2" disabled="true" [disabled]="permissionService.checkPermission(['F070112']) || Id==null">
+        <a ngbNavLink>Dự án</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="row">
+                <div class="col-lg-7 col-md-8 col-sm-12">
+                  <p class="text-uppercase" style="white-space: nowrap"><b>Danh sách dự án</b>
+                  </p>
+                </div>
+                <div class="col-lg-5 col-md-4 col-sm-12 text-right">
+                  <button *appUipermission="['F070110']" type="button" class="btn btn-success btn-upload" value="Upload"
+                    (click)="showClick()"><i class="fas fa-arrow-up"></i> &nbsp; Chọn</button>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:700px">
+                      <thead>
+                        <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="60px" class="text-center">Xử lý</th>
+                          <th width="100px" class="text-center">Mã dự án</th>
+                          <th min-width="250px" class="text-center">Tên dự án</th>
+                          <th width="150px" class="text-center">Khách hàng</th>
+                          <th width="150px" class="text-center">SBU</th>
+                          <th width="150px" class="text-center">Phòng ban</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let row of ListResult; let i = index">
+                          <td class="text-center">{{i+1}}</td>
+                          <td class="text-center"> <button *appUipermission="['F070111']" type="button"
+                              class="btn btn-xs btn-danger" ngbTooltip="Xóa" (click)="showConfirmDelete(row)">
+                              <span class="fas fa-times" aria-hidden="true"></span>
+                            </button></td>
+                          <td>{{row.ProjectName}}</td>
+                          <td>{{row.ProjectCode}}</td>
+                          <td>{{row.Customer}}</td>
+                          <td>{{row.SBUName}}</td>
+                          <td>{{row.DepartmentName}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'tab-design-document'" [disabled]="permissionService.checkPermission(['F070112']) || Id==null">
+        <a ngbNavLink>Tài liệu thiết kế</a>
+        <ng-template ngbNavContent>Tài liệu thiết kế
+          <app-solution-tab-design-document [Id]="Id"></app-solution-tab-design-document>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

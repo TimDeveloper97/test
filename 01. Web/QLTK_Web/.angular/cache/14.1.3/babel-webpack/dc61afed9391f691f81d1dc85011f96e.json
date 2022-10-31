@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const createContext = function (defaultValue) {\n  return defaultValue;\n};","map":null,"metadata":{},"sourceType":"module"}

@@ -1,0 +1,201 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã kết quả đầu ra
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="outputResultModel.Code" name="Code"
+                            maxlength="50" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên kết quả đầu ra
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="outputResultModel.Name" name="name"
+                            maxlength="300" required>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">SBU
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="subs" [columns]="columnName"
+                            ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="outputResultModel.SBUId" name="SBUId" (ngModelChange)="getCbbDepartment()"
+                            required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Phòng ban
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down  [items]="departments" [columns]="columnName"
+                            ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="outputResultModel.DepartmentId" name="DepartmentId" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="form-label">Ghi chú
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <textarea [(ngModel)]="outputResultModel.Note" name="Note" rows="5" class="form-control"
+                            [maxLength]="300"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row  margin-bottom-5">
+                    <div class="col-md-6 text-left">
+                        <label class="form-label" style="line-height:35px;">Tổng số
+                            <span class="bold text-danger">{{outputResultModel.FlowStages.length}}</span> dòng chảy
+                            ra
+                        </label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-success"
+                            (click)='chooseOutputResult()' container="body">
+                            <i class="fa fa-plus"></i>
+                            Chọn
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:430px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Xử lý</th>
+                                <th width="150px" class="text-center">Mã dòng chảy</th>
+                                <th min-width="150px" class="text-center">Tên dòng chảy</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of outputResultModel.FlowStages; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                        (click)="showConfirmDeleteOutputResult(i)" container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    {{row.Code}}
+                                </td>
+                                <td>
+                                    {{row.Name}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row  margin-bottom-5">
+                    <div class="col-md-6 text-left">
+                        <label class="form-label" style="line-height:35px;">Tổng số
+                            <span class="bold text-danger">{{outputResultModel.Documents.length}}</span> tài liệu
+                            ra
+                        </label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button type="button" class="btn btn-success"
+                            (click)='chooseDocument()' container="body">
+                            <i class="fa fa-plus"></i>
+                            Chọn
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:580px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Xử lý</th>
+                                <th width="150px" class="text-center">Mã tài liệu</th>
+                                <th min-width="150px" class="text-center">Tên tài liệu</th>
+                                <th width="150px" class="text-center">Nhóm tài liệu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of outputResultModel.Documents; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                        (click)="showConfirmDeleteDocument(i)" container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    {{row.Code}}
+                                </td>
+                                <td>
+                                    {{row.Name}}
+                                </td>
+                                <td>
+                                    {{row.DocumentGroupName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)" *appUipermission="['F121471','F121472']">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="outputResultModel.Id ==''">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()" *appUipermission="['F121471']">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

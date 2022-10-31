@@ -1,0 +1,93 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Danh sách công việc chuyển giao</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listData.length}}</span> công việc chuyển giao</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <virtual-scroller #scroll [items]="listData" style=" display: block;height: 450px;">
+            <table class="table table-bordered table-fixed table-hover"
+              style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1880px;">
+              <thead #header style="background-color: white">
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th style="text-align:center;padding-top: 10px;" width="50px">
+                    <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                      style="height:20px; width:20px;" (change)="checkAll(true)">
+                  </th>
+                  <th width="150px" class="text-center">Mã TK</th>
+                  <th width="100px" class="text-center">Mã dự án</th>
+                  <th width="150px" class="text-center">Nhân viên thực hiện</th>
+                  <th width="130px" class="text-center">Mã theo hợp đồng</th>
+                  <th width="300px" class="text-center">Tên theo hợp đồng</th>
+                  <th min-width="200px" class="text-center">Tên TK</th>
+                  <th width="200px" class="text-center">Công việc</th>
+                  <th width="100px" class="text-center">Tình trạng</th>
+                  <th width="100px" class="text-center">Thời gian thực hiện</th>
+                  <th width="100px" class="text-center">Ngày bắt đầu dư kiến</th>
+                  <th width="100px" class="text-center">Ngày kết thúc dự kiến</th>
+                  <th width="100px" class="text-center">Ngày bắt đầu thực tế</th>
+                  <th width="100px" class="text-center">Ngày kết thúc thực tế</th>
+                </tr>
+              </thead>
+
+              <tbody #container>
+                <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                  <td width="50px" class="text-center">{{1+i}}</td>
+                  <td style="text-align:center" width="50px">
+                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                      style="height:20px; width:20px;" (change)="selectFunction(i, row)">
+                  </td>
+                  <td width="150px">{{row.Code}}</td>
+                  <td width="100px">{{row.projectCode}}</td>
+                  <td class="text-center" width="150px">{{row.ResponsiblePersion}}</td>
+                  <td width="130px">{{row.ContractCode}}</td>
+                  <td width="140px">{{row.ContractName}}</td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="200px">{{row.TaskName}}</td>
+                  <td width="100px" class="text-center">
+                    <span *ngIf="row.Status == 1">Chưa thực hiện</span>
+                    <span *ngIf="row.Status == 2">Đang thực hiện</span>
+                    <span *ngIf="row.Status == 3">Đã hoàn thành</span>
+                  </td>
+                  <td class="text-center" width="100px">{{row.ExecutionTime}}</td>
+                  <td class="text-center" width="100px">{{row.StartDate| date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="100px">{{row.EndDate |date:'dd/MM/yyyy'  }}</td>
+                  <td class="text-center" width="100px">{{row.RealStartDate | date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="100px">{{row.RealEndDate | date:'dd/MM/yyyy' }}</td>
+
+                </tr>
+              </tbody>
+            </table>
+          </virtual-scroller>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()">
+      <i class="fa fa-check"></i>&nbsp;
+      <span>Xác nhận</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

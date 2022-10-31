@@ -1,0 +1,239 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase">Hiển thị tìm kiếm theo :</h4>
+</div>
+<div class="modal-body padding-15 col-xl-12 col-md-12 col-sm-12 col-lg-12" style="display: flex;">
+    <div class="col-xl-6 col-md-6 col-sm-6 col-lg-6">
+        <div style="display: flex;">
+            <div style=" width: 50%;">
+                <label><b>Bắt đầu hợp đồng</b></label>
+            </div>
+            <div style=" display: flex; width: 50%;">
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Từ ngày" [name]="ContractStartDateToV"
+                        [(ngModel)]="modelSearchProject.ContractStartDateToV" ngbDatepicker
+                        #ContractStartDateToV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="ContractStartDateToV.toggle();$event.stopPropagation();">
+                </div>
+                &nbsp;&nbsp;
+                <span> - </span>
+                &nbsp;&nbsp;
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Đến ngày" [name]="ContractStartDateFromV"
+                        [(ngModel)]="modelSearchProject.ContractStartDateFromV" ngbDatepicker
+                        #ContractStartDateFromV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="ContractStartDateFromV.toggle();$event.stopPropagation();">
+                </div>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <div style=" width: 50%;">
+                <label><b>Kết thúc hợp đồng</b></label>
+            </div>
+            <div style=" display: flex; width: 50%;">
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Từ ngày" [name]="ContractDueDateToV"
+                        [(ngModel)]="modelSearchProject.ContractDueDateToV" ngbDatepicker
+                        #ContractDueDateToV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="ContractDueDateToV.toggle();$event.stopPropagation();">
+                </div>
+                &nbsp;&nbsp;
+                <span> - </span>
+                &nbsp;&nbsp;
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Đến ngày" [name]="ContractDueDateFromV"
+                        [(ngModel)]="modelSearchProject.ContractDueDateFromV" ngbDatepicker
+                        #ContractDueDateFromV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="ContractDueDateFromV.toggle();$event.stopPropagation();">
+                </div>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Tên sản phẩm</b></label>
+            <div class="controls" style="width: 50%;">
+                <input type="text" class="form-control" name="NameProduct"
+                        [(ngModel)]="modelSearchProject.NameProduct">
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Phân loại</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.WorkClassify">
+                    <option *ngFor="let item of Type" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Tình trạng công việc(nội bộ)</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.PlanStatus">
+                    <option *ngFor="let item of PlanStatus" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Tình trạng công việc</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.WorkStatus">
+                    <option *ngFor="let item of WorkStatus" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Công đoạn</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.StageId">
+                    <option>Tất cả</option>
+                    <option *ngFor="let item of Stages" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Phòng ban</b></label>
+            <div class="controls" style="width: 50%;">
+                <nts-drop-down [items]="Departments" [columns]="ColumnsDepartment" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="modelSearchProject.DepartmentId"
+                    name="DepartmentId">
+                </nts-drop-down>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-6 col-md-6 col-sm-6 col-lg-6">
+        <div style="display: flex;">
+            <div style=" width: 50%;">
+                <label><b>Bắt đầu triển khai</b></label>
+            </div>
+            <div style=" display: flex; width: 50%;">
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Từ ngày" [name]="PlanStartDateToV"
+                        [(ngModel)]="modelSearchProject.PlanStartDateToV" ngbDatepicker
+                        #PlanStartDateToV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="PlanStartDateToV.toggle();$event.stopPropagation();">
+                </div>
+                &nbsp;&nbsp;
+                <span> - </span>
+                &nbsp;&nbsp;
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Đến ngày" [name]="PlanStartDateFromV"
+                        [(ngModel)]="modelSearchProject.PlanStartDateFromV" ngbDatepicker
+                        #PlanStartDateFromV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="PlanStartDateFromV.toggle();$event.stopPropagation();">
+                </div>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <div style=" width: 50%;">
+                <label><b>Kết thúc triển khai</b></label>
+            </div>
+            <div style=" display: flex; width: 50%;">
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Từ ngày" [name]="PlanDueDateToV"
+                        [(ngModel)]="modelSearchProject.PlanDueDateToV" ngbDatepicker #PlanDueDateToV="ngbDatepicker"
+                        [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="PlanDueDateToV.toggle();$event.stopPropagation();">
+                </div>
+                &nbsp;&nbsp;
+                <span> - </span>
+                &nbsp;&nbsp;
+                <div class="input-group">
+                    <input container="body" class="form-control" placeholder="Đến ngày" [name]="PlanDueDateFromV"
+                        [(ngModel)]="modelSearchProject.PlanDueDateFromV" ngbDatepicker
+                        #PlanDueDateFromV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                        [maxDate]="{year: 2100, month: 12, day: 31}"
+                        (click)="PlanDueDateFromV.toggle();$event.stopPropagation();">
+
+                </div>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Nhân viên</b></label>
+            <div class="controls" style="width: 50%;">
+                <nts-drop-down [items]="Employees" [columns]="ColumnsEmployee" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="modelSearchProject.EmployeeId " name="EmployeeId">
+                </nts-drop-down>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Đơn vị thực hiện</b></label>
+            <div class="controls" style="width: 50%;">
+                <nts-drop-down [items]="Suppliers" [columns]="ColumnsSupplier" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="modelSearchProject.ImplementingAgenciesCode"
+                    name="ImplementingAgenciesCode">
+                </nts-drop-down>
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Vấn đề của sản phẩm</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.ErrorProduct">
+                    <option *ngFor="let item of ErrorProduct" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Vấn đề của module</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.ErrorModule">
+                    <option *ngFor="let item of ErrorModule" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+        &nbsp; &nbsp;
+        <div style="display: flex;">
+            <label style="width: 50%;"><b>Vấn đề của công đoạn</b></label>
+            <div class="controls" style="width: 50%;">
+                <select name="Status" class="form-control" [(ngModel)]="modelSearchProject.ErrorStage">
+                    <option *ngFor="let item of ErrorStage" [ngValue]="item.Id">{{item.Name}}</option>
+                </select>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display: block; text-align: right;">
+    <button type="button" class="btn btn-success " (click)="Search()">
+        <i class="fa fa-search"></i> &nbsp;
+        <span>
+            Tìm Kiếm
+        </span>
+    </button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-default btn-default-system" (click)="Clear()">
+        <i class="fas fa-redo-alt"></i> &nbsp;
+        <span>
+            Làm mới
+        </span>
+    </button>
+    &nbsp;&nbsp;
+    <button type="button" class="btn btn-danger " (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>
+&nbsp;&nbsp;

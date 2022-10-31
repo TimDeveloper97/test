@@ -1,0 +1,162 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn nhân viên</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+      <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12">
+          <nts-search-bar [options]="searchOptions" [(ngModel)]="employeeModel" name="searchEmployee"
+            (change)="searchEmployee()">
+          </nts-search-bar>
+        </div>
+        <div class="col-lg-3 col-md-12 col-sm-12 text-right">
+          <button class="btn btn-success btn-success-system" (click)="searchEmployee()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listData.length}}</span> nhân viên thiết kế chưa chọn</label>
+        </div>
+        <div class="col-md-6 col-sm-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listSelect.length}}</span> nhân viên đã chọn</label>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+
+          <div class="table-left">
+            <virtual-scroller #scroll [items]="listData" style=" display: block;height: 400px;">
+              <table class="table table-bordered table-fixed table-hover"
+                style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1170px;">
+                <thead #header style="background-color: white">
+                  <tr>
+                    <th style="text-align:center;padding-top: 10px;" width="60px">
+                      <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                        style="height:20px; width:20px;" (change)="checkAll(true)">
+                    </th>
+                    <th width="40px" class="text-center">STT</th>
+                    <th width="150px" class="text-center">Mã nhân viên</th>
+                    <th width="150px" class="text-center">Tên nhân viên</th>
+                    <th width="150px" class="text-center">Đạt/Không đạt</th>
+                    <th width="150px" class="text-center">SBU</th>
+                    <th width="150px" class="text-center">Phòng ban</th>
+                    <!-- <th width="150px" class="text-center">Trình độ</th> -->
+                    <th width="150px" class="text-center">Vị trí</th>
+                    <th width="120px" class="text-center">Tình trạng</th>
+                  </tr>
+                </thead>
+
+                <tbody #container>
+                  <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                    <td style="text-align:center" width="60px">
+                      <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                        style="height:20px; width:20px;">
+                    </td>
+                    <td class="text-center" width="40px">{{i+1}}</td>
+                    <td style="min-width: 150px">{{row.Code}}</td>
+                    <td width="150px">{{row.Name}}</td>
+                    <td width="150px">
+                      <span *ngIf="row.IsReach == 1">Đạt</span>
+                      <span *ngIf="row.IsReach == 2">Không đạt</span>
+                    </td>
+                    <td>{{row.SBUName}}</td>
+                    <td>{{row.DepartmentName}}</td>
+                    <!-- <td width="150px">{{row.QualificationName}}</td> -->
+                    <td width="150px">{{row.JobPositionName}}</td>
+                    <td width="120px">
+                      <span *ngIf="row.Status == '0'">Đã nghỉ việc</span>
+                      <span *ngIf="row.Status == '1'">Đang làm việc</span>
+                    </td>
+
+                  </tr>
+                </tbody>
+              </table>
+            </virtual-scroller>
+          </div>
+
+          <div class="table-center">
+            <button type="button" ngbTooltip="Chọn nhân viên" class="btn btn-success" (click)="addRow()">
+              <i class="fa fa-angle-right"></i>
+            </button>
+            <button type="button" ngbTooltip="Bỏ chọn nhân viên" class="btn btn-danger" (click)="removeRow()">
+              <i class="fa fa-angle-left"></i>
+            </button>
+          </div>
+
+          <div class="table-right">
+            <virtual-scroller #scrolll [items]="listSelect" style="height:400px; width:100%;">
+              <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:1170px">
+                <thead #header style="background-color: white">
+                  <tr>
+                    <th style="text-align:center;padding-top: 10px;" width="60px">
+                      <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                        style="height:20px; width:20px;" (change)="checkAll(false)">
+                    </th>
+                    <th width="40px" class="text-center">STT</th>
+                    <th width="150px" class="text-center">Mã nhân viên</th>
+                    <th width="150px" class="text-center">Tên nhân viên</th>
+                    <th width="150px" class="text-center">Đạt/Không đạt</th>
+                    <th width="150px" class="text-center">SBU</th>
+                    <th width="150px" class="text-center">Phòng ban</th>
+                    <!-- <th width="150px" class="text-center">Trình độ</th> -->
+                    <th width="150px" class="text-center">Vị trí</th>
+                    <th width="120px" class="text-center">Tình trạng</th>
+                  </tr>
+                </thead>
+                <tbody #container>
+                  <tr *ngFor="let row of listSelect; let j = index">
+                    <td style="text-align:center">
+                      <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+ row.Name + j}}"
+                        style="height:20px; width:20px;">
+                    </td>
+                    <td class="text-center" width="40px">{{j+1}}</td>
+                    <td style="min-width: 150px">{{row.Code}}</td>
+                    <td width="150px">{{row.Name}}</td>
+                    <td width="150px">
+                      <span *ngIf="row.IsReach == 1">Đạt</span>
+                      <span *ngIf="row.IsReach == 2">Không đạt</span>
+                    </td>
+                    <td>{{row.SBUName}}</td>
+                    <td>{{row.DepartmentName}}</td>
+                    <!-- <td width="150px">{{row.QualificationName}}</td> -->
+                    <td width="150px">{{row.JobPositionName}}</td>
+                    <td width="120px">
+                      <span *ngIf="row.Status == '1'">Đã nghỉ việc</span>
+                      <span *ngIf="row.Status == '2'">Đang làm việc</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </virtual-scroller>
+          </div>
+        </div>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Xem lịch sử</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-10">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:950px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="50px" class="text-center">Xử lý</th>
+              <th width="250px" class="text-center">Tên file</th>
+              <th width="100px" class="text-center">Dung lượng</th>
+              <th width="150px" class="text-center">Mô tả</th>
+              <th width="100px" class="text-center">Ngày tạo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of ListFileSketches; let i = index">
+              <td class="text-center">{{i+1}}</td>
+              <td class="text-center">
+                <ng-container *ngIf="row.Id!=null && row.Id!=''">
+                  <button style="background-color: papayawhip" class="btn btn-xs" (click)="DownloadAFile(row)">
+                    <span class="fa fa-download" aria-hidden="true"></span>
+                  </button>
+                </ng-container>
+              </td>
+              <td>{{row.FileName}}</td>
+              <td class="text-center">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</td>
+              <td>{{row.Note}}</td>
+              <td class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

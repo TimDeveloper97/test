@@ -1,0 +1,523 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Dự án</label>
+          <div class="controls">
+            <nts-drop-down [items]="listProject" [columns]="columnName" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="model.ProjectId" name="project" disabled
+              [disUipermission]="['F060022','F060023']"></nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Khách hàng</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="CustomerName" [(ngModel)]="model.CustomerName" disabled
+              [disUipermission]="['F060022','F060023']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Sản phẩm
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down-tree [items]="listProjectproduct" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+              ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ProjectProductId" name="Id"
+              required (change)="generalDesign()" [disUipermission]="['F060022','F060023']"
+              [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down-tree>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tên SP theo TK</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="ProjectProductName" [(ngModel)]="projectProductName" disabled
+              [disUipermission]="['F060022','F060023']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mã SP theo TK</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="ProjectProductCode" [(ngModel)]="projectProductCode" disabled
+              [disUipermission]="['F060022','F060023']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Hạng mục
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Index" [(ngModel)]="model.Index" required
+              [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">SBU yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listSBU" [columns]="columnSBU" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="sbuRequestId" name="SBURequestId" required
+              (change)="getListDepartmentiRequest()" [disUipermission]="['F060022','F060023']"
+              [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Bộ phận yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listDepartmentRequest" [columns]="columnDepartment" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentRequestId" name="DepartmentRequestId"
+              required [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày yêu cầu
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <div class="input-group ">
+              <input class="form-control" placeholder="dd/mm/yyyy" name="RequestDate" [(ngModel)]="requestDate"
+                ngbDatepicker #RequestDate="ngbDatepicker" required [disUipermission]="['F060022','F060023']"
+                [disabled]="model.ApproveStatus=='1'">
+              <div class="input-group-append" [disUipermission]="['F060022','F060023']">
+                <span class="dtp-icon" (click)="RequestDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">SBU thực hiện</label>
+          <div class="controls">
+            <nts-drop-down [items]="listSBU" [columns]="columnSBU" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="sbuCreateId" name="sbuCreateId" (change)="getListDepartmentiCreate()"
+              [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Bộ phận thực hiện</label>
+          <div class="controls">
+            <nts-drop-down [items]="listDepartmentCreate" [columns]="columnDepartment" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentCreateId" name="DepartmentCreateId"
+              (change)="getListEmployee()" [disUipermission]="['F060022','F060023']"
+              [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Phụ trách thiết kế</label>
+          <div class="controls">
+            <nts-drop-down [items]="listEmployee" [columns]="columnEmployee" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DesignBy" name="DesignBy"
+              [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Ngày tạo</label>
+          <div class="controls">
+            <label class="form-control">{{model.CreateDate|date:'dd/MM/yyyy'}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Số lần lập</label>
+          <div class="controls">
+            <input disabled type="text" class="form-control" name="CreateIndex" [(ngModel)]="model.CreateIndex"
+              [disUipermission]="['F060022','F060023']">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tình trạng
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <label>
+              <span *ngIf="model.ApproveStatus == '0'" class="badge badge-danger">Chưa duyệt</span>
+              <span *ngIf="model.ApproveStatus == '1'" class="badge badge-success">Đã duyệt</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" #scrollModule>
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Các Module dùng cho sản phẩm</label>
+      </div>
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="text-left">
+          <label class="form-label" style="line-height:35px;">Tổng giá thiết kế:
+            <span class="bold text-danger">{{totalAmounts|number:'1.0-0'}}</span></label> |
+          <label class="form-label" style="line-height:35px;">Tổng giá đầu vào:
+            <span class="bold text-danger">{{totalPriceContract|number:'1.0-0'}}</span></label>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div #scrollModuleHeader style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:1990px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th class="text-center" width="50px">
+                  <div class="custom-control custom-checkbox">
+                    <input [disUipermission]="['F060022','F060023']" class="text-center" [(ngModel)]="checked"
+                      type="checkbox" class="custom-control-input" id="checkAll" name="checkAll"
+                      (change)="fullcheck(checked)" [disabled]="model.ApproveStatus=='1'">
+                    <label class="custom-control-label" for="checkAll"></label>
+                  </div>
+                  <!-- <input type="checkbox" [(ngModel)]="checked" name="Checked" (change)="fullcheck(checked)"
+                        style="height:20px; width:20px;" [disUipermission]="['F060022','F060023']"> -->
+                </th>
+                <th width="100px" class="text-center">Trạng thái</th>
+                <th width="200px" class="text-center">Tên Module theo HĐ</th>
+                <th width="200px" class="text-center">Tên Module theo thiết kế</th>
+                <th width="200px" class="text-center">Mã theo HĐ</th>
+                <th width="200px" class="text-center">Mã theo thiết kế</th>
+                <th width="200px" class="text-center">Hãng SX</th>
+                <th width="100px" class="text-center">Số lượng</th>
+                <th width="50px" class="text-center">Lỗi</th>
+                <th width="100px" class="text-center">Đơn giá</th>
+                <th width="100px" class="text-center">Thành tiền</th>
+                <th width="100px" class="text-center">Số lượng HĐ</th>
+                <th width="100px" class="text-center">Giá đầu vào</th>
+                <th width="140px" class="text-center">Thành tiền đầu vào</th>
+                <th min-width="200px" class="text-center">Ghi chú</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="300" style="height: auto;">
+          <table class="table table-bordered table-fixed" style="min-width:1990px">
+            <colgroup>
+              <col width="50px">
+              <col width="50px">
+              <col width="100px">
+              <col width="200px">
+              <col width="200px">
+              <col width="200px">
+              <col width="200px">
+              <col width="200px">
+              <col width="100px">
+              <col width="50px">
+              <col width="100px">
+              <col width="100px">
+              <col width="100px">
+              <col width="100px">
+              <col width="140px">
+              <col min-width="200px">
+            </colgroup>
+            <tbody>
+              <tr *ngFor="let row of listModule; let i = index" [ngClass]="{'selected':selectIndex==i}"
+                (click)="loadValue(row,i)">
+                <td width="50px" class="text-center">{{i+1}}</td>
+                <td width="50px" class="text-center"
+                  [ngClass]="{'disabled':row.ModuleStatus==2 && row.CreateIndex<model.CreateIndex||model.ApproveStatus=='1'}">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                      [disUipermission]="['F060022','F060023']" class="text-center" [(ngModel)]="row.Checked"
+                      type="checkbox" class="custom-control-input" [id]="'b'+i" [name]="'b'+i">
+                    <label
+                      *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                      [ngClass]="{'custom-control-label-false':row.ModuleStatus==2 && row.CreateIndex<model.CreateIndex,'custom-control-label-true':row.ModuleStatus==1 && row.CreateIndex<=model.CreateIndex}"
+                      class="custom-control-label" [for]="'b'+i"></label>
+                  </div>
+                  <!-- <input
+                        *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                        type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+i}}"
+                        style="height:20px; width:20px;" [disUipermission]="['F060022','F060023']"> -->
+                </td>
+                <td width="100px" class="text-center">
+                  <span *ngIf="row.ModuleStatus==1">Chưa xuất</span>
+                  <span *ngIf="row.ModuleStatus==2">Đã xuất</span>
+                </td>
+                <td width="200px">{{row.ContractName}}</td>
+                <td width="200px">{{row.ModuleName}}</td>
+                <td width="200px">{{row.ContractCode}}</td>
+                <td width="200px">{{row.ModuleCode}}</td>
+                <td width="200px">{{row.Manufacture}}</td>
+                <td width="100px">
+                  <input currencyMask
+                    [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="row.ContractName + i" type="text" class="form-control" [(ngModel)]="row.Quantity"
+                    maxlength="18" (ngModelChange)="changeQuantity(i)" [disUipermission]="['F060022','F060023']"
+                    [disabled]="model.ApproveStatus=='1'">
+                </td>
+                <td width="50px" class="text-center" [ngClass]="{'warningError': row.TotalError>0}">
+                  {{row.TotalError}}</td>
+                <td width="100px" class="text-right" [ngClass]="{'warningError': row.IsNoPrice}">
+                  {{row.Pricing|number:'1.0-0'}}</td>
+                <td width="100px" class="text-right">{{row.Amount|number:'1.0-0'}}</td>
+                <td width="100px" class="text-right">{{row.ContractQuantity|number:'1.0-0'}}</td>
+                <td width="100px" class="text-right">{{row.ContractPrice|number:'1.0-0'}}</td>
+                <td width="140px" class="text-right">{{row.ContractAmount|number:'1.0-0'}}</td>
+                <td min-width="200px">
+                  <input type="text" [(ngModel)]="row.Note" class="form-control" [name]="'Note'+i"
+                    [disabled]="model.ApproveStatus=='1'">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+
+    </div>
+    <div class="row" #scrollModuleFalse>
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Các Module không lập tổng hợp</label>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div #scrollModuleHeaderFalse style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:1200px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th class="text-center" width="50px">
+                  <div class="custom-control custom-checkbox">
+                    <input [disUipermission]="['F060022','F060023']" class="text-center" [(ngModel)]="checkedFalse"
+                      type="checkbox" class="custom-control-input" id="checkAllFalse1" name="checkAllFalse"
+                      (change)="fullcheckFlase(checkedFalse)" [disabled]="model.ApproveStatus=='1'">
+                    <label class="custom-control-label" for="checkAllFalse1"></label>
+                  </div>
+                  <!-- <input type="checkbox" [(ngModel)]="checked" name="Checked" (change)="fullcheck(checked)"
+                        style="height:20px; width:20px;" [disUipermission]="['F060022','F060023']"> -->
+                </th>
+                <th width="100px" class="text-center">Trạng thái</th>
+                <th min-width="200px" class="text-center">Tên Module theo HĐ</th>
+                <th width="200px" class="text-center">Tên Module theo thiết kế</th>
+                <th width="200px" class="text-center">Mã theo HĐ</th>
+                <th width="200px" class="text-center">Mã theo thiết kế</th>
+                <th width="100px" class="text-center">Số lượng</th>
+                <th width="100px" class="text-center">Giá đầu vào</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="300" style="height: auto;">
+          <table class="table table-bordered table-fixed" style="min-width:1200px">
+            <colgroup>
+              <col width="50px">
+              <col width="50px">
+              <col width="100px">
+              <col min-width="200px">
+              <col width="200px">
+              <col width="200px">
+              <col width="200px">
+              <col width="100px">
+              <col width="100px">
+            </colgroup>
+            <tbody>
+              <tr *ngFor="let row of listModuleFalse; let i = index" [ngClass]="{'selected':selectIndexFalse==i}"
+                (click)="loadValueFalse(row,i)">
+                <td width="50px" class="text-center">{{i+1}}</td>
+                <td width="50px" class="text-center"
+                  [ngClass]="{'disabled':row.ModuleStatus==2 && row.CreateIndex<model.CreateIndex||model.ApproveStatus=='1'}">
+                  <div class="custom-control custom-checkbox">
+                    <input
+                      *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                      [disUipermission]="['F060022','F060023']" class="text-center" [(ngModel)]="row.Checked"
+                      type="checkbox" class="custom-control-input" [id]="'moduleFalse'+i" [name]="'moduleFalse'+i">
+                    <label
+                      *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                      [ngClass]="{'custom-control-label-false':row.ModuleStatus==2 && row.CreateIndex<model.CreateIndex,'custom-control-label-true':row.ModuleStatus==1 && row.CreateIndex<=model.CreateIndex}"
+                      class="custom-control-label" [for]="'moduleFalse'+i"></label>
+                  </div>
+                  <!-- <input
+                        *ngIf="row.CreateIndex==model.CreateIndex||row.CreateIndex<model.CreateIndex||row.ModuleStatus==0"
+                        type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+i}}"
+                        style="height:20px; width:20px;" [disUipermission]="['F060022','F060023']"> -->
+                </td>
+                <td width="100px" class="text-center">
+                  <span *ngIf="row.ModuleStatus==1">Chưa xuất</span>
+                  <span *ngIf="row.ModuleStatus==2">Đã xuất</span>
+                </td>
+                <td min-width="200px">{{row.ContractName}}</td>
+                <td width="200px">{{row.ModuleName}}</td>
+                <td width="200px">{{row.ContractCode}}</td>
+                <td width="200px">{{row.ModuleCode}}</td>
+                <td width="100px">
+                  <input currencyMask
+                    [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="'QuantityModule'+i" type="text" class="form-control" [(ngModel)]="row.Quantity"
+                    maxlength="18" (ngModelChange)="changeQuantity(i)" [disUipermission]="['F060022','F060023']"
+                    [disabled]="model.ApproveStatus=='1'">
+                </td>
+                <td width="100px" class="text-right">{{row.ContractPrice|number:'1.0-0'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-xs-6 col-lg-6 col-md-6 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Vật tư phụ</label>
+      </div>
+      <div class="col-xs-6 col-lg-6 col-md-6 col-sm-12 text-right">
+        <button *appUipermission="['F060022','F060023']" type="button" class="btn btn-success"
+          (click)="showClickChooseModule()" [disabled]="model.ApproveStatus=='1'">
+          <i class="fa fa-plus"></i>&nbsp;
+          <span>Chọn module</span>
+        </button>&nbsp;
+        <button *appUipermission="['F060022','F060023']" type="button" class="btn btn-success" (click)="showMaterial()"
+          [disabled]="model.ApproveStatus=='1'">
+          <i class="fa fa-plus"></i>&nbsp;
+          <span>Chọn vật tư</span>
+        </button>
+      </div>
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12" style="padding-top: 5px;">
+        <div #scrollMaterial class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div #scrollMaterialHeader style="overflow-x: auto;overflow: hidden;">
+              <table class="table table-bordered table-fixed mb-0" style="min-width:1030px">
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="70px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên vật tư</th>
+                  <th width="200px" class="text-center">Mã vật tư</th>
+                  <th width="200px" class="text-center">Hãng SX</th>
+                  <th width="100px" class="text-center">Số lượng</th>
+                  <th width="100px" class="text-center">Đơn giá</th>
+                  <th width="110px" class="text-center">Giá đầu vào</th>
+                </tr>
+              </table>
+            </div>
+            <perfect-scrollbar [config]="constant.ScrollConfig" style="max-height:300px; min-height:100px">
+              <table class="table table-bordered table-fixed" style="min-width:1030px">
+                <colgroup>
+                  <col width="50px">
+                  <col width="70px">
+                  <col min-width="200px">
+                  <col width="200px">
+                  <col width="200px">
+                  <col width="100px">
+                  <col width="100px">
+                  <col width="110px">
+                </colgroup>
+                <tbody>
+                  <tr *ngFor="let row of listMaterial; let j = index">
+                    <td width="50px" class="text-center">{{j+1}}</td>
+                    <td width="70px" class="text-center">
+                      <button *appUipermission="['F060022','F060023']" type="button" class="btn btn-xs btn-danger"
+                        ngbTooltip="Xóa" (click)="showConfirmDeleteMaterial(j,row.IsDelete)">
+                        <span class="fas fa-times" aria-hidden="true"></span>
+                      </button>
+                    </td>
+                    <td min-width="200px">{{row.Name}}</td>
+                    <td width="200px">{{row.Code}}</td>
+                    <td width="200px">{{row.Manafacture}}</td>
+                    <td width="100px">
+                      <input currencyMask
+                        [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                        [name]="'QuantityMaterial'+j" type="text" class="form-control" [(ngModel)]="row.Quantity"
+                        maxlength="18" [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+                    </td>
+                    <td width="100px" class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                    <td width="110px">
+                      <input currencyMask
+                        [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                        [name]="'ContractPrice'+j" type="text" class="form-control" [(ngModel)]="row.ContractPrice"
+                        maxlength="18" [disUipermission]="['F060022','F060023']" [disabled]="model.ApproveStatus=='1'">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <span style="font-size: 13px; color:#28a745;"> <i class="fas fa-check-square"></i></span>
+        <small class="padding-right-20">Module lần tổng hợp trước</small>
+        <span style="font-size: 13px; color:#007bff;"> <i class="fas fa-check-square"></i></span>
+        <small class="padding-right-20">Module tổng hợp hiện tại</small>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container *ngIf="Id!='' && model.ApproveStatus==0">
+    <button *appUipermission="['F060035']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="approvedProductGaneralDesign(model.ApproveStatus)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Duyệt tổng hợp</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id!='' && model.ApproveStatus==1">
+    <button *appUipermission="['F060035']" type="button" class="btn btn-danger" [disabled]="!f.form.valid"
+      (click)="showConfirmCancel()">
+      <i class="fas fa-times"></i>&nbsp;
+      <span>Hủy duyệt tổng hợp</span>
+    </button>
+  </ng-container>
+  <ng-container>
+    <button *appUipermission="['F060022','F060023']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container>
+    <button *appUipermission="['F060025']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndExportGeneralDesign()">
+      <i class="fas fa-file-excel"></i>&nbsp;
+      <span>Lưu & Xuất biểu mẫu</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id">
+    <button *appUipermission="['F060025']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="exportBOM()">
+      <i class="far fa-file-excel"></i>&nbsp;
+      <span>Xuất BOM</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

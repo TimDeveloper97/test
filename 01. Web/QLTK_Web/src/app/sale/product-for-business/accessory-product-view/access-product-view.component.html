@@ -1,0 +1,381 @@
+<div class="modal-header">
+    <h4 class="modal-title text-danger text-uppercase">Danh sách phụ kiện</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+        <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8">
+                <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelProduct" name="model" (change)="getListAccessory()">
+                </nts-search-bar>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 text-right">
+                <button class="btn btn-success" (click)="getListAccessory()">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+                <button class="btn btn-secondary" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+            </div>
+        </div>
+        <div class="row margin-bottom-10">
+            <div class="col-md-6 text-left">
+                <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{modelProduct.totalItems}}</span> phụ kiện</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered table-hover" style="min-width:3770px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Ảnh</th>
+                                <th min-width="200px" class="text-center">Tên tiếng Anh</th>
+                                <th width="200px" class="text-center">Tên tiếng Việt</th>
+                                <th width="120px" class="text-center">MODEL</th>
+                                <th width="150px" class="text-center">Mã nhóm thiết bị</th>
+                                <th width="150px" class="text-center">Mã nhóm thiết bị con</th>
+                                <th width="150px" class="text-center">Hãng sản xuất</th>
+                                <th width="150px" class="text-center">Xuất xứ</th>
+                                <th width="150px" class="text-center">Chủng loại hàng hóa</th>
+                                <th width="200px" class="text-center">Thông số kỹ thuật</th>
+                                <th width="200px" class="text-center">Thông số cho khách hàng</th>
+                                <th width="100px" class="text-center">Ngày cập nhập TSKT</th>
+                                <th width="100px" class="text-center">VAT</th>
+                                <th width="100px" class="text-center">Giá vật tư</th>
+                                <th width="100px" class="text-center">Giá bán EXW TPA</th>
+                                <th width="120px" class="text-center">Ngày cập nhập giá EXW TPA</th>
+                                <th width="100px" class="text-center">Giá public lên web</th>
+                                <th width="100px" class="text-center">Hiệu lực của giá từ ngày</th>
+                                <th width="100px" class="text-center">Hiệu lực của giá đến ngày</th>
+                                <th width="100px" class="text-center">Thời gian giao hàng</th>
+                                <th width="100px" class="text-center">Tồn kho</th>
+                                <th width="100px" class="text-center">SL xuất giữ</th>
+                                <th width="100px" class="text-center">SL khả dụng</th>
+                                <th width="100px" class="text-center">Ngày update tồn kho</th>
+                                <th width="100px" class="text-center">Tài liệu giải pháp</th>
+                                <th width="70px" class="text-center">Catalog</th>
+                                <th width="70px" class="text-center">Đào tạo kỹ thuật</th>
+                                <th width="70px" class="text-center">Đào tạo Sale</th>
+                                <th width="70px" class="text-center">HDSD</th>
+                                <th width="70px" class="text-center">Fix bug</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of listProduct; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ImagePath">
+                                        <img [src]="config.ServerFileApi+row.ImagePath" height="80px" min-witdh="60px" max-witdh="60px">
+                                    </div>
+                                    <div *ngIf="!row.ImagePath" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.EName">
+                                        {{row.EName}}
+                                    </div>
+                                    <div *ngIf="!row.EName" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.VName">
+                                        {{row.VName}}
+                                    </div>
+                                    <div *ngIf="!row.VName" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.Model">
+                                        {{row.Model}}
+                                    </div>
+                                    <div *ngIf="!row.Model" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.GroupCode">
+                                        {{row.GroupCode}}
+                                    </div>
+                                    <div *ngIf="!row.GroupCode" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.ChildGroupCode">
+                                        {{row.ChildGroupCode}}
+                                    </div>
+                                    <div *ngIf="!row.ChildGroupCode" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.ManufactureName">
+                                        {{row.ManufactureName}}
+                                    </div>
+                                    <div *ngIf="!row.ManufactureName" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.CountryName">
+                                        {{row.CountryName}}
+                                    </div>
+                                    <div *ngIf="!row.CountryName" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.ProductTypeName">
+                                        {{row.ProductTypeName}}
+                                    </div>
+                                    <div *ngIf="!row.ProductTypeName" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.Specifications">
+                                        {{row.Specifications}}
+                                    </div>
+                                    <div *ngIf="!row.Specifications" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.CustomerSpecifications">
+                                        {{row.Specifications}}
+                                    </div>
+                                    <div *ngIf="!row.CustomerSpecifications" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div *ngIf="row.SpecificationDate">
+                                        {{row.SpecificationDate|date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div *ngIf="!row.SpecificationDate" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.VAT">
+                                        {{row.VAT|number}}
+                                    </div>
+                                    <div *ngIf="!row.VAT" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.MaterialPrice">
+                                        {{row.MaterialPrice|number}}
+                                    </div>
+                                    <div *ngIf="!row.MaterialPrice" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.EXWTPAPrice">
+                                        {{row.EXWTPAPrice|number}}
+                                    </div>
+                                    <div *ngIf="!row.EXWTPAPrice" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.EXWTPADate">
+                                        {{row.EXWTPADate|date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div *ngIf="!row.EXWTPADate" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.PublicPrice">
+                                        {{row.PublicPrice|number}}
+                                    </div>
+                                    <div *ngIf="!row.PublicPrice" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExpireDateFrom">
+                                        {{row.ExpireDateFrom|date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div *ngIf="!row.ExpireDateFrom" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExpireDateTo">
+                                        {{row.ExpireDateTo|date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div *ngIf="!row.ExpireDateTo" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.DeliveryTime">
+                                        {{row.DeliveryTime}}
+                                    </div>
+                                    <div *ngIf="!row.DeliveryTime" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.Inventory">
+                                        {{row.Inventory}}
+                                    </div>
+                                    <div *ngIf="!row.Inventory" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExportQuantity">
+                                        {{row.ExportQuantity}}
+                                    </div>
+                                    <div *ngIf="!row.ExportQuantity" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.AvailableQuantity">
+                                        {{row.AvailableQuantity}}
+                                    </div>
+                                    <div *ngIf="!row.AvailableQuantity" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.InventoryDate">
+                                        {{row.InventoryDate|date:'dd/MM/yyyy'}}
+                                    </div>
+                                    <div *ngIf="!row.InventoryDate" class="custom-control custom-checkbox text-center">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistSolution" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistSolution" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistCatalog" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistCatalog" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistTrainingTechnique" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistTrainingTechnique" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistTrainingSale" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistTrainingSale" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistUserManual" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistUserManual" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <div *ngIf="row.ExistFixBug" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                    </div>
+                                    <div *ngIf="!row.ExistFixBug" class="custom-control custom-checkbox">
+                                        <span style="font-size: 16px; color:red;"> <i
+                                                class="fas fa-exclamation-triangle"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngIf="listProduct.length == 0">
+                            <tr class="bold">
+                                <td colspan="32" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                <div class="controls ">
+                    <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="modelProduct.PageSize" name="pageSize">
+                      <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                </select>
+                </div>
+                <label class="form-label " style="padding: 4px;"> bản ghi/Trang</label>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                <ngb-pagination [collectionSize]="modelProduct.totalItems" [(page)]="modelProduct.PageNumber" (pageChange)="getListAccessory()" [pageSize]="modelProduct.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Footer -->
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+</div>

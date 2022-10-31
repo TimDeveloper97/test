@@ -1,0 +1,695 @@
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Title } from '@angular/platform-browser';
+import { DxTreeListComponent } from 'devextreme-angular';
+import { Configuration, MessageService, AppSetting, Constants, ComboboxService, ComponentService, DateUtils } from 'src/app/shared';
+import { AccessProductViewComponent } from '../accessory-product-view/access-product-view.component';
+import { ExportAndKeepDetailComponent } from '../../export-and-keep/export-and-keep-detail/export-and-keep-detail.component';
+import { SaleProductService } from '../sale-product.service';
+import { SaleProductTypeCreateComponent } from '../sale-product-type-create/sale-product-type-create.component';
+import { SaleProductTypeService } from '../../service/sale-product-type.service';
+import { stringify } from 'querystring';
+
+@Component({
+  selector: 'app-product-for-bussiness',
+  templateUrl: './product-for-bussiness.component.html',
+  styleUrls: ['./product-for-bussiness.component.scss'],
+  encapsulation: ViewEncapsulation.None
+})
+export class ProductForBussinessComponent implements OnInit {
+  @ViewChild(DxTreeListComponent) treeView;
+  constructor(
+    private router: Router,
+    private config: Configuration,
+    private messageService: MessageService,
+    private modalService: NgbModal,
+    private titleservice: Title,
+    public appSetting: AppSetting,
+    public constant: Constants,
+    public saleProductService: SaleProductService,
+    public comboboxService: ComboboxService,
+    public saleProductTypeService: SaleProductTypeService,
+    private componentService: ComponentService,
+    public dateUtils: DateUtils,
+  ) {
+    this.pagination = Object.assign({}, appSetting.Pagination);
+    this.items = [
+      { Id: 1, text: 'Thêm', icon: 'fas fa-plus' },
+      { Id: 2, text: 'Sửa', icon: 'fa fa-edit' },
+      { Id: 3, text: 'Xóa', icon: 'fas fa-times' }
+    ];
+
+    var permissions = JSON.parse(localStorage.getItem('qltkcurrentUser')).permissions;
+    var listPermission = JSON.parse(permissions);
+    var per = listPermission.filter(t => t == 'F120001');
+    if (per) {
+      this.searchOptions.Items.push(this.searchObj);
+    }
+  }
+  scrollConfig: PerfectScrollbarConfigInterface = {
+    suppressScrollX: false,
+    suppressScrollY: true,
+    minScrollbarLength: 20,
+    wheelPropagation: true
+  };
+  nearestImport = null;
+  lastModified = null;
+  heightLeft = 0;
+  pagination;
+  checkAll = false;
+  modelProduct: any = {
+    page: 1,
+    PageSize: 10,
+    totalItems: 0,
+    PageNumber: 1,
+    OrderBy: 'VName',
+    OrderType: true,
+    SaleProductTypeId: '',
+    Name: '',
+    Model: '',
+    GroupCode: '',
+    ChildGroupCode: '',
+    ManufactureId: '',
+    CountryName: '',
+    Specifications: '',
+    CustomerSpecifications: '',
+    SpecificationDate: null,
+    VAT: null,
+    MaterialPrice: null,
+    EXWTPAPrice: null,
+    EXWTPADate: null,
+    PublicPrice: null,
+    ExpireDateFrom: null,
+    ExpireDateTo: null,
+    DeliveryTime: null,
+    Inventory: null,
+    InventoryType: 0,
+    InventoryDate: null,
+    ExportQuantity: null,
+    Status: null,
+    IsSync: null,
+    DocStatus: null,
+    EXWTPADateToV: null,
+    EXWTPADateFromV: null,
+    ExpiredDateFromToV: null,
+    ExpiredDateFromFromV: null,
+    ExpiredDateToToV: null,
+    ExpiredDateToFromV: null,
+    InventoryDateToV: null,
+    InventoryDateFromV: null,
+    EXWTPADateTo: null,
+    EXWTPADateFrom: null,
+    ExpiredDateFromTo: null,
+    ExpiredDateFromFrom: null,
+    ExpiredDateToTo: null,
+    ExpiredDateToFrom: null,
+    InventoryDateTo: null,
+    InventoryDateFrom: null,
+  };
+
+  modelAll: any = {
+    Id: '',
+    Name: 'Tất cả',
+    Code: '',
+  }
+  groupTypeNull: any = {
+    Id: 'CPL',
+    Name: 'Chưa phân nhóm',
+    Code: '',
+  }
+  fileTemplate = this.config.ServerApi + 'Template/Import_SaleProduct_Template.xls';
+  startIndex = 0;
+  listData: any[] = [];
+  listSaleProductTPAType = [];
+  logUserId: string;
+  items: any;
+  searchObj = {
+    Name: 'Trạng thái sản phẩm',
+    FieldName: 'Status',
+    Placeholder: 'Chọn trạng thái',
+    Type: 'select',
+    Data: this.constant.SaleProductStatus,
+    DisplayName: 'Name',
+    ValueName: 'Id'
+  };
+  saleProductTypeId: string;
+  selectedSaleProductTypeId: string;
+  saleProductTypeTotal: number;
+  ProductTypeId: '';
+  expandGroupKeys: any[] = [];
+  selectGroupKeys: any[] = [];
+  searchOptions: any = {
+    FieldContentName: 'Name',
+    Placeholder: 'Tìm kiếm theo tên tiếng việt/tên tiếng anh',
+    Items: [
+      {
+        Name: 'Model',
+        FieldName: 'Model',
+        Placeholder: 'Model',
+        Type: 'text',
+      },
+      {
+        Name: 'Mã nhóm thiết bị',
+        FieldName: 'GroupCode',
+        Placeholder: 'Mã nhóm thiết bị',
+        Type: 'text',
+      },
+      {
+        Name: 'Mã nhóm thiết bị con',
+        FieldName: 'ChildGroupCode',
+        Placeholder: 'Mã nhóm thiết bị con',
+        Type: 'text',
+      },
+      {
+        Name: 'Hãng sản xuất',
+        FieldName: 'ManufactureId',
+        Type: 'dropdown',
+        SelectMode: 'single',
+        DataType: this.constant.SearchDataType.Manuafacture,
+        Columns: [{ Name: 'Code', Title: 'Mã hãng sản xuất' }, { Name: 'Name', Title: 'Tên hãng sản xuất' }],
+        DisplayName: 'Code',
+        ValueName: 'Id',
+        Placeholder: 'Chọn mã hãng sản xuất'
+      },
+      {
+        Name: 'Xuất xứ',
+        FieldName: 'CountryName',
+        Placeholder: 'Xuất xứ',
+        Type: 'select',
+        DataType: this.constant.SearchDataType.Country,
+        DisplayName: 'Name',
+        ValueName: 'Id',
+      },
+      // {
+      //   Name: 'Ngành nghề',
+      //   FieldName: 'Caree',
+      //   Placeholder: 'Chọn ngành nghề',
+      //   Type: 'select',
+      //   Data: this.constant.SendSale,
+      //   DisplayName: 'Name',
+      //   ValueName: 'Id'
+      // },
+      {
+        Name: 'Thông số kỹ thuật',
+        FieldName: 'Specifications',
+        Placeholder: 'Thông số kỹ thuật',
+        Type: 'text',
+      },
+      {
+        Name: 'Giá vật tư',
+        FieldName: 'MaterialPrice',
+        Placeholder: 'Giá vật tư',
+        FieldNameType: 'MaterialPriceType',
+        Type: 'number',
+      },
+      {
+        Name: 'VAT',
+        FieldName: 'VAT',
+        Placeholder: 'VAT',
+        FieldNameType: 'VATType',
+        Type: 'number',
+      },
+      {
+        Name: 'Giá bán EXW TPA',
+        FieldName: 'EXWTPAPrice',
+        Placeholder: 'Giá bán EXW TPA',
+        FieldNameType: 'EXWTPAPriceType',
+        Type: 'number',
+      },
+      {
+        Name: 'Ngày cập nhập EXW TPA',
+        FieldNameTo: 'EXWTPADateToV',
+        FieldNameFrom: 'EXWTPADateFromV',
+        Type: 'date',
+      },
+      {
+        Name: 'Giá trên Web',
+        FieldName: 'PublicPrice',
+        Placeholder: 'Giá trên Web',
+        FieldNameType: 'PublicPriceType',
+        Type: 'number',
+      },
+      {
+        Name: 'SL tồn kho',
+        FieldName: 'Inventory',
+        Placeholder: 'Số lượng tồn kho',
+        FieldNameType: 'InventoryType',
+        Type: 'number',
+      },
+      {
+        Name: 'Hiệu lực của giá từ ngày',
+        FieldNameTo: 'ExpiredDateFromToV',
+        FieldNameFrom: 'ExpiredDateFromFromV',
+        Type: 'date',
+      },
+      {
+        Name: 'Hiệu lực của giá đến ngày',
+        FieldNameTo: 'ExpiredDateToToV',
+        FieldNameFrom: 'ExpiredDateToFromV',
+        Placeholder: 'Hiệu lực của gia đến ngày',
+        Type: 'date',
+      },
+      {
+        Name: 'Thời gian đặt hàng',
+        FieldName: 'DeliveryTime',
+        Placeholder: 'Nhập thời gian đặt hàng',
+        Type: 'number',
+        FieldNameType: 'LastDeliveryType',
+      },
+      {
+        Name: 'Ngày cập nhập tồn kho',
+        FieldName: 'InventoryDate',
+        FieldNameTo: 'InventoryDateToV',
+        FieldNameFrom: 'InventoryDateFromV',
+        Placeholder: 'Ngày cập nhập tồn kho',
+        Type: 'date'
+      },
+      {
+        Name: 'Số lượng xuất giữ',
+        FieldName: 'ExportQuantity',
+        Placeholder: 'số lượng xuất giữ',
+        FieldNameType: 'ExportQuantityType',
+        Type: 'number'
+      },
+      {
+        Name: 'Trạng thái dữ liệu',
+        FieldName: 'IsSync',
+        Placeholder: 'Chọn trạng thái',
+        Type: 'select',
+        Data: this.constant.SaleProductIsSync,
+        DisplayName: 'Name',
+        ValueName: 'Id'
+      },
+      {
+        Name: 'Tài liệu',
+        FieldName: 'DocStatus',
+        Placeholder: 'Chọn trạng thái tài liệu',
+        Type: 'select',
+        Data: this.constant.SaleProductDocStatus,
+        DisplayName: 'Name',
+        ValueName: 'Id'
+      },
+      {
+        Name: 'Ứng dụng',
+        FieldName: 'ApplicationId',
+        Placeholder: 'Chọn ứng dụng',
+        Type: 'dropdown', SelectMode: 'single',
+        DataType: this.constant.SearchDataType.Application,
+        Columns: [{ Name: 'Code', Title: 'Mã ứng dụng' }, { Name: 'Name', Title: 'Tên ứng dụng' }],
+        DisplayName: 'Name',
+        ValueName: 'Id'
+      },
+      {
+        Name: 'Ngành nghề',
+        FieldName: 'JobId',
+        Placeholder: 'Chọn ngành nghề',
+        Type: 'dropdown', SelectMode: 'single',
+        DataType: this.constant.SearchDataType.Job,
+        Columns: [{ Name: 'Code', Title: 'Mã ngành nghề' }, { Name: 'Name', Title: 'Tên ngành nghề' }],
+        DisplayName: 'Name',
+        ValueName: 'Id'
+      },
+    ]
+  };
+  ngOnInit() {
+    this.appSetting.PageTitle = "Thư viện sản phẩm cho kinh doanh";
+    this.searchProductGroup();
+    this.searchSaleProduct();
+    this.heightLeft = window.innerHeight - 200;
+
+  }
+
+  searchSaleProduct() {
+    this.saleProductService.searchSaleProduct(this.modelProduct).subscribe((data: any) => {
+      if (this.modelProduct.EXWTPADateToV != null) {
+        this.modelProduct.EXWTPADateTo = this.dateUtils.convertObjectToDate(this.modelProduct.EXWTPADateToV);
+      }
+      else {
+        this.modelProduct.EXWTPADateTo = null;
+      }
+      if (this.modelProduct.EXWTPADateFromV != null) {
+        this.modelProduct.EXWTPADateFrom = this.dateUtils.convertObjectToDate(this.modelProduct.EXWTPADateFromV)
+      }
+      else {
+        this.modelProduct.EXWTPADateFrom = null;
+      }
+
+      if (this.modelProduct.ExpiredDateFromToV != null) {
+        this.modelProduct.ExpiredDateFromTo = this.dateUtils.convertObjectToDate(this.modelProduct.ExpiredDateFromToV);
+      }
+      else {
+        this.modelProduct.ExpiredDateFromTo = null;
+      }
+      if (this.modelProduct.ExpiredDateFromFromV != null) {
+        this.modelProduct.ExpiredDateFromFrom = this.dateUtils.convertObjectToDate(this.modelProduct.ExpiredDateFromFromV)
+      }
+      else {
+        this.modelProduct.ExpiredDateFromFrom = null;
+      }
+
+      if (this.modelProduct.ExpiredDateToToV != null) {
+        this.modelProduct.ExpiredDateToTo = this.dateUtils.convertObjectToDate(this.modelProduct.ExpiredDateToToV);
+      }
+      else {
+        this.modelProduct.ExpiredDateToTo = null;
+      }
+      if (this.modelProduct.ExpiredDateToFromV != null) {
+        this.modelProduct.ExpiredDateToFrom = this.dateUtils.convertObjectToDate(this.modelProduct.ExpiredDateToFromV)
+      }
+      else {
+        this.modelProduct.ExpiredDateToFrom = null;
+      }
+
+      if (this.modelProduct.InventoryDateToV != null) {
+        this.modelProduct.InventoryDateTo = this.dateUtils.convertObjectToDate(this.modelProduct.InventoryDateToV);
+      }
+      else {
+        this.modelProduct.InventoryDateTo = null;
+      }
+      if (this.modelProduct.InventoryDateFromV != null) {
+        this.modelProduct.InventoryDateFrom = this.dateUtils.convertObjectToDate(this.modelProduct.InventoryDateFromV)
+      }
+      else {
+        this.modelProduct.InventoryDateFrom = null;
+      }
+
+      if (data.ListResult) {
+        this.startIndex = ((this.modelProduct.PageNumber - 1) * this.modelProduct.PageSize + 1);
+        this.listData = data.ListResult;
+        this.modelProduct.totalItems = data.TotalItem;
+        this.nearestImport = data.Date;
+        this.lastModified = data.LastModifiedDate;
+      }
+    },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  searchProductGroup() {
+    this.comboboxService.getCBBSaleProductTypes().subscribe((data: any) => {
+      if (data) {
+
+        this.listSaleProductTPAType = data;
+        this.saleProductTypeTotal = this.listSaleProductTPAType.length;
+        this.listSaleProductTPAType.unshift(this.groupTypeNull);
+        this.listSaleProductTPAType.unshift(this.modelAll);
+      }
+    },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  setSelectGroup() {
+    if (!this.selectedSaleProductTypeId) {
+      this.selectedSaleProductTypeId = '';
+    }
+    else {
+      var parentId = '';
+      this.expandGroupKeys = [];
+      this.listSaleProductTPAType.forEach(element => {
+        if (element.Id == this.selectedSaleProductTypeId) {
+          parentId = element.ParentId;
+        }
+      });
+
+      this.setExpandKey(parentId);
+    }
+
+    this.selectGroupKeys = [this.selectedSaleProductTypeId];
+  }
+
+  setExpandKey(parentId) {
+    var group;
+    this.listSaleProductTPAType.forEach(element => {
+      if (element.Id == parentId) {
+        group = element;
+      }
+    });
+
+    if (group) {
+      this.expandGroupKeys.push(group.Id);
+      this.setExpandKey(group.ParentId);
+    }
+  }
+
+  showCreateUpdateType(Id: string, isUpdate: Boolean) {
+    let activeModal = this.modalService.open(SaleProductTypeCreateComponent, { container: 'body', windowClass: 'product-standard-tpa-type-create-create-model', backdrop: 'static' })
+    if (isUpdate) {
+      activeModal.componentInstance.id = Id;
+    } else {
+      activeModal.componentInstance.parentId = Id;
+    }
+    activeModal.result.then((result) => {
+      if (result) {
+        this.searchProductGroup();
+      }
+    }, (reason) => {
+    });
+  }
+  showConfirmType(row) {
+    this.messageService.showConfirm("Bạn có chắc muốn xoá chủng loại này không?").then(
+      data => {
+        this.deleteType(row);
+      },
+      error => {
+
+      }
+    );
+  }
+
+  deleteType(id) {
+    this.saleProductTypeService.deleteType({ Id: id }).subscribe(
+      data => {
+        this.searchProductGroup();
+        this.messageService.showSuccess('Xóa chủng loại thành công!');
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+  onSelectionChanged(e) {
+    if (e.selectedRowKeys[0] != null) {
+      this.saleProductTypeId = e.selectedRowKeys[0];
+      this.modelProduct.SaleProductTypeId = this.saleProductTypeId;
+      this.searchSaleProduct();
+      // this.moduleGroupId = e.selectedRowKeys[0];
+      // localStorage.setItem("selectedModuleGroupId", this.selectedModelGroupId);
+      //this.modelProduct.Status = this.Status;
+    }
+  }
+  showCreate(Id: string) {
+    if (Id == '') {
+      this.router.navigate(['kinh-doanh/san-pham-cho-kinh-doanh/them-moi']);
+    }
+    else {
+      this.router.navigate(['kinh-doanh/san-pham-cho-kinh-doanh/chinh-sua', Id]);
+    }
+
+  }
+
+
+  itemClick(e) {
+
+    if (!this.saleProductTypeId || this.saleProductTypeId === 'CPL' || this.saleProductTypeId === 'SPB') {
+      this.messageService.showMessage("Đây không phải chủng loại!, không thể xóa")
+     
+    }else if(this.saleProductTypeId.indexOf('_pending') !== -1 || this.saleProductTypeId === 'SPB'){
+      this.messageService.showMessage("Đây không phải chủng loại!, không thể xóa")
+     
+    }
+    else {
+      if (e.itemData.Id == 1) {
+        this.showCreateUpdateType(this.saleProductTypeId, false);
+      }
+      else if (e.itemData.Id == 2) {
+        this.showCreateUpdateType(this.saleProductTypeId, true);
+      }
+      else if (e.itemData.Id == 3) {
+        this.showConfirmType(this.saleProductTypeId);
+      }
+    }
+  }
+
+  showAccessory(id) {
+    let activeModal = this.modalService.open(AccessProductViewComponent, { container: 'body', windowClass: 'accessory-product-view-model', backdrop: 'static' })
+    activeModal.componentInstance.id = id;
+    activeModal.result.then((result) => {
+      this.searchSaleProduct();
+    }, (reason) => {
+    });
+  }
+  showProductDetals(id: string) {
+    this.router.navigate(['kinh-doanh/san-pham-cho-kinh-doanh/chi-tiet', id]);
+  }
+
+  showListExportAndKeep(id) {
+    let activeModal = this.modalService.open(ExportAndKeepDetailComponent, { container: 'body', windowClass: 'export-and-keep-model', backdrop: 'static' })
+    activeModal.componentInstance.id = id;
+    activeModal.result.then((result) => {
+      this.searchSaleProduct();
+    }, (reason) => {
+    });
+  }
+
+  clear() {
+    this.modelProduct = {
+      page: 1,
+      PageSize: 10,
+      totalItems: 0,
+      PageNumber: 1,
+      OrderBy: 'VName',
+      OrderType: true,
+      SaleProductTypeId: '',
+      Name: '',
+      Model: '',
+      GroupCode: '',
+      ChildGroupCode: '',
+      ManufactureId: '',
+      CountryName: '',
+      Specifications: '',
+      CustomerSpecifications: '',
+      SpecificationDate: null,
+      VAT: null,
+      MaterialPrice: null,
+      EXWTPAPrice: null,
+      EXWTPADate: null,
+      PublicPrice: null,
+      ExpireDateFrom: null,
+      ExpireDateTo: null,
+      DeliveryTime: null,
+      Inventory: null,
+      InventoryDate: null,
+      ExportQuantity: null,
+      Status: null,
+      IsSync: null,
+      DocStatus: null,
+      EXWTPADateToV: null,
+      EXWTPADateFromV: null,
+      ExpiredDateFromToV: null,
+      ExpiredDateFromFromV: null,
+      ExpiredDateToToV: null,
+      ExpiredDateToFromV: null,
+      InventoryDateToV: null,
+      InventoryDateFromV: null
+    }
+    this.searchProductGroup();
+    this.searchSaleProduct();
+
+  }
+
+  showImportEmployeePopup() {
+    this.componentService.showImportExcel(this.fileTemplate, false).subscribe(data => {
+      if (data) {
+        this.saleProductService.importSaleProduct(data).subscribe(
+          data => {
+            this.searchSaleProduct();
+            this.messageService.showSuccess('Import tồn kho thành công!');
+          },
+          error => {
+            this.messageService.showError(error);
+          });
+      }
+    });
+  }
+  showConfirmDelete(id) {
+    this.messageService.showConfirm("Bạn có chắc muốn xoá thiết bị này không?").then(
+      data => {
+        this.deleteProduct(id);
+      }
+    );
+  }
+
+  deleteProduct(Id: string) {
+    this.saleProductService.deleteSaleProduct(Id).subscribe(
+      data => {
+        this.searchSaleProduct();
+        this.messageService.showSuccess('Xóa thiết bị thành công!');
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  updateStatus(id, status) {
+    if (status) {
+      this.messageService.showConfirm("Bạn có chắc muốn khóa sản phẩm này không?").then(
+        data => {
+          this.updateStatusSaleProduct(id);
+        }
+      );
+    }
+    else {
+      this.messageService.showConfirm("Bạn có chắc muốn mở khóa thiết bị này không?").then(
+        data => {
+          this.updateStatusSaleProduct(id);
+        }
+      );
+    }
+
+    this.ngOnInit();
+  }
+
+  updateStatusSaleProduct(id) {
+    this.saleProductService.updateStatusSaleProduct(id).subscribe(
+      data => {
+        this.searchSaleProduct();
+        this.messageService.showSuccess('Cập nhật trạng thái sản phẩm thành công!');
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+  exportExcel() {
+    this.saleProductService.exportExcel(this.modelProduct).subscribe(d => {
+      var link = document.createElement('a');
+      link.setAttribute("type", "hidden");
+      link.href = this.config.ServerApi + d;
+      link.download = 'Download.docx';
+      document.body.appendChild(link);
+      // link.focus();
+      link.click();
+      document.body.removeChild(link);
+    }, e => {
+      this.messageService.showError(e);
+    });
+  }
+
+  selectAll() {
+    this.listData.forEach(item => {
+      item.Checked = this.checkAll;
+    });
+  }
+
+  changeCheck() {
+    let count = this.listData.filter(item => {
+      if (item.Checked) {
+        return item;
+      }
+    }).length;
+
+    this.checkAll = count == this.listData.length;
+  }
+
+  defautlType() {
+    let productIds = [];
+    this.listData.forEach(item => {
+      if (item.Checked) {
+        productIds.push(item.Id);
+      }
+    });
+
+    this.saleProductService.defautlType(productIds).subscribe(
+      data => {
+        this.searchProductGroup();
+        this.searchSaleProduct();
+        this.messageService.showSuccess('Cập nhật Nhóm mặc định thành công!');
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+}

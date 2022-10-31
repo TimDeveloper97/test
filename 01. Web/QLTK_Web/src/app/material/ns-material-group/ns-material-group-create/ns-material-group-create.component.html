@@ -1,0 +1,269 @@
+<div class='content-wrapper'>
+  <section class="box box-head">    
+    <div class="content-body">
+      <form name="createForm" #f="ngForm" (ngSubmit)="f.form.valid" novalidate>
+        <div class="row">
+          <div class="col-lg-2 col-md-2 col-sm-2">
+            <div class="form-group">
+              <label class="form-label">Số lượng thông số</label>
+              <div class="controls">
+                <input [disUipermission] = "['F000401']" type="number" class="form-control" name="QuantityParam" [(ngModel)]="quantityParam"
+                  (change)="quantityParamChange()">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 col-md-8 col-sm-12">
+            <div class="border">
+              <div class="row mt-3">
+                <div class="col-lg-2 col-md-2 col-sm-2">
+                  <input [disUipermission] = "['F000401']" type="text" class="form-control" name="nsmaterialPreCode" [(ngModel)]="preCode">
+                </div>
+                <div class="col-lg-2" *ngFor="let item of listAlphabetBind">
+                  <div class="row">
+                    <div class="col-lg-7 col-md-7 col-sm-7">
+                      <select class="form-control" [name]="'Symbol'+item">
+                        <option value=""></option>
+                        <option value="-">-</option>
+                        <option value="x">x</option>
+                        <option value="/">/</option>
+                        <option value=".">.</option>
+                      </select>
+                    </div>
+                    <div class="col-lg-5 col-md-5 col-sm-5">
+                      <input [disUipermission] = "['F000401']" type="text" class="form-control" [name]="'Alphabet'+item" value="{{item}}" disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-12 mt-4">
+            <!-- <input type="button" class="btn btn-success btn-success-system" style="white-space: nowrap"
+              (click)="genCode()" value="Tạo quy tắc"> -->
+            <button *appUipermission="['F000401']" class="btn btn-success" (click)="genCode()">
+              <i class="fa fa-plus"></i>&nbsp;
+              <span>Tạo quy tắc</span>
+            </button>
+          </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <div class="form-group">
+              <label class="form-label">Mã<span style="color: red">&nbsp;*</span></label>
+              <div class="controls">
+                <input [disUipermission] = "['F000401']" type="text" class="form-control" name="Codensmaterialgroup" [(ngModel)]="model.Code"
+                  #Code="ngModel" [ngClass]="{'is-invalid':f.submitted && Code.invalid}" disabled required>
+                <!-- <div *ngIf="f.submitted && Code.invalid" class="invalid-feedback">
+                  <div *ngIf="Code.errors.required">Bạn không được để trống Mã</div>
+                </div> -->
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Tên<span style="color: red">&nbsp;*</span></label>
+              <div class="controls">
+                <input [disUipermission] = "['F000401']" type="text" class="form-control" name="Namensmaterialgroup" [(ngModel)]="model.Name"
+                  #Name="ngModel" required>
+                <!-- [ngClass]="{'is-invalid':f.submitted && Name.invalid}"  -->
+                <!-- <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
+                  <div *ngIf="Name.errors.required">Bạn không được để trống Tên</div>
+                </div> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <label class="form-label">Hãng<span style="color: red">&nbsp;*</span></label>
+                <!-- <div class="controls">
+                   <select name="ManufactureId" class="form-control" [(ngModel)]="model.ManufactureId"
+                    [ngClass]="{'is-invalid':f.submitted && ManufactureId.invalid}" #ManufactureId="ngModel" required>
+                    <option value="" disabled selected>Chọn hãng</option>
+                    <option *ngFor="let item of listManufacture" [ngValue]="item.Id">{{item.Code}}</option>
+                  </select> 
+                </div> -->
+                <div class="controls">
+                  <div class="input-group">
+                    <nts-drop-down-tree [disUipermission] = "['F000401']" [items]="listManufacture" [columns]="columnName" ntsParentId="ParentId"
+                      ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.ManufactureId" name="Id">
+                    </nts-drop-down-tree>
+                  </div>
+                  <!-- <div *ngIf="f.submitted && model.ManufactureId.invalid" class="invalid-feedback">
+                    <div *ngIf="ManufactureId.errors.required">Bạn phải chọn Hãng</div>
+                  </div> -->
+                </div>
+              </div>
+              <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                <label class="form-label">Loại<span style="color: red">*</span></label>
+                <div class="controls">
+                  <select name="NSMaterialTypeId" class="form-control" [(ngModel)]="model.NSMaterialTypeId"
+                    [ngClass]="{'is-invalid':f.submitted && NSMaterialTypeId.invalid}" #NSMaterialTypeId="ngModel"
+                    required>
+                    <option value="" disabled selected>Chọn loại</option>
+                    <option *ngFor="let item of listNSMaterialType" [ngValue]="item.Id">{{item.Name}}</option>
+                  </select>
+                  <div *ngIf="f.submitted && NSMaterialTypeId.invalid" class="invalid-feedback">
+                    <div *ngIf="NSMaterialTypeId.errors.required">Bạn phải chọn Loại</div>
+                  </div>
+                </div>
+              </div> -->
+
+            </div>
+            <div class="form-group">
+              <label class="form-label">Mô tả</label>
+              <div class="controls">
+                <textarea [radUipermission] = "['F000401']" class="form-control" name="Descriptionnsmaterialgroup"
+                  [(ngModel)]="model.Description"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <p class="text-uppercase"><b>Thông số kỹ thuật</b></p>
+            <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+              <table class="table table-bordered" style="min-width:300px">
+                <thead>
+                  <tr>
+                    <th width="100px" class="text-center">Mã thông số</th>
+                    <th width="100px" class="text-center">Tên thông số</th>
+                    <th width="100px" class="text-center">Đơn vị</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of rowTable; let i = index" [ngClass]="{'selected':selectIndex == i}"
+                  [disUipermission] = "['F000401']" (click)="loadValue(i);">
+                    <td class="text-center">{{row.Code}}</td>
+                    <td>
+                      <input [disUipermission] = "['F000401']" type="text" [(ngModel)]="row.Name" class="form-control" [name]="'name' + i"
+                        maxlength="100">
+                    </td>
+                    <td>
+                      <input [disUipermission] = "['F000401']" type="text" [(ngModel)]="row.Unit" class="form-control" [name]="'unit' + i" maxlength="50">
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4">
+            <p class="text-uppercase"><b>Giá trị thông số</b></p>
+            <perfect-scrollbar [config]="constants.ScrollYConfig" style="width:100%;">
+              <table class="table table-bordered" style="min-width:300px">
+                <thead>
+                  <tr>
+                    <th width="100px" class="text-center">Xử lý</th>
+                    <th width="100px" class="text-center">Giá trị</th>
+                    <th width="100px" class="text-center">Mô tả</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="selectIndex >=0">
+                    <tr *ngFor="let row of rowTable[this.selectIndex].ListValue; let i = index">
+                      <td class="text-center">
+                        <button *appUipermission = "['F000401']" type="button" class="btn btn-xs btn-danger" container="body" placement="top"
+                          ngbTooltip="Xóa" (click)="deleteValue(i)">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>
+                        <input [disUipermission] = "['F000401']"  type="text" [(ngModel)]="row.Value" class="form-control" [name]="'Value'+i"
+                          maxlength="50">
+                      </td>
+                      <td>
+                        <input [disUipermission] = "['F000401']"  type="text" [(ngModel)]="row.Description" class="form-control" [name]="'Description'+i"
+                          maxlength="300">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng"
+                        *appUipermission = "['F000401']" (click)="addRowValue()">
+                          <i class="fa fa-plus"></i>
+                        </button>
+                      </td>
+                      <td>
+                        <input [disUipermission] = "['F000401']" type="text" [(ngModel)]="value" class="form-control" name="Valuensmaterialgroup">
+                      </td>
+                      <td>
+                        <input [disUipermission] = "['F000401']" type="text" [(ngModel)]="description" class="form-control"
+                          name="DescriptionValuensmaterialgroup">
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+        <div class="row" style="margin-top:20px">
+          <div class="col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+              <div class="col-lg-7 col-md-8 col-sm-12">
+                <p class="text-uppercase" style="white-space: nowrap"><b>Danh sách file đính kèm</b></p>
+              </div>
+              <div class="col-lg-5 col-md-4 col-sm-12 text-right">
+                <!-- <input type="button" class=" btn btn-success btn-upload" value="Upload" (click)="fileInput.click();"> -->
+                <button class="btn btn-success" (click)="fileInput.click();">
+                  <i class="fas fa-arrow-up"></i>&nbsp;
+                  <span>Upload</span>
+                </button>&nbsp;&nbsp;
+
+                <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+                  (change)="uploadFileClick($event)" multiple />
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered" style="min-width:500px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Cột xử lý</th>
+                        <th width="150px" class="text-center">Tên file</th>
+                        <th width="100px" class="text-center">Dung lượng</th>
+                        <th width="100px" class="text-center">Ngày</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.ListFile; let i = index">
+                        <td class="text-center">{{index+i}}</td>
+                        <td class="text-center">
+                          <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                            (click)="showConfirmDeleteFile(i)" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                          <span *ngIf="row.Id==null">{{row.name}}</span>
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                          <span *ngIf="row.Id==null">{{row.size / (1024*1024)| number: '1.1-3'}} MB</span>
+                          </td>
+                        <td>
+                          <span *ngIf="row.Id!=null">{{row.CreateDate |date:'dd/MM/yyyy'}}</span>
+                          <span *ngIf="row.Id==null">{{DateNow |date:'dd/MM/yyyy'}}</span>
+                          
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 text-right">
+          <button *appUipermission = "['F000401']" class="btn btn-success" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu</span>
+          </button>&nbsp;&nbsp;
+          <button type="button" class="btn btn-danger" (click)="close()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>Đóng</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

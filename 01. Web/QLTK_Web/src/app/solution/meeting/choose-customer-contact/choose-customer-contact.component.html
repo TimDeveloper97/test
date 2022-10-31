@@ -1,0 +1,88 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn người tham dự</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+      <div class="row">
+        <div class="col-lg-8">
+          <nts-search-bar [options]="searchOptions" [(ngModel)]="modelSearch" name="modelSearch"
+            (change)="searchCustomerContact()">
+          </nts-search-bar>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+          <button class="btn btn-success btn-success-system" (click)="searchCustomerContact()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-success btn-success-system" (click)="showCreateUpdates('')">
+              <i class="fa fa-plus"></i> &nbsp;Thêm mới</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered " style="word-wrap: break-word ;min-width:880px;">
+              <thead>
+                <tr>
+                    <th rowspan="4" style="text-align:center; padding-top: 10px" width="60px">
+                      <input type="checkbox" [(ngModel)]="checkeds" name="checkeds" (change)="selectAllFunction()"
+                        style="height:20px; width:20px;">
+                    </th>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="80px" class="text-center">Ảnh</th>
+                  <th width="150px" class="text-center">Họ và tên</th>
+                  <th width="150px" class="text-center">Email</th>
+                  <th width="150px" class="text-center">Số điện thoại</th>
+                  <th width="150px" class="text-center">Chức vụ</th>
+                  <th width="150px" class="text-center">Công ty</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listCustomerContact; let i = index;">
+                    <td width="60px" style="text-align:center">
+                      <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                        style="height:20px; width:20px;" >
+                    </td>
+                  <td class="text-center" width="50px">{{i+1}}</td>
+                  <!-- <td class="text-center" width="80px">{{row.Avatar}}</td> -->
+                  <td width="80px"><img *ngIf="row.Avatar!='' && row.Avatar!=null"
+                    [src]="config.ServerFileApi+row.Avatar" height="80px"
+                    min-witdh="60px" max-witdh="60px"></td>
+                  <td class="text-center" width="150px">{{row.Name}}</td>
+                  <td class="text-center" width="150px">{{row.Email}}</td>
+                  <td class="text-center" width="150px">{{row.PhoneNumber}}</td>
+                  <td class="text-center" width="150px">{{row.Position}}
+                  </td>
+                  <td class="text-center" width="150px">{{row.CustomerName}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+      </div>
+
+      </div>
+
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-check"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

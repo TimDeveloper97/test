@@ -1,0 +1,392 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <ng-container *ngIf="Types!=3">
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Dự án
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.ProjectCode" name="ProjectCode" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-xs-12">
+          <div class="form-group ">
+            <label class="form-label">Sản phẩm
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.ContractName" name="ContractName" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Mã theo thiết kế
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.DesignCode" name="DesignCode" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Công việc
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.TaskName" name="Name" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">SBU
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.SBUName" name="SBUName" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Phòng ban
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.DepartmentName" name="DepartmentName" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Nhân viên thiết kế
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.ResponsiblePersionName" name="ResponsiblePersionName" readonly>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Thời gian dự kiến (giờ)
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" currencyMask [(ngModel)]="model.EstimateTime" name="EstimateTime"
+                readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Mô tả
+            </label>
+            <div class="controls">
+              <textarea [(ngModel)]="model.Description" name="Description" rows="5" class="form-control"
+                readonly></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">
+              <span class="bold text-danger" *ngIf="isDesignFinishDate">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;
+              </span>Ngày hoàn thành thiết kế dự kiến
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.DesignFinishDate|date:'dd/MM/yyyy'}}"
+                name="DesignFinishDate" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">
+              <span class="bold text-danger" *ngIf="isMakeFinishDate">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;
+              </span>Ngày hoàn thành sản xuất dự kiến
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.MakeFinishDate|date:'dd/MM/yyyy'}}"
+                name="MakeFinishDate" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">
+              <span class="bold text-danger" *ngIf="isTransferDate">
+                <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>&nbsp;&nbsp;
+              </span>Ngày chuyển giao dự kiến
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.TransferDate|date:'dd/MM/yyyy'}}" name="TransferDate"
+                readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày bắt đầu dự kiến
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.PlanStartDate|date:'dd/MM/yyyy'}}" name="PlanStartDate"
+                readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày kết thúc dự kiến
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.PlanDueDate|date:'dd/MM/yyyy'}}" name="PlanDueDate" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày bắt đầu thực tế
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.ActualStartDate|date:'dd/MM/yyyy'}}"
+                name="ActualStartDate" readonly>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày kết thúc thực tế
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" value="{{model.ActualEndDate|date:'dd/MM/yyyy'}}" name="ActualEndDate"
+                readonly>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Thời gian thực hiện (giờ)
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" currencyMask [(ngModel)]="model.ExecutionTime" name="ExecutionTime"
+                readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Xác nhận tình trạng công việc
+            </label>
+            <div class="controls">
+              <span class="badge"
+                [ngClass]="model.Status|filterbadgeclassinlist:constant.PlanStatus">{{model.Status|filterinlist:constant.PlanStatus}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Số thứ tự
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.Index" name="Index" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="Types==3">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Công việc
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <input disabled type="text" class="form-control" [(ngModel)]="model.TaskName" name="TaskName">
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Người thực hiện
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="form-group">
+              <input disabled type="text" class="form-control"  [(ngModel)]="model.ResponsiblePersionName" name="ResponsiblePersionName">
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">% hoàn thành
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <select name="Done" disabled class="form-control" [(ngModel)]="model.Done">
+                <option *ngFor="let item of constant.WorkDiary_Done" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Mô tả
+            </label>
+            <div class="controls">
+              <textarea disabled [(ngModel)]="model.Description" name="Description" rows="5" class="form-control"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày bắt đầu dự kiến
+            </label>
+            <div class="controls">
+              <div class="input-group ">
+                <input disabled class="form-control" placeholder="dd/mm/yyyy" name="PlanStartDate" [(ngModel)]="model.PlanStartDate"
+                  ngbDatepicker #PlanStartDate="ngbDatepicker" disabled="true">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="PlanStartDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày kết thúc dự kiến
+            </label>
+            <div class="controls">
+              <div class="input-group ">
+                <input disabled class="form-control" placeholder="dd/mm/yyyy" name="PlanDueDate" [(ngModel)]="model.PlanDueDate"
+                  ngbDatepicker #PlanDueDate="ngbDatepicker" disabled="true">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="PlanDueDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày bắt đầu thực tế
+            </label>
+            <div class="controls">
+              <div class="input-group ">
+                <input disabled class="form-control" placeholder="dd/mm/yyyy" name="ActualStartDate"
+                  [(ngModel)]="model.ActualStartDate" ngbDatepicker #ActualStartDate="ngbDatepicker"
+                  (ngModelChange)="ActualStartDate()">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="ActualStartDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày kết thúc thực tế
+            </label>
+            <div class="controls">
+              <div class="input-group ">
+                <input disabled class="form-control" placeholder="dd/mm/yyyy" name="ActualEndDate" [(ngModel)]="model.ActualEndDate"
+                  ngbDatepicker #ActualEndDate="ngbDatepicker"
+                  (ngModelChange)="ActualEndDate()">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="ActualEndDate.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <div class="form-group ">
+              <label class="form-label">Thời gian thực hiện (giờ)
+              </label>
+              <div class="controls">
+                <input type="text" disabled class="form-control" currencyMask [(ngModel)]="model.ExecutionTime" name="ExecutionTime"
+                  readonly>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container *ngIf="Types!=3">
+    <button *appUipermission="['F110703','F060708']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="showCreateTimePerform()">
+      <i class="fa fa-stopwatch"></i>&nbsp;
+      <span>Log time</span>
+    </button>
+  </ng-container>
+  
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

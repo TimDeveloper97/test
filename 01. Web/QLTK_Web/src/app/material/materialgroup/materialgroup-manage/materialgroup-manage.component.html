@@ -1,0 +1,77 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="groupMaterial"
+              (change)="searchMaterialGroup()">
+            </nts-search-bar>
+          </div>
+
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchMaterialGroup()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.totalItems}}</span> nhóm vật tư</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button  *appUipermission="['F000101']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="employees" [dataSource]="listDA" keyExpr="Id" parentIdExpr="ParentId" [showRowLines]="true"
+            [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[1]" noDataText=" "
+            (onSelectionChanged)="onSelectionChanged($event)">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+            <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+            <dxi-column dataField="MaterialGroupTPACode" caption="Mã nhóm TPA"></dxi-column>
+            <dxi-column dataField="MaterialGroupTPAName" caption="Tên nhóm TPA"></dxi-column>
+            <dxi-column dataField="Description" caption="Mô tả"></dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+              <div *dxTemplate="let cell of 'cellEditTemplate'">
+                <button *appUipermission="['F000102','F000104']" type="button" (click)='showCreateUpdate(cell.value)'
+                  class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button> &nbsp;
+                <button *appUipermission="['F000103']" class="btn btn-xs btn-danger"
+                  (click)="showConfirmDeleteMaterialGroup(cell.value)" ngbTooltip="Xóa" container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </div>
+            </dxi-column>
+          </dx-tree-list>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa nhóm vật tư theo chức năng</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa nhóm vật tư theo chức năng</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

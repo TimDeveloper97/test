@@ -1,0 +1,535 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-xs-7 col-lg-7 col-md-7 col-sm-12">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Mã nhà cung cấp
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Code"
+                                                name="codesuppelier" maxlength="50" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tên nhà cung cấp
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                class="form-control" [(ngModel)]="model.Name" name="namesupplier"
+                                                maxlength="300" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tên viết tắt nhà cung cấp
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                class="form-control" [(ngModel)]="model.Alias" name="aliassupplier"
+                                                maxlength="255">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nhóm vật tư
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <dx-drop-down-box [disUipermission]="['F000801','F000802']" #d1
+                                                    [(value)]="treeBoxValue" valueExpr="Id" displayExpr="Code"
+                                                    [showClearButton]="false" [dataSource]="listSupplierGroup" disabled>
+                                                </dx-drop-down-box>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Trạng thái
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select [disUipermission]="['F000801','F000802','F120808']"
+                                                class="form-control" [(ngModel)]="model.Status" name="Status" required>
+                                                <option value="0">Còn sử dụng</option>
+                                                <option value="1">Không sử dụng</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Email
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F000801','F000802','F120808']"
+                                                placeholder="name@example.com" type="email" class="form-control"
+                                                [(ngModel)]="model.Email" name="emailsupplier" maxlength="300" email>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Số điện thoại
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F000801','F000802','F120808']" ntsNumberInt
+                                                type="text" class="form-control" [(ngModel)]="model.PhoneNumber"
+                                                name="phonesupplier" maxlength="20">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Địa chỉ
+                                        </label>
+                                        <div class="controls">
+                                            <input name="Address" type="text" class="form-control"
+                                                [(ngModel)]="model.Address" maxlength="300"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Quốc gia
+                                        </label>
+                                        <div class="controls">
+                                            <select name="Country" class="form-control" [(ngModel)]="model.Country"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                                <option *ngFor="let item of listCountry" [ngValue]="item">{{item}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Website
+                                        </label>
+                                        <div class="controls">
+                                            <input name="website" type="text" class="form-control"
+                                                [(ngModel)]="model.Website" maxlength="300"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Thông tin ngân hàng thanh toán
+                                        </label>
+                                        <div class="controls">
+                                            <input name="BankPayment_NCC_SX" type="text" class="form-control"
+                                                [(ngModel)]="model.BankPayment"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Loại hình thanh toán
+                                        </label>
+                                        <div class="controls">
+                                            <select name="TypePayment_NCC_SX" class="form-control"
+                                                [(ngModel)]="model.TypePayment"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                                <option *ngFor="let item of constants.TypePayment_NCC_SX"
+                                                    [ngValue]="item.Id">{{item.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Điều khoản thanh toán
+                                        </label>
+                                        <div class="controls">
+                                            <input name="RulesPayment_NCC_SX" type="text" class="form-control"
+                                                [(ngModel)]="model.RulesPayment" maxlength="300"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Điều khoản giao hàng
+                                        </label>
+                                        <div class="controls">
+                                            <select name="RulesDelivery" class="form-control"
+                                                [(ngModel)]="model.RulesDelivery"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                                <option *ngFor="let item of constants.RulesPayment_NCC_SX"
+                                                    [ngValue]="item.Id">{{item.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Thời gian giao hàng
+                                        </label>
+                                        <div class="controls">
+                                            <input name="DeliveryTime" type="text" class="form-control"
+                                                [(ngModel)]="model.DeliveryTime" maxlength="300"
+                                                [disUipermission]="['F000801','F000802','F120808']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ghi chú
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                class="form-control" [(ngModel)]="model.Note" name="Notesupplier"
+                                                maxlength="300">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-xs-5 col-lg-5 col-md-5 col-sm-12">
+                            <dx-tree-list [disUipermission]="['F000801','F000802']" id="Id"
+                                [dataSource]="listSupplierGroup" keyExpr="Id" parentIdExpr="ParentId"
+                                [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" height="470"
+                                [expandedRowKeys]="[1]" [(selectedRowKeys)]="selectedRowKeys"
+                                (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+                                (onRowDblClick)="onRowDblClick()">
+                                <dxo-search-panel [visible]="true"></dxo-search-panel>
+                                <dxo-selection mode="multiple" [recursive]="false">
+                                </dxo-selection>
+                                <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                                <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+                            </dx-tree-list>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <label class="form-label">Danh sách người liên hệ</label>
+                            <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered " style="word-wrap: break-word ;min-width:750px;">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="100px" class="text-center">Cột xử lý</th>
+                                            <th min-width="230px">Tên người liên hệ<span
+                                                    class="bold text-danger">*</span></th>
+                                            <th width="230px">Vị trí<span class="bold text-danger">*</span></th>
+                                            <th width="200px">Số điện thoại</th>
+                                            <th width="200px">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of model.ListSupplierContact; let i = index;">
+                                            <td class="text-center" width="50px">{{Index + i}}</td>
+                                            <td class="text-center">
+                                                <button *appUipermission="['F000801','F000802','F120808']" type="button"
+                                                    class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                    (click)="deleteRow(row.Id,i)">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="row.Name" class="form-control"
+                                                    [name]="'nameSupplierContact' + i" required maxlength="300">
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="row.Location" class="form-control"
+                                                    [name]="'nameSupplierlocation' + i" required maxlength="300">
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="row.PhoneNumber" class="form-control"
+                                                    [name]="'phoneNumberSupplierContact' + i" maxlength="11"
+                                                    ntsNumberInt>
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="email"
+                                                    [(ngModel)]="row.Email" class="form-control"
+                                                    [name]="'emailSupplierContact' + i" maxlength="300"
+                                                    placeholder="name@example.com">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-center" width="50px"></td>
+                                            <td class="text-center">
+                                                <button *appUipermission="['F000801','F000802','F120808']" type="button"
+                                                    class="btn btn-xs btn-success" ngbTooltip="Thêm dòng"
+                                                    (click)="addRow()">
+                                                    <i class="fa fa-plus"></i>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="supplierContactName" class="form-control"
+                                                    name="nameSupplierContact" maxlength="300">
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="supplierLocation" class="form-control"
+                                                    name="supplierLocation" maxlength="300">
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="text"
+                                                    [(ngModel)]="supplierContactPhoneNumber" class="form-control"
+                                                    [name]="'phoneNumberSupplierContact'" maxlength="20" ntsNumberInt>
+                                            </td>
+                                            <td>
+                                                <input [disUipermission]="['F000801','F000802','F120808']" type="email"
+                                                    [(ngModel)]="supplierContactEmail" class="form-control"
+                                                    [name]="'emailSupplierContact'" maxlength="300"
+                                                    placeholder="name@example.com">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>Hãng sản xuất</a>
+                <ng-template ngbNavContent>
+                    <form name="searchForm" #f="ngForm">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 col-sm-3">
+                                <div class="form-group">
+                                    <label class="form-label">Mã hãng sản xuất</label>
+                                    <div class="controls">
+                                        <input [disUipermission]="['F000801','F000802']" type="text"
+                                            class="form-control" name="Namemanufacture"
+                                            [(ngModel)]="manufacturerModel.Code">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 text-right">
+                                <div class="form-group">
+                                    <label class="form-label"></label>
+                                    <div class="controls">
+                                        <button *appUipermission="['F000801','F000802']"
+                                            class="btn btn-success btn-success-system"
+                                            (click)="searchSupplierManufacture()">
+                                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                                        <button class="btn btn-default btn-default-system" (click)="getSupplierInfo()">
+                                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp; &nbsp;
+                                        <button *appUipermission="['F000801','F000802']" type=" button"
+                                            class="btn btn-success" (click)="showChooseManufacture()">
+                                            <span class="fa fa-plus" aria-hidden="true"></span>
+                                            Chọn
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <perfect-scrollbar [config]=" constants.ScrollConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1150px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="100px" class="text-center">Xử lý </th>
+                                            <th width="200px" class="text-center">Mã hãng</th>
+                                            <th width="200px" class="text-center ">Tên hãng</th>
+                                            <th width="200px" class="text-center ">Loại vật tư</th>
+                                            <th width="200px" class="text-center ">Xuất xứ</th>
+                                            <th min-width="200px" class="text-center ">Website</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of model.ListManfacture; let i = index">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button type="button" *appUipermission="['F000801','F000802']"
+                                                    (click)="showConfirmDelete(row)" class="btn  btn-xs btn-danger"
+                                                    ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>{{row.Code}}</td>
+                                            <td>{{row.Name}}</td>
+                                            <td>
+                                                <span *ngIf="row.MaterialType==='1'">Vật tư tiêu chuẩn</span>
+                                                <span *ngIf="row.MaterialType==='2'">Vật tư phi tiêu chuẩn</span>
+                                            </td>
+                                            <td>{{row.Origination}}</td>
+                                            <td>
+                                                <a href="{{row.Website}}" target="_blank">
+                                                    {{row.Website}}</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot *ngIf="model.ListManfacture == 0">
+                                        <tr class="bold">
+                                            <td colspan="16" min-width="300px" class="text-center"
+                                                style="height: 300px; font-size: 20px;">
+                                                Không có dữ liệu</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3" [disabled]="!Id">
+                <a ngbNavLink>Hợp đồng </a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-left">
+                            <label class="form-label" style="line-height:35px;">Tổng số
+                                <span class="bold text-danger">{{model.Contracts.length}}</span> file hợp đồng
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success" (click)="ShowCreateUpdate('')"
+                                container="body">
+                                <i class="fa fa-plus"></i>
+                                Thêm mới
+                            </button>&nbsp;
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12">
+                            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1100px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="110px" class="text-center">Xử lý</th>
+                                            <th width="150px" class="text-center">Tên hợp đồng</th>
+                                            <th width="250px" class="text-center">Loại hợp đồng</th>
+                                            <th width="100px" class="text-center">Ngày ký</th>
+                                            <th width="100px" class="text-center">Ngày hết hạn</th>
+                                            <th width="250px" class="text-center">Tên file</th>
+                                            <th width="100px" class="text-center">Dung lượng</th>
+                                            <th width="100px" class="text-center">Ngày upload</th>
+                                            <th width="150px" class="text-center">Người upload</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let row of model.Contracts; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <button class="btn btn-xs btn-warning" (click)='ShowCreateUpdate(row.Id)'
+                                                        type="button" placement="top" ngbTooltip="Cập nhật" container="body">
+                                                        <span class="fa fa-edit" aria-hidden="true"></span>
+                                                    </button>&nbsp;
+                                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                        placement="top" (click)="showDelete(row.Id)"
+                                                        container="body">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button> 
+                                                    &nbsp;
+                                                    <ng-container *ngIf="row.Path!=''">
+                                                        <button  type="button"
+                                                            (click)="downloadAFile(row)"
+                                                            style="background-color: papayawhip" class="btn btn-xs"
+                                                            placement="top" ngbTooltip="Tải và lưu" container="body">
+                                                            <span class="fas fa-download" aria-hidden="true"
+                                                                style="color: black"></span>
+                                                        </button>
+                                                    </ng-container>
+                                                </td>
+                                                <td class="text-center">{{row.Name}}</td>
+                                                <td class="text-center">
+                                                    {{row.LaborContractName}}
+                                                </td>
+                                                <td class="text-center">
+                                                    <span>{{row.SignDate |date:'dd/MM/yyyy'}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span>{{row.DueDate |date:'dd/MM/yyyy'}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span>{{row.FileName}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span>{{row.FileSize / (1024*1024)| number:
+                                                        '1.1-3'}} MB</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    <span>{{row.UpdateDate |date:'dd/MM/yyyy'}}</span>
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateByName}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+
+
+                    </div>
+                </ng-template> 
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>
+<div class="modal-footer">
+    <ng-container>
+        <button *appUipermission="['F000801','F000802','F120808']" type="button" class="btn btn-success"
+            [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="Id===''">
+        <button *appUipermission="['F000801','F120808']" type="button" class="btn btn-success"
+            [disabled]="!f.form.valid" (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

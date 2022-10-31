@@ -1,0 +1,544 @@
+<div class="modal-body padding-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <!-- tab loại công việc -->
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin </a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Thuộc dòng chảy
+                </label>
+                <div class="controls">
+                  <nts-drop-down-tree [items]="flowStages" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+                    ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.FlowStageId"
+                    name="ParentId">
+                  </nts-drop-down-tree>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Tên vị trí công việc
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" type="text" class="form-control"
+                    [(ngModel)]="model.Name" name="WorkTypeName" maxlength="200" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã vị trí công việc
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" type="text" class="form-control"
+                    [(ngModel)]="model.Code" name="WorkTypeCode" maxlength="200" required>
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">SBU
+                </label>
+                <div class="controls">
+                  <nts-drop-down [disUipermission]="['F080001']" [items]="listSBU" [columns]="columnName" ntsValue="Id"
+                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId"
+                    (ngModelChange)="GetCbbDepartment()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã SBU
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080001']" type="text" class="form-control" readonly value="{{CodeSBU}}">
+                </div>
+              </div>
+            </div> -->
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Phòng ban
+                </label>
+                <div class="controls">
+                  <nts-drop-down [disUipermission]="['F080001']" [items]="listDepartment" [columns]="columnName"
+                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId"
+                    name="DepartmentId" (change)="getNameDepartment(model.DepartmentId)">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Mã phòng ban
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080001']" type="text" class="form-control" readonly
+                    value="{{CodeDepartment}}">
+                </div>
+              </div>
+            </div> -->
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Số lượng nhân viên
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" ntsNumberInt type="text" class="form-control"
+                    [(ngModel)]="model.Quantity" name="Quantity" disabled maxlength="10" >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Nhóm lương
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="salaryGroups" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SalaryGroupId" name="SalaryGroupId"
+                    [disUipermission]="['F080501','F080502']" (change)="getSalaryLevel()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Ngạch lương 
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="salaryTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true"  [(ngModel)]="model.SalaryTypeId" name="SalaryTypeId"
+                    [disUipermission]="['F080501','F080502']" (change)="getSalaryLevel()">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Mức lương tối thiểu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="salaryLevels" [columns]="columnNameSalary" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SalaryLevelMinId" name="SalaryLevelMinId"
+                    [disUipermission]="['F080501','F080502']" (change)="getSalary(true)">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Lương tối thiểu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" type="text" class="form-control"
+                    [(ngModel)]="salaryMin" name="SalaryLevelMin" maxlength="200" disabled currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }">
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Mức lương tối đa
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="salaryLevels" [columns]="columnNameSalary" ntsValue="Id" ntsLabel="Name"
+                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SalaryLevelMaxId" name="SalaryLevelMaxId"
+                    [disUipermission]="['F080501','F080502']" (change)="getSalary(false)">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Lương tối đa
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" type="text" class="form-control"
+                    [(ngModel)]="salaryMax" name="SalaryLevelMax" maxlength="200" disabled currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }">
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+              <div class="form-group ">
+                <label class="form-label">Giá trị của vị trí công việc
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F080501','F080502']" type="text" class="form-control"
+                    [(ngModel)]="model.Value" name="WorkTypeValue" maxlength="200" required ntsCurrencyFormatter>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-container *ngIf='Id'>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 text-left">
+                <label class="form-label">Danh sách công việc theo RASCI
+                </label>
+              </div>
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered" style="min-width:950px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="150px" class="text-center">Mã công việc</th>
+                        <th min-width="250px" class="text-center">Tên công việc</th>
+                        <th width="100px" class="text-center">R</th>
+                        <th width="100px" class="text-center">A</th>
+                        <th width="100px" class="text-center">S</th>
+                        <th width="100px" class="text-center">C</th>
+                        <th width="100px" class="text-center">I</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.Tasks; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td>{{row.Code}}</td>
+                        <td>
+                          {{row.Name}}
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.WorkTypeRId==model.Id">X</span>
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.WorkTypeAId==model.Id">X</span>
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.WorkTypeSId==model.Id">X</span>
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.WorkTypeCId==model.Id">X</span>
+                        </td>
+                        <td class="text-center">
+                          <span *ngIf="row.WorkTypeIId==model.Id">X</span>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 text-left">
+                <label class="form-label">Danh sách công việc có thể luân chuyển
+                </label>
+              </div>
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered" style="min-width:800px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="150px" class="text-center">Mã công việc</th>
+                        <th min-width="250px" class="text-center">Tên công việc</th>
+                        <th width="250px" class="text-center">Độ tương thích</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of listCompatible; let i = index">
+                        <td class="text-center">{{i+1}}</td>
+                        <td>{{row.Code}}</td>
+                        <td>
+                          {{row.Name}}
+                        </td>
+                        <td class="text-center">{{row.Compatible}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </ng-container>
+
+          <div class="modal-footer">
+            <ng-container>
+              <button *appUipermission="['F080501','F080502']" type="button" class="btn btn-success"
+                [disabled]="!f.form.valid" (click)="save(false)">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>{{ModalInfo.SaveText}}</span>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="Id===''">
+              <button *appUipermission="['F080501']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                (click)="saveAndContinue()">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu & Tiếp tục</span>
+              </button>
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+              <i class="fa fa-power-off"></i> &nbsp;
+              <span>
+                Đóng
+              </span>
+            </button>
+          </div>
+        </ng-template>
+      </li>
+      <!-- tab kỹ năng/kiến thức-->
+      <li *ngIf='Id' [ngbNavItem]="2" [disUipermission]="['F080501','F080502']">
+        <a ngbNavLink>Kỹ năng/kiến thức</a>
+        <ng-template ngbNavContent>
+          <form name="form" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+                <h4>Danh sách kỹ năng/kiến thức</h4>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+                <button type=" button" class="btn btn-success" (click)="showSelectSkill()">
+                  <span class="fa fa-plus" aria-hidden="true"></span>
+                  Chọn
+                </button>
+                &nbsp;
+                <button class="btn btn-default btn-default-system" (click)="getWorkTypeInfo()">
+                  <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered table-fixed" style="min-width:320px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý </th>
+                        <th min-width="200px" class="text-center">Tên kỹ năng/kiến thức</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of listBase; let i = index">
+                        <td class="text-center" width="50px">{{i+1}}</td>
+                        <td class="text-center">
+                          <button type="button" (click)="showConfirmDeleteSkill(row)" class="btn  btn-xs btn-danger"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td width="200px">{{row.Name}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <ng-container>
+                <button *appUipermission="['F080501','F080502']" type="button" class="btn btn-success"
+                  [disabled]="!f.form.valid" (click)="save(false)">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>{{ModalInfo.SaveText}}</span>
+                </button>
+              </ng-container>
+              <ng-container *ngIf="Id===''">
+                <button *appUipermission="['F080501']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                  (click)="saveAndContinue()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu & Tiếp tục</span>
+                </button>
+              </ng-container>
+              <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                <i class="fa fa-power-off"></i> &nbsp;
+                <span>
+                  Đóng
+                </span>
+              </button>
+            </div>
+          </form>
+        </ng-template>
+      </li>
+
+      <!-- tab công cụ dụng cụ -->
+      <li *ngIf='Id' [ngbNavItem]="3" [disUipermission]="['F080501','F080502']">
+        <a ngbNavLink>Công cụ</a>
+        <ng-template ngbNavContent>
+          <div class="row margin-bottom-5">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+              <h4>Danh sách công cụ</h4>
+            </div>
+            <!-- <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+              <button type=" button" class="btn btn-success" (click)="showSelectMaterial()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn công cụ
+              </button>
+            </div> -->
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:1270px">
+                  <thead>
+                    <tr>
+                      <th width="40px" class="text-center">STT</th>
+                      <th width="80px" class="text-center">Xử lý </th>
+                      <th width="200px" class="text-center">Nhóm vật tư </th>
+                      <th width="200px" class="text-center">Mã hãng sản xuất</th>
+                      <th width="250px" class="text-center">Mã vật tư </th>
+                      <th min-width="200px" class="text-center">Tên vật tư</th>
+                      <th width="100px" class="text-center">Số lượng</th>
+                      <th width="80px" class="text-center">Giá</th>
+                      <th width="120px" class="text-center">Thành tiền</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of model.Materials; let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td class="text-center">
+                        <button *appUipermission="['F050310']" type="button" (click)="showConfirmDeleteMaterial(i)"
+                          class="btn  btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>{{row.MaterialGroupName}}</td>
+                      <td>{{row.ManufactureCode}}</td>
+                      <td>{{row.Code}}</td>
+                      <td>{{row.Name}}</td>
+                      <td class="text-center">
+                        <input type="text" [(ngModel)]="row.Quantity" class="form-control" ntsNumberInt
+                          [name]="'Quantity'+i">
+                      </td>
+                      <td class="text-right">{{row.Pricing | number:'1.0-0'}}</td>
+                      <td class="text-right">{{row.Pricing * row.Quantity| number:'1.0-0'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+
+      <!-- tab tài liệu -->
+      <li *ngIf='Id' [ngbNavItem]="4">
+        <a ngbNavLink>Tài liệu</a>
+        <ng-template ngbNavContent>
+          <div class="row margin-bottom-5">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+              <h4>Danh sách tài liệu</h4>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+              <button type=" button" class="btn btn-success" (click)="chooseDocument()">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn tài liệu
+              </button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:1150px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="100px" class="text-center">Xử lý </th>
+                      <th width="200px" class="text-center">Mã tài liệu</th>
+                      <th width="200px" class="text-center">Tên tài liệu</th>
+                      <th width="200px" class="text-center">Nhóm tài liệu</th>
+                      <th width="200px" class="text-center">Loại tài liệu</th>
+                      <th min-width="400px" class="text-center">Công việc</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of model.Documents; let i = index">
+                      <td class="text-center" width="50px">{{i+1}}</td>
+                      <td class="text-center">
+                        <button class="btn btn-xs btn-info" container="body"
+                          (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu" container="body">
+                          <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <ng-container *ngIf="!row.IsDocumentOfTask">
+                          <button *appUipermission="['F050001','F050002']" type="button"
+                            (click)="showConfirmDeleteDocument(i)" class="btn  btn-xs btn-danger" ngbTooltip="Xóa"
+                            container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>&nbsp;
+                        </ng-container>
+                        <button *appUipermission="['F000906']" type="button" class="btn btn-xs btn-success"
+                          (click)="viewDocument(row)" placement="top" ngbTooltip="Xem tài liệu" container="body">
+                          <span class="far fa-eye" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>{{row.Code}}</td>
+                      <td>{{row.Name}}</td>
+                      <td>{{row.DocumentGroupName}}</td>
+                      <td>{{row.DocumentTypeName}}</td>
+                      <td>{{row.TaskName}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <ng-container>
+              <button *appUipermission="['F080501','F080502']" type="button" class="btn btn-success"
+                [disabled]="!f.form.valid" (click)="save(false)">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>{{ModalInfo.SaveText}}</span>
+              </button>
+            </ng-container>
+            <ng-container *ngIf="Id===''">
+              <button *appUipermission="['F080501']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                (click)="saveAndContinue()">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu & Tiếp tục</span>
+              </button>
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+              <i class="fa fa-power-off"></i> &nbsp;
+              <span>
+                Đóng
+              </span>
+            </button>
+          </div>
+
+        </ng-template>
+      </li>
+
+      <!-- tab câu hỏi phỏng vấn -->
+      <li *ngIf='Id' [ngbNavItem]="5">
+        <a ngbNavLink>Câu hỏi</a>
+        <ng-template ngbNavContent>
+          <app-worktype-interview-manage [workTypeId]="model.Id">
+          </app-worktype-interview-manage>
+        </ng-template>
+      </li>
+
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

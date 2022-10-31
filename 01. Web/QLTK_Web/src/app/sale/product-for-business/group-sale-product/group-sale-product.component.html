@@ -1,0 +1,81 @@
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-left">
+            <h4>Danh sách nhóm sản phẩm kinh doanh</h4>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-right">
+            <button type=" button" class="btn btn-success" (click)="showSelectGroup()">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+        Chọn nhóm sản phẩm kinh doanh
+      </button>
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listGroup.length}}</span> nhóm sản phẩm kinh doanh</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:560px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="70px" class="text-center">Xử lý </th>
+                            <th width="350px" class="text-center">Tên nhóm</th>
+                            <th min-width="150px" class="text-center">Mô tả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of listGroup; let i = index" (click)="ClickedRow(row.Id)">
+                            <td class="text-center" width="50px">{{i+1}}</td>
+                            <td class="text-center">
+                                <button type="button" (click)="showComfrimDeleteGroup(row)" class="btn btn-xs btn-danger" ngbTooltip="Xóa" container="body" placement="bottom">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+                            </td>
+                            <td width="150px">{{row.Name}}</td>
+                            <td min-width="150px">{{row.Note}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+</form>
+<div>
+    <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listEmployee.length}}</span> nhân viên kinh doanh</label>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" style="min-width:960px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="80px" class="text-center">Ảnh</th>
+                        <th width="200px" class="text-center">Tên nhân viên</th>
+                        <th width="200px" class="text-center">Mã nhân viên</th>
+                        <th width="150px" class="text-center">Email</th>
+                        <th width="150px" class="text-center">Số điện thoại</th>
+                        <th min-width="150px" class="text-center">Phòng ban</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of listEmployee; let i = index">
+                        <td class="text-center" width="50px">{{i+1}}</td>
+                        <td class="text-center"><img *ngIf="row.ImagePath!='' && row.ImagePath!=null" [src]="config.ServerFileApi+row.ImagePath" height="80px" min-witdh="60px" max-witdh="60px"></td>
+                        <td>{{row.Name}}</td>
+                        <td>{{row.Code}}</td>
+                        <td>{{row.Email}}</td>
+                        <td>{{row.PhoneNumber}}</td>
+                        <td min-width="150px">{{row.DepartmentName}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>

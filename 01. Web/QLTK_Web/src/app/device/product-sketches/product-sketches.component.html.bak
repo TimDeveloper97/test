@@ -1,0 +1,287 @@
+<!-- Danh mục module -->
+<div class="row">
+  <div class="col-lg-9 col-md-9 col-sm-12 col-xl-9 text-left">
+    <label class="form-label">Danh mục module | Tổng tiền <span
+        class="bold text-danger">{{totalAmount|number:'1.0-0'}}</span> |
+      Tổng
+      <span class="bold text-danger">{{listModule.length}}</span> module | LeadTime lớn nhất: <span
+        class="bold text-danger">{{MaxLeadTimeModule}}</span> ngày | <span
+        class="bold text-danger">{{TotalModuleNoLeadTime}}</span> chưa có LeadTime |
+      <span class="bold text-danger">{{TotalModuleNoPrice}}</span> chưa có giá
+    </label>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xl-3 text-right">
+    <button class="btn btn-default btn-default-system" (click)="getInfoSketches()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+    <div ngbDropdown class="d-inline-block">
+      <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i class="fas fa-cog"></i></button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button type=" button" class="btn btn-success" (click)="showImportModule()" *appUipermission="['F030407']">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+          Import module
+        </button>
+        <button type=" button" class="btn btn-success" (click)="showSelectModule()" *appUipermission="['F030407']">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+          Chọn module
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row" #scrollModule>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+    <div #scrollModuleHeader style="height: auto; width:100%;overflow: hidden">
+      <table class="table table-bordered table-fixed mb-0" style="min-width:1360px">
+        <thead>
+          <tr>
+            <th class="text-center" width="40px">STT</th>
+            <th class="text-center" width="50px">Xử lý</th>
+            <th class="text-center" width="120px">Mã module</th>
+            <th class="text-center" min-width="300px">Tên module</th>
+            <th class="text-center" width="150px">Số lượng lớn nhất</th>
+            <th class="text-center" width="70px">Số lượng</th>
+            <th class="text-center" width="100px">Trạng thái</th>
+            <th class="text-center" width="100px">Giá</th>
+            <th class="text-center" width="120px">Thành tiền</th>
+            <th class="text-center" width="80px">LeadTime</th>
+            <th class="text-center" width="200px">Ghi chú</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="500">
+      <table class="table table-bordered table-fixed" style="min-width:1360px">
+        <colgroup>
+          <col width="40px">
+          <col width="50px">
+          <col width="120px">
+          <col min-width="300px">
+          <col width="150px">
+          <col width="70px">
+          <col width="100px">
+          <col width="100px">
+          <col width="120px">
+          <col witdth="80px">
+          <col width="200px">
+        </colgroup>
+        <tbody>
+          <tr *ngFor="let row of listModule; let i = index">
+            <td class="text-center" width="40px">{{i+1}}</td>
+            <td class="text-center" width="50px">
+              <button *appUipermission="['F030407']" type="button" (click)="showConfirmDeleteModule(row)"
+                class="btn  btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>
+            </td>
+            <td width="120px"><a [routerLink]="['/module/quan-ly-module/chinh-sua-module/'+ row.ModuleId]"
+                [disUipermission]="['F030404']">{{row.Code}}</a> </td>
+            <td min-width="300px"><a [routerLink]="['/module/quan-ly-module/chinh-sua-module/'+ row.ModuleId]"
+                [disUipermission]="['F030404']">{{row.ModuleName}}</a> </td>
+            <td width="120px">{{row.MaxQtyByPractice}}</td>
+            <td class="text-center" width="100px">
+              <div class="controls">
+                <input type="number" ntsNumberInt class="form-control" [(ngModel)]="row.Qty" maxlength="100" min="0"
+                  name={{row.Name}} (change)="calculateTotalAmount()">
+              </div>
+            </td>
+            <td width="70px">{{row.MaxQtyByPractice==row.Qty?"OK":""}}</td>
+            <td class="text-right" width="100px"
+              [ngClass]="{'noprice': row.IsNoPrice || row.Price==0||row.Price==null}">
+              {{row.Price|number:'1.0-0'}}</td>
+            <td class="text-right" width="120px">{{(row.Qty*row.Price)|number:'1.0-0'}}</td>
+            <td width="80px" class="text-center"
+              [ngClass]="{'noprice': row.LeadTime==0||row.LeadTime==''||row.LeadTime==null}">{{row.LeadTime}}</td>
+            <td width="200px">{{row.Note}}</td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="8" class="text-right bold">Tổng số</td>
+            <td class="text-right bold" width="120px">{{totalAmount|number:'1.0-0'}}</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<div class="row mt-5">
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-left">
+    <label class="form-label">Bảng kê khai bài thực hành/công đoạn theo module | Tổng <span
+        class="bold text-danger">{{listPractice.length}}</span> bài thực hành/công đoạn
+    </label>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right">
+    <button type=" button" class="btn btn-success" (click)="synchronizedPractice()" *appUipermission="['F030407']">
+      <span class="fas fa-sync-alt" aria-hidden="true"></span>
+      Đồng bộ BTH/công đoạn
+    </button>&nbsp;
+  </div>
+</div>
+
+<div class="row" #scrollPractice>
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+    <div #scrollPracticeHeader style="overflow-x: auto;overflow: hidden;">
+      <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+        [style.min-width.px]="720+ListHeader.length*100">
+        <thead>
+          <tr>
+            <th class="text-center" width="40px">STT</th>
+            <th class="text-center" width="50px">Xử lý</th>
+            <ng-container *ngIf="ListPracticeFile.length>0">
+              <th class="text-center" width="150">Tài liệu hướng dẫn
+              </th>
+            </ng-container>
+            <th class="text-center" style="width: 150px;">Mã bài thực hành/công đoạn</th>
+            <th class="text-center" style="min-width: 150px;">Tên bài thực hành/công đoạn</th>
+            <th class="text-center" width="80px">LeadTime</th>
+            <th class="text-center" width="100px">Giá</th>
+            <ng-container *ngIf="listPractice.length>0">
+              <th class="text-center" *ngFor="let module of ListHeader; let  j=index" width="100px">
+                {{module.Code}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="300" style="height: auto;">
+      <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="720+ListHeader.length*100">
+        <tbody>
+          <tr *ngFor="let row of listPractice; let i = index">
+            <td class="text-center" width="40px">{{i+1}}</td>
+            <td class="text-center" width="50px" >
+              <button *appUipermission="['F030407']" type="button" (click)="showConfirmDeletePractice(row)"
+                class="btn btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>
+            </td>
+            <td class="text-center" style="width: 150px;" *ngIf="ListPracticeFile.length>0">
+
+              <button *appUipermission="['F030416']" type="button" (click)="DownloadAFileSetup(row.ListPracticeFile)" ngbTooltip="Download"
+                class="btn btn-xs btn-danger">
+                <i class="fa fa-arrow-down"></i>
+              </button>
+
+            </td>
+            <td style="width: 150px;">{{row.Code}}</td>
+            <td style="min-width: 150px;">{{row.Name}}</td>
+            <td width="80px" class="text-center">{{row.MaxTotalLeadtime}}</td>
+            <td width="100px">{{row.TotalPrice|number:'1.0-0'}}</td>
+            <td *ngFor="let module of row.ListModuleInPractice; let j=index" width="100px">
+              <!-- <span>{{module.Qty}}</span> -->
+              <input [disUipermission]="['F030407']" type="number" [(ngModel)]="module.Qty" class="form-control"
+                [name]="i+'Qty' + j" ntsNumberInt (change)="changeQuantityModule(module)" min="0" disabled>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5" class="text-right bold">Tổng số</td>
+            <td class="text-right bold" width="120px">{{TotalAllPricePractice|number:'1.0-0'}}</td>
+            <td *ngFor="let module of ListHeader; let  j=index" width="100px"></td>
+          </tr>
+        </tfoot>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
+    <div class="row margin-bottom-10 mt-3">
+      <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listData.length}}</span> phụ kiện</label> |
+        <label class="form-label" style="line-height:35px;">Tổng số tiền <span
+            class="bold text-danger">{{totalAmountAccessories|number:'1.0-0'}}</span></label>
+      </div>
+      <div class="col-md-6 text-right">
+        <button class="btn btn-default btn-default-system" (click)="getProductaccessoriesInfo()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+        <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownBasic2" ngbDropdownToggle><i
+              class="fas fa-cog"></i></button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic2">
+            <button *appUipermission="['F030415']" class="btn  btn-success" (click)="ExportExcel()">
+              <i class="fa fa-file-excel" aria-hidden="true"></i>
+              Xuất excel
+            </button>
+            <button type=" button" class="btn btn-success" (click)="getListMatarial()">
+              <span class="fas fa-sync-alt" aria-hidden="true"></span>
+              Đồng bộ phụ kiện
+            </button>
+            <button type="button" class="btn btn-success" (click)="showClick()" container="body"
+              *appUipermission="['F030406']">
+              <i class="fa fa-plus"></i>
+              Chọn vật tư
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" #scrollAccessories>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <div #scrollAccessoriesHeader style="height: auto; width:100%;overflow: hidden">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:1120px">
+            <thead>
+              <tr>
+                <th width="40px" class="text-center">STT</th>
+                <th width="50px" class="text-center">Xử lý</th>
+                <th width="200px" class="text-center">Mã phụ kiện</th>
+                <th min-width="200px" class="text-center">Tên phụ kiện</th>
+                <th width="150px" class="text-center">Hãng</th>
+                <th width="80px" class="text-center">Số lượng</th>
+                <th width="100px" class="text-center">Giá</th>
+                <th width="100px" class="text-center">Thành tiền</th>
+                <th width="200px" class="text-center">Ghi chú</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="300">
+          <table class="table table-bordered table-fixed" style="min-width:1120px">
+            <tbody>
+              <tr *ngFor="let row of listData; let i = index">
+                <td class="text-center" width="40px">{{i+1}}</td>
+                <td class="text-center" width="50px">
+                  <button type="button" (click)="showConfirmDelete(i)" class="btn  btn-xs btn-danger" ngbTooltip="Xóa"
+                    container="body">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td width="200px">{{row.Code}}</td>
+                <td min-width="200px">{{row.Name}}</td>
+                <td width="150px">{{row.Manafacture}}</td>
+                <td class="text-right" width="80px">
+                  <input type="number" [(ngModel)]="row.Quantity" class="form-control" [name]="i+'Quantity'"
+                    ntsNumberInt min="0">
+                </td>
+                <td class="text-right" width="100px">{{row.Price|number:'1.0-0'}}</td>
+                <td class="text-right" width="100px">{{row.Amount|number:'1.0-0'}}</td>
+                <td width="200px">{{row.Note}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal-footer mt-5">
+  <button type="button" class="btn btn-success" (click)="showConfirmUploadVersion()" *appUipermission="['F030406']">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Lưu</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

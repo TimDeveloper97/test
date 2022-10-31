@@ -1,0 +1,250 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false" >
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-xs-7 col-lg-7 col-md-7 col-sm-12">
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Mã hãng
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="model.Code" name="codemanufacturer" maxlength="50" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Tên hãng
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="model.Name" name="namemanufacturer" maxlength="300" required>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Nhóm vật tư
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="materialGroupName" name="MaterialGroupName" required disabled>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Loại vật tư
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <select [disUipermission]="['F000502','F000501']" class="form-control"
+                        [(ngModel)]="model.MaterialType" name="MaterialType" required>
+                        <option value="1">Vật tư tiêu chuẩn</option>
+                        <option value="2">Vật tư phi tiêu chuẩn</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Trạng thái
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <select [disUipermission]="['F000502','F000501']" class="form-control" [(ngModel)]="model.Status"
+                        name="Statusmanufacturer" required>
+                        <option value="0">Còn sử dụng</option>
+                        <option value="1">Không sử dụng</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group">
+                    <label class="form-label">Leadtime (Ngày)
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <input type="text" class="form-control" ntsNumberInt name="Leadtime" [(ngModel)]="model.Leadtime" required>
+                    </div>
+                  </div>
+                </div>    
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Xuất xứ
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="model.Origination" name="Originationmanufacturer" maxlength="300">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Website
+
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="model.Website" name="websitemanufacturer" maxlength="100">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                  <div class="form-group ">
+                    <label class="form-label">Ghi chú
+                    </label>
+                    <div class="controls">
+                      <input [disUipermission]="['F000502','F000501']" type="text" class="form-control"
+                        [(ngModel)]="model.Description" name="descriptionmanufacturer" maxlength="300">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-5 col-lg-5 col-md-5 col-sm-12">
+              <dx-tree-list [disUipermission]="['F000502','F000501']"
+               id="Id" [dataSource]="listManufactureGroup"
+                keyExpr="Id" parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                height="520" [expandedRowKeys]="[1,2,10]" [(selectedRowKeys)]="selectedRowKeys"
+                (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+                 (onRowDblClick)="onRowDblClick()">
+                <dxo-search-panel [visible]="true" placeholder="Tìm kiếm..."></dxo-search-panel>
+                <dxo-selection mode="multiple" [recursive]="true">
+                </dxo-selection>
+                <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+              </dx-tree-list>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <a ngbNavLink>Nhà cung cấp</a>
+        <ng-template ngbNavContent>
+          <form name="searchForm" #f="ngForm">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                  <label class="form-label">Mã nhà cung cấp</label>
+                  <div class="controls">
+                    <input [disUipermission]="['F000504']" type="text" class="form-control" name="Name"
+                      [(ngModel)]="supplierModel.Code">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3">
+                <div class="form-group">
+                  <label class="form-label">Tên nhà cung cấp</label>
+                  <div class="controls">
+                    <input [disUipermission]="['F000504']" type="text" class="form-control" name="Name"
+                      [(ngModel)]="supplierModel.Name">
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                <div class="form-group">
+                  <label class="form-label"></label>
+                  <div class="controls">
+                    <button class="btn btn-success btn-success-system" (click)="searchSupplierManufacture()">
+                      <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:950px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="150px" class="text-center">Mã NCC</th>
+                      <th width="200px" class="text-center">Tên NCC</th>
+                      <th width="150px" class="text-center">Số điện thoại</th>
+                      <th width="200px" class="text-center">Email</th>
+                      <th min-width="200px" class="text-center">Ghi chú</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of listSupplierManufacture; let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td>{{row.Code}}</td>
+                      <td>{{row.Name}}</td>
+                      <td>{{row.PhoneNumber}}</td>
+                      <td>{{row.Email}}</td>
+                      <td>{{row.Note}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot *ngIf="listSupplierManufacture.length == 0">
+                    <tr class="bold">
+                      <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">
+                        Không có dữ liệu</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-template>
+    </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F000501','F000502']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F000501']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

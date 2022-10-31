@@ -1,0 +1,60 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Tìm kiếm vật tư theo nhóm vật tư tương tự</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="searchForm" #f="ngForm">
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mã vật tư</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Codesearchsimilarmaterial" [(ngModel)]="model.MaterialCode">
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tên vật tư</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Namesearchsimilarmaterial" [(ngModel)]="model.MaterialName">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 text-right margin-top-20">
+        <button class="btn btn-success btn-success-system" (click)="searchMaterialInSimilarMaterial()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+        <button class="btn btn-default btn-default-system" (click)="clear()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      </div>
+    </div>
+  </form>
+  <div class="row margin-bottom-10">
+    <div class="col-md-6 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{model.TotalItems}}</span> nhóm vật tư tương tự</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th min-width="200px" class="text-center">Nhóm vật tư tương tự</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listSimilarMaterial; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>
+              <td><a (click)="viewMaterial(row.Id)">{{row.Name}}</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>

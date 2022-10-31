@@ -1,0 +1,82 @@
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{interviewModel.TotalItems}}</span> lần phỏng vấn &nbsp;
+            </label>
+        </div>
+
+        <div class="col-md-6 text-right">
+            <button *appUipermission="['F080401']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+                container="body">
+                <i class="fa fa-plus"></i>
+                Thêm mới
+            </button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:940px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="150px" class="text-center">Xử lý</th>
+                            <th width="120px" class="text-center">Tình trạng</th>
+                            <!-- <th width="150px" class="text-center">Nội dung</th> -->
+                            <th width="150px" class="text-center">Ngày phỏng vấn</th>
+                            <th width="200px" class="text-center">Người phỏng vấn</th>
+                            <th min-width="200px" class="text-center">Nhận xét</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of interviews; let i = index">
+                            <td class="text-center">{{i+1}}</td>
+                            <td style="text-align: center">
+                                <button type="button" (click)='showView(row.Id)' class="btn btn-xs btn-success"
+                                    placement="top" ngbTooltip="Xem" container="body">
+                                    <span class="fa fa-eye" aria-hidden="true"></span>
+                                </button>&nbsp;
+                                <button type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                                    placement="top" ngbTooltip="Cập nhật" container="body">
+                                    <span class="fa fa-edit" aria-hidden="true"></span>
+                                </button> &nbsp;
+                                <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)"
+                                    placement="bottom" ngbTooltip="Xóa" container="body">
+                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                </button>
+                            </td>
+
+                            <td class="text-center">
+                                <nts-status-badge [items]="constant.InterviewStatus" [value]="row.Status">
+                                </nts-status-badge>
+                            </td>
+                            <!-- <td class="text-center">{{row.Name}}</td> -->
+                            <td class="text-center">{{row.InterviewDate|date:'dd/MM/yyyy'}}</td>
+                            <td>{{row.InterviewBy}}</td>
+                            <td>{{row.Comment}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot *ngIf="interviews.length == 0">
+                        <tr class="bold">
+                            <td colspan="7" min-width="300px" class="text-center"
+                                style="height: 300px; font-size: 20px;">
+                                Không
+                                có dữ liệu</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</form>

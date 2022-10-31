@@ -1,0 +1,294 @@
+<div class='content-wrapper'>
+  <section class="box">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+          <div class="form-group">
+            <label class="form-label">SBU</label>
+            <div class="controls">
+              <nts-drop-down [disUipermission]="['F090608']" [items]="listSBU"
+              [columns]="columnName" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+              [(ngModel)]="searchModel.SBUId" name="SBUId" (change)="changeSbu()">
+            </nts-drop-down>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+          <div class="form-group">
+            <label class="form-label">Phòng ban</label>
+            <div class="controls">
+              <nts-drop-down [disUipermission]="['F090608']"[items]="listDepartment"
+              [columns]="departmentColumnName" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+              [(ngModel)]="searchModel.DepartmentId" name="DepartmentId" (change)="getListFolder()">
+            </nts-drop-down>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+          <div class="form-group">
+            <label class="form-label">Loại đối tượng cấu hình</label>
+            <div class="controls">
+              <select name="ObjectType" class="form-control" [(ngModel)]="searchModel.ObjectType"
+                (ngModelChange)="getListFolder()">
+                <option *ngFor="let item of constant.DesignObjectTypes" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3" *ngIf="searchModel.ObjectType != 4">
+          <div class="form-group">
+            <label class="form-label">Loại</label>
+            <div class="controls">
+              <select name="TypeDefinitionId" class="form-control" [(ngModel)]="searchModel.TypeDefinitionId"
+                (ngModelChange)="getListFolder()">
+                <option *ngFor="let item of constant.DesignTypes" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3" *ngIf="searchModel.ObjectType == 4">
+          <div class="form-group">
+            <label class="form-label">Loại</label>
+            <div class="controls">
+              <select name="TypeDefinitionId" class="form-control" [(ngModel)]="searchModel.TypeDefinitionId"
+                (ngModelChange)="getListFolder()">
+                <option *ngFor="let item of constant.DesignTypesSolution" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class='content-wrapper page-content'>
+  <section class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="files" [dataSource]="listFolder" keyExpr="FolderDefinitionId" valueExpr="FolderDefinitionId"
+            parentIdExpr="FolderDefinitionManageId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+            [height]="height" (onSelectionChanged)="onSelectionChanged($event)"
+            [expandedRowKeys]="listFolderDefinitionId">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column dataField="Name" caption="Cây thư mục"></dxi-column>
+          </dx-tree-list>
+          <dx-context-menu [dataSource]="items" keyExpr="FolderDefinitionId" [width]="200" target="#files"
+            (onItemClick)="itemClick($event)">
+            <div *dxTemplate="let e of 'item'" [ngClass]="{'menu-display':searchModel.DepartmentId != userDepartmentId}">
+              <div>
+                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+              </div>
+            </div>
+          </dx-context-menu>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="body-right">
+    <div class="content-body">
+      <header>
+        <h3 class="title pull-left">Thông tin thư mục</h3>
+      </header>
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+            <label class="form-label name">Tên:</label>
+          </div>
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <input [disUipermission]="['F090602']" type="text" class="form-control" name="FolderDefinitionFirst"
+                  [(ngModel)]="folderDefinitionModel.FolderDefinitionFirst" maxlength="100">
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <select [disUipermission]="['F090602']" name="FolderDefinitionBetween" class="form-control"
+                  [(ngModel)]="folderDefinitionModel.FolderDefinitionBetween">
+                  <option *ngFor="let item of constant.FolderDefinitionBetween" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <select [disUipermission]="['F090602']" name="FolderDefinitionBetweenIndex" class="form-control"
+                  [(ngModel)]="folderDefinitionModel.FolderDefinitionBetweenIndex">
+                  <option *ngFor="let item of constant.FolderDefinitionBetweenIndex" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <input [disUipermission]="['F090602']" type="text" class="form-control" name="FolderDefinitionLast"
+                  [(ngModel)]="folderDefinitionModel.FolderDefinitionLast" maxlength="100">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="custom-control custom-checkbox">
+                  <input [disUipermission]="['F090602']" type="checkbox" class="custom-control-input"
+                    id="StatusCheckFile" name="StatusCheckFile" [(ngModel)]="statusCheckFile">
+                  <label class="custom-control-label form-label" for="StatusCheckFile">Không kiểm tra tài liệu</label>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="cbb-inline">
+                  <label class="form-label">Loại</label>
+                  <select [disUipermission]="['F090602']" name="folderType" class="form-control"
+                    [(ngModel)]="folderDefinitionModel.FolderType">
+                    <option value="0"></option>
+                    <option *ngFor="let item of constant.FolderTypes" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+            <div class="row">
+              <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <div class="custom-control custom-checkbox ">
+                  <input type="checkbox" class="custom-control-input" id="CheckExtensionFile" name="CheckExtensionFile"
+                    [(ngModel)]="folderDefinitionModel.CheckExtensionFile">
+                  <label class="custom-control-label form-label" for="CheckExtensionFile">Không kiểm tra định dạng</label>
+                </div>
+              </div> -->
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="custom-control custom-checkbox">
+                  <input [disUipermission]="['F090602']" type="checkbox" class="custom-control-input"
+                    id="statusCheckFolder" name="statusCheckFolder" [(ngModel)]="statusCheckFolder">
+                  <label class="custom-control-label form-label" for="statusCheckFolder">Không kiểm tra thư mục</label>
+                </div>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <input [disUipermission]="['F090602']" type="text" class="form-control" name="ExtensionFile"
+                  placeholder="Định hạng file trong thư mục" [disabled]="folderDefinitionModel.CheckExtensionFile"
+                  [(ngModel)]="folderDefinitionModel.ExtensionFile" maxlength="100" maxlength="15">
+              </div>
+            </div>
+            <div class="row">
+              <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="CheckExtensionFiles"
+                    name="CheckExtensionFiles">
+                  <label class="custom-control-label form-label" for="CheckExtensionFiles">Thư mục tài liệu đặt hàng</label>
+                </div>
+              </div> -->
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+                <button *appUipermission="['F090602']" [ngClass]="{'menu-display':searchModel.DepartmentId != userDepartmentId}" type="button" class="btn btn-success" (click)="updateFolder()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <hr>
+    <div class="content-body">
+      <header>
+        <h3 class="title pull-left">Thông tin tài liệu</h3>
+      </header>
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+            <label class="form-label name">Tên:</label>
+          </div>
+          <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <input [disUipermission]="['F090605','F090604']" type="text" class="form-control"
+                  name="FileDefinitionNameFirst" [(ngModel)]="fileDefinitionModel.FileDefinitionNameFirst"
+                  maxlength="100">
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <select [disUipermission]="['F090605','F090604']" name="FileDefinitionNameBetween" class="form-control"
+                  [(ngModel)]="fileDefinitionModel.FileDefinitionNameBetween">
+                  <option *ngFor="let item of constant.FolderDefinitionBetween" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <select [disUipermission]="['F090605','F090604']" name="FileDefinitionNameBetweenIndex"
+                  class="form-control" [(ngModel)]="fileDefinitionModel.FileDefinitionNameBetweenIndex">
+                  <option *ngFor="let item of constant.FolderDefinitionBetweenIndex" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <input [disUipermission]="['F090605','F090604']" type="text" class="form-control"
+                  name="FileDefinitionNameLast" [(ngModel)]="fileDefinitionModel.FileDefinitionNameLast"
+                  maxlength="100">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+                <div class="cbb-inline">
+                  <label class="form-label">Loại</label>
+                  <select [disUipermission]="['F090605','F090604']" name="fileType" class="form-control"
+                    [(ngModel)]="fileDefinitionModel.FileType">
+                    <option value="0"></option>
+                    <option *ngFor="let item of constant.FileTypes" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            <br>
+            <div class="row">
+              <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 text-left">
+                <button class="btn btn-default btn-default-system" (click)="clear()">
+                  <i class="fas fa-redo-alt"></i>&nbsp;
+                  <span>Clear</span>
+                </button>
+              </div>
+              <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 text-right">
+                <button *appUipermission="['F090604']" [ngClass]="{'menu-display':searchModel.DepartmentId != userDepartmentId}" type="button" class="btn btn-success" (click)="createFile()">
+                  <i class="fa fa-plus"></i>&nbsp;
+                  <span>Thêm</span>
+                </button>&nbsp;
+                <button *appUipermission="['F090605']" [ngClass]="{'menu-display':searchModel.DepartmentId != userDepartmentId}" type="button" class="btn btn-success" (click)="updateFile()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  <span>Lưu</span>
+                </button>&nbsp;
+                <button *appUipermission="['F090606']" [ngClass]="{'menu-display':searchModel.DepartmentId != userDepartmentId}" type="button" class="btn btn-danger"
+                  (click)="showConfirmdeleteFileDefinition(fileDefinitionModel.FileDefinitionId)">
+                  <i class="fas fa-times" aria-hidden="true"></i>&nbsp;
+                  <span>Xóa</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+          <label class="form-label" style="line-height:35px;">Danh sách tài liệu</label>&nbsp;
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:600px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th min-width="550px" class="text-center">Tài liệu</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listFile; let i = index" (click)="getFileDefinitionInfo(row.FileDefinitionId)"
+                  [ngClass]="{'selected':selectIndex == row.FileDefinitionId}">
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{row.Name}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="form-group">
+          <label class="form-label">Tên/Mã nhà cung cấp</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Filtermaterialbyhistorymodal" [(ngModel)]="model.Filter">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-2 col-sm-2 mt-3">
+        <button class="btn btn-success btn-success-system" (click)="getHistoryByMaterialId()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:900px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="150px" class="text-center">Tên nhà cung cấp</th>
+                <th width="100px" class="text-center">Mã NCC</th>
+                <th width="150px" class="text-center">Ngày mua</th>
+                <th width="150px" class="text-center">Số lượng</th>
+                <th width="100px" class="text-center">Đơn giá</th>
+                <th width="100px" class="text-center">Thành tiền</th>
+                <th width="100px" class="text-center">Khoảng cách tới hiện tại</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of ListData; let i = index">
+                <td class="text-center">{{StartIndex + i}}</td>
+                <td>{{row.SupplierName}}</td>
+                <td>{{row.SupplierCode}}</td>
+                <td>{{row.BuyDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{row.Quantity}}</td>
+                <td>{{row.Price|number:'1.0-0'}}</td>
+                <td>{{row.Total|number:'1.0-0'}}</td>
+                <td>{{row.DateCount}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+      
+    </div>
+    <div class="row">
+      <div class="col-md-4  d-flex justify-content-start">
+        <div class="controls ">
+          <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+            (ngModelChange)="getHistoryByMaterialId()" name="pageSize">
+            <option *ngFor="let item of LstpageSize" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+      </div>
+      <div class="col-md-8  d-flex" style="justify-content: flex-end">
+        <ngb-pagination [collectionSize]="model.TotalItem" [(page)]="model.PageNumber" (pageChange)="loadPage($event)"
+          [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

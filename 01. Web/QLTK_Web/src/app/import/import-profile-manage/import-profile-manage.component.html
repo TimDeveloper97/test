@@ -1,0 +1,414 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [options]="searchOptions" [(ngModel)]="searchModel" name="model"
+                            (change)="searchImportProfile()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchImportProfile()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số:
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> hồ sơ | Đến hạn TT:
+                        <span class="bold text-danger cursor-pointer"  (click)="searchPayWarning()">{{searchModel.PayWarningTotal}}</span> | Quá hạn TT:
+                        <span class="bold text-danger cursor-pointer"  (click)="searchPayExpired()">{{searchModel.PayExpiredTotal}}</span> | Chậm giao hàng:
+                        <span class="bold text-danger cursor-pointer" (click)="searchProductionExpired()">{{searchModel.ProductionExpiredTotal}}</span> | Giao hàng trong tuần:
+                        <span class="bold text-danger cursor-pointer" (click)="searchProductionExpiredOnWeek()">{{searchModel.ProductionExpiredWeekTotal}}</span>
+                    </label>
+                </div>
+                <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                    <button type="button" class="btn"
+                        [ngClass]="{'btn-info': isSearch7Day, 'btn-secondary': !isSearch7Day}" container="body"
+                        ngbTooltip="Tìm kiếm trong vòng 7 ngày" (click)="search7Day()">
+                        <i class="fas fa-calendar-week"></i>
+                    </button>&nbsp;
+                    <ng-template #popTitle>Tìm kiếm theo ngày</ng-template>
+                    <ng-template #popContent>
+                        <div class="form-group">
+                            <label class="form-label">Từ ngày
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="FromDateSearch"
+                                    [(ngModel)]="fromDateSearch" ngbDatepicker #FromDateSearch="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="FromDateSearch.toggle()" name="FromDateSearch">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Đến ngày
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="ToDateSearch"
+                                    [(ngModel)]="toDateSearch" ngbDatepicker #ToDateSearch="ngbDatepicker">
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="ToDateSearch.toggle()" name="ToDateSearch">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <button type="button" class="btn btn-success" (click)="searchByDate()">
+                                <i class="fa fa-search"></i>&nbsp;
+                                <span>Tìm kiếm</span>
+                            </button>&nbsp;
+                            <button class="btn btn-default btn-default-system" (click)="clearSearchByDate()">
+                                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                        </div>
+                    </ng-template>
+                    <button type="button" class="btn"
+                        [ngClass]="{'btn-info': isSearchByDate, 'btn-secondary': !isSearchByDate}"
+                        [popoverTitle]="popTitle" [autoClose]="'outside'" [ngbPopover]="popContent">
+                        <i class="far fa-calendar-alt"></i>
+                    </button>&nbsp;
+                    <button type="button" [ngClass]="{'btn-danger': !isShowTable, 'btn-secondary': isShowTable}"
+                        class="btn" (click)="showKanban()" ngbTooltip="Hiện thị dạng Kanban" container="body">
+                        <i class="fa fa-columns" aria-hidden="true"></i>
+                    </button>&nbsp;
+                    <button type="button" [ngClass]="{'btn-danger': isShowTable, 'btn-secondary': !isShowTable}"
+                        class="btn" (click)="showTable()" ngbTooltip="Hiện thị dạng bảng" container="body">
+                        <i class="fa fa-table" aria-hidden="true"></i>
+                    </button>&nbsp;
+                    <button type="button" class="btn btn-success" (click)='showCreate()' container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <!-- <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="btn btn-success btn-file" (click)="exportExcel()">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <ng-container *ngIf="isShowTable">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                            <table class="table table-bordered" style="min-width:2880px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="150px" class="text-center">Xử lý</th>
+                                        <th width="230px" class="text-center">Quy trình</th>
+                                        <th width="130px" class="text-center">Tiến độ vật tư theo PR Due Date</th>
+                                        <th width="130px" class="text-center">Tiến độ triển khai quy trình NKHH</th>
+                                        <th width="130px" class="text-center">Tiến độ vật tư theo PO Due Date</th>
+                                        <th width="120px" class="text-center">Mã hồ sơ</th>
+                                        <th min-width="150px" class="text-center">Tên hồ sơ</th>
+                                        <th width="100px" class="text-center">Số lượng tồn đọng</th>
+                                        <th width="140px" class="text-center">Số tiền</th>
+                                        <th width="120px" class="text-center">Số tiền (VNĐ)</th>
+                                        <th width="100px" class="text-center">Nhà cung cấp</th>
+                                        <th width="200px" class="text-center">Tên nhà cung cấp</th>
+                                        <th width="100px" class="text-center">Hạn thanh toán</th>
+                                        <th width="150px" class="text-center">Tình trạng thanh toán</th>
+                                        <th width="100px" class="text-center">PR Due Date</th>
+                                        <th width="100px" class="text-center">PO due date</th>
+                                        <th width="200px" class="text-center">Hãng sản xuất</th>
+                                        <th width="100px" class="text-center">Dự án</th>
+                                        <th width="200px" class="text-center">Tên dự án</th>
+                                        <th width="200px" class="text-center">Người phụ trách</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of listData; let i = index">
+                                        <td class="text-center">{{startIndex+i}}</td>
+                                        <td style="text-align: center">
+                                            <button class="btn btn-xs btn-info" container="body"
+                                                (click)="downListFile(row.Id)" ngbTooltip="Xuất danh sách chứng từ"
+                                                container="body">
+                                                <span class="fa fa-download" aria-hidden="true"></span>
+                                            </button> &nbsp;
+                                            <a type="button" class="btn btn-xs btn-success" placement="top"
+                                                ngbTooltip="Xem" container="body"
+                                                [routerLink]="['/nhap-khau/ho-so-nhap-khau/xem/'+ row.Id]"
+                                                *appUipermission="['F120807']">
+                                                <span class="fa fa-eye" aria-hidden="true"></span>
+                                            </a> &nbsp;
+                                            <a type="button" class="btn btn-xs btn-warning" placement="top"
+                                                ngbTooltip="Cập nhật" container="body"
+                                                [routerLink]="['/nhap-khau/ho-so-nhap-khau/chinh-sua/'+ row.Id]"
+                                                *appUipermission="['F120802']">
+                                                <span class="fa fa-edit" aria-hidden="true"></span>
+                                            </a>&nbsp;
+                                            <button class="btn btn-xs btn-danger" container="body"
+                                                (click)="showConfirmDelete(row.Id)" ngbTooltip="Xóa" container="body"
+                                                *appUipermission="['F120803']">
+                                                <span class="fas fa-times" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <div class="sw sw-arrows sw-sm"
+                                                [ngClass]="{'mt-4':isSearch7Day||isSearchByDate}">
+                                                <ul class="nav-step">
+                                                    <li class="nav-item"
+                                                        *ngFor="let item of constant.ImportStep; let i = index;">
+                                                        <a class="nav-link process-text"
+                                                            [ngClass]="{'finish':(i+1)<row.Step,'active':row.Step==(i+1)}">
+                                                            <span>{{i+1}}</span>
+                                                        </a>
+                                                        <div class="dayofweek"
+                                                            *ngIf="item.Id>=row.Step&&(isSearch7Day||isSearchByDate)">
+                                                            <ng-container>
+                                                                <container-element [ngSwitch]="item.Id"
+                                                                    class="dayofweek-content">
+                                                                    <some-element *ngSwitchCase="1">
+                                                                        <span *ngIf="row.SupplierExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.SupplierFinishStatus==2}">{{row.SupplierExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="2">
+                                                                        <span *ngIf="row.ContractExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.ContractFinishStatus==2}">{{row.ContractExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="3">
+                                                                        <span *ngIf="row.PayExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.PayFinishStatus==2}">
+                                                                            {{row.PayExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="4">
+                                                                        <span *ngIf="row.ProductionExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.ProductionFinishStatus==2}">{{row.ProductionExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="5">
+                                                                        <span *ngIf="row.TransportExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.TransportFinishStatus==2}">
+                                                                            {{row.TransportExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="6">
+                                                                        <span *ngIf="row.CustomExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.CustomsFinishStatus==2}">
+                                                                            {{row.CustomExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                    <some-element *ngSwitchCase="7">
+                                                                        <span *ngIf="row.WarehouseExpectedDateDay" class="badge"
+                                                                            [ngClass]="{'badge-danger':row.WarehouseFinishStatus==2}">
+                                                                            {{row.WarehouseExpectedDateDay}}</span>
+                                                                    </some-element>
+                                                                </container-element>
+                                                            </ng-container>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div *ngIf="row.Step<= constant.ImportStep.length; else elseBlock">
+                                                [{{row.Step}}/{{constant.ImportStep.length}}]
+                                                {{constant.ImportStep[row.Step-1].Name}}
+                                            </div>
+                                            <ng-template #elseBlock>
+                                                Kết thúc
+                                            </ng-template>
+                                        </td>
+
+                                        <td class="text-center">
+                                            <nts-status-badge [items]="constant.ImportStatus"
+                                                [value]="row.Status"></nts-status-badge>
+                                        </td>
+                                        <td class="text-center">
+                                            <nts-status-badge [items]="constant.StepStatus"
+                                                [value]="row.StepStatus"></nts-status-badge>
+                                        </td>
+                                        <td class="text-center"> 
+                                            <nts-status-badge [items]="constant.ProductProgress"
+                                                [value]="row.ProductProgress"></nts-status-badge>
+                                        </td>
+                                        <td>
+                                            <a [routerLink]="['/nhap-khau/ho-so-nhap-khau/xem/'+ row.Id]"
+                                            target="_blank" style="text-decoration: none;">
+                                            {{row.Code}}
+                                        </a>
+                                        </td>
+                                        
+                                        <td>
+                                            {{row.Name}}
+                                        </td>
+                                        <td class="text-center">{{row.ProblemExistQuantity}}</td>
+                                        <td class="text-right">
+                                            {{row.Amount|number}}
+                                            {{row.CurrencyUnit|filterinlist:constant.Currency_Import_Profile}}
+                                        </td>
+                                        <td class="text-right">
+                                            {{row.AmountVND|number}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{row.SupplierCode}}
+                                        </td>
+                                        <td>
+                                            {{row.SupplierName}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{row.PayDueDate|date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td class="text-center">
+                                            <span class="badge"
+                                                [ngClass]="row.PayStatus|filterbadgeclassinlistchild:constant.ImportPayStatus: row.PayWarning">{{row.PayStatus|filterinlist:constant.ImportPayStatus}}{{row.PayIndex>0?'
+                                                lần '+row.PayIndex:'' }}</span>
+                                        </td>
+                                        <td class="text-center">
+                                            {{row.PRDueDate|date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td class="text-center">
+                                            {{row.EstimatedDeliveryDate|date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td>
+                                            {{row.ManufacturerCode}}
+                                        </td>
+                                        <td>
+                                            {{row.ProjectCode}}
+                                        </td>
+                                        <td>
+                                            {{row.ProjectName}}
+                                        </td>
+                                        <td>
+                                            {{row.EmployeeName}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot *ngIf="listData.length == 0">
+                                    <tr class="bold">
+                                        <td colspan="32" min-width="300px" class="text-center"
+                                            style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4  d-flex justify-content-start">
+                        <div class="controls ">
+                            <select class="form-control" style="border: 1px solid #ddd;"
+                                [(ngModel)]="searchModel.PageSize" name="pageSize"
+                                (ngModelChange)="searchImportProfile()">
+                                <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                            </select>
+                        </div>
+                        <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                    </div>
+                    <div class="col-md-8  d-flex justify-content-end">
+                        <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                            (pageChange)="searchImportProfile()" [pageSize]="searchModel.PageSize" [maxSize]="5"
+                            [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                    <div class="col-md-12">
+                        <button class="btn btn-view btn-warning">
+                            <i class="fa fa-edit"></i>
+                        </button>&nbsp;
+                        <small class="padding-right-20">Sửa hồ sơ</small>
+                        <button class="btn btn-view btn-danger">
+                            <i class="fas fa-times"></i>
+                        </button>&nbsp;
+                        <small class="padding-right-20">Xóa hồ sơ</small>
+
+                        <button class="btn btn-view btn-success">
+                            <i class="fas fa-plus"></i>
+                        </button>&nbsp;
+                        <small class="padding-right-20">Tạo hồ sơ</small>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="!isShowTable">
+                <div class="row">
+                    <!-- Start lane -->
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <perfect-scrollbar [config]="constant.ScrollXConfig" style="width:100%;height: auto;">
+                            <div class="mission-list">
+                                <div class="card" *ngFor="let row of listDataKanban"
+                                    [ngClass]="{'card-hide':!row.IsShow}">
+                                    <div class="card-header">
+                                        <h3 class="card-title">
+                                            {{row.Name}}
+                                        </h3>
+                                        <span class="card-total">{{row.ImportProfiles.length}}</span>
+                                        <i class="fas" (click)="row.IsShow = !row.IsShow"
+                                            [ngClass]="{'fa-chevron-right':!row.IsShow,'fa-chevron-left':row.IsShow}"></i>
+                                    </div>
+                                    <div class="card-body">
+                                        <perfect-scrollbar [style.visibility]="row.IsShow ? 'visible' : 'hidden'"
+                                            [config]="constant.ScrollYConfig" style="width:100%;"
+                                            [style.height.px]="row.IsShow?missionListHeight:missionListHeight-300">
+                                            <div class="tasks">
+                                                <div class="card content" *ngFor="let profile of row.ImportProfiles"
+                                                    cdkDrag>
+                                                    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+                                                    <div class="card-body">
+                                                        <div class="title">
+                                                            <a
+                                                                [routerLink]="['/nhap-khau/ho-so-nhap-khau/chinh-sua/'+ profile.Id]">
+                                                                <b>{{profile.Name}}</b>
+                                                            </a>
+                                                            <span class="fas fa-times text-danger" aria-hidden="true"
+                                                                (click)="showConfirmDelete(profile.Id)"></span>
+                                                        </div>
+                                                        <p class="mb-1"></p>
+                                                        <p class="mb-0">Mã: {{profile.Code}}</p>
+                                                        <div class="text-left">
+                                                            <small class="text-muted mb-1 d-block">
+                                                                Số tiền: {{profile.Amount|number}}
+                                                            </small>
+                                                            <small class="text-muted mb-1 d-block">
+                                                                DueDate: {{profile.DueDate|date:'dd/MM/yyyy'}}
+                                                            </small>
+                                                            <small class="text-muted mb-1 d-block">
+                                                                Nhà cung cấp: {{profile.SupplierCode}}
+                                                            </small>
+                                                            <small class="text-muted mb-1 d-block">
+                                                                Hạn thanh toán: {{profile.PayDueDate|date:'dd/MM/yyyy'}}
+                                                            </small>
+                                                            <small class="text-muted mb-1 d-block">
+                                                                TT thanh toán: <span class="badge"
+                                                                    [ngClass]="profile.PayStatus|filterbadgeclassinlist:constant.ImportPayStatus">{{profile.PayStatus|filterinlist:constant.ImportPayStatus}}{{profile.PayIndex>0?'
+                                                                    lần '+profile.PayIndex:'' }}</span>
+                                                            </small>
+                                                            <small class="text-muted mb-1 d-block">
+                                                                Ngày giao hàng dự kiến:
+                                                                {{profile.EstimatedDeliveryDate|date:'dd/MM/yyyy'}}
+                                                            </small>
+                                                            <div class="progress  mt-2"
+                                                                [ngClass]="profile.Status|filtertextclassinlist:constant.ImportStatus"
+                                                                style="height: 5px;">
+                                                                <div class="progress-bar" role="progressbar"
+                                                                    [style.width]="'100%'" aria-valuenow="100"
+                                                                    aria-valuemin="0" aria-valuemax="100">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </perfect-scrollbar>
+                                    </div>
+                                </div>
+                            </div>
+                        </perfect-scrollbar>
+                    </div>
+                    <!-- End lane -->
+                </div>
+            </ng-container>
+        </div>
+    </section>
+</div>

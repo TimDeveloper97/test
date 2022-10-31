@@ -1,0 +1,229 @@
+<div class='content-wrapper page-content'>
+    <section class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold mt-2">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{solutionGroupModel.TotalItems}}</span> chủng loại
+                        meeting</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+                    <button type="button" (click)="showCreateUpdateMeetingType('')"
+                        class="btn btn-xs btn-success mt-1" placement="bottom" ngbTooltip="Thêm nhóm chủng loại meeting"
+                        container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <dx-tree-list  id="employees" [dataSource]="listMeetingType" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listMeetingTypeId"
+                        noDataText=" ">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" placeholder="Tìm kiếm theo mã nhóm"></dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã chủng loại meeting" [width]="150"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên chủng loại meeting" [minWidth]="200">
+                        </dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="60px">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F070002']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-update" ngbTooltip="Sửa chủng loại meeting"
+                                        (click)=" showCreateUpdateMeetingType(item.value)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F070003']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-delete" ngbTooltip="Xóa chủng loại meeting"
+                                        (click)=" showConfirmDeleteMeetingType(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>
+                                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model"
+                            (change)="searchMeeting(MeetingTypeId)">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-md-12 col-sm-12 col-lg-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchMeeting(MeetingTypeId)">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear(MeetingTypeId)">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-8 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{model.totalItems}}</span> meeting;
+                    </label>
+                </div>
+                <div class="col-md-4 text-right">
+                    <a type="button" class="btn btn-success" container="body" (click)="showCreateUpdate('')">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </a>
+                    &nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:3690px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px" class="text-center">Xử lý</th>
+                                    <th width="200px" class="text-center">Quy trình</th>
+                                    <th width="200px" class="text-center">Trạng thái</th>
+                                    <th width="200px" class="text-center">Tên meeting</th>
+                                    <th width="150px" class="text-center">Mã meeting</th>
+                                    <th width="200px" class="text-center">Loại meeting</th>
+                                    <th width="150px" class="text-center">Chủng loại meeting</th>
+                                    <th width="150px" class="text-center">Mã khách hàng</th>
+                                    <th width="200px" class="text-center">Tên khách hàng</th>
+                                    <th width="120px" class="text-center">Số điện thoại</th>
+                                    <th width="200px" class="text-center">Email</th>
+                                    <th width="200px" class="text-center">Địa điểm</th>
+                                    <th width="200px" class="text-center">Thời gian bắt đầu dự kiến</th>
+                                    <th width="200px" class="text-center">Thời gian kết thúc dự kiến</th>
+                                    <th width="200px" class="text-center">Thời gian bắt đầu thực tế</th>
+                                    <th width="200px" class="text-center">Thời gian kết thúc thực tế</th>
+                                    <th width="100px" class="text-center">Thời lượng</th>
+                                    <th min-width="200px" class="text-center">Thông tin chung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td class="text-center">
+                                        <a type="button" class="btn btn-xs btn-warning" placement="top"
+                                            ngbTooltip="Cập nhật" container="body"
+                                            [routerLink]="['/giai-phap/meeting/chinh-sua/'+ row.Id]" >
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDelete(row.Id)" placement="top" ngbTooltip="Xóa"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <div class="sw sw-arrows sw-sm">
+                                            <ul class="nav-step">
+                                                <li class="nav-item"
+                                                    *ngFor="let item of constant.MeetingStep; let i = index;">
+                                                    <a class="nav-link process-text"
+                                                        [ngClass]="{'finish':i<row.Step,'active':row.Step==i}">
+                                                        <span>{{i+1}}</span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div *ngIf="row.Step< constant.MeetingStep.length; else elseBlock">
+                                            [{{row.Step + 1}}/{{constant.MeetingStep.length}}]
+                                            {{constant.MeetingStep[row.Step].Name}}
+                                        </div>
+                                        <ng-template #elseBlock>
+                                            Hoàn thành
+                                        </ng-template>
+                                    </td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.MeetingStatus"
+                                            [value]="row.Status"></nts-status-badge>
+                                    </td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Code}}</td>
+                                    <td class="text-center">{{row.TypeName}}</td>
+                                    <td class="text-center">{{row.MeetingTypeName}}</td>
+                                    <td class="text-center">
+                                        {{row.CustomerCode}}
+                                    </td>
+                                    <td>{{row.CustomerName}}</td>
+                                    <td class="text-center">{{row.PhoneNumber}}</td>
+                                    <td>{{row.Email}}</td>
+                                    <td>{{row.Address}}</td>
+                                    <td class="text-center">{{row.StartTime}}</td>
+                                    <td class="text-center">{{row.EndTime}}</td>
+                                    <td class="text-center">{{row.RealStartTime}}</td>
+                                    <td class="text-center">
+                                        {{row.RealEndTime}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.Time}}
+                                    </td>
+                                    <td>{{row.Description}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="11" min-width="3490px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="searchMeeting('')" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+                        (pageChange)="searchMeeting('')" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa meeting</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa meeting</small>
+                    <button class="btn btn-view btn-success">
+                        <i class="fas fa-plus"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Thêm meeting</small>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

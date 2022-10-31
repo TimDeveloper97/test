@@ -1,0 +1,34 @@
+<!-- <div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12 margin-top-20 text-right">
+    <button class="btn btn-success btn-success-system" (click)="checkMAT()">
+      <i class=""></i> &nbsp;Kiểm tra MAT</button>&nbsp; &nbsp;
+  </div>
+</div> -->
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-lg-12 col-xl-12">
+    <label class="form-label">Danh sách lỗi thư mục MAT
+    </label>
+
+    <perfect-scrollbar [config]="constant.ScrollConfig" style="height: 500px;">
+      <table class="table table-bordered" style="min-width:270px; ">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th min-width="120px" class="text-center ">Tên file</th>
+            <th width="150px" class="text-center">Size (kb)</th>
+            <th width="150px" class="text-center">Size server (kb)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listFileMAT; let i = index">
+            <td width="50px" class="text-center" style="background-color: white;">{{i+1}}</td>
+            <td min-width="120px"  [ngClass]="{'error':row.Status == '1'}">{{row.FileName}}</td>
+            <td width="100px" [ngClass]="{'error':row.Status == '2'}">{{(row.FileSize/1024)}}</td>
+            <td width="100px" [ngClass]="{'error':row.Status == '2'}">{{(row.FileServerSize/1024)}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

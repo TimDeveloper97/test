@@ -1,0 +1,39 @@
+.project-error-create {
+  .modal-dialog {   
+
+    .upload-btn-wrapper {
+      float: right;
+      margin: 0 0 0 7px;
+    }
+    .dx-popup-wrapper > .dx-overlay-content {
+      width: 600px !important;
+    }
+  }
+  .modal-dialog {
+    width: 100%;
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .modal-dialog {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .modal-dialog {
+      max-width: 1100PX;
+    }
+  }
+}

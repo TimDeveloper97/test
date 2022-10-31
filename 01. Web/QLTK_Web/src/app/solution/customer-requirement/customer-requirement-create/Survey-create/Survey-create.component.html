@@ -1,0 +1,176 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày khảo sát
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="input-group">
+            <input class="form-control" placeholder="dd/mm/yyyy" name="SurveyDate" [(ngModel)]="surveyDateView"
+              ngbDatepicker #SurveyDate="ngbDatepicker" required>
+            <div class="input-group-append">
+              <span class="dtp-icon" (click)="SurveyDate.toggle()" name="SurveyDate">
+                <i class="far fa-calendar-alt" style="color: #999;"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Thời gian khảo sát
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div>
+            <ngb-timepicker [(ngModel)]="model.Time" name="Time" [spinners]="false">
+            </ngb-timepicker>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Người liên hệ khách hàng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [items]="listCustomerContact" [columns]="columnNameCustomerContact" ntsValue="Id"
+              ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerContactId"
+              name="CustomerContactId">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Ghi chú
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Description" name="Description" rows="3" class="form-control"></textarea>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 text-left">
+          <h4>Nội dung khảo sát</h4>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 text-right">
+          <button type="button" class="btn btn-success" (click)="showCreateUpdate('',true)">
+            <i class="fa fa-plus"></i> &nbsp;Thêm mới nội dung khảo sát </button>
+        </div>
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style=" display: block;height: 100%;">
+            <table class="table table-bordered " style="word-wrap: break-word; min-width: 820px;">
+              <thead #header style="background-color: white">
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="70px" class="text-center">Xử lý </th>
+                  <th width="150px" class="text-center">Nội dung khảo sát</th>
+                  <th width="150px" class="text-center">Kết quả</th>
+                  <th width="150px" class="text-center">Người tham gia nội dung khảo sát</th>
+                </tr>
+              </thead>
+              <tbody #container>
+                <tr *ngFor="let row of model.ListRequest; let i = index">
+                  <td class="text-center" width="50px">{{i+1}}</td>
+                  <td width="70px" class="text-center">
+                    <button type="button" (click)="showComfirmDeleteContent(i)" class="btn btn-xs btn-danger"
+                      ngbTooltip="Xóa" container="body" placement="bottom">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td width="150px">
+                    <textarea type="text" [(ngModel)]="row.Content" rows="2" [name]="'Note'+i"
+                      class="form-control"></textarea>
+                  </td>
+                  <td width="150px">
+                    <textarea type="text" [(ngModel)]="row.Result" rows="2" [name]="'Result' + i"
+                      class="form-control"></textarea>
+                  </td>
+                  <td width="150px">
+                    {{row.Name}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+        <h4>Dụng cụ khảo sát</h4>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+        <ng-container>
+          <button type="button" class="btn btn-success" (click)="showCreateMaterial()">
+            <i class="fa fa-plus"></i> &nbsp;Thêm mới dụng cụ</button>&nbsp;
+        </ng-container>
+        <ng-container>
+          <button type="button" class="btn btn-success" (click)="showSelectMaterial()">
+            <i class="fa fa-plus"></i> &nbsp;Chọn dụng cụ</button>&nbsp;
+        </ng-container>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style=" display: block;height: 100%;">
+          <table class="table table-bordered " style="word-wrap: break-word;min-width: 820px;">
+            <thead #header style="background-color: white">
+              <tr>
+                <th width="40px" class="text-center">STT</th>
+                <th width="80px" class="text-center">Xử lý </th>
+                <th width="250px" class="text-center">Mã vật tư/ thiết bị </th>
+                <th min-width="250px" class="text-center">Tên vật tư/ thiết bị</th>
+                <th width="150px" class="text-center">Số lượng</th>
+                <th min-width="250px" class="text-center">Ghi chú</th>
+              </tr>
+            </thead>
+            <tbody #container>
+              <tr *ngFor="let row of model.ListMaterial; let i = index">
+                <td class="text-center" width="50px">{{i+1}}</td>
+                <td width="70px" class="text-center">
+                  <button type="button" (click)="showConfirmDeleteMaterial(i)" class="btn btn-xs btn-danger"
+                    ngbTooltip="Xóa" container="body" placement="bottom">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td>{{row.Code}}</td>
+                <td>{{row.Name}}</td>
+                <td class="text-center">
+                  <input type="text" [(ngModel)]="row.Quantity" class="form-control" ntsNumberInt [name]="'Quantity'+i">
+                </td>
+                <td>
+                  <textarea type="text" [(ngModel)]="row.Note" class="form-control" [name]="'note'+i"></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="save(false)" [disabled]="!f.form.valid">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>{{ModalInfo.SaveText}}</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

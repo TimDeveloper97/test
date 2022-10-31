@@ -1,0 +1,424 @@
+<div class="content-wrapper app-job-create">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin chung</a>
+        <ng-template ngbNavContent>
+
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group ">
+                <label class="form-label">Mã ngành nghề
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F050501']" type="text" class="form-control" [(ngModel)]="model.Code"
+                    name="Code" maxlength="50" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group ">
+                <label class="form-label">Tên ngành nghề
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F050501']" type="text" class="form-control" [(ngModel)]="model.Name"
+                    name="Name" maxlength="200" required>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group">
+                <label class="form-label">Trình độ
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <nts-drop-down [disUipermission]="['F050501']" [items]="listDegree" [columns]="columnNameDegree"
+                  ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DegreeId"
+                  name="DegreeId" required>
+                </nts-drop-down>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group">
+                <label class="form-label">Nhóm ngành nghề
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <nts-drop-down [disUipermission]="['F050501']" [items]="listGroupJob" [columns]="columnName"
+                  ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.JobGroupId"
+                  name="JobGroupId" required>
+                </nts-drop-down>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group">
+                <label class="form-label">Danh mục tài liệu
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [disUipermission]="['F050501']" [(ngModel)]="model.Documents" name="Documents" rows="2"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group">
+                <label class="form-label">Mô tả ngành nghề
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [disUipermission]="['F050501']" [(ngModel)]="model.Description" name="Description" rows="2"
+                    class="form-control"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Danh mục môn học</h4>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+              <button *appUipermission="['F050501']" type=" button" class="btn btn-success"
+                (click)="showSelectTestCeiteria('')">
+                <span class="fa fa-plus" aria-hidden="true"></span>
+                Chọn
+              </button>
+            </div>
+            <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+              <h4>Tài liệu đính kèm</h4>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-right">
+              <div style="margin-left: 5px" class="upload-btn-wrapper">
+                <button *appUipermission="['F050501']" class="btn btn-success btn-upload" (click)="fileInput.click()">
+                  <i class="fas fa-arrow-up"> &nbsp;</i>Upload
+                </button>
+                <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+                  (change)="uploadFileClick($event)" multiple />
+              </div>
+            </div> -->
+          </div>
+          <div class="row" #scrollModule2>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div #scrollModuleHeader2 style="overflow-x: auto;overflow: hidden;">
+                <table  class="table table-bordered table-fixed table-hover" style="margin-bottom:0px !important;min-width:530px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="80px" class="text-center">Xử lý</th>
+                      <th min-width="200px" class="text-center">Mã môn</th>
+                      <th min-width="200px" class="text-center">Tên môn</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;max-height : 300px">
+                <table  class="table table-bordered table-fixed" style="min-width:530px">
+                  <colgroup>
+                    <col width="50px">
+                    <col width="80px">
+                    <col min-width="200px">
+                    <col min-width="200px">
+                  </colgroup>
+                  <tbody>
+                    <tr *ngFor="let row of listSubjectJob; let i = index" (click)="selectSubject(i)"
+                    [ngClass]="{'selected':selectSubjectIndex==i}">
+                      <td width="50px" class="text-center">{{startIndex+i}}</td>
+                      <td width="80px" style="text-align: center">
+                        <button *appUipermission="['F050502']" class="btn btn-xs btn-danger"
+                          (click)="showConfirmDeleteSubject(row)" title="Xóa">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td min-width="200px">{{row.Code}}</td>
+                      <td min-width="200px">{{row.Name}}</td>
+
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Danh sách phòng học</h4>
+              <label class="form-label" style="line-height:25px;">Tổng số
+                <span class="bold text-danger">{{ListClassRoom.length}}</span> phòng học</label>
+            </div>
+          </div>
+          <div class="row mt-1" #scrollModule1>
+            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+              <div #scrollModuleHeader1 style="overflow-x: auto;overflow: hidden;">
+                <table class="table table-bordered  table-hover"
+                  style="margin-bottom:0px !important; min-width: 1140px;">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="150px" class="text-center">Mã phòng học/line sản xuất</th>
+                      <th min-width="150px" class="text-center">Tên phòng học/line sản xuất</th>
+                      <th width="150px" class="text-center">Nhóm phòng học/line sản xuất</th>
+                      <th width="120px" class="text-center">Giá</th>
+                      <th width="150px" class="text-center">Địa chỉ</th>
+                      <th width="150px" class="text-center">Mô tả</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;max-height : 300px">
+                <table class="table table-bordered table-fixed" style="min-width:1140px">
+                  <colgroup>
+                    <col width="50px">
+                    <col width="150px">
+                    <col min-width="150px">
+                    <col width="150px">
+                    <col width="120px">
+                    <col width="150px">
+                    <col width="150px">
+                  </colgroup>
+                  <tbody>
+                    <tr *ngFor="let row of ListClassRoom; let i = index ;" (click)="selectError(i)"
+                      [ngClass]="{'selected':selectIndex==i}">
+                      <td width="50px" class="text-center">{{StartIndex+i}}</td>
+                      <td width="150px">{{row.Code}}</td>
+                      <td min-width="150px" min-width="150px">{{row.Name}}</td>
+                      <td width="150px">{{row.RoomTypeName}}</td>
+                      <td width="120px" class="text-right">{{row.Pricing| number:'1.0-0'}}</td>
+                      <td width="150px">{{row.Address }}</td>
+                      <td width="150px">{{row.Description}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Danh sách thiết bị</h4>
+              <label class="form-label" style="line-height:25px;">Tổng số
+                <span class="bold text-danger">{{ListClassRoomProduct.length}}</span> thiết bị</label>
+            </div>
+          </div>
+          <div class="row  mt-1">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+                <table class="table table-bordered  table-hover"
+                  style="margin-bottom:0px !important; min-width: 1010px;">
+                  <thead>
+                    <tr>
+                      <th width="40px" class="text-center">STT</th>
+                      <th width="150px" class="text-center">Mã thiết bị</th>
+                      <th min-width="200px" class="text-center">Tên thiết bị</th>
+                      <th width="150px" class="text-center">Nhóm thiết bị</th>
+                      <th width="150px" class="text-center">Số lượng</th>
+                      <th width="120px" class="text-center">Giá</th>
+                      <th width="120px" class="text-center">Thành tiền</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;max-height : 300px">
+                <table class="table table-bordered table-fixed" style="min-width:1010px">
+                  <colgroup>
+                    <col width="40px">
+                    <col width="150px">
+                    <col min-width="200px">
+                    <col width="150px">
+                    <col width="150px">
+                    <col width="120px">
+                    <col width="120px">
+                  </colgroup>
+                  <tbody>
+                    <tr *ngFor="let row of ListClassRoomProduct; let i = index" (click)="selectProduct(i)" [ngClass]="{'selected':productIndex==i}">
+                      <td width="40px" class="text-center">{{i+1}}</td>
+                      <td width="150px">{{row.Code}}</td>
+                      <td min-width="200px">{{row.Name}}</td>
+                      <td width="150px">{{row.PracticeGroupName}}</td>
+                      <td width="150px" class="text-center">{{row.Quantity}}</td>
+                      <td width="120px" class="text-right">{{row.Pricing|number:'1.0-0'}}</td>
+                      <td width="120px" class="text-right">{{row.Pricing * row.Quantity|number:'1.0-0'}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Danh sách module</h4>
+              <label class="form-label" style="line-height:25px;">Tổng số
+                <span class="bold text-danger">{{ListModuleProductModel.length}}</span> module</label>
+            </div>
+          </div>
+          <div class="row mt-1" #scrollModule>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+              <div #scrollModuleHeader style="height: auto; width:100%;overflow: hidden">
+                <table class="table table-bordered table-fixed mb-0" style="min-width:1150px">
+                  <thead>
+                    <tr>
+                      <th class="text-center" width="40px">STT</th>
+                      <th class="text-center" width="120px">Mã module</th>
+                      <th class="text-center" min-width="300px">Tên module</th>
+                      <th class="text-center" width="70px">Số lượng</th>
+                      <th class="text-center" width="100px">Trạng thái</th>
+                      <th class="text-center" width="120px">Giá</th>
+                      <th class="text-center" width="120px">Thành tiền</th>
+                      <th class="text-center" width="80px">LeadTime</th>
+                      <th class="text-center" width="200px">Ghi chú</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;max-height : 300px">
+                <table class="table table-bordered table-fixed" style="min-width:1150px">
+                  <colgroup>
+                    <col width="40px">
+                    <col width="120px">
+                    <col min-width="300px">
+                    <!-- <col width="70px"> -->
+                    <col width="100px">
+                    <col width="120px">
+                    <col width="120px">
+                    <col width="80px">
+                    <col width="200px">
+                  </colgroup>
+                  <tbody>
+                    <tr *ngFor="let row of ListModuleProductModel; let i = index">
+                      <td class="text-center" width="40px">{{i+1}}</td>
+                      <td width="120px"><a [routerLink]="['/module/quan-ly-module/chinh-sua-module/'+ row.ModuleId]"
+                          [disUipermission]="['F030404']">{{row.Code}}</a> </td>
+                      <td min-width="300px"><a [routerLink]="['/module/quan-ly-module/chinh-sua-module/'+ row.ModuleId]"
+                          [disUipermission]="['F030404']">{{row.ModuleName}}</a> </td>
+                      <td class="text-center" width="100px">
+                        {{row.Qty}}
+                      </td>
+                      <!-- <td width="70px">{{row.MaxQtyByPractice==row.Qty?"OK":""}}</td> -->
+                      <!-- <td width="70px" class="text-center">{{row.Specification}}</td> -->
+                      <td class="text-right" width="120px"
+                        [ngClass]="{'noprice': row.IsNoPrice || row.Price==0||row.Price==null}">
+                        {{row.Price|number:'1.0-0'}}</td>
+                      <td class="text-right" width="120px">{{(row.Qty*row.Price)|number:'1.0-0'}}</td>
+                      <td width="80px" class="text-center"
+                        [ngClass]="{'noprice': row.LeadTime==0||row.LeadTime==''||row.LeadTime==null}">{{row.LeadTime}}</td>
+                      <td width="200px">{{row.Note}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr>
+                      <td colspan="7" class="text-right bold">Tổng số</td>
+                      <td class="text-right bold" width="120px">{{totalAmount|number:'1.0-0'}}</td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'tab-project-attach'">
+        <a ngbNavLink>Tài liệu đính kèm</a>
+        <ng-template ngbNavContent>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Tài liệu đính kèm</h4>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+              <div style="margin-left: 5px" class="upload-btn-wrapper">
+                <button *appUipermission="['F050502']" class="btn btn-success btn-upload" (click)="fileInput.click()">
+                  <i class="fas fa-arrow-up"> &nbsp;</i>Upload
+                </button>
+                <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+                  (change)="uploadFileClick($event)" multiple />
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed" style="min-width:550px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="100px" class="text-center">Xử lý</th>
+                      <th width="200px" class="text-center">Tên file</th>
+                      <th width="200px" class="text-center">Dung lượng</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+        
+                    <tr *ngFor="let row of model.ListFile; let i = index">
+                      <td class="text-center">{{startIndex+i}}</td>
+                      <td class="text-center">
+                        <ng-container>
+                          <button *appUipermission="['F050502']" type="button" class="btn btn-xs btn-danger"
+                            ngbTooltip="Xóa" (click)="showConfirmDeleteFile(i)">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </ng-container> &nbsp;
+                        <ng-container *ngIf="row.Path!=null && row.Path!=''">
+                          <button *appUipermission="['F050502']" style="background-color: papayawhip" class="btn btn-xs"
+                            (click)="DownloadAFile(row)">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                          </button>
+                        </ng-container>
+        
+                      </td>
+                      <td>
+                        <span *ngIf="row.Id==null">{{row.name}}</span>
+                        <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                      </td>
+                      <td class="text-center">
+                        <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                        <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <br>
+        </ng-template>
+      </li>
+    </ul>
+
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+      <ng-container>
+        <button *appUipermission="['F050501']" type="button" class="btn btn-success" [disabled]="!f.form.valid || model.Code =='' || model.Name == '' || model.DegreeId == ''||model.JobGroupId==''"
+          (click)="save(false)">
+          <i class="fa fa-save"></i>&nbsp;
+          <span>Lưu</span>
+        </button>
+      </ng-container>&nbsp;
+      <ng-container>
+        <button *appUipermission="['F050501']" type="button" class="btn btn-success" [disabled]="!f.form.valid || model.Code =='' || model.Name == '' || model.DegreeId == ''||model.JobGroupId==''"
+          (click)="saveAndContinue()">
+          <i class="fa fa-save"></i>&nbsp;
+          <span>Lưu & tiếp tục</span>
+        </button>
+      </ng-container>&nbsp;
+      <ng-container>
+        <button type="button" class="btn btn-danger" (click)="close(false)">
+          <i class="fa fa-power-off"></i> &nbsp;
+          <span>
+            Đóng
+          </span>
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

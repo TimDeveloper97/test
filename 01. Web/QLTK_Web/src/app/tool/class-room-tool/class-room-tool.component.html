@@ -1,0 +1,319 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-5">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listSkill.length}}</span> kỹ năng</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button type=" button" class="btn btn-success" (click)="showSkill()">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+            Chọn kỹ năng
+          </button>
+        </div>
+      </div>
+      <div class="row" #scrollHeaderSkill>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+          <div #scrollSkill style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+              [style.min-width.px]="1300">
+              <thead>
+                <tr>
+                  <th scope="col" width="50px" class="text-center">STT</th>
+                  <th scope="col" width="50px" class="text-center">Xử lý</th>
+                  <th scope="col" min-width="400px" class="text-center">Tên kỹ năng/ BTH</th>
+                  <th scope="col" width="200px" class="text-center">Mã kỹ năng/ BTH</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 1</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 2</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 3</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 4</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 5</th>
+                  <th scope="col" width="100px" class="text-center">Nhóm kỹ năng 6</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="400">
+            <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="1300">
+              <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+                <tr *ngFor="let row of listSkill; let i = index" cdkDrag cdkDragLockAxis="y">
+                  <td width="50px" class="text-center">
+                    <span class="fas fa-arrows-alt" aria-hidden="true"></span>&nbsp;{{i+1}}
+                  </td>
+                  <td width="50px" class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteSkill(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td min-width="400px">{{row.Name}}</td>
+                  <td width="200px">{{row.Code}}</td>
+                  <td width="100px">{{row.SkillGroupName1}}</td>
+                  <td width="100px">{{row.SkillGroupName2}}</td>
+                  <td width="100px">{{row.SkillGroupName3}}</td>
+                  <td width="100px">{{row.SkillGroupName4}}</td>
+                  <td width="100px">{{row.SkillGroupName5}}</td>
+                  <td width="100px">{{row.SkillGroupName6}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1000px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="400px" class="text-center">Tên kỹ năng/ BTH</th>
+                  <th width="400px" class="text-center">Mã kỹ năng/ BTH</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listSkill; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteSkill(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div> -->
+      <div class="row margin-bottom-5 mt-1">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listPractice.length}}</span> bài thực hành</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button type=" button" class="btn btn-success" (click)="showPractice()">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+            Chọn BTH
+          </button>&nbsp;
+          <button type=" button" class="btn btn-success" (click)="showConfirmAutoPracticeWithSkill()">
+            <span class="fas fa-sync-alt" aria-hidden="true"></span>
+            Đồng bộ BTH
+          </button>
+        </div>
+      </div>
+      <div class="row" #scrollHeaderPractice>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+          <div #scrollPractice style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+              [style.min-width.px]="450+listSkillName.length*100">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên BTH</th>
+                  <th width="150px" class="text-center">Mã BTH</th>
+                  <ng-container *ngIf="listSkillName.length>0">
+                    <th class="text-center" style=" width: 100px;" *ngFor="let item of listSkillName; let  j=index">
+                      {{item}}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="400" style="height: auto;">
+            <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="450+listSkillName.length*100">
+              <tbody>
+                <tr *ngFor="let row of listPractice; let i = index">
+                  <td width="50px" class="text-center">{{i+1}}</td>
+                  <td width="50px" class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeletePractice(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="150px">{{row.Code}}</td>
+                  <ng-container *ngIf="listPractice.length>0">
+                    <td class="text-center" style=" width: 100px;"
+                      *ngFor="let item of row.ListCheckPracticeSkill; let  j=index">
+                      <!-- {{row.ListSkillId.includes(item.Id)==true? 'có kỹ năng':'ko' }} -->
+                      <div *ngIf="item.Check==true">
+                        <span class="text-center" style="font-size: 16px; color:forestgreen;">
+                          <i class=" text-center fas fa-check "></i></span>
+                      </div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" [style.min-width.px]="500+listSkillName.length*100">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên BTH</th>
+                  <th width="200px" class="text-center">Mã BTH</th>
+                  <ng-container *ngIf="listSkillName.length>0">
+                    <th class="text-center" style=" width: 100px;" *ngFor="let item of listSkillName; let  j=index">
+                      {{item}}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listPractice; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeletePractice(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <ng-container *ngIf="listPractice.length>0">
+                    <td class="text-center" style=" width: 100px;"
+                      *ngFor="let item of row.ListCheckPracticeSkill; let  j=index">
+                      <div *ngIf="item.Check==true">
+                        <span class="text-center" style="font-size: 16px; color:forestgreen;">
+                          <i class=" text-center fas fa-check "></i></span>
+                      </div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div> -->
+      <div class="row margin-bottom-5 mt-1">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listProduct.length}}</span> thiết bị</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button type=" button" class="btn btn-success" (click)="showProduct()">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+            Chọn thiết bị
+          </button>&nbsp;
+          <button type=" button" class="btn btn-success" (click)="showConfirmProductWithPractice()">
+            <span class="fas fa-sync-alt" aria-hidden="true"></span>
+            Đồng bộ Thiết bị
+          </button>
+        </div>
+      </div>
+      <div class="row" #scrollHeaderProduct>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+          <div #scrollProduct style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+              [style.min-width.px]="450+listPraticeName.length*200">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên thiết bị</th>
+                  <th width="150px" class="text-center">Mã thiết bị</th>
+                  <ng-container *ngIf="listPraticeName.length>0">
+                    <th class="text-center" style="width: 200px" *ngFor="let item of listPraticeName; let  j=index">
+                      {{item}}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="400" style="height: auto;">
+            <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="450+listPraticeName.length*200">
+              <tbody>
+                <tr *ngFor="let row of listProduct; let i = index">
+                  <td width="50px" class="text-center">{{i+1}}</td>
+                  <td width="50px" class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteProduct(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="150px">{{row.Code}}</td>
+                  <ng-container *ngIf="listProduct.length>0">
+                    <td class="text-center" style=" width: 200px;"
+                      *ngFor="let item of row.ListCheckPracticeProduct; let  j=index">
+                      <!-- {{row.ListSkillId.includes(item.Id)==true? 'có kỹ năng':'ko' }} -->
+                      <div *ngIf="item.Check==true">
+                        <span class="text-center" style="font-size: 16px; color:forestgreen;">
+                          <i class=" text-center fas fa-check "></i></span>
+                      </div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" [style.min-width.px]="500+listPraticeName.length*200">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="50px" class="text-center">Xử lý</th>
+                  <th min-width="200px" class="text-center">Tên thiết bị</th>
+                  <th width="200px" class="text-center">Mã thiết bị</th>
+                  <ng-container *ngIf="listPraticeName.length>0">
+                    <th class="text-center" style="width: 200px" *ngFor="let item of listPraticeName; let  j=index">
+                      {{item}}</th>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listProduct; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center">
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteProduct(i)" placement="top"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <ng-container *ngIf="listProduct.length>0">
+                    <td class="text-center" style=" width: 200px;"
+                      *ngFor="let item of row.ListCheckPracticeProduct; let  j=index">
+                      <div *ngIf="item.Check==true">
+                        <span class="text-center" style="font-size: 16px; color:forestgreen;">
+                          <i class=" text-center fas fa-check "></i></span>
+                      </div>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div> -->
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+          <button type="button" class="btn btn-success" (click)="create()">
+            <i class="fa fa-plus"></i>&nbsp;
+            <span>Thêm mới</span>
+          </button>&nbsp;
+          <button type="button" class="btn btn-success" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

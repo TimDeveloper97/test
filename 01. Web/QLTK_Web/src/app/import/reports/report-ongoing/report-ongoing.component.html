@@ -1,0 +1,354 @@
+<div class='content-wrapper'>
+    <div class="row">
+        <div class="col-md-4 cards">
+            <div class="card-counter total">
+                <i class="fa fa-file" aria-hidden="true"></i>
+                <span class="count-numbers">{{importProfile.Total}}</span>
+                <span class="count-name">Hồ sơ nhập khẩu</span>
+            </div>
+        </div>
+
+        <div class="col-md-4  cards">
+            <div class="card-counter register">
+                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <span class="count-numbers">{{importProfile.OngoingQuantity}}</span>
+                <span class="count-name">Hồ sơ đúng tiến độ</span>
+            </div>
+        </div>
+
+        <div class="col-md-4 cards">
+            <div class="card-counter accept">
+                <i class="fa fa-times-circle"></i>
+                <span class="count-numbers">{{importProfile.SlowQuantity}}</span>
+                <span class="count-name">Hồ sơ chậm tiến độ</span>
+            </div>
+        </div>
+    </div>
+    <section class="box mt-4">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <table style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-store" style="background-color: #ff9933;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.SupplierQuantity}}</p>
+                                            <p>Xác định NCC</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-file-contract" style="background-color: #007bff;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.ContractQuantity}}</p>
+                                            <p>Hợp đồng</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-dollar-sign" style="background-color: #ff99cc;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.PayQuantity}}</p>
+                                            <p>Thanh toán</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-calendar-alt" style="background-color: #26c6da;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.ProductionQuantity}}</p>
+                                            <p>Sản xuất</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-shipping-fast" style="background-color: #cc99ff;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.TranportQuantity}}</p>
+                                            <p>Vận chuyển</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-archway" style="background-color: #66bb6a;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.CustomsQuantity}}</p>
+                                            <p>Hải quan</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="sammary-content">
+                                        <div class="icon">
+                                            <i class="fas fa-warehouse" style="background-color: #737373;"></i>
+                                        </div>
+                                        <div class="total">
+                                            <p>{{importProfile.WarehouseQuantity}}</p>
+                                            <p>Nhập kho</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="row mt-3">
+        <div class="col-lg-7 col-md-7 col-sm-12 ">
+            <section class="box">
+                <div class="content-body" id="rightdiv">
+                    <div style="display: block">
+                        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels"
+                            [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType">
+                        </canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-lg-5 col-md-5 col-sm-12">
+            <section class="box">
+                <div class="content-body" id="leftdiv">
+                    <div style="display: block">
+                        <canvas baseChart [data]="doughnutChartData" [labels]="barChartLabels"
+                            [chartType]="pieChartType" [colors]="pieChartColors">
+                        </canvas>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <section class="box mt-3">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhân viên</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1500px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th min-width="200px" class="text-center">Tên nhân viên</th>
+                                    <th width="100px" class="text-center">Tổng số</th>
+                                    <th width="100px" class="text-center">Đúng tiến độ</th>
+                                    <th width="100px" class="text-center">Chậm tiến độ</th>
+                                    <th width="100px" class="text-center">% chậm tiến độ</th>
+                                    <th width="100px" class="text-center">Xác định NCC</th>
+                                    <th width="100px" class="text-center">Hợp đồng</th>
+                                    <th width="100px" class="text-center">Thanh toán</th>
+                                    <th width="100px" class="text-center">Sản xuất</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                    <th width="150px" class="text-center">Tổng giá trị hàng hóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of importProfileEmployee; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.OngoingQuantity|number}}</td>
+                                    <td class="text-center">{{row.SlowQuantity|number}}</td>
+                                    <td class="text-center">{{row.PercentSlow|number:'1.0-0'}}</td>
+                                    <td class="text-center">{{row.SupplierQuantity|number}}</td>
+                                    <td class="text-center">{{row.ContractQuantity|number}}</td>
+                                    <td class="text-center">{{row.PayQuantity|number}}</td>
+                                    <td class="text-center">{{row.ProductionQuantity|number}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box mt-3">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhà cung cấp</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1500px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th min-width="200px" class="text-center">Tên nhà cung cấp</th>
+                                    <th width="100px" class="text-center">Tổng số</th>
+                                    <th width="100px" class="text-center">Đúng tiến độ</th>
+                                    <th width="100px" class="text-center">Chậm tiến độ</th>
+                                    <th width="100px" class="text-center">% chậm tiến độ</th>
+                                    <th width="100px" class="text-center">Xác định NCC</th>
+                                    <th width="100px" class="text-center">Hợp đồng</th>
+                                    <th width="100px" class="text-center">Thanh toán</th>
+                                    <th width="100px" class="text-center">Sản xuất</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                    <th width="150px" class="text-center">Tổng giá trị hàng hóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of importProfileSupplier; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.OngoingQuantity|number}}</td>
+                                    <td class="text-center">{{row.SlowQuantity|number}}</td>
+                                    <td class="text-center">{{row.PercentSlow|number:'1.0-0'}}</td>
+                                    <td class="text-center">{{row.SupplierQuantity|number}}</td>
+                                    <td class="text-center">{{row.ContractQuantity|number}}</td>
+                                    <td class="text-center">{{row.PayQuantity|number}}</td>
+                                    <td class="text-center">{{row.ProductionQuantity|number}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="box mt-3">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhà cung cấp vận chuyển</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1200px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th min-width="200px" class="text-center">Tên nhà cung cấp</th>
+                                    <th width="100px" class="text-center">Tổng số</th>
+                                    <th width="100px" class="text-center">Đúng tiến độ</th>
+                                    <th width="100px" class="text-center">Chậm tiến độ</th>
+                                    <th width="100px" class="text-center">% chậm tiến độ</th>
+                                    <th width="100px" class="text-center">Vận chuyển</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                    <th width="100px" class="text-center">Chi phí</th>
+                                    <th width="150px" class="text-center">Tổng giá trị hàng hóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of importProfileTransport; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.OngoingQuantity|number}}</td>
+                                    <td class="text-center">{{row.SlowQuantity|number}}</td>
+                                    <td class="text-center">{{row.PercentSlow|number:'1.0-0'}}</td>
+                                    <td class="text-center">{{row.TranportQuantity|number}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.TransportationInternationalCosts|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box mt-3">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="title pull-left text-header font-weight-bold">Theo nhà cung cấp Hải quan</h4>
+                </div>
+            </div>
+            <div class="row mt-1">
+                <div class="col-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1100px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th min-width="200px" class="text-center">Tên nhà cung cấp</th>
+                                    <th width="100px" class="text-center">Tổng số</th>
+                                    <th width="100px" class="text-center">Đúng tiến độ</th>
+                                    <th width="100px" class="text-center">Chậm tiến độ</th>
+                                    <th width="100px" class="text-center">% chậm tiến độ</th>
+                                    <th width="100px" class="text-center">Hải quan</th>
+                                    <th width="100px" class="text-center">Nhập kho</th>
+                                    <th width="100px" class="text-center">Chi phí</th>
+                                    <th width="150px" class="text-center">Tổng giá trị hàng hóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of importProfileCustoms; let i = index">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">{{row.Total|number}}</td>
+                                    <td class="text-center">{{row.OngoingQuantity|number}}</td>
+                                    <td class="text-center">{{row.SlowQuantity|number}}</td>
+                                    <td class="text-center">{{row.PercentSlow|number:'1.0-0'}}</td>
+                                    <td class="text-center">{{row.CustomsQuantity|number}}</td>
+                                    <td class="text-center">{{row.WarehouseQuantity|number}}</td>
+                                    <td class="text-right">{{row.CustomsInlandCosts|number}}</td>
+                                    <td class="text-right">{{row.AmountVND|number}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="box mt-3">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <button  class="btn btn-success btn-file" (click)="exportExcel()"  *appUipermission="['F120652']">
+                        <i class="fas fa-file-excel"></i> &nbsp;Xuất excel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

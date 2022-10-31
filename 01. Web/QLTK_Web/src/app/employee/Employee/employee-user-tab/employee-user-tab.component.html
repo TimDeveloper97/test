@@ -1,0 +1,189 @@
+<form name="form" #f="ngForm" novalidate>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="form-group ">
+        <label class="form-label">Tên nhân viên
+
+        </label>
+        <div class="controls">
+          <input [disUipermission]="['F080007']" type="text" class="form-control" name="EmployeeName"
+            [(ngModel)]="EmployeeName" maxlength="100" disabled>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="form-group ">
+        <label class="form-label">Mã nhân viên
+
+        </label>
+        <div class="controls">
+          <input [disUipermission]="['F080007']" type="text" class="form-control" name="EmployeeCode"
+            [(ngModel)]="EmployeeCode" maxlength="100" disabled>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="form-group ">
+        <label class="form-label">Tên tài khoản
+          <span class='text-danger text-strong'>&nbsp;*</span>
+        </label>
+        <div class="controls">
+          <input [disUipermission]="['F080007']" type="text" class="form-control" name="UserName"
+            [(ngModel)]="model.UserName" maxlength="100" required autofocus>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+      <div class="form-group ">
+        <label class="form-label">Nhóm quyền
+          <span class='text-danger text-strong'>&nbsp;</span>
+        </label>
+        <div class="controls">
+          <select [disUipermission]="['F080007']" name="GroupUserId" class="form-control"
+            [(ngModel)]="model.GroupUserId" (change)="changeGroupUser()">
+            <option value=""></option>
+            <option *ngFor="let item of listUserGroup" [ngValue]="item.Id">{{item.Name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 radio">
+      <div class="form-group ">
+        <label class="form-label">Tình trạng tài khoản
+          <span class='text-danger text-strong'>&nbsp;</span>
+        </label>
+        <div class="controls">
+          <div class="custom-control custom-radio custom-control-inline">
+            <input [disUipermission]="['F080007']" type="radio" id="customRadioInline1" [(ngModel)]="model.IsDisable"
+              name="IsLock" [value]="1" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline1">Khóa</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input [disUipermission]="['F080007']" type="radio" id="customRadioInline2" [(ngModel)]="model.IsDisable"
+              name="IsLock" [value]="0" class="custom-control-input">
+            <label class="custom-control-label" for="customRadioInline2">Không khóa</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12" style="padding-bottom: 5px">
+          <h4>Danh sách nhóm chức năng</h4>
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{groupFunctions.length}}</span> nhóm chức năng</label>
+        </div>
+        <div class="col-md-12" style="padding-bottom: 5px">
+          <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 350px;">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="50px" class="text-center">Chọn</th>
+                <th min-width="100px">Tên nhóm chức năng</th>
+                <th width="150px">Quyền/Tổng quyền</th>
+              </tr>
+            </thead>
+          </table>
+          <perfect-scrollbar [config]="constant.ScrollYConfig" style="max-height: 400px ; width:100%;">
+            <table class="table table-bordered table-hover" style="margin-bottom:0px !important; min-width: 350px;">
+              <tbody>
+                <tr *ngFor="let row of groupFunctions; let i = index" [ngClass]="{'selected':groupSelectIndex == i}"
+                  (click)="selectGroupFunction(row,i)">
+                  <td class="text-center" width="50px"> {{i+1}}</td>
+                  <td class="text-center" width="50px">
+                    <div class="custom-control custom-checkbox">
+                      <input [disUipermission]="['F080007']" class="text-center" [(ngModel)]="row.IsChecked"
+                        type="checkbox" class="custom-control-input" [id]="'b'+i" [name]="'b'+i"
+                        (ngModelChange)="changeGroupFunctionCheck(row, i)" [indeterminate]="row.IsIndeterminate">
+                      <label class="custom-control-label" [for]="'b'+i"></label>
+                    </div>
+                  </td>
+                  <td min-width="100px">{{row.Name}}</td>
+                  <td width="150px">{{row.CheckCount}}/{{row.PermissionTotal}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12" style="padding-bottom: 5px">
+          <h4> Danh sách quyền</h4>
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listPermission.length}}</span> quyền</label>
+        </div>
+        <div class="col-md-12">
+          <table class="table table-bordered table-hover" style="margin-bottom:0px !important; min-width:150px ">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">
+                  <div class="custom-control custom-checkbox">
+                    <input [disUipermission]="['F080007']" class="text-center" [disabled]="groupSelectIndex==-1"
+                      [(ngModel)]="isSelectAll" type="checkbox" class="custom-control-input" id="checkAll"
+                      name="checkAll" (ngModelChange)="selectAllPermission()">
+                    <label class="custom-control-label" for="checkAll"></label>
+                  </div>
+                </th>
+                <th width="100px" class="center">Mã quyền</th>
+                <th min-width="100px" class="center">Tên quyền</th>
+              </tr>
+            </thead>
+          </table>
+          <perfect-scrollbar [config]="constant.ScrollYConfig" style="max-height: 400px ; width:100%;">
+            <table class="table table-bordered table-hover" style="min-width:150px">
+              <tbody>
+                <ng-container *ngIf="groupSelectIndex!=-1">
+                  <tr *ngFor="let row of groupFunctions[groupSelectIndex].Permissions; let i= index">
+                    <td width="50px" class="text-center">
+                      <div class="custom-control custom-checkbox">
+                        <input [disUipermission]="['F080007']" class="text-center" [(ngModel)]="row.IsChecked"
+                          type="checkbox" class="custom-control-input" [id]="'a'+i" [name]="'a'+i"
+                          (ngModelChange)="selectPermission(row)">
+                        <label class="custom-control-label" [for]="'a'+i"></label>
+                      </div>
+                    </td>
+                    <td width="100px">
+                      <a><span>{{row.Code}}</span></a>
+                    </td>
+                    <td min-width="100px">
+                      <a><span>{{row.Name}}</span></a>
+                    </td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+  <ng-container>
+    <button *appUipermission="['F080007']" type="button" class="btn btn-success" (click)="save(false)"
+      [disabled]="!f.form.valid">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+  </ng-container> &nbsp;
+  <ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i>
+      <span> Đóng </span>
+    </button>
+  </ng-container>
+
+</div>

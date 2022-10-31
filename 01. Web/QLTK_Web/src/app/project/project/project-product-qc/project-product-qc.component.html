@@ -1,0 +1,202 @@
+<form name="searchForm" #f="ngForm">
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+      <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="search" (change)="searchProjectProduct()">
+      </nts-search-bar>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+      <button class="btn btn-success btn-success-system" (click)="searchProjectProduct()">
+        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+      <button class="btn btn-default btn-default-system" (click)="clear()">
+        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+      <button type="checkbox" class="btn btn-info btn-default-info" (click)="showProductQc()">
+        <i class="fas fa-clipboard"></i> &nbsp;Xem theo phân cấp sản phẩm</button>&nbsp;
+
+      <!-- <button class="btn btn-success btn-success-system" (click)="exportExcel()">
+        <i class="fas fa-not-equal"></i> &nbsp;Xuất Excel</button> -->
+    </div>
+  </div>
+  <br><br>
+  <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="height:auto; width:100%;">
+
+        <as-split direction="vertical" *ngIf="checkeds">
+          <as-split-area size="10" minSize="10" maxSize="40">
+            <dx-tree-list class="sp-1" id="employees" [dataSource]="listData" keyExpr="Id" parentIdExpr="ParentId"
+              [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+              (onSelectionChanged)="onSelectionChanged($event)" (onRowUpdated)="onRowUpdated($event)">
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-editing mode="cell" [allowUpdating]="true">
+              </dxo-editing>
+              <dxi-column cssClass="my-class" dataField="ContractIndex" [allowEditing]="false" caption="Hạng mục"
+                [minWidth]="80">
+              </dxi-column>
+
+              <dxi-column cssClass="my-class" dataField="ContractCode" [allowEditing]="false" caption="Mã theo hợp đồng"
+                width="200px" cellTemplate="template_ContractCode">
+              </dxi-column>
+
+              <div *dxTemplate="let item of 'template_ContractCode'">
+                <span
+                  [ngClass]="{'text-danger warring_amountTHTK':item.data.IsMaterial==false}">{{item.data.ContractCode}}</span>
+              </div>
+
+
+              <dxi-column cssClass="my-class" dataField="ContractName" [allowEditing]="false"
+                caption="Tên theo hợp đồng" width="300px" cellTemplate="template_ContractName">
+              </dxi-column>
+
+              <div *dxTemplate="let item of 'template_ContractName'">
+                <span
+                  [ngClass]="{'text-danger warring_amountTHTK':item.data.IsMaterial==false}">{{item.data.ContractName}}</span>
+              </div>
+
+              <dxi-column cssClass="my-class" dataField="Code" [allowEditing]="false" caption="Mã theo thiết kế"
+                width="200px">
+              </dxi-column>
+              <dxi-column cssClass="my-class" dataField="Name" [allowEditing]="false" caption="Tên theo thiết kế"
+                min-width="200px">
+              </dxi-column>
+              <dxi-column cssClass="my-class" dataField="DatatypeName" [allowEditing]="false" caption="Kiểu dữ liệu"
+                width="100px"></dxi-column>
+              <dxi-column cssClass="my-class" dataField="SerialNumber" [allowEditing]="false" caption="Số Serial"
+                width="200px">
+              </dxi-column>
+              <dxi-column cssClass="my-class" dataField="QCStatus" [allowEditing]="false" caption="Tình trạng Qc"
+                width="200px" cellTemplate="template_QCStatus" >
+              </dxi-column>
+
+              <div *dxTemplate="let item of 'template_QCStatus'">
+                <nts-status-badge [items]="constants.QCStatus" [value]="item.data.QCStatus"></nts-status-badge>
+              </div>
+            </dx-tree-list>
+
+          </as-split-area>
+
+        </as-split>
+
+
+
+        <div class="col-md-12 col-sm-12 col-lg-12" *ngIf="!checkeds">
+
+          <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollProductItem>
+            <div #scrollProductItemHeader style="height: auto; width:100%;overflow: hidden">
+              <table class="table table-bordered table-hover mb-0" style="min-width:1380px">
+                <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="200px" class="text-center">Mã theo hợp đồng</th>
+                    <th width="200px" class="text-center">Tên theo hợp đồng</th>
+                    <th Width="150px" class="text-center">Mã theo thiết kế</th>
+                    <th min-width="200px" class="text-center">Tên theo thiết kế</th>
+                    <th width="150px" class="text-center">Kiểu dữ liệu</th>
+                    <th width="100px" class="text-center">Số Serial</th>
+                    <th width="100px" class="text-center">Tình trạng Qc</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <perfect-scrollbar [config]="constants.ScrollConfig" style="height: 400px;max-height: 400px; width:100%;">
+              <table class="table table-bordered table-hover" style="min-width:1380px">
+                <colgroup>
+                  <col width="50px">
+                  <col width="200px">
+                  <col width="200px">
+                  <col width="150px">
+                  <col min-width="200px">
+                  <col width="150px">
+                  <col width="100px">
+                  <col width="100px">
+                </colgroup>
+                <tbody>
+                  <tr *ngFor="let row of listDA; let i = index" (click)="select(i)"
+                  [ngClass]="{'selected':selectIndex==i}">
+                    <td class="text-center">{{i +1}}</td>
+                      <td class="text-center">
+                        {{row.ContractCode}}
+                      </td>
+                      <td class="text-center">
+                        {{row.ContractName}}
+                      </td>
+                      <td class="text-center">{{row.Code}}</td>
+                      <td>{{row.Name}}</td>
+                      <td>{{row.DatatypeName}}</td>
+                      <td>{{row.SerialNumber}}</td>
+                      <td class="text-center">
+                        <nts-status-badge [items]="constants.QCStatus" [value]="row.QCStatus"></nts-status-badge>
+                      </td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="listDA.length == 0">
+                  <tr class="bold">
+                    <td colspan="16" min-width="1610px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                      có dữ liệu</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </perfect-scrollbar>
+          </div>
+            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollQC>
+              <div #scrollQCHeader style="height: auto; width:100%;overflow: hidden">
+                <table class="table table-bordered table-hover mb-0" style="min-width:1860px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="80px" class="text-center">Xem tiêu chuẩn</th>
+                      <th width="200px" class="text-center">Tên tiêu chuẩn</th>
+                      <th width="200px" class="text-center">Nhóm tiêu chuẩn</th>
+                      <th min-width="200px" class="text-center">Nội dung</th>
+                      <th Width="150px" class="text-center">Kết quả QC</th>
+                      <th width="200px" class="text-center">Lý do</th>
+                      <th width="150px" class="text-center">Tài liệu QC</th>
+                      <th width="150px" class="text-center">Người Qc</th>
+                      <th width="200px" class="text-center">Ngày Qc</th>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
+              <perfect-scrollbar [config]="constants.ScrollConfig" style="height:400px;max-height: 400px; width:100%;">
+                <table class="table table-bordered table-hover" style="min-width:1860px">
+                  <tbody>
+                    <tr *ngFor="let row of checkList; let i = index">
+                      <td class="text-center" width="50px">{{i +1}}</td>
+                      <td class="text-center" width="80px">
+                        <button type="button" (click)='ShowQCStandards(row.Id)' class="btn btn-xs btn-warning" placement="top"
+                          ngbTooltip="xem chi tiết" container="body">
+                          <span class="fa fa-eye" aria-hidden="true"></span>
+                        </button>&nbsp;
+      
+                      </td>
+                      <td class="text-center" width="200px">
+                        {{row.Name}}
+                      </td>
+                      <td class="text-center" width="200px">
+                        {{row.ProductStandardGroupName}}
+                      </td>
+                      <td class="text-center" min-width="200px">{{row.Content}}</td>
+                      <td class="text-center" width="150px">
+                        <nts-status-badge [items]="constants.QCResultStatus" [value]="row.Status"></nts-status-badge>
+                      </td>
+                      <td width="200px">{{row.Note}}</td>
+                      <td width="150px">{{row.Note}}</td>
+                      <td width="150px">{{row.CreateBy}}</td>
+                      <td width="200px">{{row.QCDate}}</td>
+                    </tr>
+                  </tbody>
+                  <tfoot *ngIf="checkList.length == 0">
+                    <tr class="bold">
+                      <td colspan="16" min-width="1610px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                        có dữ liệu</td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </perfect-scrollbar>
+            </div>
+        </div>
+
+      </div>
+
+    <br>
+  </div>
+
+</form>

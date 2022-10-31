@@ -1,0 +1,2284 @@
+<div class="content-wrapper padding-top-10">
+    <form name="form" #f="ngForm" novalidate>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Thông tin hồ sơ</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body ">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Tên hồ sơ
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" [(ngModel)]="profileModel.Name"
+                                    name="profileName" required disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã hồ sơ
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" [(ngModel)]="profileModel.Code"
+                                    name="profileCode" required disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">PR Due Date
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="controls">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="PRDueDate"
+                                    [value]="profileModel.PRDueDate|date:'dd/MM/yyyy'" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Hãng sản xuất
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="manufactureName"
+                                    [(ngModel)]="profileModel.ManufacturerCode" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã dự Án
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="projectCode"
+                                    [(ngModel)]="profileModel.ProjectCode" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Tên dự án
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="projectName"
+                                    [(ngModel)]="profileModel.ProjectName" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã PR
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="prCode" [(ngModel)]="profileModel.PRCode"
+                                    disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Đơn vị tiền tệ
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <select name="currencyUnit" class="form-control" [(ngModel)]="profileModel.CurrencyUnit"
+                                    disabled>
+                                    <option *ngFor="let item of constant.Currency_NCC_SX" [ngValue]="item.Id">
+                                        {{item.Name}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Tình trạng hồ sơ
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <span class="badge"
+                                    [ngClass]="profileModel.Status|filterbadgeclassinlist:constant.ImportStatus">{{profileModel.Status|filterinlist:constant.ImportStatus}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày hoàn thành dự kiến/thực tế - Xác định nhà cung cấp
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="supplierExpectedDateInfo"
+                                    ngbDatepicker #supplierExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.SupplierExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="supplierExpectedDateInfo.toggle()"
+                                        name="supplierExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="SupplierFinishDateInfo" disabled
+                                    [value]="profileModel.SupplierFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày hoàn thành dự kiến/thực tế - Làm hợp đồng
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="contractExpectedDateInfo"
+                                    ngbDatepicker #contractExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.ContractExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="contractExpectedDateInfo.toggle()"
+                                        name="contractExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="ContractFinishDateInfo" disabled
+                                    [value]="profileModel.ContractFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label"> Ngày hoàn thành dự kiến/thực tế - Thanh toán
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="payExpectedDateInfo"
+                                    ngbDatepicker #payExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.PayExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="payExpectedDateInfo.toggle()" name="payExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="PayFinishDateInfo" disabled
+                                    [value]="profileModel.PayFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label"> Ngày hoàn thành dự kiến/thực tế - Tiến độ sản xuất
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="productionExpectedDateInfo"
+                                    ngbDatepicker #productionExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.ProductionExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="productionExpectedDateInfo.toggle()"
+                                        name="productionExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="ProductionFinishDateInfo" disabled
+                                    [value]="profileModel.ProductionFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày hoàn thành dự kiến/thực tế - Chọn nhà vận chuyển
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="transportExpectedDateInfo"
+                                    ngbDatepicker #transportExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.TransportExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="transportExpectedDateInfo.toggle()"
+                                        name="transportExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="TransportFinishDateInfo" disabled
+                                    [value]="profileModel.TransportFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày hoàn thành dự kiến/thực tế - Thủ tục thông quan
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="customExpectedDateInfo"
+                                    ngbDatepicker #customExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.CustomExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="customExpectedDateInfo.toggle()"
+                                        name="customExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="CustomFinishDateInfo" disabled
+                                    [value]="profileModel.CustomFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-xs-4 col-sm-12">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày hoàn thành dự kiến/thực tế - Nhập kho
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="warehouseExpectedDateInfo"
+                                    ngbDatepicker #warehouseExpectedDateInfo="ngbDatepicker"
+                                    [(ngModel)]="profileModel.WarehouseExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="warehouseExpectedDateInfo.toggle()"
+                                        name="warehouseExpectedDateInfo">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>&nbsp;&nbsp;-&nbsp;&nbsp;
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="WarehouseFinishDateInfo" disabled
+                                    [value]="profileModel.WarehouseFinishDate|date:'dd/MM/yyyy'">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Danh sách Vật Tư</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body ">
+                <div class="row mb-1">
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                        <label class="form-label" style="line-height:35px;">Tổng số:
+                            <span class="bold text-danger">{{profileModel.ListMaterial.length}}</span> vật tư | Tổng
+                            tiền theo giá ( {{profileModel.CurrencyUnit|filterinlist:constant.Currency_NCC_SX}}): <span
+                                class="bold text-danger">{{profileModel.Amount|number}} </span> | Tổng
+                            thành tiền (VNĐ): <span
+                                class="bold text-danger">{{profileModel.AmountVND|number}}</span></label>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12" #scrollProduct>
+                        <div #scrollHeader style="height: auto; width:100%;overflow: hidden">
+                            <table class="table table-bordered mb-0" style="min-width:1970px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="120px" class="text-center">Mã</th>
+                                        <th min-width="200px" class="text-center">Tên</th>
+                                        <th width="200px" class="text-center">Mô tả hàng hóa</th>
+                                        <th width="100px" class="text-center">Đơn vị</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                        <th width="80px" class="text-center">Số lượng yêu cầu</th>
+                                        <th width="100px" class="text-center">PR Due Date</th>
+                                        <th width="100px" class="text-center">PO Due Date</th>
+                                        <th width="150px" class="text-center">Nhân viên bán hàng</th>
+                                        <th width="100px" class="text-center">Dự án</th>
+                                        <th width="100px" class="text-center">Mã PR</th>
+                                        <th width="100px" class="text-center">Giá định mức</th>
+                                        <th width="100px" class="text-center">Giá</th>
+                                        <!-- <th width="100px" class="text-center">Chi phí khác</th> -->
+                                        <th width="70px" class="text-center">Đơn vị tiền tệ</th>
+                                        <th width="120px" class="text-center">Giá thực tế (VNĐ)</th>
+                                        <th width="130px" class="text-center">Thành tiền (VNĐ)</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <perfect-scrollbar [config]="constant.ScrollConfig"
+                            style="height:auto;max-height:300px; width:100%;">
+                            <table class="table table-bordered" style="min-width:1970px">
+                                <tbody>
+                                    <tr *ngFor="let row of profileModel.ListMaterial; let i = index">
+                                        <td width="50px" class="text-center">{{startIndex+i}}</td>
+                                        <td width="120px">{{row.Code}}</td>
+                                        <td min-width="200px">{{row.Name}}</td>
+                                        <td width="200px">{{row.ProductionDescription}}</td>
+                                        <td width="100px" class="text-center">{{row.UnitName}}</td>
+                                        <td width="150px">{{row.ManufactureCode}}</td>
+                                        <td width="80px" class="text-center">{{row.Quantity| number}}</td>
+                                        <td width="100px">{{row.RequireDate| date:'dd/MM/yyyy'}}</td>
+                                        <td width="100px" class="text-center">
+                                            {{row.LeadTime| date:'dd/MM/yyyy'}}
+                                        </td>
+                                        <td width="150px">{{row.SalesName}}</td>
+                                        <td width="100px">{{row.ProjectCode}}</td>
+                                        <td width="100px">{{row.PurchaseRequestCode}}</td>
+                                        <td width="100px" class="text-right">
+                                            {{row.QuotaPrice|number}}
+                                        </td>
+                                        <td width="100px" class="text-right">
+                                            {{row.Price|number}}
+                                        </td>
+                                        <!-- <td width="100px" class="text-right">
+                                            {{row.OtherCosts|number}}
+                                        </td> -->
+                                        <td width="70px" class="text-center">
+                                            {{row.CurrencyUnit|filterinlist:constant.Currency_NCC_SX}}
+                                        </td>
+                                        <td width="120px" class="text-right">{{row.RealPrice|number}}</td>
+                                        <td width="130px" class="text-right">
+                                            {{row.Amount|number}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tfoot *ngIf="profileModel.ListMaterial.length == 0">
+                                    <tr class="bold">
+                                        <td colspan="13" min-width="300px" class="text-center"
+                                            style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </perfect-scrollbar>
+                        <div #scrollFooter style="height: auto; width:100%;overflow: hidden">
+                            <table class="table table-bordered mb-0" style="min-width:1970px">
+                                <tbody>
+                                    <tr>
+                                        <td colspan="15" class="text-right font-weight-bold">Tổng tiền theo giá</td>
+                                        <td width="120px" class="text-right font-weight-bold">
+                                            {{profileModel.Amount|number}}
+                                        </td>
+                                        <td width="190px" class="text-right font-weight-bold">Tổng thành tiền</td>
+                                        <td width="130px" class="text-right font-weight-bold">
+                                            {{profileModel.AmountVND|number}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Quy trình</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="sw sw-arrows">
+                            <ul class="nav-step">
+                                <li class="nav-item"
+                                    *ngFor="let item of constant.ImportStep; let i = index; let isLast = last">
+                                    <a class="nav-link process-text" (click)="seclect(item, i)"
+                                        [ngClass]="{'finish':(i+1)<profileModel.Step,'active':profileModel.Step==i+1}">
+                                        <strong>{{item.Name}}</strong>
+                                        <!-- <br>
+                                        Mo tả -->
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-info">
+                        <div class="step-header">
+                            Quy trình: {{constant.ImportStep[indexNumber].Name}}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs nav-justified line_tab">
+                            <li [ngbNavItem]="'thongtin'">
+                                <a ngbNavLink>Thông tin</a>
+                                <ng-template ngbNavContent>
+                                    <div class="row">
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == 1">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Số báo giá
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="quotaNumber"
+                                                            [(ngModel)]="profileModel.QuoteNumber" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày báo giá
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="QuoteDate"
+                                                            [value]="profileModel.QuoteDate|date:'dd/MM/yyyy'" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Nhà cung cấp
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input class="form-control" name="SupplierName"
+                                                            [(ngModel)]="profileModel.SupplierName" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tỉ giá VNĐ
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="SupplierExchangeRate"
+                                                            [(ngModel)]="profileModel.SupplierExchangeRate" currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                            maxlength="22" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Chi phí khác
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" [name]="'OtherCosts'+ i"
+                                                            [(ngModel)]="profileModel.OtherCosts" currencyMask
+                                                            (ngModelChange)="transportCostChange()" maxlength="18"
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2}"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Điều kiện giao hàng
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <select name="thread" class="form-control"
+                                                            [(ngModel)]="profileModel.DeliveryConditions" disabled>
+                                                            <option value="EXW">EXW</option>
+                                                            <option value="CF">CF</option>
+                                                            <option value="DDU">DDU</option>
+                                                            <option value="DDP">DDP</option>
+                                                            <option value="FOB">FOB</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="supplierExpectedDate" ngbDatepicker
+                                                            #supplierExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.SupplierExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="supplierExpectedDate.toggle()"
+                                                                name="supplierExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.SupplierFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="SupplierFinishDate" disabled
+                                                        [value]="profileModel.SupplierFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.SupplierFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.SupplierFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '2'">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Số PO
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="PONumber"
+                                                            [(ngModel)]="profileModel.PONumber" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                                <label class="form-label">Hợp đồng</label>
+                                                <label class="radio">Đã ký
+                                                    <input type="radio" name="isContract" [value]="true"
+                                                        [(ngModel)]="profileModel.IsContract" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio">Chưa ký
+                                                    <input type="radio" name="isContract" [value]="false"
+                                                        [(ngModel)]="profileModel.IsContract" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="contractExpectedDate" ngbDatepicker
+                                                            #contractExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.ContractExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="contractExpectedDate.toggle()"
+                                                                name="contractExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.ContractFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="ContractFinishDate" disabled
+                                                        [value]="profileModel.ContractFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.ContractFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.ContractFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '3'">
+                                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="scrollConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:900px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="300px" class="text-center">
+                                                                    Nội dung thanh toán
+                                                                </th>
+                                                                <th width="100px" class="text-center">% thanh toán
+                                                                </th>
+                                                                <th width="150px" class="text-center">Số tiền</th>
+                                                                <th width="150px" class="text-center">Đơn vị tiền tệ
+                                                                </th>
+                                                                <th width="150px" class="text-center">Hạn thanh toán
+                                                                </th>
+                                                                <th width="150px" class="text-center">Tình trạng</th>
+                                                                <th min-width="150px" class="text-center">Ghi chú</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListPayment; let i = index;">
+                                                                <td class="text-center" width="50px">{{i+1}}</td>
+                                                                <td>
+                                                                    {{row.Content}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.PercentPayment}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Money|number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.CurrencyUnit|filterinlist:constant.Currency_NCC_SX}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Duedate|date:'dd/MM/yyyy'}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    <span class="badge"
+                                                                        [ngClass]="row.Status|filterbadgeclassinlist:constant.PayStatus">
+                                                                        {{row.Status|filterinlist:constant.PayStatus}}</span>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Note}}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="payExpectedDate" ngbDatepicker
+                                                            #payExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.PayExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon" (click)="payExpectedDate.toggle()"
+                                                                name="payExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.PayFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="PayFinishDate" disabled
+                                                        [value]="profileModel.PayFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.PayFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.PayFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '4'">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">PO Due Date
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="Controls">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="EstimatedDeliveryDate"
+                                                            [value]="profileModel.EstimatedDeliveryDate|date:'dd/MM/yyyy'"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Cấu hình số ngày cảnh báo giao hàng
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="WarningDay"
+                                                            [(ngModel)]="profileModel.WarningDay" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="productionExpectedDate" ngbDatepicker
+                                                            #productionExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.ProductionExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="productionExpectedDate.toggle()"
+                                                                name="productionExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="productionExpectedDate1" ngbDatepicker
+                                                            #productionExpectedDate1="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.ProductionExpectedDate1V" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="productionExpectedDate1.toggle()"
+                                                                name="productionExpectedDate1">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="productionExpectedDate2" ngbDatepicker
+                                                            #productionExpectedDate2="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.ProductionExpectedDate2V" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="productionExpectedDate2.toggle()"
+                                                                name="productionExpectedDate2">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.ProductionFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="ProductionFinishDate" disabled
+                                                        [value]="profileModel.ProductionFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.ProductionFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.ProductionFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '5'">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Nhà cung cấp vận chuyển
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="TransportSupplierName"
+                                                            [(ngModel)]="profileModel.TransportSupplierName" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Thời gian vận chuyển
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="TransportLeadtime"
+                                                            [(ngModel)]="profileModel.TransportLeadtime" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Giá vận chuyển (VNĐ)
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="ShippingCost"
+                                                            [(ngModel)]="profileModel.ShippingCost" disabled currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Cước nội địa (VNĐ)
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="TransportationCosts"
+                                                            [(ngModel)]="profileModel.TransportationCosts" currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Chi phí vận chuyển quốc tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                name="TransportationInternationalCosts"
+                                                                [(ngModel)]="profileModel.TransportationInternationalCosts"
+                                                                currencyMask
+                                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                                maxlength="22" disabled>
+                                                            <div class="input-group-append border-bottom-0">
+                                                                <select name="TransportationInternationalCostsUnit"
+                                                                    class="form-control" disabled
+                                                                    [(ngModel)]="profileModel.TransportationInternationalCostsUnit">
+                                                                    <option
+                                                                        *ngFor="let item of constant.Currency_NCC_SX"
+                                                                        [ngValue]="item.Id">
+                                                                        {{item.Name}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tỉ giá VNĐ
+                                                        <span class='text-danger text-strong'
+                                                            *ngIf="profileModel.TransportationInternationalCostsUnit!=4">*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="TransportExchangeRate"
+                                                            [(ngModel)]="profileModel.TransportExchangeRate"
+                                                            currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                            maxlength="22" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Số lượng
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="PackageQuantity"
+                                                            [(ngModel)]="profileModel.PackageQuantity" currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}"
+                                                            maxlength="22" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Kích thước đóng gói W*L*H
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="PackingSize"
+                                                            [(ngModel)]="profileModel.PackingSize" maxlength="300"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Net Weight (KG)
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="NetWeight"
+                                                            [(ngModel)]="profileModel.NetWeight" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Charging Weight
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="ChargingWeight"
+                                                            [(ngModel)]="profileModel.ChargingWeight" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                                <label class="form-label">Bảo hiểm</label>
+                                                <label class="radio">Đã mua
+                                                    <input type="radio" name="insurrance" [value]="true"
+                                                        [(ngModel)]="profileModel.IsInsurrance" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio">Chưa mua
+                                                    <input type="radio" name="insurrance" [value]="false"
+                                                        [(ngModel)]="profileModel.IsInsurrance" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="transportExpectedDate" ngbDatepicker
+                                                            #transportExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.TransportExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="transportExpectedDate.toggle()"
+                                                                name="transportExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.TransportFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="TransportFinishDate" disabled
+                                                        [value]="profileModel.TransportFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.TransportFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.TransportFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '6'">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Nhà cung cấp dịch vụ Hải quan
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="CustomsSupplierName"
+                                                            [(ngModel)]="profileModel.CustomsSupplierName" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Đơn vị Hải quan
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="CustomsName"
+                                                            [(ngModel)]="profileModel.CustomsName" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Số tờ khai
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="customsDeclarationFormCode"
+                                                            [(ngModel)]="profileModel.CustomsDeclarationFormCode"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày tờ khai
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="customsDeclarationFormDate"
+                                                            [value]="profileModel.CustomsDeclarationFormDate|date:'dd/MM/yyyy'"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày tờ khai thông quan
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control"
+                                                            name="CustomsClearanceFromDate"
+                                                            [value]="profileModel.CustomsClearanceFromDate|date:'dd/MM/yyyy'"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Mã HS code
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="HSCode"
+                                                            [(ngModel)]="profileModel.HSCode" disabled>
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Mã loại hình
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="CustomsTypeCode"
+                                                            [(ngModel)]="profileModel.CustomsTypeCode" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">% thuế NK
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="ExportTax"
+                                                            [(ngModel)]="profileModel.ExportTax" currencyMask
+                                                            maxlength="4" disabled
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:1}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">% thuế VAT
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="percentVAT"
+                                                            [(ngModel)]="profileModel.VAT" currencyMask maxlength="4"
+                                                            disabled
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:1}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Giá trị
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="value"
+                                                            [(ngModel)]="profileModel.CustomsElearanceValue" disabled
+                                                            currencyMask
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:1}">
+                                                    </div>
+                                                </div>
+                                            </div> -->
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Luồng
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <select name="thread" class="form-control"
+                                                            [(ngModel)]="profileModel.CustomsType" disabled>
+                                                            <option selected value="1">Xanh</option>
+                                                            <option value="2">Vàng</option>
+                                                            <option value="3">Đỏ</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Chi phí nội địa (VNĐ)
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="value"
+                                                            [(ngModel)]="profileModel.CustomsInlandCosts" currencyMask
+                                                            maxlength="18" disabled
+                                                            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                                <label class="form-label">Thông quan</label>
+                                                <label class="radio">Đã thông quan
+                                                    <input type="radio" name="customsElearanceStatus" [value]="true"
+                                                        [(ngModel)]="profileModel.CustomsElearanceStatus" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio">Chưa thông quan
+                                                    <input type="radio" name="customsElearanceStatus" [value]="false"
+                                                        [(ngModel)]="profileModel.CustomsElearanceStatus" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="customExpectedDate" ngbDatepicker
+                                                            #customExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.CustomExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon" (click)="customExpectedDate.toggle()"
+                                                                name="customExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.CustomFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="CustomFinishDate" disabled
+                                                        [value]="profileModel.CustomFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.CustomFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.CustomFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ghi chú
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <textarea class="form-control" name="Note"
+                                                            [(ngModel)]="profileModel.CustomsNote" disabled></textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                                <label class="form-label font-weight-bold">
+                                                    <b>Danh sách vật tư hải quan</b>
+                                                </label>
+                                            </div>
+                                            <div class="col-md-12 col-sm-12 col-lg-12" #scrollCustomProduct>
+                                                <div #scrollCustomHeader
+                                                    style="height: auto; width:100%;overflow: hidden">
+                                                    <table class="table table-bordered mb-0" style="min-width:1240px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="120px" class="text-center">Mã</th>
+                                                                <th min-width="200px" class="text-center">Tên</th>
+                                                                <th width="150px" class="text-center">Mô tả hàng hóa
+                                                                </th>
+                                                                <th width="100px" class="text-center">HSCode <span
+                                                                        class='text-danger text-strong'>*</span></th>
+                                                                <th width="100px" class="text-center">% Thuế NK</th>
+                                                                <th width="100px" class="text-center">Giá trị thuế NK
+                                                                    (VNĐ)</th>
+                                                                <th width="100px" class="text-center">% Thuế VAT</th>
+                                                                <th width="100px" class="text-center">Giá trị thuế VAT
+                                                                    (VNĐ)</th>
+                                                                <th width="100px" class="text-center">% Thuế khác</th>
+                                                                <th width="100px" class="text-center">Giá trị thuế khác
+                                                                    (VNĐ)</th>
+                                                            </tr>
+                                                        </thead>
+                                                    </table>
+                                                </div>
+                                                <perfect-scrollbar [config]="constant.ScrollConfig"
+                                                    style="height:auto;max-height:300px; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1240px">
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListMaterial; let i = index">
+                                                                <td width="50px" class="text-center">{{startIndex+i}}
+                                                                </td>
+                                                                <td width="120px">{{row.Code}}</td>
+                                                                <td min-width="200px">{{row.Name}}</td>
+                                                                <td width="150px">{{row.ProductionDescription}}</td>
+                                                                <td width="100px">
+                                                                    {{row.HSCode}}
+                                                                </td>
+                                                                <td width="100px" class="text-center">
+                                                                    {{row.ImportTax|number}}
+                                                                </td>
+                                                                <td width="100px" class="text-right">
+                                                                    {{row.ImportTaxValue|number}}
+                                                                </td>
+                                                                <td width="100px" class="text-center">
+                                                                    {{row.VATTax|number}}
+                                                                </td>
+                                                                <td width="100px" class="text-right">
+                                                                    {{row.VATTaxValue|number}}
+                                                                </td>
+                                                                <td width="100px" class="text-center">
+                                                                    {{row.OtherTax|number}}
+                                                                </td>
+                                                                <td width="100px" class="text-right">
+                                                                    {{row.OtherTaxValue|number}}
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                        <tfoot *ngIf="profileModel.ListMaterial.length == 0">
+                                                            <tr class="bold">
+                                                                <td colspan="16" min-width="300px" class="text-center"
+                                                                    style="height: 300px; font-size: 20px;">Không có dữ
+                                                                    liệu</td>
+                                                            </tr>
+                                                        </tfoot>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '7'">
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Số phiếu
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input type="text" class="form-control" name="WarehouseCode"
+                                                            [(ngModel)]="profileModel.WarehouseCode" disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày nhập kho
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="WarehouseDate"
+                                                            [value]="profileModel.WarehouseDate|date:'dd/MM/yyyy'"
+                                                            disabled>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                                <label class="form-label">Nhập kho</label>
+                                                <label class="radio">Đã nhập kho
+                                                    <input type="radio" name="WarehouseStatus" [value]="true"
+                                                        [(ngModel)]="profileModel.WarehouseStatus" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                                <label class="radio">Chưa nhập kho
+                                                    <input type="radio" name="WarehouseStatus" [value]="false"
+                                                        [(ngModel)]="profileModel.WarehouseStatus" disabled>
+                                                    <span class="checkround"></span>
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành dự kiến
+                                                        <span class='text-danger text-strong'>*</span>
+                                                    </label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="warehouseExpectedDate" ngbDatepicker
+                                                            #warehouseExpectedDate="ngbDatepicker"
+                                                            [(ngModel)]="profileModel.WarehouseExpectedDateV" disabled>
+                                                        <div class="input-group-append">
+                                                            <span class="dtp-icon"
+                                                                (click)="warehouseExpectedDate.toggle()"
+                                                                name="warehouseExpectedDate">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4"
+                                                *ngIf="profileModel.WarehouseFinishDate">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Ngày hoàn thành thực tế
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <input class="form-control" placeholder="dd/mm/yyyy"
+                                                        name="WarehouseFinishDate" disabled
+                                                        [value]="profileModel.WarehouseFinishDate|date:'dd/MM/yyyy'">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                                                <div class="form-group ">
+                                                    <label class="form-label">Tình trạng tiến độ
+                                                        <span class='text-danger text-strong'></span>
+                                                    </label>
+                                                    <div class="controls">
+                                                        <span class="badge"
+                                                            [ngClass]="profileModel.WarehouseFinishStatus|filterbadgeclassinlist:constant.FinishStatus">{{profileModel.WarehouseFinishStatus|filterinlist:constant.FinishStatus}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="'baogia'" *ngIf="constant.ImportStep[indexNumber].Id == '1'">
+                                <a ngbNavLink>Báo giá</a>
+                                <ng-template ngbNavContent>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '1'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep1.length}}</span>
+                                                    tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1150px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th width="100px" class="text-center">Số báo giá</th>
+                                                                <th width="100px" class="text-center">Ngày báo giá</th>
+                                                                <th width="120px" class="text-center">
+                                                                    Hiệu lục (Ngày)
+                                                                </th>
+                                                                <th width="150px" class="text-center">Nhà cung cấp</th>
+                                                                <th min-width="150px" class="text-center">
+                                                                    Tên file
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep1; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control"
+                                                                        [name]="'quoteCode'+ 'i'"
+                                                                        [(ngModel)]="row.Code">
+                                                                </td>
+                                                                <td>
+                                                                    {{row.QuoteDate|date:'dd/MM/yyyy'}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Effect|number}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.SupplierCode}}
+                                                                </td>
+                                                                <td>
+                                                                    {{row.FileName}}
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="'tailieuquydinh'" *ngIf="constant.ImportStep[indexNumber].Id != '1'">
+                                <a ngbNavLink>Tài liệu quy định</a>
+                                <ng-template ngbNavContent>
+                                    <input name="fileCatalog" style="display: none;" type="file" id="fileInputDocument"
+                                        #fileInputDocument (change)="uploadFileDocument($event)" />
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '2'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep2.length}}</span>
+                                                    tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="110px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep2; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '3'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep3.length}}</span>tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep3; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '4'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep4.length}}</span>tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep4; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '5'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep5.length}}</span>tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep5; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '6'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep6.length}}</span>tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep6; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '7'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentStep7.length}}</span>tài
+                                                    liệu</label>
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:1010px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên tài liệu
+                                                                </th>
+                                                                <th width="300px" class="text-center">Tên File</th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentStep7; let i = index">
+                                                                <td class="text-center">{{i+1}}</td>
+                                                                <td class="text-center">
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>
+                                                                    {{row.Name}}<span class='text-danger text-strong'
+                                                                        *ngIf="row.IsRequired">*</span>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="'tailieukhac'">
+                                <a ngbNavLink>Tài liệu khác</a>
+                                <ng-template ngbNavContent>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '1'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep1.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep1; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '2'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep2.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep2, 2 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep2; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '3'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep3.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep3,3 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep3; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '4'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep4.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep4, 4 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep4; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '5'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep5.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep5, 5 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep5; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '6'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep6.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep6, 6 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep6; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="constant.ImportStep[indexNumber].Id == '7'">
+                                        <div class="row">
+                                            <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                                                <label class="form-label" style="line-height:35px;">Tổng số
+                                                    <span
+                                                        class="bold text-danger">{{profileModel.ListDocumentOtherStep7.length}}</span>
+                                                    khác</label>
+                                            </div>
+                                            <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                                                <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                                    <i class="fas fa-arrow-up"></i> &nbsp;Upload file</button>
+                                                <input name="fileDataSheetmaterial" style="display: none;" type="file"
+                                                    id="fileDataSheet" #fileImage
+                                                    (change)="uploadFileOther($event,profileModel.ListDocumentOtherStep7, 7 )"
+                                                    multiple accept="image/*" />
+                                            </div>
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                                <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                    style="height:auto; width:100%;">
+                                                    <table class="table table-bordered" style="min-width:750px">
+                                                        <thead>
+                                                            <tr>
+                                                                <th width="50px" class="text-center">STT</th>
+                                                                <th width="100px" class="text-center">Xử lý</th>
+                                                                <th min-width="200px" class="text-center">Tên File
+                                                                </th>
+                                                                <th width="100px" class="text-center">Dung lượng</th>
+                                                                <th width="100px" class="text-center">Ngày upload</th>
+                                                                <th width="150px" class="text-center">Người upload</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr
+                                                                *ngFor="let row of profileModel.ListDocumentOtherStep7; let i = index">
+                                                                <td class="text-center">{{startIndex+i}}</td>
+                                                                <td class="text-center">
+
+                                                                    <button style="background-color: papayawhip"
+                                                                        *ngIf="row.FilePath" class="btn btn-xs"
+                                                                        (click)="downloadAFile(row)">
+                                                                        <span class="fa fa-download"
+                                                                            aria-hidden="true"></span>
+                                                                    </button>
+                                                                </td>
+                                                                <td>{{row.FileName}}</td>
+                                                                <td class="text-center">
+                                                                    {{row.FileSize/ (1024*1024)| number: '1.1-3'}} MB
+                                                                </td>
+                                                                <td class="text-center">
+                                                                    {{row.UploadDate|date:'dd/MM/yyyy'}}</td>
+                                                                <td>{{row.UploadName}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </perfect-scrollbar>
+                                            </div>
+                                        </div>
+                                    </ng-container>
+                                </ng-template>
+                            </li>
+                            <li [ngbNavItem]="'vandetondong'">
+                                <a ngbNavLink>Vấn đề tồn đọng</a>
+                                <ng-template ngbNavContent>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <label class="form-label font-weight-bold">
+                                                Danh sách vấn đề tồn đọng
+                                            </label>
+                                        </div>
+                                        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                                            <perfect-scrollbar [config]="constant.ScrollXConfig"
+                                                style="height:auto; width:100%;">
+                                                <table class="table table-bordered" style="min-width:1300px">
+                                                    <thead>
+                                                        <tr>
+                                                            <th width="50px" class="text-center">STT</th>
+                                                            <th width="250px" class="text-center">Tình trạng</th>
+                                                            <th min-width="300px" class="text-center">Nội dung</th>
+                                                            <th width="350px" class="text-center">Phương án giải
+                                                                quyết</th>
+                                                            <th width="200px" class="text-center">Người thêm</th>
+                                                            <th width="100px" class="text-center">Ngày thêm</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let row of listReportProplem; let i = index">
+                                                            <td class="text-center">{{startIndex+i}}</td>
+                                                            <td class="text-center radio">
+                                                                <span class="badge"
+                                                                    [ngClass]="row.Status|filterbadgeclassinlist:constant.ProblemStatus">{{row.Status|filterinlist:constant.ProblemStatus}}</span>
+                                                            </td>
+                                                            <td>{{row.Note}}</td>
+                                                            <td>{{row.Plan}}</td>
+                                                            <td>{{row.CreateBy}}</td>
+                                                            <td class="text-center">
+                                                                {{row.CreateDate|date:'dd/MM/yyyy'}}
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </perfect-scrollbar>
+                                        </div>
+                                    </div>
+                                </ng-template>
+                            </li>
+                        </ul>
+                        <div [ngbNavOutlet]="nav"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Chọn vật tư</a>
+                <ng-template ngbNavContent>
+                    
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-app-caree-tab'">
+                <a ngbNavLink>Thông tin hồ sơ</a>
+                <ng-template ngbNavContent>
+                    
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div> -->
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+                        <button type="button" class="btn btn-warning" (click)="edit()" *appUipermission="['F120802']">
+                            <i class="fa fa-edit"></i> &nbsp;
+                            <span>
+                                Chỉnh sửa
+                            </span>
+                        </button> &nbsp;
+                        <button type="button" class="btn btn-danger" (click)="close()">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

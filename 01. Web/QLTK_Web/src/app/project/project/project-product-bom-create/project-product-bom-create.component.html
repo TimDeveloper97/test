@@ -1,0 +1,312 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã Module
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <nts-drop-down-tree [items]="listModule" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+            ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ModuleId" name="moduleId"
+            placeholder="Chọn Module" required [disabled]="model.ModuleId!=null">
+          </nts-drop-down-tree>
+        </div>
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Version
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Version" name="Version" required>
+          </div>
+        </div>
+      </div>
+      <!-- <div class="row">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFileElictric" disabled>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputElictric.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư điện</button>
+        <input name="fileimportelictric" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file"
+          id="fileInputElictric" #fileInputElictric (change)="handleFileInput($event.target.files,1)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="download(1)">tại đây.</a></p>
+    <div class="row">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFileManufacture" disabled>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputManufacture.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư hãng</button>
+        <input name="fileimportmanufacture" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file"
+          id="fileInputManufacture" #fileInputManufacture (change)="handleFileInput($event.target.files,2)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="download(2)">tại đây.</a></p>
+    <div class="row">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFileTPA" disabled>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputTPA.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư TPA</button>
+        <input name="fileimporttpa" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file" id="fileInputTPA"
+          #fileInputTPA (change)="handleFileInput($event.target.files,3)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="download(3)">tại đây.</a></p>
+    <div class="row">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFileOther" disabled>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputOther.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import Bulông</button>
+        <input name="fileimportother" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file" id="fileInputOther"
+          #fileInputOther (change)="handleFileInput($event.target.files,4)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="download(4)">tại đây.</a></p>
+    <div class="row">
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFileOther" disabled>
+      </div>
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputOther.click();" style="width:100%">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư khác</button>
+        <input name="fileimportother" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file" id="fileInputOther"
+          #fileInputOther (change)="handleFileInput($event.target.files,4)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="download(4)">tại đây.</a></p> -->
+      <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên File
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [value]="nameFileMaterial" disabled>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInputMaterial.click();" style="width:100%"
+          [disabled]="model.ModuleId==null || model.ModuleId==''">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư</button>
+        <input name="fileinputmaterial" accept=".xlsx,.xls,.xlsm" style="display: none;" type="file"
+          id="fileInputMaterial" #fileInputMaterial (change)="handleFileInput($event.target.files,6)" />
+      </div>
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="download(6)" style="width:100%"
+          [disabled]="model.ModuleId==null || model.ModuleId==''">
+          <i class="fas fa-download"></i> &nbsp;Tải mẫu</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div  class="content-wrapper padding-top-10">
+  <div #scrollPlanDesignProject>
+    <div *ngIf="listData.length != 0 && listData1.length != 0" class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <label class="form-label" style="line-height:35px;">Danh sách vật tư đã lưu</label>
+      <div #scrollPlanDesignProjectHeader style="overflow-x: auto;overflow: hidden;">
+        <table class="table table-bordered mb-0" style="min-width:1350px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Tên vật tư</th>
+              <th width="100px" class="text-center">Thông số</th>
+              <th min-width="200px" class="text-center">Mã vật tư</th>
+              <th width="100px" class="text-center">Mã vật liệu</th>
+              <th width="100px" class="text-center">Đơn vị</th>
+              <th width="100px" class="text-center">Số lượng</th>
+              <th width="100px" class="text-center">Vật liệu</th>
+              <th width="100px" class="text-center">Khối lượng</th>
+              <th width="100px" class="text-center">Hãng sản xuất</th>
+              <th width="100px" class="text-center">Giá</th>
+              <th width="100px" class="text-center">Thành tiền</th>
+              <th width="100px" class="text-center">Ghi chú</th>
+            </tr>
+
+          </thead>
+        </table>
+      </div>
+      <perfect-scrollbar [config]="constant.ScrollConfig" style="height:300px; width:100%;">
+        <table class="table table-bordered" style="min-width:1350px">
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td width="50px" class="text-center">{{row.Index}}</td>
+              <td width="100px" class="text-center">{{row.Name}}</td>
+              <td width="100px" class="text-center">{{row.Specification }}</td>
+              <td min-width="200px" class="text-center">{{row.Code}}</td>
+              <td width="100px" class="text-center">{{row.RawMaterialCode }}</td>
+              <td width="100px" class="text-center">{{row.UnitName }}</td>
+              <td width="100px" class="text-center">{{row.Quantity}}</td>
+              <td width="100px" class="text-center">{{row.RawMaterial }}</td>
+              <td width="100px" class="text-center">{{row.Weight}}</td>
+              <td width="100px" class="text-center">{{row.ManufactureCode }}</td>
+              <td width="100px" class="text-center">{{row.Pricing|number:'1.0-0' }}</td>
+              <td width="100px" class="text-center">{{row.Amount|number:'1.0-0'}}</td>
+              <td width="100px" class="text-center">{{row.Note}}</td>
+
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+  <div #scrollPlanDesignProject1>
+    <div *ngIf="listData.length != 0 && listData1.length != 0" class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <label class="form-label" style="line-height:35px;">Danh sách vật tư mới import</label>
+      <div #scrollPlanDesignProjectHeader1 style="overflow-x: auto;overflow: hidden;">
+        <table class="table table-bordered mb-0" style="min-width:1350px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Tên vật tư</th>
+              <th width="100px" class="text-center">Thông số</th>
+              <th min-width="200px" class="text-center">Mã vật tư</th>
+              <th width="100px" class="text-center">Mã vật liệu</th>
+              <th width="100px" class="text-center">Đơn vị</th>
+              <th width="100px" class="text-center">Số lượng</th>
+              <th width="100px" class="text-center">Vật liệu</th>
+              <th width="100px" class="text-center">Khối lượng</th>
+              <th width="100px" class="text-center">Hãng sản xuất</th>
+              <th width="100px" class="text-center">Giá</th>
+              <th width="100px" class="text-center">Thành tiền</th>
+              <th width="100px" class="text-center">Ghi chú</th>
+
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <perfect-scrollbar [config]="constant.ScrollConfig" style="height:300px; width:100%;">
+        <table class="table table-bordered" style="min-width:1350px">
+          <tbody>
+            <tr *ngFor="let row of listData1; let i = index">
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="50px" class="text-center">
+                {{row.NewIndex}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewName}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewSpecification }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" min-width="200px"
+                class="text-center">
+                {{row.Code}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewRawMaterialCode }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewUnitName }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewQuantity}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewRawMaterial }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewWeight}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewManufactureCode }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewPricing|number:'1.0-0' }}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewAmount|number:'1.0-0'}}</td>
+              <td *ngIf="row.DupplicateIndex == true" style="background-color:red" width="100px" class="text-center">
+                {{row.NewNote}}</td>
+              <!-- //check -->
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="50px" class="text-center">{{row.NewIndex}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewName}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewSpecification }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                min-width="200px" class="text-center">{{row.Code}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewRawMaterialCode }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewUnitName }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewQuantity}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewRawMaterial }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewWeight}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewManufactureCode }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewPricing|number:'1.0-0' }}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewAmount|number:'1.0-0'}}</td>
+              <td *ngIf="row.DupplicateCode == true && row.DupplicateIndex == false" style="background-color:yellow"
+                width="100px" class="text-center">{{row.NewNote}}</td>
+              <!-- check -->
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="50px" class="text-center">
+                {{row.NewIndex}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewName}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewSpecification }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" min-width="200px"
+                class="text-center">{{row.Code}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewRawMaterialCode }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewUnitName }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewQuantity}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewRawMaterial }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewWeight}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewManufactureCode }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewPricing|number:'1.0-0' }}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewAmount|number:'1.0-0'}}</td>
+              <td *ngIf="row.DupplicateCode == false && row.DupplicateIndex == false" width="100px" class="text-center">
+                {{row.NewNote}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <button class="btn btn-view btn-warning">
+      </button>&nbsp;
+      <small class="padding-right-20">Trùng mã vật tư</small>
+      <button class="btn btn-view btn-danger">
+      </button>&nbsp;
+      <small class="padding-right-20">Trùng số thứ tự</small>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button *appUipermission="['F060030']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+    (click)="save(false)">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Lưu</span>
+  </button>
+  <button *appUipermission="['F060030']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+    (click)="saveAndContinue()">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Lưu & Tiếp tục</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

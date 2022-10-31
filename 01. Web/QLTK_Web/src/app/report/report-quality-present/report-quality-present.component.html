@@ -1,0 +1,92 @@
+<div class='content-wrapper page-content'>
+  <section class="body-right">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelEmployee"
+              (change)="errorWithLineProduct()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="errorWithLineProduct()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label" style="line-height:35px;">Biểu đồ thể hiện số lỗi và vấn đề theo dòng sản
+            phẩm</label>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div style="display: block">
+            <canvas baseChart [datasets]="barChartDataErrorWithLineProduct" [labels]="barListViewErrorWithLineProduct"
+              [options]="barChartOptionsErrorWithLineProduct" [legend]="barChartLegendErrorWithLineProduct"
+              [colors]="chartColorsErrorWithLineProduct" [chartType]="barChartTypeErrorWithLineProduct"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <nts-search-bar [(options)]="searchOptionsErrorGroup" [(ngModel)]="errorGroupModel" name="modelEmployee"
+              (change)="errorGroup()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="errorGroup()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clearErrorGroup()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label" style="line-height:35px;">Biểu đồ thể hiện số lỗi, vấn đề theo nhóm vấn đề</label>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div style="display: block">
+            <canvas baseChart [datasets]="barChartDataErrorGroup" [labels]="barListViewErrorGroup"
+              [options]="barChartOptionsErrorGroup" [legend]="barChartLegendErrorGroup"
+              [colors]="chartColorsErrorGroup" [chartType]="barChartTypeErrorGroup"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <nts-search-bar [(options)]="searchErrorRatio" [(ngModel)]="errorRatioModel" name="modelRadio"
+              (change)="errorRatio()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="errorRatio()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clearErrorRadio()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label" style="line-height:35px;">Biểu đồ thể hiện số lỗi, vấn đề theo nhóm vấn đề</label>
+        </div>
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div style="display: block">
+            <canvas baseChart [datasets]="barChartDataErrorRatio" [labels]="barListViewErrorRatio"
+              [options]="barChartOptionsErrorRatio" [legend]="barChartLegendErrorRatio"
+              [colors]="chartColorsErrorRatio" [chartType]="barChartTypeErrorRatio"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

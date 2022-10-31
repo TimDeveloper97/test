@@ -1,0 +1,187 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Quản lý cấu trúc thư mục</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+      <div class="form-group ">
+        <label class="form-label">SBU
+        </label>
+        <div class="controls">
+          <div class="input-group" [disUipermission]="['F090006']">
+            <nts-drop-down [items]="listSBU" [columns]="columnNameSBU" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId" (ngModelChange)="getCBBDepartment()"
+              placeholder="Chọn SBU">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+      <div class="form-group ">
+        <label class="form-label">Phòng ban
+        </label>
+        <div class="controls">
+          <div class="input-group" [disUipermission]="['F090006']">
+            <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name"
+              ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId" name="DepartmentId"
+              (ngModelChange)="searchDesignStructure()" placeholder="Chọn Phòng ban">
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+      <div class="form-group">
+        <label class="form-label">Loại đối tượng cấu hình</label>
+        <div class="controls">
+          <select [disUipermission]="['F090003','F090002','F090005','F090006']" name="ObjectType" class="form-control"
+            [(ngModel)]="model.ObjectType" (ngModelChange)="searchDesignStructure()">
+            <option *ngFor="let item of constant.DesignObjectTypes" [ngValue]="item.Id">{{item.Name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+      <div class="form-group ">
+        <label class="form-label">Loại thiết kế
+        </label>
+        <div class="controls">
+          <select [disUipermission]="['F090003','F090002','F090005','F090006']" class="form-control"
+            [(ngModel)]="model.Type" name="Type" (change)="searchDesignStructure()">            
+            <option *ngFor="let item of constant.DesignTypesSolution" [ngValue]="item.Id">{{item.Name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right margin-top-20">
+      <button *appUipermission="['F090002']" class="btn btn-success btn-success-system" (click)="showCreateUpdate('')">
+        <i class="fa fa-plus"></i> &nbsp;Thêm cấu hình</button>&nbsp;
+      <button *appUipermission="['F090003','F090002']" class="btn btn-success btn-success-system"
+        (click)="showCreateUpdateFile('')" [disabled]="!parentId">
+        <i class="fa fa-plus"></i> &nbsp;Thêm file</button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+
+      <dx-tree-list id="employees" [dataSource]="listDesignStructure" keyExpr="Id" parentIdExpr="ParentId"
+        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[1]"
+        [columnAutoWidth]="true" noDataText="" [autoExpandAll]="true" (onSelectionChanged)="onSelectionChanged($event)"
+        height="500px">
+        <dxo-selection mode="single"></dxo-selection>
+        <!-- <dxi-column dataField="Index" caption="STT" width="100px"></dxi-column> -->
+        <!-- <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column> -->
+        <dxi-column dataField="Name" caption="Tên thư mục"></dxi-column>
+        <!-- <dxi-column dataField="Description" caption="Mô tả" width="300px"></dxi-column> -->
+        <!-- <dxi-column dataField="Note" caption="Ghi chú" width="300px"></dxi-column> -->
+        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+          <div *dxTemplate="let cell of 'cellEditTemplate'">
+            <button *appUipermission="['F090003','F090005','F090006']" type="button"
+              (click)='showCreateUpdate(cell.value)' class="btn btn-xs btn-warning" placement="bottom"
+              ngbTooltip="Cập nhật" container="body">
+              <span class="fa fa-edit" aria-hidden="true"></span>
+            </button> &nbsp;
+            <button *appUipermission="['F090004']" class="btn btn-xs btn-danger"
+              (click)="showConfirmDeleteDesignStructure(cell.value)" title="Xóa">
+              <span class="fas fa-times" aria-hidden="true"></span>
+            </button>
+          </div>
+        </dxi-column>
+      </dx-tree-list>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+      <perfect-scrollbar [config]="constant.ScrollYConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered " style="word-wrap: break-word ;min-width:550px;">
+          <thead>
+            <tr>
+              <th width="150px" class="text-center">Cột xử lý</th>
+              <th min-width="100px" class="text-center">Tên file</th>
+              <th width="100px" class="text-center">Luôn tồn tại</th>
+              <th width="100px" class="text-center">Có template</th>
+              <th width="100px" class="text-center">Nhập dữ liệu</th>
+            </tr>
+          </thead>
+          <tbody *ngIf="parentId">
+            <tr *ngFor="let row of listFile; let i = index;">
+              <td class="text-center">
+                <button *appUipermission="['F090004']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                  (click)="showConfirmDeleteRow(row.Id,i)">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F090003','F090005','F090006']" type="button"
+                  (click)='showCreateUpdateFile(row.Id)' class="btn btn-xs btn-warning" placement="bottom"
+                  ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <ng-container *appUipermission="['F090003','F090002']">
+                  <button style="background-color: papayawhip" class="btn btn-xs" (click)="DownloadAFile(row.Path)"
+                    *ngIf="row.Path">
+                    <span class="fa fa-download" aria-hidden="true"></span>
+                  </button>
+                </ng-container>
+              </td>
+              <td>
+                {{row.Name}}
+              </td>
+              <td class="text-center">
+                <div class="custom-control custom-checkbox">
+                  <input [(ngModel)]="row.Exist" type="checkbox" class="custom-control-input" [id]="'a'+i"
+                    [name]="'a'+i" disabled>
+                  <label class="custom-control-label" [for]="'a'+i"></label>
+                </div>
+              </td>
+              <td class="text-center">
+                <div class="custom-control custom-checkbox">
+                  <input [(ngModel)]="row.IsTemplate" type="checkbox" class="custom-control-input" [id]="'b'+i"
+                    [name]="'b'+i" disabled>
+                  <label class="custom-control-label" [for]="'b'+i"></label>
+                </div>
+              </td>
+              <td class="text-center">
+                <div class="custom-control custom-checkbox">
+                  <input [(ngModel)]="row.IsInsertData" type="checkbox" class="custom-control-input" [id]="'c'+i"
+                    [name]="'c'+i" disabled>
+                  <label class="custom-control-label" [for]="'c'+i"></label>
+                </div>
+              </td>
+            </tr>
+            <!-- <tr>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm file" (click)="addRow()">
+                      <i class="fa fa-plus"></i>
+                    </button>
+                  </td>
+                  <td>
+                    <input type="text" [(ngModel)]="modelFile.Name" class="form-control" name="modelFile.Name"
+                      maxlength="300">
+                  </td>
+                  <td width="70px" class="text-center">
+                    <div class="custom-control custom-checkbox">
+                      <input [(ngModel)]="modelFile.Exist" type="checkbox" class="custom-control-input"
+                        [name]="modelFileExist" [id]="modelFileExist">
+                      <label class="custom-control-label" [for]="modelFileExist"></label>
+                    </div>
+                  </td>
+                </tr> -->
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

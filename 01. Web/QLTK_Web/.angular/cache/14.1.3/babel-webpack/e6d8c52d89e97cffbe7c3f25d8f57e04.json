@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class User {\n  static fromBasicProfile(profile) {\n    let user = new User();\n    user.Id = profile.getId();\n    user.Email = profile.getEmail();\n    return user;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

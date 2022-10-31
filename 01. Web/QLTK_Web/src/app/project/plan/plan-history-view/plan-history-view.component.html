@@ -1,0 +1,180 @@
+<div class="schedule-project">
+    <div class="row mb-1">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+      </div>
+    </div>
+    <ng-container >
+      <as-split unit="percent" [direction]="direction"  #split="asSplit">
+        <as-split-area size="100" minSize="30" #area1="asSplitArea">
+          <div class="special-tree-list">
+            <div class="style-tree-list">
+              <dx-tree-list #scrollTree class="sp-1" id="projectProduct" [dataSource]="listProjectProduct" keyExpr="Id"
+                parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="false"
+                [expandedRowKeys]="listExplanedId" (onRowExpanded)="onRowExpanded($event)"
+                (onRowCollapsed)="onRowCollapsed($event)" noDataText=" "
+                (onContentReady)="onContentReady($event)" [height]="scheduleHeight"
+                (onRowPrepared)="onRowPrepared($event)" >
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-editing mode="cell" [allowUpdating]="true">
+                </dxo-editing>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxo-paging [enabled]="false"></dxo-paging>
+                <dxi-column dataField="NameView" caption="Sản phẩm" width="200px" [allowSorting]="false"
+                  cssClass="employee" cellTemplate="listTemplateCode" [allowEditing]="false">
+                </dxi-column>
+                <dxi-column dataField="RealQuantity" caption="SL" width="50px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center" [allowEditing]="false"></dxi-column>
+                <div *dxTemplate="let item of 'listTemplateCode'">
+                  <ng-container *ngIf="item.data.DataType && !item.data.PlanId">
+                    <span class="fas fa-plus-circle item-add" style="cursor: pointer;"></span>&nbsp;
+                  </ng-container>
+                  <ng-container *ngIf="item.data.Description">
+                    <i class="fa fa-exclamation-circle icon-danger"></i> 
+                  </ng-container>
+                  <span class="name"
+                    [ngClass]="{'font-weight-bold':item.data.DataType==0, 'font-weight-bold-sp':item.data.DataType!=0&&!item.data.PlanId}"
+                    style="cursor: pointer; " title="{{item.data.NameView}}">&nbsp;{{item.data.NameView}}</span>
+                </div>
+  
+                <dxi-column dataField="Weight" caption="Trọng số" width="50px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center" [allowEditing]="true"></dxi-column>
+  
+                <dxi-column dataField="StageName" caption="Công đoạn" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell" cellTemplate="listTemplateStage" [allowEditing]="false"></dxi-column>
+                <div *dxTemplate="let items of 'listTemplateStage'">
+                  <ng-container *ngIf="items.data.StageId && !items.data.IsPlan">
+                    <span aria-hidden="true" class="fas fa-plus item-add" 
+                      style="cursor: pointer;">
+                    </span>&nbsp;
+                  </ng-container>
+                  <ng-container *ngIf="items.data.IsPlan">
+                    <span>
+                      <input type="checkbox" [(ngModel)]="items.data.Checked" style="height:15px; width:15px;">
+                    </span>&nbsp;
+                  </ng-container>
+                  <span style="cursor: pointer;" title="{{items.data.StageName}}">{{items.data.StageName}}</span>
+                </div>
+  
+                <dxi-column dataField="PlanName" caption="Công việc" [minWidth]="260" [allowSorting]="false"
+                  cssClass="plan-header-cell" cellTemplate="listTemplatePlanName" [allowEditing]="true">
+                </dxi-column>
+                <div *dxTemplate="let items of 'listTemplatePlanName'">
+                  <ng-container *ngIf="items.data.IsPlan">
+                    <span aria-hidden="true" class="fas fa-times item-delete"
+                      (click)="showConfirmDeletePlan(items.data.Id, items.data.PlanName)" style="cursor: pointer;">
+                    </span>&nbsp;
+                  </ng-container>
+                  <span style="cursor: pointer;" title="{{items.data.PlanName}}">{{items.data.PlanName}}</span>
+                </div>
+  
+                <dxi-column dataField="Type" caption="Phân loại" width="55px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                  <dxo-lookup [dataSource]="Type" valueExpr="Id" displayExpr="Code">
+                  </dxo-lookup>
+                  <dxi-validation-rule type="required"></dxi-validation-rule>
+                </dxi-column>
+  
+                <dxi-column dataField="ContractStartDate" dataType="date" caption="Ngày BĐ HĐ" width="80px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center"  format="dd/MM/yyyy">
+                </dxi-column>
+  
+                <dxi-column dataField="ContractDueDate" dataType="date" caption="Ngày KT HĐ" width="80px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center" format="dd/MM/yyyy">
+                </dxi-column>
+  
+                <dxi-column dataField="PlanStartDate" dataType="date" caption="Ngày bắt đầu triển khai" width="80px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center" format="dd/MM/yyyy"></dxi-column>
+  
+                <dxi-column dataField="PlanDueDate" dataType="date" caption="Ngày kết thúc triển khai" width="80px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center" format="dd/MM/yyyy">
+                </dxi-column>
+  
+                <dxi-column dataField="Duration" caption="Số ngày làm việc" width="50px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center" [allowEditing]="false"></dxi-column>
+  
+                <dxi-column dataField="EstimateTime" caption="Số giờ làm" width="50px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+  
+                <dxi-column dataField="SupplierId" caption="Nhà thầu" width="75px" [allowSorting]="false"
+                  cssClass="plan-header-cell"  >
+                  <dxo-lookup [dataSource]="suppliers" valueExpr="Id" displayExpr="Alias">
+                  </dxo-lookup>
+                  <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
+                </dxi-column>
+                <div *dxTemplate="let status of 'statusTemplate'">
+                  <span class="middle">{{ status.NameView }}</span>
+                </div>
+  
+                <dxi-column dataField="ResponsiblePersionName" caption="Người phụ trách" width="125px"
+                  [allowSorting]="false" [allowEditing]="false" cssClass="plan-header-cell"
+                  cellTemplate="listTemplatePlanAssignment">
+                </dxi-column>
+                <div *dxTemplate="let items of 'listTemplatePlanAssignment'">
+                  <ng-container *ngIf="items.data.IsPlan">
+                    <span aria-hidden="true" class="far fa-plus-square item-add"  
+                      style="cursor: pointer;">
+                    </span>&nbsp;
+                  </ng-container>
+                  <span style="cursor: pointer;"
+                    title="{{items.data.ResponsiblePersionName}}">{{items.data.ResponsiblePersionName}}</span>
+                </div>
+  
+                <dxi-column dataField="InternalStatus" caption="Tình trạng công việc (nội bộ)" width="90px"
+                  cssClass="plan-header-cell" [allowEditing]="false" [allowSorting]="false">
+                </dxi-column>
+  
+                <dxi-column dataField="Status" caption="Tình trạng CV" width="80px" cssClass="plan-header-cell"
+                  [allowEditing]="false" [allowSorting]="false" cellTemplate="listStatus">
+                </dxi-column>
+                <div *dxTemplate="let item of 'listStatus'">
+                  <ng-container>
+                    <div class="text-center">
+                      <nts-status-badge [value]="item.data.Status" [items]="constant.Plan_Status">
+                      </nts-status-badge>
+                    </div>
+                  </ng-container>
+                </div>
+  
+                <dxi-column dataField="DoneRatio" caption="% Hoàn thành" [width]="130" cssClass="plan-header-cell"
+                  [allowEditing]="false" [allowSorting]="false" cellTemplate="listTemplateDone">
+                </dxi-column>
+                <div *dxTemplate="let items of 'listTemplateDone'">
+                  <ng-container>
+                    <span>
+                      <ngb-progressbar type="success" textType="dark" [value]="items.data.DoneRatio" [showValue]="true">
+                      </ngb-progressbar>
+                    </span>
+                  </ng-container>
+                </div>
+              </dx-tree-list>
+  
+              <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#projectProduct" >
+                <div *dxTemplate="let e of 'item'" [ngClass]="{'disabled': e.disabled===true}">
+                  <div>
+                    <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                  </div>
+                </div>
+              </dx-context-menu>
+            </div>
+          </div>
+        </as-split-area>
+      </as-split>
+    </ng-container>
+  
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 text-left mt-3">
+        <ng-container>
+  
+          <button class="btn btn-primary" (click)="exportSummaryExcel()">
+            <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;
+            <span>Xuất Excel</span>
+          </button>
+  
+        </ng-container>
+      </div>
+
+    </div>
+    <hr />
+    
+  </div>

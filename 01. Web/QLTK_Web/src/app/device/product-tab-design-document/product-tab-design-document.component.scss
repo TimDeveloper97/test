@@ -1,0 +1,21 @@
+app-product-tab-design-document {
+    .search-left {
+      width: 20em;
+      float: left;
+      margin-left: 0px !important;
+      max-width: 237px;
+    }
+    
+    .body-right {
+      width: 100%;
+      margin-left: 15px !important;
+      overflow-x: hidden;
+      background-color: #ffffff;
+    }
+    .selected {
+      background-color: aqua;
+    }
+    .page-content {
+      display: flex;
+    }
+  }

@@ -1,0 +1,132 @@
+<div class="modal-header">
+  <h3 class="modal-title text-danger text-uppercase">Chọn kĩ năng</h3>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-10">
+  <div class="row">
+    <div class="col-md-3 col-sm-12 col-xl-3">
+      <div class="form-group">
+        <label class="form-label">Tên nhân viên</label>
+        <div class="controls">
+          <input type="text" class="form-control"  name="NameSkill">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-12 col-xl-3">
+      <div class="form-group">
+        <label class="form-label">Phòng ban</label>
+        <div class="controls">
+          <input type="text" class="form-control" name="CodeSkill">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 text-right margin-top-20">
+      <button class="btn btn-success btn-success-system" (click)="searchEmployee()">
+        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+      <button class="btn btn-default btn-default-system" (click)="clear()">
+        <i class="fa fa-refresh"></i> &nbsp;Làm mới</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger"> </span> kĩ năng chưa chọn</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:800px">
+          <thead>
+            <tr>
+              <th style="text-align:center" width="60px">Chọn</th>
+              <th width="40px">STT</th>
+              <th style="min-width: 150px;">Tên nhân viên</th>
+              <th width="120px">Phòng ban</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let row of listSelect; let j = index">
+              <td style="text-align:center">
+                <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+row.Name+i}}"
+                  style="height:20px; width:20px;">
+              </td>
+
+              <td class="text-center" width="40px">{{j+1}}</td>
+              <td style="min-width: 150px;">{{row.Name}}</td>
+              <td width="150px">{{row.Code}}</td>
+              <td width="150px">{{row.Specification}}</td>
+              <td width="150px">{{row.Note}}</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4 col-sm-12 col-lg-3 col-xl-4 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger"></span> kĩ năng đã chọn</label>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xl-4 col-lg-4 margin-bottom-5 text-center">
+      <button type="button" ngbTooltip="Chọn nhân viên" container="body" class="btn btn-success" (click)="addRow()">
+        <i class="fa fa-arrow-down"></i>
+      </button>&nbsp;
+      <button type="button" ngbTooltip="Bỏ chọn nhân viên" container="body" class="btn btn-danger" (click)="removeRow()">
+        <i class="fa fa-arrow-up"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:800px">
+          <thead>
+            <tr>
+              <th style="text-align:center" width="60px">Chọn</th>
+              <th width="40px">STT</th>
+              <th style="min-width: 150px;">Tên nhân viên</th>
+              <th width="120px">Phòng ban</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- <tr *ngFor="let row of listSelect; let j = index">
+              <td style="text-align:center">
+                <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+row.Name+i}}"
+                  style="height:20px; width:20px;">
+              </td>
+
+              <td class="text-center" width="40px">{{j+1}}</td>
+              <td style="min-width: 150px;">{{row.Name}}</td>
+              <td width="150px">{{row.Code}}</td>
+              <td width="150px">{{row.Specification}}</td>
+              <td width="150px">{{row.Note}}</td>
+            </tr> -->
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+
+<!-- <div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="choose()">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Chọn</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div> -->

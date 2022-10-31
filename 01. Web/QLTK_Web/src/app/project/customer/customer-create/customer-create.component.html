@@ -1,0 +1,372 @@
+<div class="content-wrapper padding-top-10">
+  <ul ngbNav #nav="ngbNav" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <a ngbNavLink>Thông tin chung</a>
+      <ng-template ngbNavContent>
+        <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Mã khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group" *ngIf="!this.Id">
+                    <div  style="width:0%; border-bottom: none;">
+                      <input type="text" class="form-control" [(ngModel)]="model.CodeChar"
+                        disabled>
+                    </div>
+                    <select class="form-control" [(ngModel)]="model.CodeChar" (change)="getCustomerCode()" name="CodeChar">
+                      <option *ngFor="let row of chars" [value]="row" >{{row}}</option>
+                    </select>
+                    <div class="input-group-append" style="width:92%; border-bottom: none;">
+                      <input type="text" class="form-control" [(ngModel)]="model.Code" name="Codecustomer" maxlength="100"
+                        required disabled>
+                    </div>
+                  </div>
+                  <input *ngIf="this.Id" type="text" class="form-control" [(ngModel)]="model.Code" name="Codecustomer1"
+                    maxlength="100" required disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Tên khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" type="text" class="form-control" [(ngModel)]="model.Name"
+                    name="Namecustomer" maxlength="300" required>
+                </div>
+              </div>
+            </div>
+          
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group">
+                <label class="form-label">Nhóm khách hàng <span class='text-danger text-strong'>&nbsp;*</span></label>
+                <div class="controls">
+                  <nts-drop-down-tree [disUipermission]="['F060201','F060202']" [items]="listCustomerType"
+                    [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                    ntsAutoClose="true" [(ngModel)]="model.CustomerTypeId" name="Id" required></nts-drop-down-tree>
+                </div>
+              </div>
+            </div>
+          </div>
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="formGroup">
+                <label class="form-label">SBU<span class="text-danger text-strong">&nbsp;*</span></label>
+                <div class="controls">
+                  <nts-drop-down [disUipermission]="['F060201','F060202']" [items]="ListSBU" [columns]="columnNameSBU"
+                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId"
+                    name="ManufactureId" required>
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+              <div class="form-group ">
+                <label class="form-label">Diện tích
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2  }" name="Acreage"
+                    type="text" class="form-control" [(ngModel)]="model.Acreage" maxlength="20" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+              <div class="form-group ">
+                <label class="form-label">Số lượng nhân viên
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" [(ngModel)]="model.EmployeeQuantity"
+                    name="EmployeeQuantity" class="form-control" required>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Vốn
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" currencyMask
+                    [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:2  }" name="Capital"
+                    type="text" class="form-control" [(ngModel)]="model.Capital" maxlength="20" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Tỉnh/ Thành phố chính
+                </label>
+                <div class="controls">
+                  <nts-drop-down [items]="provinces" [columns]="columnNameAddress"
+                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                    [(ngModel)]="model.ProvinceId" name="CurrentAddressProvinceId"
+                    (change)="getDistricts(model.ProvinceId)">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Địa chỉ liên hệ
+                </label>
+                <div class="controls">
+                  <textarea [radUipermission]="['F060201','F060202']" class="form-control" [(ngModel)]="model.Address"
+                    name="Address" rows="1" maxlength="100"></textarea>
+                </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Mã số thuế
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input [disUipermission]="['F060201','F060202']" type="text" class="form-control"
+                    [(ngModel)]="model.Tax" name="Tax" required>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+              <div class="form-group ">
+                <label class="form-label">Lĩnh vực sản xuất
+                  <span class='text-danger text-strong'></span>
+                </label>
+                <div class="controls">
+                  <div class="input-group">
+                      <dx-drop-down-box [disUipermission]="['F000002']" #d1
+                          [(value)]="treeBoxValue" valueExpr="Id" displayExpr="Name"
+                          placeholder="Chọn lĩnh vực" [showClearButton]="true"
+                          [dataSource]="ListJobGroup"
+                          (onValueChanged)="syncTreeViewSelection($event)"
+                          [(opened)]="isDropDownBoxOpened">
+                              <dx-tree-list 
+                                  *dxTemplate="let data of 'content'" 
+                                  id="Id" [dataSource]="ListJobGroup"
+                                  keyExpr="Id" 
+                                  parentIdExpr="ParentId" 
+                                  [showRowLines]="true"
+                                  [showBorders]="true" 
+                                  [columnAutoWidth]="true" 
+                                  [expandedRowKeys]="[1,2,10]"
+                                  [(selectedRowKeys)]="selectedRowKeys"
+                                  (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+                                  (onRowDblClick)="onRowDblClick()">
+                                  <dxo-search-panel [visible]="true" placeholder="Tìm kiếm..."></dxo-search-panel>
+                                  <dxo-selection mode="multiple" [recursive]="false">
+                                  </dxo-selection>
+                                  <dxi-column dataField="Name" caption="Tên lĩnh vực">
+                                  </dxi-column>
+                              </dx-tree-list>
+                      </dx-drop-down-box>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+              <div class="form-group ">
+                <label class="form-label">Nhân viên kinh doanh phụ trách
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <nts-drop-down [disUipermission]="['F060201','F060202']" required [items]="ListEmployee" [columns]="columnNameEmployee"
+                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.EmployeeId"
+                    name="ManufactureId">
+                  </nts-drop-down>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+              <div class="form-group">
+                <label class="form-label">Ghi chú
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <div class="input-group">
+                    <textarea [radUipermission]="['F060201','F060202']" class="form-control" [(ngModel)]="model.Note"
+                      rows="4" name="Note" maxlength="500"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+          <div class="row" *ngIf="model.Id">
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+              <h4>Người liên hệ</h4>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+              <button *appUipermission="['F060201','F060202']" type="button"
+                (click)="showCreateUpdateCustomerContact('','',true)" class="btn btn-success">
+                <span class="fa fa-plus" aria-hidden="true"></span> Thêm người liên hệ
+              </button>
+            </div>
+          </div>
+      
+          <div class="row" *ngIf="model.Id">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed" style="min-width:1300px">
+                  <thead>
+                    <tr>
+                      <th width="40px" class="text-center">STT</th>
+                      <th width="80px" class="text-center">Xử lý </th>
+                      <th width="200px" class="text-center">Tên người liên hệ</th>
+                      <th width="230px" class="text-center">Địa chỉ (Bộ phận, phòng ban)</th>
+                      <th width="100px" class="text-center">Chức vụ</th>
+                      <th width="150px" class="text-center">Email</th>
+                      <th width="100px" class="text-center">Số điện thoại</th>
+                      <th width="100px" class="text-center">Giới tính</th>
+                      <!-- <th width="200px" class="text-center">Nhân viên kinh doanh phụ trách</th>
+                      <th width="100px" class="text-center">Mã nhân viên</th> -->
+                      <!-- <th width="100px" class="text-center">Ngày sinh</th>
+                      <th width="100px" class="text-center">Trạng thái</th>
+                      <th width="200px" class="text-center">Các lưu ý khi tương tác</th> -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of listCustomerContact; let i = index">
+                      <td class="text-center">{{i+1}}</td>
+                      <td style="text-align: center">
+                        <button *appUipermission="['F060201','F060202']" type="button"
+                          (click)='showCreateUpdateCustomerContact(row,i,false)' class="btn btn-xs btn-warning"
+                          placement="bottom" ngbTooltip="Cập nhật" container="body">
+                          <span class="fa fa-edit" aria-hidden="true"></span>
+                        </button>&nbsp;
+                        <button *appUipermission="['F060201','F060202']" class="btn btn-xs btn-danger"
+                          (click)="showConfirmDeleteCustomerContact(row.Id,i)" ngbTooltip="Xóa" placement="bottom">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td class="text-center">{{row.Name}}</td>
+                      <td class="text-center">{{row.Address}}</td>
+                      <td class="text-center">{{row.Position}}</td>
+                      <td class="text-center">{{row.Email}}</td>
+                      <td class="text-center">{{row.PhoneNumber}}</td>
+                      <td class="text-center">{{row.Gender|filterinlist:constant.Genders}}</td>
+                      <!-- <td class="text-center">{{row.EmployeeName}}</td>
+                      <td class="text-center">{{row.EmployeeCode}}</td> -->
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+          <!-- <div  class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+            <ng-container *ngIf="Id != null">
+              <button *appUipermission="['F060201','F060202']" type="button" class="btn btn-success" 
+                (click)="saveCustomerContact(false)">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>lưu người liên hệ</span>
+              </button>
+            </ng-container>
+          </div> -->
+          <div class="row"  *ngIf="model.Id">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div >
+                <h4>Khách hàng của khách hàng</h4>
+              </div>
+              <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;overflow: visible;">
+                <table class="table table-bordered" style="min-width:700px">
+                  <thead>
+                    <tr>
+                      <th width="50px" class="text-center">STT</th>
+                      <th width="70px" class="text-center">Xử lý</th>
+                      <th width="200px" class="text-center">Tên khách hàng</th>
+                      <th width="350px" class="text-center">Quốc gia</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of model.CustomerOfCustomer; let i = index;">
+                      <td class="text-center" width="50px">{{startCustomerOfCustomerIndex+i}}</td>
+                      <td class="text-center" width="70px">
+                        <button class="btn btn-xs btn-danger" (click)="deleteCustomerOfCustomer(i)" placement="bottom"
+                          ngbTooltip="Xóa" container="body">
+                          <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>
+                        <input type="text" [(ngModel)]="row.Name" class="form-control" [name]="'namecustomer' + i">
+                      </td>
+                      <td>
+                        <div class="controls">
+                          <select [name]="'CountryName' + i" class="form-control" [(ngModel)]="row.CountryName"
+                              [disUipermission]="['F060201','F060202']">
+                            <option *ngFor="let item of listCountry" [ngValue]="item">{{item}}
+                            </option>
+                          </select>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                  <tfoot>
+                    <tr class="bold">
+                      <td></td>
+                      <td class="text-center">
+                        <button type="button" (click)='validateCustomerOfCustomer()' class="btn btn-xs btn-success" placement="bottom"
+                          ngbTooltip="Thêm mới" container="body">
+                          <span class="fa fa-plus" aria-hidden="true"></span>
+                        </button>
+                      </td>
+                      <td>
+                        <div class="controls">
+                          <input type="text" class="form-control" name="NameCustomerOfCustomer" [(ngModel)]="customerOfCustomerModel.Name">
+                        </div>
+                      </td>
+                      <td>
+                        <div class="controls">
+                          <select name="NameCountry" class="form-control" [(ngModel)]="customerOfCustomerModel.CountryName"
+                              [disUipermission]="['F060201','F060202']">
+                            <option *ngFor="let item of listCountry" [ngValue]="item">{{item}}
+                            </option>
+                          </select>
+                        </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </perfect-scrollbar>
+            </div>
+          </div>
+      
+        </form>
+        <div class="modal-footer">
+          <ng-container>
+            <button *appUipermission="['F060201','F060202']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+              (click)="save(false)">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>{{modalInfo.SaveText}}</span>
+            </button>
+          </ng-container>
+          <ng-container *ngIf="Id===''">
+            <button *appUipermission="['F060201']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+              (click)="saveAndContinue()">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>Lưu & Tiếp tục</span>
+            </button>
+          </ng-container>
+          <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+              Đóng
+            </span>
+          </button>
+        </div>
+      </ng-template>
+      
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav"></div>
+</div>

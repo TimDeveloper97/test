@@ -1,0 +1,100 @@
+.schedule-project {
+  .plan {
+    background-color: rgba(105, 255, 75, 0.445);
+  }
+  .selected {
+    background-color: rgba(245, 245, 80, 0.479);
+    cursor: pointer;
+  }
+
+  tr:hover {
+    cursor: pointer;
+  }
+
+  .dx-date-box-input {
+    text-align: center;
+    color: red;
+  }
+  .dayOfWeek {
+    background-color: rgb(175, 137, 87);
+  }
+  .sunday {
+    background-color: rgb(184, 53, 53);
+  }
+
+  .item-update {
+    border: none;
+    text-align: center;
+    color: rgb(255, 145, 0);
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+  .special-tree-list {
+    tr.dx-row.dx-column-lines.dx-header-row {
+      height: 67px;
+    }
+  }
+
+  tr.dx-row.dx-column-lines.dx-header-row td {
+    vertical-align: middle;
+  }
+
+  .item-delete {
+    border: none;
+    text-align: center;
+    color: red;
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+  .item-add {
+    border: none;
+    text-align: center;
+    color: green;
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    margin-right: 10px;
+  }
+
+  span.date-inline {
+    bottom: 0px !important;
+  }
+
+  .style-tree-list {
+    margin-top: 0px !important;
+  }
+
+  .as-split-gutter {
+    margin-top: 0px;
+    height: auto !important;
+  }
+
+  .as-split-area {
+    overflow-y: hidden !important;
+  }
+
+  .searchCondition {
+    margin-top: 39px;
+  }
+
+  .plan-header-cell {
+    .dx-treelist-text-content {
+      white-space: normal !important;
+      text-align: center;
+    }
+  }
+
+  .font-weight-bold-sp {
+    font-weight: 600;
+  }
+
+  .dx-treelist-table {
+    tr {
+      height: 34px;
+    }
+  }
+}

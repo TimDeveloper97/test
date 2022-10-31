@@ -1,0 +1,48 @@
+app-module-manage {
+  .selected {
+    background-color: aqua;
+  }
+  .custom-checkbox i.fas.fa-exclamation-triangle,
+  .custom-checkbox i.fas.fa-check {
+    position: relative;
+    right: 17px;
+  }
+  .custom-checkbox {
+    width: 30%;
+    float: left;
+  }
+
+  .DMTV {
+    width: 50%;
+    float: left;
+  }
+
+  .item-update {
+    border: none;
+    text-align: center;
+    color: rgb(255, 145, 0);
+    background: none;
+  }
+
+  .icon-opera {
+    color: green;
+    margin-right: 6px;
+  }
+  .icon-manager {
+    color: mediumblue;
+    margin-right: 6px;
+  }
+  .item-delete {
+    border: none;
+    text-align: center;
+    color: red;
+    background: none;
+  }
+  .item-add {
+    border: none;
+    text-align: center;
+    color: green;
+    background: none;
+  }
+
+}

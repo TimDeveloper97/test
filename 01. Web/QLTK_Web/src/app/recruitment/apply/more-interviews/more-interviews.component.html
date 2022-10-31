@@ -1,0 +1,271 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group ">
+                    <label class="form-label">Người phỏng vấn dự kiến
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="employees" [columns]="employeeColumnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="EmployeeId" name="EmployeeName"
+                            (ngModelChange)="getSBU()" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group ">
+                    <label class="form-label">Ngày hẹn phỏng vấn
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy" name="interviewDate"
+                                [(ngModel)]="interviewDate" ngbDatepicker #ngbinterviewDate="ngbDatepicker" required>
+                            <div class="input-group-append">
+                                <span class="dtp-icon" (click)="ngbinterviewDate.toggle()" name="ngbinterviewDate">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-6 col-sm-6">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian hẹn phỏng vấn
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.InterviewTime" name="Time" [spinners]="false">
+                        </ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div class="form-group ">
+                    <label class="form-label">SBU người phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="listSBU" [columns]="employeeColumnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId" name="EmployeeSBU" disabled>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Phòng ban người phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="departments" [columns]="employeeColumnName" ntsValue="Id"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId"
+                            name="EmployeeDepartment" disabled>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+                    <div class="col-lg-6 col-md-3 col-sm-12 col-xs-12 text-left">
+                        <h4>Danh sách người phỏng vấn phụ</h4>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                        <button type="button" class="btn btn-success" (click)="showSelectEmployee()">
+                            <i class="fa fa-plus"></i> &nbsp;Thêm người phỏng vấn</button>
+                    </div>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                        <div class="row" #scrollModule>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+                                <div #scrollModuleHeader style="height: auto; width:100%;overflow: hidden">
+                                    <table class="table table-bordered table-fixed mb-0" style="min-width:700px">
+                                        <thead>
+                                            <tr>
+                                                <th width="50px" class="text-center">STT</th>
+                                                <th width="70px" class="text-center">Xử lý </th>
+                                                <!-- <th width="150px">Tình trạng làm việc</th> -->
+                                                <th width="150px" class="text-center">Tên nhân viên</th>
+                                                <th width="150px" class="text-center">Mã nhân viên</th>
+                                                <th width="250px" class="text-center">Email</th>
+                                                <th width="170px" class="text-center">Số điện thoại</th>
+                                                <th min-width="450px" class="text-center">Phòng ban</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                                <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="350">
+                                    <table class="table table-bordered table-fixed" style="min-width:680px">
+                                        <colgroup>
+                                            <col width="50px">
+                                            <col width="70px">
+                                            <col width="150px">
+                                            <col width="150px">
+                                            <col width="250px">
+                                            <col width="170px">
+                                            <col min-width="450px">
+                                        </colgroup>
+                                        <tbody>
+                                            <tr *ngFor="let row of model.ListUser; let i = index">
+                                                <td class="text-center" width="50px">{{i+1}}</td>
+
+                                                <td class="text-center">
+                                                    <button (click)="showComfirmDeleteEmployee(i)"
+                                                        class="btn btn-xs btn-danger" ngbTooltip="Xóa" container="body"
+                                                        placement="bottom">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                                <!-- <td class="text-center" width="150px">
+                                                                <span class="badge"
+                                                                    [ngClass]="row.Status|filterbadgeclassinlist:constant.EmployeeStatus">{{row.Status|filterinlist:constant.EmployeeStatus}}</span>
+                                                            </td> -->
+                                                <td>{{row.Name}}</td>
+                                                <td>{{row.Code}}</td>
+                                                <td>{{row.Email}}</td>
+                                                <td>{{row.PhoneNumber}}</td>
+                                                <td>{{row.DepartmentName}}</td>
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </perfect-scrollbar>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="row">
+
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                        <h4>Danh sách câu hỏi</h4>
+                    </div>
+                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                        <button type=" button" class="btn btn-success" (click)="chooseQuestion()">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                            Chọn câu hỏi
+                        </button>&nbsp;
+
+                        <button type="button" class="btn btn-success" container="body" (click)="showCreateQuestion()">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                            Thêm câu hỏi
+                        </button>
+                    </div>
+                </div>
+                <div class="row" #scrollModule>
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+                        <div #scrollModuleHeader style="height: auto; width:100%;overflow: hidden">
+                            <table class="table table-bordered table-fixed mb-0" style="min-width:940px">
+                                <thead>
+                                    <tr>
+                                        <th width="60px" class="text-center">STT</th>
+                                        <th width="100px" class="text-center">Xử lý</th>
+                                        <th min-width="250px" class="text-center">Nội dung</th>
+                                        <!-- <th width="150px" class="text-center">Nhóm câu hỏi</th> -->
+                                        <th width="200px" class="text-center">Loại câu hỏi</th>
+                                        <th width="220px" class="text-center">Đáp án</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                        <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="500">
+                            <table class="table table-bordered table-fixed" style="min-width:940px">
+                                <colgroup>
+                                    <col width="60px">
+                                    <col width="100px">
+                                    <col min-width="250px">
+                                    <!-- <col width="150px"> -->
+                                    <col width="200px">
+                                    <col width="220px">
+                                </colgroup>
+                                <tbody>
+                                    <tr *ngFor="let row of model.Questions; let i = index">
+                                        <td width="60px" class="text-center">{{i+1}}</td>
+                                        <td width="100px" class="text-center">
+                                            <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                placement="top" (click)="showConfirmDeleteQuestion(i)" container="body">
+                                                <span class="fas fa-times" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td min-width="250px">
+                                            <div [innerHTML]="row.Content"></div>
+
+                                        </td>
+                                        <!-- <td  width="150px">{{row.QuestionGroupName}}</td> -->
+                                        <td width="200px">
+                                            <span *ngIf="row.Type==1">Câu hỏi Đúng/ Sai</span>
+                                            <span *ngIf="row.Type==2">Câu hỏi mở</span>
+                                        </td>
+                                        <td width="220px">
+                                            <ng-container *ngIf="row.Type==1">
+                                                <span *ngIf="row.Answer=='1'">Đúng</span>
+                                                <span *ngIf="row.Answer=='2'">Sai</span>
+                                            </ng-container>
+                                            <ng-container *ngIf="row.Type==2">
+                                                {{row.Answer}}
+                                            </ng-container>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+                <label class="form-label">Kết quả phỏng vấn
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                    <div class="custom-control custom-radio custom-control-inline"
+                        *ngFor="let row of constant.InterviewStatus; let i = index;">
+                        <input type="radio" class="custom-control-input" [id]="'InterviewStatus'+i"
+                            name="InterviewStatus" [(ngModel)]="model.Status" [value]="row.Id">
+                        <label class="custom-control-label" [for]="'InterviewStatus'+i">{{row.Name}}</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button *appUipermission="['F121686','F121682']" type="button" class="btn btn-success"
+            [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="Id===''">
+        <button *appUipermission="['F121686']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+            (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & Tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

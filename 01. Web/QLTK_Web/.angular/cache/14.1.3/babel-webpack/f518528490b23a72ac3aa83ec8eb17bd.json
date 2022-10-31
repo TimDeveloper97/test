@@ -1,0 +1,1 @@
+{"ast":null,"code":"export class NtsTinymceDefaultOptions {\n  constructor() {\n    this.plugins = ['link', 'paste', 'table', 'advlist', 'autoresize', 'lists', 'code'];\n    this.skin_url = '/assets/tinymce/skins/lightgray';\n    this.baseURL = '/assets/tinymce';\n    this.auto_focus = true;\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

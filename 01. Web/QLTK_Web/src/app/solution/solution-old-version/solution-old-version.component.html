@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="getSolutionOldVersion()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1000px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="100px" class="text-center">Ngày</th>
+            <th width="200px" class="text-center">Người sửa</th>
+            <th min-width="250px" class="text-center">Nội dung sửa</th>
+            <th width="100px" class="text-center">Version</th>
+            <ng-container *ngIf="listHistory.length>0">
+              <th class="text-center" style=" width: 100px;"
+                *ngFor="let item of listHistory[0].ListDesign; let  j=index">
+                {{item.Name}}</th>
+            </ng-container>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listHistory; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.CreateByName}}</td>
+            <td>{{row.Description}}</td>
+            <td class="text-right">{{row.Version}}</td>
+            <ng-container *ngIf="listHistory.length>0">
+              <td class="text-center" style=" width: 100px;" *ngFor="let item of row.ListDesign; let  j=index">
+                <div *ngIf="item.IsDownload==true">
+                  <button type="button" class="btn btn-xs btn-info" placement="top" ngbTooltip="Download folder"
+                    container="body" (click)="downloadFolder(item.FolderId, item.DesignType)">
+                    <span class="fas fa-arrow-down" aria-hidden="true"></span>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

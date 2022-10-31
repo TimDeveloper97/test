@@ -1,0 +1,25 @@
+app-project-solution {
+  .custom-checkbox i.fas.fa-exclamation-triangle,
+  .custom-checkbox i.fas.fa-check {
+    position: relative !important;
+    right: 17px;
+  }
+  .custom-checkbox i.fas.fa-exclamation-triangle,
+  .custom-checkbox i.fas.fa-check {
+    position: relative !important;
+    right: 17px;
+  }
+  .custom-checkbox {
+    width: 30%;
+    float: left !important;
+  }
+
+  .DMTV {
+    width: 50% !important;
+    float: left !important;
+  }
+
+  .selected {
+    background-color: rgb(67, 224, 224) !important;
+  }
+}

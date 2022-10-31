@@ -1,0 +1,149 @@
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Configuration, Constants, MessageService } from 'src/app/shared';
+import { UploadfileService } from 'src/app/upload/uploadfile.service';
+import { InterviewService } from '../../services/interview.service';
+
+declare var tinymce: any;
+
+@Component({
+  selector: 'app-question-interview-create',
+  templateUrl: './question-interview-create.component.html',
+  styleUrls: ['./question-interview-create.component.scss'],
+  encapsulation: ViewEncapsulation.None
+})
+export class QuestionInterviewCreateComponent implements OnInit {
+
+
+  constructor(private activeModal: NgbActiveModal,
+    private messageService: MessageService,
+    public constants: Constants,
+    public config: Configuration,
+    private fileService: UploadfileService,
+    private interviewService: InterviewService,
+  ) { }
+
+  isAction: boolean = false;
+  Id: any = null;
+  ModalInfo = {
+    Title: 'Thêm mới câu hỏi',
+    SaveText: 'Lưu',
+  };
+
+  questionModel: any = {
+    Id: '',
+    InterviewId: '',
+    QuestionType: '2',
+    QuestionScore: 0,
+    QuestionContent: '',
+    QuestionAnswer: '',
+    Score:0
+  };
+
+  valueTrueFalse: boolean = true;
+
+  types: any[] = [
+    { Id: '1', Name: 'Câu hỏi Đúng/Sai' },
+    { Id: '2', Name: 'Câu hỏi mở' },
+  ];
+
+  discoveryConfig = {
+    plugins: ['image code', 'visualblocks', 'print preview', 'table', 'directionality', 'link', 'media', 'codesample', 'table', 'charmap', 'hr', 'pagebreak', 'nonbreaking', 'anchor', 'toc', 'insertdatetime', 'advlist', 'lists', 'textcolor', 'wordcount', 'imagetools', 'contextmenu', 'textpattern', 'searchreplace visualblocks code fullscreen',],
+    language: 'vi_VN',
+    // file_picker_types: 'file image media',
+    automatic_uploads: true,
+    toolbar: 'undo redo | fontselect | fontsizeselect | bold italic forecolor backcolor |alignleft aligncenter alignright alignjustify alignnone | numlist | table | link | outdent indent',
+    convert_urls: false,
+    height: 200,
+    auto_focus: false,
+    plugin_preview_width: 1000,
+    plugin_preview_height: 650,
+    readonly: 0,
+    content_style: "body {font-size: 12pt;font-family: Arial;}",
+    file_browser_callback: function RoxyFileBrowser(field_name, url, type, win) {
+      //var roxyFileman = '/fileman/index.html';
+      var roxyFileman = "https://nhantinsoft.vn:9508/fileServer/fileman/index.html";
+      if (roxyFileman.indexOf("?") < 0) {
+        roxyFileman += "?type=" + type;
+      }
+      else {
+        roxyFileman += "&type=" + type;
+      }
+      roxyFileman += '&input=' + field_name + '&value=' + win.document.getElementById(field_name).value;
+      if (tinymce.activeEditor.settings.language) {
+        roxyFileman += '&langCode=' + tinymce.activeEditor.settings.language;
+      }
+      tinymce.activeEditor.windowManager.open({
+        file: roxyFileman,
+        title: 'Roxy Fileman',
+        width: 850,
+        height: 650,
+        resizable: "yes",
+        plugins: "media",
+        inline: "yes",
+        close_previous: "no"
+      }, {
+        window: win,
+        input: field_name
+      });
+      return false;
+    },
+    //setup: TinymceUserConfig.setup,
+    // content_css: '/assets/css/custom_editor.css',
+    images_upload_handler: (blobInfo, success, failure) => {
+      this.fileService.uploadFile(blobInfo.blob(), 'Email-Configuration').subscribe(
+        result => {
+          success(this.config.ServerApi + result.data.fileUrl);
+        },
+        error => {
+          return;
+        }
+      );
+    }
+  };
+
+
+  ngOnInit(): void {
+      this.questionModel.InterviewId = this.Id;
+  }
+
+  save(isContinue: boolean) {
+    if (this.Id) {
+      this.update();
+    }
+    else {
+      this.create(isContinue);
+    }
+  }
+
+  saveAndContinue() {
+    this.save(true);
+  }
+
+  closeModal(isOK: boolean) {
+    this.activeModal.close(isOK ? isOK : this.isAction);
+  }
+
+  create(isContinue) {
+    if (isContinue) {
+      this.isAction = true;
+      this.questionModel = {
+        Id: '',
+        InterviewId: this.Id,
+        QuestionType: '2',
+        QuestionScore: 0,
+        QuestionContent: '',
+        QuestionAnswer: ''
+      };
+      this.messageService.showSuccess('Thêm mới câu hỏi thành công!');
+    }
+    else {
+      this.messageService.showSuccess('Thêm mới câu hỏi thành công!');
+      this.closeModal(this.questionModel);
+    }
+  }
+
+  update() {
+
+  }
+}

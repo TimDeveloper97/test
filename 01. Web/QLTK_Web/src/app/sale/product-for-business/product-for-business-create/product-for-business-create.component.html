@@ -1,0 +1,383 @@
+<div class="content-wrapper app-product-create padding-top-10">
+    <form name="form" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false">
+            <!-- Tab thông tin chung -->
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin chung</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên tiếng anh
+                                        </label>
+                                        <div class="controls">
+                                            <input name="EnglishName" type="text" class="form-control" maxlength="300"
+                                                [(ngModel)]="model.EName" (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên tiếng việt
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input name="VietNamName" type="text" class="form-control"
+                                                (change)="check()" [(ngModel)]="model.VName" maxlength="300"
+                                                (ngModelChange)="check()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Model
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input name="modelname" type="text" class="form-control"
+                                                [(ngModel)]="model.Model" (change)="check()" maxlength="100" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Mã nhóm thiết bị
+                                        </label>
+                                        <div class="controls">
+                                            <input name="groupcode" type="text" class="form-control"
+                                                [(ngModel)]="model.GroupCode" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Mã nhóm thiết bị con
+                                        </label>
+                                        <div class="controls">
+                                            <input name="childgroupcode" type="text" class="form-control"
+                                                [(ngModel)]="model.ChildGroupCode" maxlength="100">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Mã hãng sản xuất
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <nts-drop-down [items]="productManufacture"
+                                                    [columns]="columnNameManufacture" ntsValue="Id" ntsLabel="Code"
+                                                    ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="model.ManufactureId" name="ManufactureId">
+                                                </nts-drop-down>
+                                                <div class="input-group-append">
+                                                    <button [disUipermission]="['F000501']" type="button"
+                                                        (click)='showAddManufacture()' class="btn btn-xs btn-success"
+                                                        placement="top" ngbTooltip="Thêm hãng sản xuất"
+                                                        container="body">
+                                                        <span class="fa fa-plus" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xs-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Chủng loại hàng hóa
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down-tree [items]="saleProductTypes" [columns]="columnName"
+                                                ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                                ntsAutoClose="true" [(ngModel)]="model.SaleProductTypeId"
+                                                name="ParentId" (change)="getRate()">
+                                            </nts-drop-down-tree>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Xuất sứ
+                                        </label>
+                                        <div class="controls">
+                                            <select name="Country" class="form-control" [(ngModel)]="model.CountryName">
+                                                <option *ngFor="let item of listCountry" [ngValue]="item">{{item}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ngày cập nhật thông số kỹ thuật
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group ">
+                                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                                    [(ngModel)]="specificationDate" name="SpecificationDate"
+                                                    ngbDatepicker #SpecificationDate="ngbDatepicker" required>
+                                                <div class="input-group-append">
+                                                    <span class="dtp-icon"
+                                                        (click)="SpecificationDate.toggle();$event.stopPropagation();">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>      
+                            </div>
+                            <br>
+                            <h4 style="color: #116fbf;">Thông số về giá</h4>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">VAT
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                name="VAT" type="text" [(ngModel)]="model.VAT" class="form-control"
+                                                maxlength="18">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá cả vật tư
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                name="MaterialPrice" type="text" class="form-control"
+                                                [(ngModel)]="model.MaterialPrice" maxlength="18"
+                                                (ngModelChange)="changeMaterialPrice()" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá bán EXW TPA ({{exwRate|number}})
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                name="EXWTPAPrice" type="text" class="form-control"
+                                                [(ngModel)]="model.EXWTPAPrice" maxlength="18">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ngày cập nhật giá EXW TPA
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group ">
+                                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                                    [(ngModel)]="eXWTPADate" name="EXWTPADate" ngbDatepicker
+                                                    #EXWTPADate="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <span class="dtp-icon"
+                                                        (click)="EXWTPADate.toggle();$event.stopPropagation();">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá public trên web ({{publicRate|number}})
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input currencyMask
+                                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                name="PublicPrice" type="text" (ngModelChange)="check()"
+                                                [(ngModel)]="model.PublicPrice" class="form-control" maxlength="18"
+                                                >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Hiệu lực của giá từ ngày
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group ">
+                                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                                    name="ExpireDateFrom" [(ngModel)]="expireDateFrom" ngbDatepicker
+                                                    #ExpireDateFrom="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <span class="dtp-icon"
+                                                        (click)="ExpireDateFrom.toggle();$event.stopPropagation();">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Hiệu lực của giá đến ngày
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group ">
+                                                <input class="form-control" placeholder="dd/mm/yyyy" name="ExpireDateTo"
+                                                    [(ngModel)]="expireDateTo" ngbDatepicker
+                                                    #ExpireDateTo="ngbDatepicker">
+                                                <div class="input-group-append">
+                                                    <span class="dtp-icon"
+                                                        (click)="ExpireDateTo.toggle();$event.stopPropagation();">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class=" col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group form-group-custom ">
+                                        <label class="form-label">Thời gian giao hàng
+                                        </label>
+                                        <div class="controls">
+                                            <input name="DeliveryTime" type="text" class="form-control"
+                                                [(ngModel)]="model.DeliveryTime" maxlength="300">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh thiết bị
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="fileDataSheet" style="display: none;" type="file"
+                                            id="fileDataSheet" #fileImage (change)="uploadFileClickImage($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                                </ngx-gallery>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <h4 style="color: #116fbf;">Thông số kỹ thuật</h4>
+                    <hr>
+                    <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thông số nguồn
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <textarea name="Specifications" type="text" rows="20" class="form-control"
+                                        [(ngModel)]="model.Specifications" required style="border: 1px solid #e1e1e1;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Thông số cho khách hàng
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <textarea name="CustomerSpecifications" type="text" rows="20"
+                                        class="form-control"
+                                        [(ngModel)]="model.CustomerSpecifications" required style="border: 1px solid #e1e1e1;"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-app-caree-tab'">
+                <a ngbNavLink>Ứng dụng - Ngành nghề</a>
+                <ng-template ngbNavContent>
+                    <app-app-carree-tab name="app-caree" [Id]="model.Id" [listApp]="listApp" [listCaree]="listJob"
+                        [(ngModel)]="modelAppCaree"></app-app-carree-tab>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-image-gallery-manage'">
+                <a ngbNavLink>Thư viện hình ảnh/ Video</a>
+                <ng-template ngbNavContent>
+                    <app-image-gallery-manage name="image-gallery" [Id]="model.Id" [listMedia]="listMedia"
+                        [(ngModel)]="listMedia"></app-image-gallery-manage>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-document-manage'">
+                <a ngbNavLink>Tài liệu</a>
+                <ng-template ngbNavContent>
+                    <app-document-manage name="document" [Id]="model.Id" [listCatalog]="listCatalog"
+                        [listFileSolution]="listFileSolution" [listTechnicalTraning]="listTechnicalTraning"
+                        [listSaleTraining]="listSaleTraining" [listUserManual]="listUserManual"
+                        [listFixError]="listFixError" [listOtherDocument]="listOtherDocument"
+                        [(ngModel)]="modelListDocument"></app-document-manage>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-accessory-manage'">
+                <a ngbNavLink>Danh sách phụ kiện</a>
+                <ng-template ngbNavContent>
+                    <app-accessory-manage name="accessory" [Id]="model.Id" [listAccessory]="listAccessory"
+                        [(ngModel)]="listAccessory"></app-accessory-manage>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-group-sale-product'">
+                <a ngbNavLink>Danh sách nhóm sản phẩm kinh doanh</a>
+                <ng-template ngbNavContent>
+                    <app-group-sale-product name="accessory" [Id]="model.Id" [listGroup]="listGroupSaleProduct"
+                        [(ngModel)]="listGroupSaleProduct"></app-group-sale-product>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+                        <ng-container>
+                            <button type="button" class="btn btn-success" [disUipermission]="['F120001','F120002']"
+                                [disabled]="!Valid" (click)="save(false)">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu</span>
+                            </button>
+                        </ng-container>&nbsp;
+                        <ng-container *ngIf="model.Id===''||model.Id===null">
+                            <button type="button" class="btn btn-success" [disUipermission]="['F120001']"
+                                [disabled]="!Valid" (click)="saveAndContinue()">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu & tiếp tục</span>
+                            </button>
+                        </ng-container>&nbsp;
+                        <button type="button" class="btn btn-danger" (click)="closeModal()">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

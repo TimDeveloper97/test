@@ -1,0 +1,47 @@
+.task-flowstage-create-model {
+    .modal-dialog {
+        width: 100%;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 540px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .modal-dialog {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .modal-dialog {
+            max-width: 1000px;
+        }
+    }
+
+    @media (min-width: 1366px) {
+        .modal-dialog {
+            max-width: 1300px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .modal-dialog {
+            max-width: 1500px;
+        }
+    }
+
+    @media (min-width: 1920px) {
+        .modal-dialog {
+            max-width: 1800px;
+        }
+    }
+}

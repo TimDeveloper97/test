@@ -1,0 +1,292 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Tên lần thanh toán
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <select required name="paymentName" class="form-control" [(ngModel)]="model.Name">
+                <option>
+                  Tạm ứng
+                </option>
+                <option>
+                  Thanh toán trước khi giao hàng
+                </option>
+                <option>
+                  Thanh toán sau khi giao hàng
+                </option>
+                <option>
+                  Thanh toán nghiệm thu/ quyết toán
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán theo HĐ
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="PlanPaymentDate"
+                [(ngModel)]="model.PlanPaymentDate" ngbDatepicker #PlanPaymentDate="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="PlanPaymentDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày điều chỉnh thu tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="AdjustmentDate"
+                [(ngModel)]="model.AdjustmentDate" ngbDatepicker #AdjustmentDate="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="AdjustmentDate.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+         
+          
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Giá trị theo hợp đồng
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.PlanAmount" name="planAmount" required>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày dự kiến thu theo mốc
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="PaymentMilestone"
+                [(ngModel)]="model.PaymentMilestone" ngbDatepicker #PaymentMilestone="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="PaymentMilestone.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+  
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Thời gian thu tiền (Ngày)
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <div class="input-group">
+                <input type="number" class="form-control" required min="0" [(ngModel)]="model.MoneyCollectionTime" name="MoneyCollectionTime">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group">
+            <label class="form-label"> Điều kiện thanh toán
+            </label>
+            <div class="controls">
+              <textarea [(ngModel)]="model.PaymentCondition" name="paymentCondition" rows="3" class="form-control" [maxLength]="500"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán lần 1
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="ActualPaymentDates1"
+                [(ngModel)]="model.ActualPaymentDate1" ngbDatepicker #ActualPaymentDates1="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" >
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="ActualPaymentDates1.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Số tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.ActualAmount1" name="actualAmount1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán lần 2
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="ActualPaymentDates2"
+                [(ngModel)]="model.ActualPaymentDate2" ngbDatepicker #ActualPaymentDates2="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" >
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="ActualPaymentDates2.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Số tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.ActualAmount2" name="actualAmount2">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán lần 3
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="ActualPaymentDates3"
+                [(ngModel)]="model.ActualPaymentDate3" ngbDatepicker #ActualPaymentDates3="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" >
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="ActualPaymentDates3.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Số tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.ActualAmount3" name="actualAmount3">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán lần 4
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="ActualPaymentDates4"
+                [(ngModel)]="model.ActualPaymentDate4" ngbDatepicker #ActualPaymentDates4="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" >
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="ActualPaymentDates4.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Số tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.ActualAmount4" name="actualAmount4">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label">Ngày thanh toán lần 5
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input container="body" class="form-control" placeholder="dd/mm/yyyy" name="ActualPaymentDates5"
+                [(ngModel)]="model.ActualPaymentDate5" ngbDatepicker #ActualPaymentDates5="ngbDatepicker"
+                [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" >
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="ActualPaymentDates5.toggle();$event.stopPropagation();">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>  
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Số tiền
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input currencyMask type="text" class="form-control" [(ngModel)]="model.ActualAmount5" name="actualAmount5">
+            </div>
+          </div>
+        </div>
+      </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

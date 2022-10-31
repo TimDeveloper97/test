@@ -1,0 +1,292 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-8">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="modelModule" name="module" (change)="searchModule()">
+            </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchModule()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{modelModule.totalItems}}</span> module</label>&nbsp;
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+          <button *appUipermission="['F090901','F090902']" class="btn btn-success btn-upload"
+            (click)="showImportExcel();">
+            <i class="fas fa-arrow-up"></i> &nbsp;Import module</button>&nbsp;
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="btn btn-success btn-upload" (click)="importMaterialsNiew()">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import vật tư cần download</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1100px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">Chọn</th>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Mã dự án</th>
+                  <th width="100px" class="text-center">Mã module</th>
+                  <th min-width="200px" class="text-center">Tên module</th>
+                  <th width="150px" class="text-center">Tình trạng dữ liệu</th>
+                  <th width="100px" class="text-center">TK Cơ khí</th>
+                  <th width="100px" class="text-center">TK điện</th>
+                  <th width="100px" class="text-center">TK điện tử</th>
+                  <th width="150px" class="text-center">Ngày cập nhật</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listModule; let i = index">
+                  <td style="text-align:center">
+                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                      style="height:20px; width:20px;">
+                  </td>
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td>{{row.ProjectCode}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.Name}}</td>
+                  <td class="text-center">
+                    <span class="badge badge-pill badge-success" *ngIf="row.IsEnought == '1'">Đã đủ</span>
+                    <span class="badge badge-pill badge-danger" *ngIf="row.IsEnought == '0'">Chưa đủ</span>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [ngModel]="row.FileMechanics" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.MechanicsExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.MechanicsExist=='0' && row.FileMechanics==true) ||(row.MechanicsExist== null && row.FileMechanics==true)"
+                        class="custom-control custom-checkbox  pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [ngModel]="row.FileElectric" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.ElectricExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.ElectricExist=='0' && row.FileElectric==true) || (row.ElectricExist== null && row.FileElectric==true)"
+                        class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [ngModel]="row.FileElectronic" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.ElectronicExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.ElectronicExist=='0' && row.FileElectronic==true) || (row.ElectronicExist== null && row.FileElectronic==true)"
+                        class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listModule.length == 0">
+                <tr class="bold">
+                  <td colspan="10" min-width="300px" class="text-center" style="height: 100px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4  d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="modelModule.PageSize"
+              (ngModelChange)="searchModule()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-md-8  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="modelModule.totalItems" [(page)]="modelModule.PageNumber"
+            (pageChange)="searchModule()" [pageSize]="modelModule.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-md-4 col-sm-12 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listSelect.length}}</span> module đã chọn</label>
+        </div>
+        <div class="col-md-4 col-sm-12 col-xs-12 margin-bottom-5 text-center">
+          <button type="button" ngbTooltip="Chọn module" class="btn btn-success" (click)="addRow()"
+            (change)="searchModule()">
+            <i class="fa fa-arrow-down"></i>
+          </button>&nbsp;
+          <button type="button" ngbTooltip="Bỏ chọn module" class="btn btn-danger" (click)="removeRow()"
+            (change)="searchModule()">
+            <i class="fa fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1100px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">Chọn</th>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Mã dự án</th>
+                  <th width="100px" class="text-center">Mã module</th>
+                  <th min-width="200px" class="text-center">Tên module</th>
+                  <th width="150px" class="text-center">Tình trạng dữ liệu</th>
+                  <th width="100px" class="text-center">TK Cơ khí</th>
+                  <th width="100px" class="text-center">TK điện</th>
+                  <th width="100px" class="text-center">TK điện tử</th>
+                  <th width="150px" class="text-center">Ngày cập nhật</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listSelect; let i = index">
+                  <td style="text-align:center">
+                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                      style="height:20px; width:20px;">
+                  </td>
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td>{{row.ProjectCode}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.Name}}</td>
+                  <td class="text-center">
+                    <span class="badge badge-pill badge-success" *ngIf="row.IsEnought == '1'">Đã đủ</span>
+                    <span class="badge badge-pill badge-danger" *ngIf="row.IsEnought == '0'">Chưa đủ</span>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <!-- <div *ngIf="row.FileMechanics==true" class="custom-control custom-checkbox  margin-left-25"> -->
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [value]="row.FileMechanics" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.MechanicsExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.MechanicsExist=='0' && row.FileMechanics==true) ||(row.MechanicsExist== null && row.FileMechanics==true)"
+                        class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <!-- <div *ngIf="row.FileElectric==true" class="custom-control custom-checkbox  margin-left-25"> -->
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [value]="row.FileElectric" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.ElectricExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.ElectricExist=='0' && row.FileElectric==true) || (row.ElectricExist== null && row.FileElectric==true)"
+                        class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div class="d-flex">
+                      <!-- <div *ngIf="row.FileElectronic==true" class="custom-control custom-checkbox  margin-left-25"> -->
+                      <div class="custom-control custom-checkbox  ml-2">
+                        <input [value]="row.FileElectronic" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.ElectronicExist=='1' " class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div
+                        *ngIf="(row.ElectronicExist=='0' && row.FileElectronic==true) || (row.ElectronicExist== null && row.FileElectronic==true)"
+                        class="custom-control custom-checkbox pl-1">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listSelect.length == 0">
+                <tr class="bold">
+                  <td colspan="10" min-width="300px" class="text-center" style="height: 100px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="modal-footer" *ngIf="listSelect.length > 0">
+        <button *appUipermission="['F090901','F090902']" type="button" class="btn btn-success" (click)="downloadList()">
+          <i class="fa fa-file-download"></i>&nbsp;
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
+  </section>
+</div>

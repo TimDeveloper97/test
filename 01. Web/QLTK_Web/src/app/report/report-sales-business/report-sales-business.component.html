@@ -1,0 +1,88 @@
+<div class="content-wrapper page-content">
+  <section class="body-right">
+    <div class="content-body">
+      <div class="row header-report">
+        <div class="col-md-8">
+          <div class="input-field">
+            <label for="mode">Chế độ xem</label>
+            <select name="mode" id="mode">
+              <option value="">Theo tháng</option>
+              <option value="">Theo năm</option>
+            </select>
+            <input
+              type="date"
+              name="from"
+              id="from"
+              [(ngModel)]="fromDate"
+              (change)="getCurrentDuration()"
+            />
+            <input
+              type="date"
+              name="to"
+              id="to"
+              [(ngModel)]="toDate"
+              (change)="getCurrentDuration()"
+            />
+            <select name="customerType" id="customerType">
+              <option value="">Khách hàng cuối</option>
+              <option value="">Thương mại</option>
+            </select>
+            <select
+              name="chartType"
+              id="chartType"
+              [(ngModel)]="model.TypeChart"
+              (change)="changeTypeChart()"
+            >
+              <option *ngFor="let item of listTypeChart" [ngValue]="item">
+                {{ item }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 right-content">
+          <label for="">Đơn vị biểu đồ: Tỷ (VNĐ)</label>
+          <span class="label" style="background: red"></span>
+          <span>Doanh số đăng ký</span>
+          <span class="label" style="background: blue"></span>
+          <span>Doanh số đạt được</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 left-geochart">
+          <div id="visualization"></div>
+        </div>
+        <div class="col-md-9">
+          <div class="row upper-chart">
+            <div class="col-md-4 col-sm-6 col xs-12">
+              <div class="ul-chart">
+                <div id="ulChart"></div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col xs-12">
+              <div class="ul-chart">
+                <div id="ulChart2"></div>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col xs-12">
+              <div class="ul-chart">
+                <div id="ulChart3"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row lower-chart">
+            <div class="col-md-6">
+              <div class="dl-chart">
+                <div id="dlChart"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="dl-chart">
+                <div id="dlChart2"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

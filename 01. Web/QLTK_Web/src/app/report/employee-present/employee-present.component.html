@@ -1,0 +1,320 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model" (change)="getEmployeePresent()">
+          </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+          <button class="btn btn-success btn-success-system" (click)="getEmployeePresent()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- <div class="row margin-bottom-10">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số nhân sự hiện tại:
+          <span class="bold text-danger">{{Total_Employee_Status_Use}}</span></label> &nbsp;
+       <label class="form-label" style="line-height:35px;">Nhân sự thiếu theo nhóm Cơ Khí:
+          <span class="bold text-danger">{{Total_Employee_Incomplete_CK}}</span>|</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Nhân sự thiếu theo nhóm Điện:
+          <span class="bold text-danger">{{Total_Employee_Incomplete_Dn}}</span>|</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Nhân sự thiếu theo nhóm Điện tử:
+          <span class="bold text-danger">{{Total_Employee_Incomplete_Dt}}</span>|</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Số khóa học chưa đào tạo
+          <span class="bold text-danger">{{Total_Course_Not_Start}}</span>|</label>&nbsp;
+        <label class="form-label" style="line-height:35px;">Số khóa học trễ kế hoạch
+          <span class="bold text-danger">{{Total_Course_Delay}}</span></label>&nbsp;
+      </div>
+    </div> -->
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+        <label class="form-label" style="line-height:35px;">
+          <span class="bold text-danger"></span>Danh sách số lượng nhân viên hiện tại</label>
+      </div>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:650px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Nhóm công việc</th>
+                <th width="200px" class="text-center">Số lượng nhân viên hiện tại</th>
+                <th width="200px" class="text-center">Số lượng nhân viên thiếu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listWorkType; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{row.WorkTypeName}}</td>
+                <td class="text-center">{{row.EmployeePresent}}</td>
+                <td class="text-center">{{row.EmployeeIncomplete}}</td>
+              </tr>
+              <tr>
+                <td class="text-center bold" colspan="2">Tổng số nhân viên hiện tại:</td>
+                <td class="text-right bold text-danger text-center" colspan="1">{{Total_Employee_Status_Use|number}}
+                </td>
+                <td></td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row" #scrollPracticeMaterial>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+        <label class="form-label" style="line-height:35px;">
+          <span class="bold text-danger"></span>Kỹ năng của nhân viên</label>
+      </div>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <!-- <table class="table table-bordered table-hover" style="margin-bottom:0px !important; min-width:10000px "> -->
+        <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="450+listEmployeeHeader.length*200">
+            <thead>
+              <tr>
+                <th class="text-center" width="50">STT</th>
+                <th class="text-center" width="400px">Tên kỹ năng</th>
+                <ng-container *ngIf="listEmployeeHeader.length>0">
+                  <th class="text-center" style=" min-width: 200px;"
+                    *ngFor="let item of listEmployeeHeader; let  j=index">
+                    {{item.EmployeeName}}</th>
+                </ng-container>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="300">
+          <!-- <table class="table table-bordered table-hover" style="min-width: 10000px"> -->
+          <table class="table table-bordered table-fixed" [style.min-width.px]="450+listEmployeeHeader.length*200">
+            <colgroup>
+              <col width="50px">
+              <col width="400px">
+              <col min-width="200px">
+            </colgroup>
+            <tbody>
+              <tr *ngFor="let row of listSkillEmployee; let i = index">
+                <td width="50px" class="text-center">{{i + 1}}</td>
+                <td width="400px">{{row.Name}}</td>
+
+                <ng-container *ngIf="listEmployeeHeader.length>0">
+                  <ng-container *ngFor="let item of listEmployeeHeader; let  j=index">
+                    <!-- <ng-container *ngIf="item.ListWorkSkillId.length>0"> -->
+
+                    <!-- <ng-container *ngFor="let ite of item.ListWorkSkillId; let  j=index">-->
+
+                    <td *ngIf="row.EmployeeId == item.Id " class="text-center" style=" min-width: 200px;">
+                      {{item.Grade}}/{{item.Mark}}
+                    </td>
+
+                    <td *ngIf="row.EmployeeId != (item.Id)" class="text-center" style=" min-width: 200px;">
+                    </td>
+                    <!-- </ng-container>  -->
+                  </ng-container>
+
+                </ng-container>
+                <!-- </ng-container> -->
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+
+
+
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+        <label class="form-label" style="line-height:35px;">
+          <span class="bold text-danger"></span>Khóa học theo từng nhóm, từng nhân viên</label>
+      </div>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:800px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="200px" class="text-center">Tên khóa học</th>
+                <th width="200px" class="text-center">Tên nhân viên</th>
+                <th width="200px" class="text-center">Tình trạng</th>
+                <th min-width="200px" class="text-center">Đánh giá</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listEmployeeCourse; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{row.CourseName}}</td>
+                <td>{{row.EmployeeName}}</td>
+                <td class="text-center">
+                  <span *ngIf="row.Status == 0" class="badge badge-success">Chưa đào tạo</span>
+                  <span *ngIf="row.Status == 1" class="badge badge-danger">Đã đào tạo</span>
+                </td>
+                <td min-width="200px" class="text-right">{{row.Rate}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Dự án
+              </label>
+              <nts-drop-down [items]="listProject" [columns]="columnName" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                ntsAutoClose="true" [(ngModel)]="model.ProjectId" (change)="getEmployeePresent()" name="Id">
+              </nts-drop-down>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Từ ngày
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="input-group">
+                <input class="form-control" [(ngModel)]="DateFormV" ngbDatepicker #dateFrom="ngbDatepicker"
+                  name="option.FieldNameFrom" (ngModelChange)="getEmployeePresent()" placeholder="Từ ngày"
+                  (click)="dateFrom.toggle();$event.stopPropagation();">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="dateFrom.toggle()" name="DateOfBirth">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Đến ngày
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="input-group">
+                <input class="form-control" name="option.FieldNameTo" [(ngModel)]="DateToV" ngbDatepicker
+                  #dateTo="ngbDatepicker" placeholder="Đến ngày" (ngModelChange)="getEmployeePresent()"
+                  (click)="dateTo.toggle();$event.stopPropagation();">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="dateTo.toggle()" name="DateOfBirth">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 300px;">
+          <thead>
+            <tr>
+              <th width="250px" class="text-center">Nhân viên</th>
+              <th width="50px" class="text-center">Số lỗi</th>
+            </tr>
+          </thead>
+        </table>
+        <perfect-scrollbar [config]="constant.ScrollYConfig" style="max-height: 400px ; width:100%;">
+          <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 300px;">
+            <tbody>
+              <tr *ngFor="let row of listErrorByEmployee; let i = index">
+                <td width="250px">{{row.Name}}</td>
+                <td width="50px" class="text-right">{{row.Count}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-group ">
+          <label class="form-label">Nhóm sản phẩm
+          </label>
+          <nts-drop-down-tree [items]="listGroupProduct" [columns]="columnNameModule" ntsParentId="ParentId"
+            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ModuleGroupId"
+            (change)="getEmployeePresent()" name="ModuleGrId"></nts-drop-down-tree>
+        </div>
+
+        <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 300px;">
+          <thead>
+            <tr>
+              <th width="250px" class="text-center">Nhân viên</th>
+              <th width="50px" class="text-center">Số lỗi</th>
+            </tr>
+          </thead>
+        </table>
+        <perfect-scrollbar [config]="constant.ScrollYConfig" style="max-height: 400px ; width:100%;">
+          <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 300px;">
+            <tbody>
+              <tr *ngFor="let row of listErrorEmployeeByProduct; let i = index">
+                <td width="250px">{{row.Name}}</td>
+                <td width="50px" class="text-right">{{row.Count}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 text-left mt-3">
+        <label class="form-label" style="line-height:35px;">
+          <span class="bold text-danger"></span>Hiệu suất làm việc của nhân viên theo tháng</label>
+      </div>
+      <div class="col-xl-4 col-md-4 col-sm-4 col-lg-4">
+        <div class="row mt-3">
+          <div class="col-xl-4 col-md-4 col-sm-12 col-lg-4 text-right">
+            <span (click)="btnMonth(false)" style="cursor: pointer;">
+              <i class="fas fa-angle-double-left" style="margin-top: 10px;
+          font-size: 15px;"></i></span> </div>
+          <div class="col-xl-4 col-md-4 col-sm-12 col-lg-4 text-center">
+            <dx-date-box [showClearButton]="true" [useMaskBehavior]="true" displayFormat="MM/yyyy" type="date"
+              maxZoomLevel='year' minZoomLevel='century' [(ngModel)]="model.Date" (ngModelChange)="getEmployee()"
+              width="100%">
+            </dx-date-box>
+          </div>
+          <div class="col-xl-4 col-md-4 col-sm-12 col-lg-4">
+            <span (click)="btnMonth(true)" style="cursor: pointer;">
+              <i class="fas fa-angle-double-right" style="margin-top: 10px;
+            font-size: 15px;"></i>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" #scrollPracticeMaterial>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:750px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="350px" class="text-center">Nhân viên</th>
+                <th width="350px" class="text-center">Hiệu suất làm việc của nhân viên</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="300">
+          <table class="table table-bordered table-fixed" style="min-width:750px">
+            <colgroup>
+              <col width="50px">
+              <col min-width="350px">
+              <col width="350px">
+            </colgroup>
+            <tbody>
+              <tr *ngFor="let row of listEmployeePerformance; let i = index">
+                <td width="50px" class="text-center">{{i+1}}</td>
+                <td min-width="350px">{{row.Name}}</td>
+                <td width="350px" class="text-right">{{row.performance}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+
+  </div>
+</div>

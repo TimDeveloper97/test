@@ -1,0 +1,72 @@
+<div class="d-flex">
+  <section class="search-left">
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <dx-tree-list id="folders" [dataSource]="ListFolder" keyExpr="Id" parentIdExpr="ParentId" [showRowLines]="true"
+          [showBorders]="true" [columnAutoWidth]="true" [height]="folderHeight"
+          (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="ListDesignDocumentId">
+          <dxo-selection mode="single"></dxo-selection>
+          <dxi-column dataField="Name" caption="Tên thư mục"></dxi-column>
+        </dx-tree-list>
+        <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#folders"
+        (onItemClick)="itemClick($event)">
+        <div *dxTemplate="let e of 'item'">
+          <div>
+            <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+          </div>
+        </div>
+      </dx-context-menu>
+      </div>
+    </div>
+  </section>
+  <section class="body-right">
+    <div class="row margin-bottom-10">
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label" style="line-height:35px;">Danh sách tài liệu thiết kế</label>&nbsp;
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+        <button *appUipermission="['F030412']" type="button" class="btn btn-success" container="body" (click)="showChooseFolderUpload()">
+          <i class="fas fa-arrow-up"></i>
+          Upload tài liệu
+        </button> 
+        <!-- <button type="button" class="btn btn-warning" container="body" (click)="showChooseFolder()">
+            <i class="fas fa-arrow-down"></i>
+            Download tài liệu
+          </button> -->
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:690px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Size (byte)</th>
+                <th width="120px" class="text-center">Ngày tải lên</th>
+                <th width="120px" class="text-center">Ngày update</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of ListFile; let i = index">
+                <td width="50px" class="text-center">{{startIndex + i}}</td>
+                <td width="100px" style="text-align: center">
+                  <button *appUipermission="['F030413']" type="button" class="btn btn-xs btn-info" placement="top" ngbTooltip="Download file"
+                    container="body" (click)="downloadFile(row.Id, row.Name, row.ServerPath, row.DesignType)">
+                    <span class="fas fa-arrow-down" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td min-width="200px">{{row.Name}}</td>
+                <td width="100px">{{row.FileSize|number}}</td>
+                <td width="140px" class="text-center">{{row.CreateDate|date: "dd/MM/yyyy hh:mm:ss"}}</td>
+                <td width="140px" class="text-center">{{row.UpdateDate|date: "dd/MM/yyyy hh:mm:ss"}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </section>
+</div>

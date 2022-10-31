@@ -1,0 +1,136 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Chọn Module</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nts-search-bar [options]="searchOptions" [(ngModel)]="modelSearch" name="modelSearch"
+                        (change)="searchModule()">
+                    </nts-search-bar>
+                </div>
+                <div class="col-md-4 text-right">
+                    <button class="btn btn-success btn-success-system" (click)="searchModule()">
+                        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listBase.length}}</span> Module chưa chọn</label>
+                </div>
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listSelect.length}}</span> Module đã chọn</label>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+
+                    <div class="table-left">
+                        <virtual-scroller #scroll [items]="listBase" style=" display: block;height: 400px;">
+                            <table class="table table-bordered table-fixed table-hover"
+                                style="word-wrap: break-word; margin-bottom:0px !important;min-width: 710px;">
+                                <thead #header style="background-color: white">
+                                    <tr>
+                                        <th style="text-align:center;padding-top: 10px;" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll(true)">
+                                        </th>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th min-width="150px" class="text-center">Tên module</th>
+                                        <th width="150px" class="text-center">Mã module</th>
+                                        <th width="150px" class="text-center">Nhóm module</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody #container>
+                                    <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                        <td style="text-align:center" width="60px">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;">
+                                        </td>
+                                        <td class="text-center" width="50px">{{row.Index}}</td>
+                                        <td style="min-width: 150px">{{row.Name}}</td>
+                                        <td width="150px">{{row.Code}}</td>
+                                        <td width="150px">{{row.MaterialGroupCode}}</td>
+                                        <td width="150px">{{row.ManufactureName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </virtual-scroller>
+                    </div>
+
+                    <div class="table-center">
+                        <button type="button" ngbTooltip="Chọn vật tư" class="btn btn-success" (click)="addRow()">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                        <button type="button" ngbTooltip="Bỏ chọn vật tư" class="btn btn-danger" (click)="removeRow()">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-right">
+                        <virtual-scroller #scrolll [items]="listSelect" style=" display: block;height: 400px;">
+                            <table class="table table-bordered table-fixed table-hover"
+                                style="word-wrap: break-word; min-width:710px">
+                                <thead #header style="background-color: white">
+                                    <tr>
+                                        <th style="text-align:center;padding-top: 10px;" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll(false)">
+                                        </th>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th min-width="150px" class="text-center">Tên module</th>
+                                        <th width="150px" class="text-center">Mã module</th>
+                                        <th width="150px" class="text-center">Nhóm module</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                    </tr>
+                                </thead>
+                                <tbody #container>
+                                    <tr *ngFor="let row of scrolll.viewPortItems; let id = index">
+                                        <td style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Choose_Checked_'+row.Name+id}}"
+                                                style="height:20px; width:20px;">
+                                        </td>
+                                        <td class="text-center" width="50px">{{id+1}}</td>
+                                        <td style="min-width: 150px">{{row.Name}}</td>
+                                        <td width="150px">{{row.Code}}</td>
+                                        <td width="150px">{{row.MaterialGroupCode}}</td>
+                                        <td width="150px">{{row.ManufactureName}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </virtual-scroller>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="choose()">
+            <i class="fa fa-check"></i>&nbsp;
+            <span>Chọn</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

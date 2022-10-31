@@ -1,0 +1,99 @@
+import { Injectable } from '@angular/core';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Configuration } from 'src/app/shared';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ProjectProductService {
+
+  constructor(
+    private http: HttpClient,
+    private config: Configuration
+  ) { }
+
+  searchProjectProduct(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/SearchProjectProduct', model, httpOptions);
+    return tr
+  }
+
+  searchProjectProducts(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/SearchProjectProducts', model, httpOptions);
+    return tr
+  }
+
+  searchProjectProductById(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/SearchProjectProductById', model, httpOptions);
+    return tr
+  }
+  createProjectProduct(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/CreateProjectProduct', model, httpOptions);
+    return tr
+  }
+  updateProjectProduct(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/UpdateProjectProduct', model, httpOptions);
+    return tr
+  }
+  deleteProjectProduct(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/DeleteProjectProduct', model, httpOptions);
+    return tr
+  }
+  getProjectProductInfo(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetProjectProductInfo', model, httpOptions);
+    return tr
+  }
+
+  compareContract(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/CompareContract', model, httpOptions);
+    return tr
+  }
+
+  updateIsGeneralDesign(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/UpdateIsGeneralDesign', model, httpOptions);
+    return tr
+  }
+
+  getIncurredMaterial(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetIncurredMaterial', model, httpOptions);
+    return tr
+  }
+
+  importProduct(file, projectId): Observable<any> {
+    let formData: FormData = new FormData();
+    formData.append('File', file);
+    formData.append('ProjectId', projectId);
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/ImportProduct', formData);
+    return tr
+  }
+
+  getProjectProductStatusPerform (id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetProjectProductByProjectId/'+id, httpOptions);
+  return tr
+  }
+  getNumberErrorOfProject(id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetNumberErrorOfProject/'+id, httpOptions);
+  return tr
+  }
+  GetWorkOfProject(id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetWorkOfProject/'+id, httpOptions);
+  return tr
+  }
+  GetRatioOfProject(id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetRatioDoneOfProject/'+id, httpOptions);
+  return tr
+  }
+  GetImplementationPlanVersusReality(id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetImplementationPlanVersusReality/'+id, httpOptions);
+  return tr
+  }
+
+  GetNumberWorkInProject(id:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'ProjectProduct/GetNumberWorkInProject/'+id, httpOptions);
+  return tr
+  }
+}

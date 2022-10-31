@@ -1,0 +1,95 @@
+.problem-exist-confirm-modal {
+  .fix {
+    display: flex;
+
+    .fix-left {
+      width: 300px;
+      min-width: 300px;
+      margin-right: 15px;
+      border-right: 2px solid #e1e1e1;
+
+      .fix-list {
+        ul {
+          list-style: none;
+          padding: 0px;
+
+          li {
+            width: 100%;
+            border-bottom: 2px solid #f4f4f4;
+            padding: 10px 10px 10px 20px;
+            cursor: pointer;
+
+            &.active {
+              background-color: #efefef;
+            }
+          }
+        }
+
+        .fix-item {
+          width: 100%;
+          position: relative;
+
+          .fix-item-info {
+            position: relative;
+            top: 0px;
+
+            h6 {
+              font-weight: 550;
+              margin-bottom: 0px;
+            }
+
+            p {
+              margin-bottom: 5px;
+              color: #848484;
+              line-height: 24px;
+            }
+
+            span {
+              color: #aaa;
+              font-size: 12px;
+
+              &.badge {
+                color: #fff;
+                right: 0;
+                position: absolute;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .fix-right {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
+  
+  .modal-dialog {
+    width: 100%;
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 540px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .modal-dialog {
+      max-width: 720px;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 960px;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .modal-dialog {
+      max-width: 1300px;
+    }
+  }
+}

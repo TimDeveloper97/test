@@ -1,0 +1,1190 @@
+{
+  "Groups": [
+    {"Id":"GF0001","Code":"GF0001","Name":"Quản lý vật tư","Index":"1"},
+{"Id":"GF0002","Code":"GF0002","Name":"Nhóm vật tư chức năng","Index":"2"},
+{"Id":"GF0003","Code":"GF0003","Name":"Nhóm vật tư TPA","Index":"3"},
+{"Id":"GF0004","Code":"GF0004","Name":"Cấu hình thông số vật tư","Index":"4"},
+{"Id":"GF0005","Code":"GF0005","Name":"Nhóm vật tư phi tiêu chuẩn","Index":"5"},
+{"Id":"GF0006","Code":"GF0006","Name":"Hãng sản xuất","Index":"6"},
+{"Id":"GF0007","Code":"GF0007","Name":"Đơn vị tính","Index":"7"},
+{"Id":"GF0008","Code":"GF0008","Name":"Vật liệu","Index":"8"},
+{"Id":"GF0009","Code":"GF0009","Name":"Nhà cung cấp","Index":"9"},
+{"Id":"GF0010","Code":"GF0010","Name":"Vật tư tương tư","Index":"10"},
+{"Id":"GF0012","Code":"GF0012","Name":"Định nghĩa mã vật tư PM tạo","Index":"11"},
+{"Id":"GF0013","Code":"GF0013","Name":"Nhóm Module","Index":"12"},
+{"Id":"GF0014","Code":"GF0014","Name":"Module","Index":"13"},
+{"Id":"GF0015","Code":"GF0015","Name":"Nhóm tiêu chí kiểm tra","Index":"14"},
+{"Id":"GF0016","Code":"GF0016","Name":"Tiêu chí kiểm tra","Index":"15"},
+{"Id":"GF0017","Code":"GF0017","Name":"Nhóm tiêu chuẩn kiểm tra","Index":"16"},
+{"Id":"GF0018","Code":"GF0018","Name":"Tiêu chuẩn sản phẩm","Index":"17"},
+{"Id":"GF0019","Code":"GF0019","Name":"Nhóm tính năng","Index":"18"},
+{"Id":"GF0020","Code":"GF0020","Name":"Tính năng","Index":"19"},
+{"Id":"GF0021","Code":"GF0021","Name":"Phòng ban","Index":"20"},
+{"Id":"GF0022","Code":"GF0022","Name":"Chức vụ","Index":"21"},
+{"Id":"GF0023","Code":"GF0023","Name":"SBU","Index":"22"},
+{"Id":"GF0068","Code":"GF0068","Name":"Nhóm thiết bị","Index":"23"},
+{"Id":"GF0024","Code":"GF0024","Name":"Thiết bị","Index":"24"},
+{"Id":"GF0025","Code":"GF0025","Name":"Trình độ","Index":"25"},
+{"Id":"GF0026","Code":"GF0026","Name":"Chuyên môn","Index":"26"},
+{"Id":"GF0027","Code":"GF0027","Name":"Đơn vị công tác","Index":"27"},
+{"Id":"GF0028","Code":"GF0028","Name":"Chuyên gia","Index":"28"},
+{"Id":"GF0029","Code":"GF0029","Name":"Nhóm kỹ năng bài thực hành","Index":"29"},
+{"Id":"GF0030","Code":"GF0030","Name":"Kỹ năng bài thực hành","Index":"30"},
+{"Id":"GF0031","Code":"GF0031","Name":"Nhóm bài thực hành","Index":"31"},
+{"Id":"GF0032","Code":"GF0032","Name":"Bài thực hành","Index":"32"},
+{"Id":"GF0033","Code":"GF0033","Name":"Môn học","Index":"33"},
+{"Id":"GF0034","Code":"GF0034","Name":"Chương trình đào tạo","Index":"34"},
+{"Id":"GF0035","Code":"GF0035","Name":"Nhóm phòng học","Index":"35"},
+{"Id":"GF0036","Code":"GF0036","Name":"Phòng học","Index":"36"},
+{"Id":"GF0037","Code":"GF0037","Name":"Nhóm nghề","Index":"37"},
+{"Id":"GF0038","Code":"GF0038","Name":"Nghề","Index":"38"},
+{"Id":"GF0039","Code":"GF0039","Name":"Dự án","Index":"39"},
+{"Id":"GF0040","Code":"GF0040","Name":"Loại khách hàng","Index":"40"},
+{"Id":"GF0041","Code":"GF0041","Name":"Khách hàng","Index":"41"},
+{"Id":"GF0043","Code":"GF0043","Name":"Vấn đề tồn đọng","Index":"42"},
+{"Id":"GF0044","Code":"GF0044","Name":"Cấu hình công việc theo nhóm module","Index":"43"},
+{"Id":"GF0045","Code":"GF0045","Name":"Thời gian tiêu chuẩn cho từng công việc","Index":"44"},
+{"Id":"GF0046","Code":"GF0046","Name":"Kế hoạch thiết kế","Index":"46"},
+{"Id":"GF0047","Code":"GF0047","Name":"Thời gian làm việc","Index":"47"},
+{"Id":"GF0048","Code":"GF0048","Name":"Tổng hợp kế hoạch thiết kế","Index":"48"},
+{"Id":"GF0049","Code":"GF0049","Name":"Doashboard nhân sự","Index":"49"},
+{"Id":"GF0050","Code":"GF0050","Name":"Dashboard dự án","Index":"50"},
+{"Id":"GF0051","Code":"GF0051","Name":"Giải pháp","Index":"51"},
+{"Id":"GF0052","Code":"GF0052","Name":"Quản lý nhân viên","Index":"52"},
+{"Id":"GF0053","Code":"GF0053","Name":"Nhóm nhân viên","Index":"53"},
+{"Id":"GF0054","Code":"GF0054","Name":"Khóa học","Index":"54"},
+{"Id":"GF0055","Code":"GF0055","Name":"Tạo cấu trúc thư mục","Index":"55"},
+{"Id":"GF0056","Code":"GF0056","Name":"Biểu mẫu điện tử","Index":"56"},
+{"Id":"GF0057","Code":"GF0057","Name":"Biểu mẫu Hồ sơ thiết kế","Index":"57"},
+{"Id":"GF0058","Code":"GF0058","Name":"Biểu mẫu điện","Index":"58"},
+{"Id":"GF0059","Code":"GF0059","Name":"Biểu mẫu cơ khí","Index":"59"},
+{"Id":"GF0060","Code":"GF0060","Name":"Biểu mẫu Hồ sơ thiết kế mạch điện tử","Index":"60"},
+{"Id":"GF0061","Code":"GF0061","Name":"Cài đặt định nghĩa thư mục","Index":"61"},
+{"Id":"GF0062","Code":"GF0062","Name":"Kiểm tra dữ liệu thiết kế","Index":"62"},
+{"Id":"GF0063","Code":"GF0063","Name":"Cấu trúc phân bổ dữ liệu","Index":"63"},
+{"Id":"GF0064","Code":"GF0064","Name":"Download tài liệu thiết kế","Index":"64"},
+{"Id":"GF0065","Code":"GF0065","Name":"Đổi tên file SCAN","Index":"65"},
+{"Id":"GF0066","Code":"GF0066","Name":"Download DMVT import SAP","Index":"66"},
+{"Id":"GF0067","Code":"GF0067","Name":"Ngành hàng","Index":"67"},
+{"Id":"GF0069","Code":"GF0069","Name":"Nhóm kỹ năng nhân viên","Index":"68"},
+{"Id":"GF0070","Code":"GF0070","Name":"Kỹ năng nhân viên","Index":"69"},
+{"Id":"GF0071","Code":"GF0071","Name":"Vị trí công việc","Index":"70"},
+{"Id":"GF0072","Code":"GF0072","Name":"Chương trình đào tạo nhân viên","Index":"71"},
+{"Id":"GF0073","Code":"GF0073","Name":"Cấu hình thời gian công việc","Index":"72"},
+{"Id":"GF0074","Code":"GF0074","Name":"Nhật ký công việc","Index":"73"},
+{"Id":"GF0075","Code":"GF0075","Name":"Quản lý nhóm quyền","Index":"74"},
+{"Id":"GF0076","Code":"GF0076","Name":"Báo cáo","Index":"75"},
+{"Id":"GF0077","Code":"GF0077","Name":"Cấu hình ngày nghỉ","Index":"76"},
+{"Id":"GF0078","Code":"GF0078","Name":"Tổng hợp thời gian làm việc","Index":"77"},
+{"Id":"GF0079","Code":"GF0079","Name":"Kiểm tra giá vật tư","Index":"78"},
+{"Id":"GF0080","Code":"GF0080","Name":"Công đoạn sản xuất","Index":"79"},
+{"Id":"GF0081","Code":"GF0081","Name":"Quản lý xếp loại","Index":"80"},
+{"Id":"GF0082","Code":"GF0082","Name":"Cấu hình thông số","Index":"81"},
+{"Id":"GF0083","Code":"GF0083","Name":"Lịch sử thao tác","Index":"82"},
+{"Id":"GF0084","Code":"GF0084","Name":"Hệ số năng lực nhân viên","Index":"83"},
+{"Id":"GF0085","Code":"GF0085","Name":"Quản lý kế hoạch thiết kế","Index":"46"},
+{"Id":"GF0086","Code":"GF0086","Name":"Quản lý thiết bị nhập khẩu","Index":"84"},
+{"Id":"GF0087","Code":"GF0087","Name":"Chủng loại hàng hóa nhập khẩu","Index":"85"},
+{"Id":"GF0088","Code":"GF0088","Name":"Thư viện sản phẩm cho kinh doanh","Index":"87"},
+{"Id":"GF0089","Code":"GF0089","Name":"Quản lý xuất giữ","Index":"88"},
+{"Id":"GF0090","Code":"GF0090","Name":"Lịch sử xuất giữ","Index":"89"},
+{"Id":"GF0091","Code":"GF0091","Name":"Quản lý sai khác so với nguồn","Index":"90"},
+{"Id":"GF0092","Code":"GF0092","Name":"Nhóm kinh doanh","Index":"91"},
+{"Id":"GF0093","Code":"GF0093","Name":"Ứng dụng","Index":"92"},
+{"Id":"GF0094","Code":"GF0094","Name":"Cấu hình tài liệu hồ sơ nhập khẩu","Index":"93"},
+{"Id":"GF0095","Code":"GF0095","Name":"Hồ sơ nhập khẩu","Index":"95"},
+{"Id":"GF0096","Code":"GF0096","Name":"Báo cáo HS đang thực hiện","Index":"96"},
+{"Id":"GF0097","Code":"GF0097","Name":"Báo cáo tổng hợp hồ sơ","Index":"97"},
+{"Id":"GF0098","Code":"GF0098","Name":"Chủng loại hàng hóa kinh doanh","Index":"86"},
+{"Id":"GF0099","Code":"GF0099","Name":"Import PR","Index":"94"},
+{"Id":"GF0100","Code":"GF0100","Name":"Báo cáo vấn đề tồn đọng xuất nhập khẩu","Index":"100"},
+{"Id":"GF0101","Code":"GF0101","Name":"Quản lý câu hỏi","Index":"101"},
+{"Id":"GF0102","Code":"GF0102","Name":"Quản lý loại hợp đồng lao động","Index":"102"},
+{"Id":"GF0103","Code":"GF0103","Name":"Quản lý nơi làm việc","Index":"103"},
+{"Id":"GF0104","Code":"GF0104","Name":"Quản lý lý do điều chỉnh thu nhập","Index":"104"},
+{"Id":"GF0105","Code":"GF0105","Name":"Quản lý lý do điều chỉnh BHXH","Index":"105"},
+{"Id":"GF0106","Code":"GF0106","Name":"Quản lý lý do nghỉ việc","Index":"106"},
+{"Id":"GF0107","Code":"GF0107","Name":"Quản lý ngân hàng","Index":"107"},
+{"Id":"GF0108","Code":"GF0108","Name":"Quản lý mức đóng bảo hiểm","Index":"108"},
+{"Id":"GF0109","Code":"GF0109","Name":"Quản lý tài liệu","Index":"110"},
+{"Id":"GF0110","Code":"GF0110","Name":"Tra cứu tài liệu","Index":"111"},
+{"Id":"GF0111","Code":"GF0111","Name":"Quản lý loại tài liệu","Index":"112"},
+{"Id":"GF0112","Code":"GF0112","Name":"Quản lý nhóm tài liệu","Index":"109"},
+{"Id":"GF0113","Code":"GF0113","Name":"Quản lý nhóm câu hỏi","Index":"113"},
+{"Id":"GF0114","Code":"GF0114","Name":"Quản lý kết quả đầu vào/ra","Index":"114"},
+{"Id":"GF0115","Code":"GF0115","Name":"Quản lý mức lương","Index":"115"},
+{"Id":"GF0116","Code":"GF0116","Name":"Quản lý nhóm lương","Index":"116"},
+{"Id":"GF0117","Code":"GF0117","Name":"Quản lý ngạch lương","Index":"117"},
+{"Id":"GF0118","Code":"GF0118","Name":"Quản lý công việc","Index":"118"},
+{"Id":"GF0119","Code":"GF0119","Name":"Quản lý dong chảy","Index":"119"},
+{"Id":"GF0120","Code":"GF0120","Name":"Yêu cầu tuyển dụng","Index":"120"},
+{"Id":"GF0121","Code":"GF0121","Name":"Ứng tuyển","Index":"121"},
+{"Id":"GF0122","Code":"GF0122","Name":"Hồ sơ ứng viên","Index":"122"},
+{"Id":"GF0123","Code":"GF0123","Name":"Phỏng vấn","Index":"123"},
+{"Id":"GF0124","Code":"GF0124","Name":"Kênh tuyển dụng","Index":"124"},
+{"Id":"GF0128","Code":"GF0128","Name":"Meeting","Index":"128"}
+
+
+  ],
+  "Functions": [
+    {"Id":"F000001","Code":"F000001","GroupId":"GF0001","Name":"Thêm mới vật tư","ScreenCode":"F000000","Index":"1"},
+{"Id":"F000002","Code":"F000002","GroupId":"GF0001","Name":"Sửa vật tư","ScreenCode":"F000000","Index":"2"},
+{"Id":"F000003","Code":"F000003","GroupId":"GF0001","Name":"Xóa vật tư","ScreenCode":"F000000","Index":"3"},
+{"Id":"F000004","Code":"F000004","GroupId":"GF0001","Name":"Xem thông tin vật tư","ScreenCode":"F000000","Index":"4"},
+{"Id":"F000005","Code":"F000005","GroupId":"GF0001","Name":"Import lịch sử mua vật tư","ScreenCode":"F000000","Index":"5"},
+{"Id":"F000006","Code":"F000006","GroupId":"GF0001","Name":"Import danh sách vật tư","ScreenCode":"F000000","Index":"6"},
+{"Id":"F000007","Code":"F000007","GroupId":"GF0001","Name":"Xuất danh sách vật tư","ScreenCode":"F000000","Index":"7"},
+{"Id":"F000008","Code":"F000008","GroupId":"GF0001","Name":"Xem lịch sử giá vật tư","ScreenCode":"","Index":"8"},
+{"Id":"F000009","Code":"F000009","GroupId":"GF0001","Name":"Upload tài liệu đính kèm","ScreenCode":"","Index":"9"},
+{"Id":"F000010","Code":"F000010","GroupId":"GF0001","Name":"Download tài liệu đính kèm","ScreenCode":"","Index":"10"},
+{"Id":"F000011","Code":"F000011","GroupId":"GF0001","Name":"Xóa tài liệu đính kèm","ScreenCode":"","Index":"11"},
+{"Id":"F000012","Code":"F000012","GroupId":"GF0001","Name":"Xem tài liệu đính kèm","ScreenCode":"","Index":"12"},
+{"Id":"F000013","Code":"F000013","GroupId":"GF0001","Name":"Xem danh sách module","ScreenCode":"","Index":"13"},
+{"Id":"F000014","Code":"F000014","GroupId":"GF0001","Name":"Cấu hình chuyển đổi đơn vị","ScreenCode":"","Index":"14"},
+{"Id":"F000015","Code":"F000015","GroupId":"GF0001","Name":"Xem thông tin chuyển đổi đơn vị","ScreenCode":"","Index":"15"},
+{"Id":"F000016","Code":"F000016","GroupId":"GF0001","Name":"Xem thông tin vật tư tương tự","ScreenCode":"","Index":"16"},
+{"Id":"F000017","Code":"F000017","GroupId":"GF0001","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"17"},
+{"Id":"F000018","Code":"F000018","GroupId":"GF0001","Name":"Đồng bộ vật tư cho Sản phẩm kinh doanh","ScreenCode":"","Index":"18"},
+
+
+{"Id":"F000101","Code":"F000101","GroupId":"GF0002","Name":"Thêm mới nhóm vật tư ","ScreenCode":"F000100","Index":"1"},
+{"Id":"F000102","Code":"F000102","GroupId":"GF0002","Name":"Sửa nhóm vật tư","ScreenCode":"F000100","Index":"2"},
+{"Id":"F000103","Code":"F000103","GroupId":"GF0002","Name":"Xóa nhóm vật tư","ScreenCode":"F000100","Index":"3"},
+{"Id":"F000104","Code":"F000104","GroupId":"GF0002","Name":"Xem nhóm vật tư","ScreenCode":"F000100","Index":"4"},
+{"Id":"F000105","Code":"F000105","GroupId":"GF0002","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F000201","Code":"F000201","GroupId":"GF0003","Name":"Thêm mới nhóm vật tư TPA","ScreenCode":"F000200","Index":"1"},
+{"Id":"F000202","Code":"F000202","GroupId":"GF0003","Name":"Chỉnh sửa nhóm vật tư TPA","ScreenCode":"F000200","Index":"2"},
+{"Id":"F000203","Code":"F000203","GroupId":"GF0003","Name":"Xóa nhóm vật tư TPA","ScreenCode":"F000200","Index":"3"},
+{"Id":"F000204","Code":"F000204","GroupId":"GF0003","Name":"Xem thông tin nhóm vật tư TPA","ScreenCode":"F000200","Index":"4"},
+{"Id":"F000204","Code":"F000205","GroupId":"GF0003","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F000301","Code":"F000301","GroupId":"GF0004","Name":"Cấu hình thông số vật tư","ScreenCode":"F000300","Index":"1"},
+{"Id":"F000302","Code":"F000302","GroupId":"GF0004","Name":"Xem thông tin cấu hình ","ScreenCode":"F000300","Index":"2"},
+{"Id":"F000303","Code":"F000303","GroupId":"GF0004","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F000401","Code":"F000401","GroupId":"GF0005","Name":"Thêm mới vật tư phi tiêu chuẩn","ScreenCode":"F000400","Index":"1"},
+{"Id":"F000402","Code":"F000402","GroupId":"GF0005","Name":"Chỉnh sửa vật tư phi tiêu chuẩn","ScreenCode":"F000400","Index":"2"},
+{"Id":"F000403","Code":"F000403","GroupId":"GF0005","Name":"Xóa vật tư phi tiêu chuẩn","ScreenCode":"F000400","Index":"3"},
+{"Id":"F000404","Code":"F000404","GroupId":"GF0005","Name":"Xem thông tin vật tư phi tiêu chuẩn","ScreenCode":"F000400","Index":"4"},
+{"Id":"F000405","Code":"F000405","GroupId":"GF0005","Name":"Download tài liệu đính kèm","ScreenCode":"","Index":"5"},
+{"Id":"F000406","Code":"F000406","GroupId":"GF0005","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F000501","Code":"F000501","GroupId":"GF0006","Name":"Thêm mới hãng sản xuất","ScreenCode":"F000500","Index":"1"},
+{"Id":"F000502","Code":"F000502","GroupId":"GF0006","Name":"Chỉnh sửa hãng sản xuất","ScreenCode":"F000500","Index":"2"},
+{"Id":"F000503","Code":"F000503","GroupId":"GF0006","Name":"Xóa hãng sản xuất","ScreenCode":"F000500","Index":"3"},
+{"Id":"F000504","Code":"F000504","GroupId":"GF0006","Name":"Xem thông tin hãng sản xuất","ScreenCode":"F000500","Index":"4"},
+{"Id":"F000505","Code":"F000505","GroupId":"GF0006","Name":"Import danh sách hãng sản xuất","ScreenCode":"F000500","Index":"5"},
+{"Id":"F000506","Code":"F000506","GroupId":"GF0006","Name":"Xuất danh sách hãng sản xuất","ScreenCode":"F000500","Index":"6"},
+{"Id":"F000507","Code":"F000507","GroupId":"GF0006","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"7"},
+
+
+{"Id":"F000601","Code":"F000601","GroupId":"GF0007","Name":"Thêm mới đơn vị","ScreenCode":"F000600","Index":"1"},
+{"Id":"F000602","Code":"F000602","GroupId":"GF0007","Name":"Chỉnh sửa đơn vị","ScreenCode":"F000600","Index":"2"},
+{"Id":"F000603","Code":"F000603","GroupId":"GF0007","Name":"Xóa đơn vị","ScreenCode":"F000600","Index":"3"},
+{"Id":"F000604","Code":"F000604","GroupId":"GF0007","Name":"Xem thông tin đơn vị","ScreenCode":"F000600","Index":"4"},
+{"Id":"F000605","Code":"F000605","GroupId":"GF0007","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F000701","Code":"F000701","GroupId":"GF0008","Name":"Thêm mới vật liệu","ScreenCode":"F000700","Index":"1"},
+{"Id":"F000702","Code":"F000702","GroupId":"GF0008","Name":"Chỉnh sửa vật liệu","ScreenCode":"F000700","Index":"2"},
+{"Id":"F000703","Code":"F000703","GroupId":"GF0008","Name":"Xóa vật liệu","ScreenCode":"F000700","Index":"3"},
+{"Id":"F000704","Code":"F000704","GroupId":"GF0008","Name":"Xem thông tin vật liệu","ScreenCode":"F000700","Index":"4"},
+{"Id":"F000705","Code":"F000705","GroupId":"GF0008","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F000801","Code":"F000801","GroupId":"GF0009","Name":"Thêm mới nhà cung cấp","ScreenCode":"F000800","Index":"1"},
+{"Id":"F000802","Code":"F000802","GroupId":"GF0009","Name":"Chỉnh sửa nhà cung cấp","ScreenCode":"F000800","Index":"2"},
+{"Id":"F000803","Code":"F000803","GroupId":"GF0009","Name":"Xóa nhà cung cấp","ScreenCode":"F000800","Index":"3"},
+{"Id":"F000804","Code":"F000804","GroupId":"GF0009","Name":"Xem thông tin nhà cung cấp","ScreenCode":"F000800","Index":"4"},
+{"Id":"F000805","Code":"F000805","GroupId":"GF0009","Name":"Import danh sách nhà cung cấp","ScreenCode":"F000800","Index":"5"},
+{"Id":"F000806","Code":"F000806","GroupId":"GF0009","Name":"Xuất danh sách nhà cung cấp","ScreenCode":"F000800","Index":"6"},
+{"Id":"F000807","Code":"F000807","GroupId":"GF0009","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"7"},
+
+
+{"Id":"F000901","Code":"F000901","GroupId":"GF0010","Name":"Thêm mới nhóm vật tư tương tự","ScreenCode":"F000900","Index":"1"},
+{"Id":"F000902","Code":"F000902","GroupId":"GF0010","Name":"Chỉnh sửa nhóm vật tư tương tự","ScreenCode":"F000900","Index":"2"},
+{"Id":"F000903","Code":"F000903","GroupId":"GF0010","Name":"Xóa nhóm vật tư tương tự","ScreenCode":"F000900","Index":"3"},
+{"Id":"F000904","Code":"F000904","GroupId":"GF0010","Name":"Chọn vật tư tương tự","ScreenCode":"F000900","Index":"4"},
+{"Id":"F000905","Code":"F000905","GroupId":"GF0010","Name":"Xóa vật tư tương tự","ScreenCode":"F000900","Index":"5"},
+{"Id":"F000906","Code":"F000906","GroupId":"GF0010","Name":"Xem thông tin vật tư tương tự","ScreenCode":"F000900","Index":"6"},
+{"Id":"F000907","Code":"F000907","GroupId":"GF0010","Name":"Xuất danh sách vật tư tương tự","ScreenCode":"F000900","Index":"7"},
+{"Id":"F000908","Code":"F000908","GroupId":"GF0010","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+
+
+{"Id":"F001101","Code":"F001101","GroupId":"GF0012","Name":"Thêm định nghĩa","ScreenCode":"F001100","Index":"1"},
+{"Id":"F001102","Code":"F001102","GroupId":"GF0012","Name":"Xóa định nghĩa","ScreenCode":"F001100","Index":"2"},
+{"Id":"F001103","Code":"F001103","GroupId":"GF0012","Name":"Xem thông tin định nghĩa","ScreenCode":"F001100","Index":"3"},
+{"Id":"F001104","Code":"F001104","GroupId":"GF0012","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F020001","Code":"F020001","GroupId":"GF0013","Name":"Thêm mới nhóm module","ScreenCode":"F020100","Index":"1"},
+{"Id":"F020002","Code":"F020002","GroupId":"GF0013","Name":"Chỉnh sửa nhóm module","ScreenCode":"F020100","Index":"2"},
+{"Id":"F020003","Code":"F020003","GroupId":"GF0013","Name":"Xóa nhóm module","ScreenCode":"F020100","Index":"3"},
+{"Id":"F020004","Code":"F020004","GroupId":"GF0013","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F020101","Code":"F020101","GroupId":"GF0014","Name":"Thêm mới module","ScreenCode":"F020100","Index":"1"},
+{"Id":"F020102","Code":"F020102","GroupId":"GF0014","Name":"Chỉnh sửa module","ScreenCode":"F020100","Index":"2"},
+{"Id":"F020103","Code":"F020103","GroupId":"GF0014","Name":"Xóa module","ScreenCode":"F020100","Index":"3"},
+{"Id":"F020104","Code":"F020104","GroupId":"GF0014","Name":"Xem thông tin module","ScreenCode":"F020100","Index":"4"},
+{"Id":"F020105","Code":"F020105","GroupId":"GF0014","Name":"Xem thông tin module của phòng ban khác","ScreenCode":"F020100","Index":"5"},
+{"Id":"F020106","Code":"F020106","GroupId":"GF0014","Name":"Xuất danh sách module","ScreenCode":"F020100","Index":"6"},
+{"Id":"F020107","Code":"F020107","GroupId":"GF0014","Name":"Cấu hình danh mục tư vấn","ScreenCode":"F020100","Index":"7"},
+{"Id":"F020108","Code":"F020108","GroupId":"GF0014","Name":"Tạo phác thảo thiết kế","ScreenCode":"","Index":"8"},
+{"Id":"F020109","Code":"F020109","GroupId":"GF0014","Name":"Xem phác thảo thiết kế","ScreenCode":"","Index":"9"},
+{"Id":"F020110","Code":"F020110","GroupId":"GF0014","Name":"Upload tài liệu thiết kế","ScreenCode":"","Index":"10"},
+{"Id":"F020111","Code":"F020111","GroupId":"GF0014","Name":"Download tài liệu thiết kế","ScreenCode":"","Index":"11"},
+{"Id":"F020112","Code":"F020112","GroupId":"GF0014","Name":"Xem tài liệu thiết kế","ScreenCode":"","Index":"12"},
+{"Id":"F020113","Code":"F020113","GroupId":"GF0014","Name":"Xem danh sách vật tư","ScreenCode":"","Index":"13"},
+{"Id":"F020114","Code":"F020114","GroupId":"GF0014","Name":"Xuất danh sách vật tư ","ScreenCode":"","Index":"14"},
+{"Id":"F020115","Code":"F020115","GroupId":"GF0014","Name":"Upload tài liệu vật tư cài đặt","ScreenCode":"","Index":"15"},
+{"Id":"F020116","Code":"F020116","GroupId":"GF0014","Name":"Download tài liệu vật tư cài đặt","ScreenCode":"","Index":"16"},
+{"Id":"F020117","Code":"F020117","GroupId":"GF0014","Name":"Xóa tài liệu vật tư cài đặt","ScreenCode":"","Index":"17"},
+{"Id":"F020118","Code":"F020118","GroupId":"GF0014","Name":"Xem vật tư cài đặt","ScreenCode":"","Index":"18"},
+{"Id":"F020119","Code":"F020119","GroupId":"GF0014","Name":"Chọn tiêu chí kiểm tra","ScreenCode":"","Index":"19"},
+{"Id":"F020120","Code":"F020120","GroupId":"GF0014","Name":"Xóa tiêu chí kiểm tra","ScreenCode":"","Index":"20"},
+{"Id":"F020121","Code":"F020121","GroupId":"GF0014","Name":"Xuất danh sách tiêu chí kiểm tra","ScreenCode":"","Index":"21"},
+{"Id":"F020122","Code":"F020122","GroupId":"GF0014","Name":"Xem tiêu chí kiểm tra","ScreenCode":"","Index":"22"},
+{"Id":"F020123","Code":"F020123","GroupId":"GF0014","Name":"Cấu hình tiêu chuẩn kiểm tra","ScreenCode":"","Index":"23"},
+{"Id":"F020124","Code":"F020124","GroupId":"GF0014","Name":"Xem tiêu chuẩn kiểm tra","ScreenCode":"","Index":"24"},
+{"Id":"F020125","Code":"F020125","GroupId":"GF0014","Name":"Xem danh sách dự án","ScreenCode":"","Index":"25"},
+{"Id":"F020126","Code":"F020126","GroupId":"GF0014","Name":"Xem phiên bản","ScreenCode":"","Index":"26"},
+{"Id":"F020127","Code":"F020127","GroupId":"GF0014","Name":"Xem danh sách người thiết kế","ScreenCode":"","Index":"27"},
+{"Id":"F020128","Code":"F020128","GroupId":"GF0014","Name":"Xem danh sách lỗi","ScreenCode":"","Index":"28"},
+{"Id":"F020129","Code":"F020129","GroupId":"GF0014","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"29"},
+{"Id":"F020130","Code":"F020130","GroupId":"GF0014","Name":"Đồng bộ Module cho Sản phẩm kinh doanh","ScreenCode":"","Index":"30"},
+
+
+{"Id":"F020201","Code":"F020201","GroupId":"GF0015","Name":"Thêm mới nhóm tiêu chí kiểm tra","ScreenCode":"F020300","Index":"1"},
+{"Id":"F020202","Code":"F020202","GroupId":"GF0015","Name":"Chỉnh sửa nhóm tiêu chí kiểm tra","ScreenCode":"F020300","Index":"2"},
+{"Id":"F020203","Code":"F020203","GroupId":"GF0015","Name":"Xóa nhóm tiêu chí kiểm tra","ScreenCode":"F020300","Index":"3"},
+{"Id":"F020204","Code":"F020204","GroupId":"GF0015","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F020301","Code":"F020301","GroupId":"GF0016","Name":"Thêm mới tiêu chí kiểm tra","ScreenCode":"F020300","Index":"1"},
+{"Id":"F020302","Code":"F020302","GroupId":"GF0016","Name":"Chỉnh sửa tiêu chí kiểm tra","ScreenCode":"F020300","Index":"2"},
+{"Id":"F020303","Code":"F020303","GroupId":"GF0016","Name":"Xóa tiêu chí kiểm tra","ScreenCode":"F020300","Index":"3"},
+{"Id":"F020304","Code":"F020304","GroupId":"GF0016","Name":"Xem thông tin tiêu chí kiểm tra","ScreenCode":"F020300","Index":"4"},
+{"Id":"F020305","Code":"F020305","GroupId":"GF0016","Name":"Xuất danh sách tiêu chí kiểm tra","ScreenCode":"F020300","Index":"5"},
+{"Id":"F020306","Code":"F020306","GroupId":"GF0016","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F020401","Code":"F020401","GroupId":"GF0017","Name":"Thêm mới nhóm tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"1"},
+{"Id":"F020402","Code":"F020402","GroupId":"GF0017","Name":"Chỉnh sửa nhóm tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"2"},
+{"Id":"F020403","Code":"F020403","GroupId":"GF0017","Name":"Xóa nhóm tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"3"},
+{"Id":"F020404","Code":"F020404","GroupId":"GF0017","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F020501","Code":"F020501","GroupId":"GF0018","Name":"Thêm mới tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"1"},
+{"Id":"F020502","Code":"F020502","GroupId":"GF0018","Name":"Chỉnh sửa tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"2"},
+{"Id":"F020503","Code":"F020503","GroupId":"GF0018","Name":"Xóa tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"3"},
+{"Id":"F020504","Code":"F020504","GroupId":"GF0018","Name":"Xem thông tin tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"4"},
+{"Id":"F020505","Code":"F020505","GroupId":"GF0018","Name":"Xuất danh sách tiêu chuẩn sản phẩm","ScreenCode":"F020500","Index":"5"},
+{"Id":"F020506","Code":"F020506","GroupId":"GF0018","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F020601","Code":"F020601","GroupId":"GF0019","Name":"Thêm mới nhóm tính năng","ScreenCode":"F020700","Index":"1"},
+{"Id":"F020602","Code":"F020602","GroupId":"GF0019","Name":"Chỉnh sửa nhóm tính năng","ScreenCode":"F020700","Index":"2"},
+{"Id":"F020603","Code":"F020603","GroupId":"GF0019","Name":"Xóa nhóm tính năng","ScreenCode":"F020700","Index":"3"},
+{"Id":"F020604","Code":"F020604","GroupId":"GF0019","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F020701","Code":"F020701","GroupId":"GF0020","Name":"Thêm mới tính năng","ScreenCode":"F020700","Index":"1"},
+{"Id":"F020702","Code":"F020702","GroupId":"GF0020","Name":"Chỉnh sửa tính năng","ScreenCode":"F020700","Index":"2"},
+{"Id":"F020703","Code":"F020703","GroupId":"GF0020","Name":"Xóa tính năng","ScreenCode":"F020700","Index":"3"},
+{"Id":"F020704","Code":"F020704","GroupId":"GF0020","Name":"Xem thông tin tính năng","ScreenCode":"F020700","Index":"4"},
+{"Id":"F020705","Code":"F020705","GroupId":"GF0020","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F030001","Code":"F030001","GroupId":"GF0021","Name":"Thêm mới phòng ban","ScreenCode":"F030000","Index":"1"},
+{"Id":"F030002","Code":"F030002","GroupId":"GF0021","Name":"Sửa phòng ban","ScreenCode":"F030000","Index":"2"},
+{"Id":"F030003","Code":"F030003","GroupId":"GF0021","Name":"Xóa phòng ban","ScreenCode":"F030000","Index":"3"},
+{"Id":"F030004","Code":"F030004","GroupId":"GF0021","Name":"Xem thông tin phòng ban","ScreenCode":"F030000","Index":"4"},
+{"Id":"F030005","Code":"F030005","GroupId":"GF0021","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F030101","Code":"F030101","GroupId":"GF0022","Name":"Thêm mới chức vụ","ScreenCode":"F030100","Index":"1"},
+{"Id":"F030102","Code":"F030102","GroupId":"GF0022","Name":"Sửa chức vụ","ScreenCode":"F030100","Index":"2"},
+{"Id":"F030103","Code":"F030103","GroupId":"GF0022","Name":"Xóa chức vụ","ScreenCode":"F030100","Index":"3"},
+{"Id":"F030104","Code":"F030104","GroupId":"GF0022","Name":"Xem thông tin chức vụ","ScreenCode":"F030100","Index":"4"},
+{"Id":"F030105","Code":"F030105","GroupId":"GF0022","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F030201","Code":"F030201","GroupId":"GF0023","Name":"Thêm mới SBU","ScreenCode":"F030200","Index":"1"},
+{"Id":"F030202","Code":"F030202","GroupId":"GF0023","Name":"Sửa SBU","ScreenCode":"F030200","Index":"2"},
+{"Id":"F030203","Code":"F030203","GroupId":"GF0023","Name":"Xóa SBU","ScreenCode":"F030200","Index":"3"},
+{"Id":"F030204","Code":"F030204","GroupId":"GF0023","Name":"Xem thông tin SBU","ScreenCode":"F030200","Index":"4"},
+{"Id":"F030205","Code":"F030205","GroupId":"GF0023","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F030301","Code":"F030301","GroupId":"GF0068","Name":"Thêm mới nhóm thiết bị","ScreenCode":"F030400","Index":"1"},
+{"Id":"F030302","Code":"F030302","GroupId":"GF0068","Name":"Sửa nhóm thiết bị","ScreenCode":"F030400","Index":"2"},
+{"Id":"F030303","Code":"F030303","GroupId":"GF0068","Name":"Xóa nhóm thiết bị","ScreenCode":"F030400","Index":"3"},
+{"Id":"F030304","Code":"F030304","GroupId":"GF0068","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F030401","Code":"F030401","GroupId":"GF0024","Name":"Thêm thiết bị","ScreenCode":"F030400","Index":"1"},
+{"Id":"F030402","Code":"F030402","GroupId":"GF0024","Name":"Sửa thiết bị","ScreenCode":"F030400","Index":"2"},
+{"Id":"F030403","Code":"F030403","GroupId":"GF0024","Name":"Xóa thiết bị","ScreenCode":"F030400","Index":"3"},
+{"Id":"F030404","Code":"F030404","GroupId":"GF0024","Name":"Xem thông tin thiết bị","ScreenCode":"F030400","Index":"5"},
+{"Id":"F030405","Code":"F030405","GroupId":"GF0024","Name":"Xem thông tin thiết bị phòng ban khác","ScreenCode":"F030400","Index":"6"},
+{"Id":"F030406","Code":"F030406","GroupId":"GF0024","Name":"Lập phác thảo thiết kế","ScreenCode":"","Index":"7"},
+{"Id":"F030407","Code":"F030407","GroupId":"GF0024","Name":"Sửa số lượng module bài thực hành","ScreenCode":"","Index":"8"},
+{"Id":"F030408","Code":"F030408","GroupId":"GF0024","Name":"Upload tài liệu cài đặt","ScreenCode":"","Index":"11"},
+{"Id":"F030409","Code":"F030409","GroupId":"GF0024","Name":"Download tài liệu cài đặt","ScreenCode":"","Index":"12"},
+{"Id":"F030410","Code":"F030410","GroupId":"GF0024","Name":"Xóa tài liệu cài đặt","ScreenCode":"","Index":"13"},
+{"Id":"F030411","Code":"F030411","GroupId":"GF0024","Name":"Xem vật tư cài đặt","ScreenCode":"","Index":"14"},
+{"Id":"F030412","Code":"F030412","GroupId":"GF0024","Name":"Upload tài liệu thiết kế","ScreenCode":"","Index":"15"},
+{"Id":"F030413","Code":"F030413","GroupId":"GF0024","Name":"Download tài liệu thiết kế","ScreenCode":"","Index":"16"},
+{"Id":"F030414","Code":"F030414","GroupId":"GF0024","Name":"Xem tài liệu thiết kế","ScreenCode":"","Index":"17"},
+{"Id":"F030415","Code":"F030415","GroupId":"GF0024","Name":"Xuất danh sách phụ kiện","ScreenCode":"","Index":"9"},
+{"Id":"F030416","Code":"F030416","GroupId":"GF0024","Name":"Xem phác thảo thiết kế","ScreenCode":"","Index":"10"},
+{"Id":"F030417","Code":"F030417","GroupId":"GF0024","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"18"},
+{"Id":"F030418","Code":"F030418","GroupId":"GF0024","Name":"Xuất danh sách thiết bị","ScreenCode":"","Index":"4"},
+{"Id":"F030419","Code":"F030419","GroupId":"GF0024","Name":"Đồng bộ Thiết bị cho Sản phẩm kinh doanh","ScreenCode":"","Index":"19"},
+
+
+{"Id":"F040001","Code":"F040001","GroupId":"GF0025","Name":"Thêm mới trình độ","ScreenCode":"F040000","Index":"1"},
+{"Id":"F040002","Code":"F040002","GroupId":"GF0025","Name":"Sửa trình độ","ScreenCode":"F040000","Index":"2"},
+{"Id":"F040003","Code":"F040003","GroupId":"GF0025","Name":"Xóa trình độ","ScreenCode":"F040000","Index":"3"},
+{"Id":"F040004","Code":"F040004","GroupId":"GF0025","Name":"Xem thông tin trình độ","ScreenCode":"F040000","Index":"4"},
+{"Id":"F040005","Code":"F040005","GroupId":"GF0025","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F040101","Code":"F040101","GroupId":"GF0026","Name":"Thêm mới chuyên môn","ScreenCode":"F040100","Index":"1"},
+{"Id":"F040102","Code":"F040102","GroupId":"GF0026","Name":"Sửa chuyên môn","ScreenCode":"F040100","Index":"2"},
+{"Id":"F040103","Code":"F040103","GroupId":"GF0026","Name":"Xóa chuyên môn","ScreenCode":"F040100","Index":"3"},
+{"Id":"F040104","Code":"F040104","GroupId":"GF0026","Name":"Xem thông tin chuyên môn","ScreenCode":"F040100","Index":"4"},
+{"Id":"F040105","Code":"F040105","GroupId":"GF0026","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F040201","Code":"F040201","GroupId":"GF0027","Name":"Thêm mới đơn vị công tác","ScreenCode":"F040200","Index":"1"},
+{"Id":"F040202","Code":"F040202","GroupId":"GF0027","Name":"Sửa đơn vị công tác","ScreenCode":"F040200","Index":"2"},
+{"Id":"F040203","Code":"F040203","GroupId":"GF0027","Name":"Xóa đơn vị công tác","ScreenCode":"F040200","Index":"3"},
+{"Id":"F040204","Code":"F040204","GroupId":"GF0027","Name":"Xem thông tin đơn vị công tác","ScreenCode":"F040200","Index":"4"},
+{"Id":"F040205","Code":"F040205","GroupId":"GF0027","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F040301","Code":"F040301","GroupId":"GF0028","Name":"Thêm mới chuyên gia","ScreenCode":"F040300","Index":"1"},
+{"Id":"F040302","Code":"F040302","GroupId":"GF0028","Name":"Chỉnh sửa chuyên gia","ScreenCode":"F040300","Index":"2"},
+{"Id":"F040303","Code":"F040303","GroupId":"GF0028","Name":"Xóa chuyên gia","ScreenCode":"F040300","Index":"3"},
+{"Id":"F040304","Code":"F040304","GroupId":"GF0028","Name":"Xem thông tin chuyên gia","ScreenCode":"F040300","Index":"4"},
+{"Id":"F040305","Code":"F040305","GroupId":"GF0028","Name":"Xuất danh sách chuyên gia","ScreenCode":"F040300","Index":"5"},
+{"Id":"F040306","Code":"F040306","GroupId":"GF0028","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F040401","Code":"F040401","GroupId":"GF0029","Name":"Thêm mới nhóm kỹ năng","ScreenCode":"F040500","Index":"1"},
+{"Id":"F040402","Code":"F040402","GroupId":"GF0029","Name":"Chỉnh sửa nhóm kỹ năng","ScreenCode":"F040500","Index":"2"},
+{"Id":"F040403","Code":"F040403","GroupId":"GF0029","Name":"Xóa nhóm kỹ năng","ScreenCode":"F040500","Index":"3"},
+{"Id":"F040404","Code":"F040404","GroupId":"GF0029","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F040501","Code":"F040501","GroupId":"GF0030","Name":"Thêm mới kỹ năng","ScreenCode":"F040500","Index":"1"},
+{"Id":"F040502","Code":"F040502","GroupId":"GF0030","Name":"Chỉnh sửa kỹ năng","ScreenCode":"F040500","Index":"2"},
+{"Id":"F040503","Code":"F040503","GroupId":"GF0030","Name":"Xóa kỹ năng","ScreenCode":"F040500","Index":"3"},
+{"Id":"F040504","Code":"F040504","GroupId":"GF0030","Name":"Xem thông tin kỹ năng","ScreenCode":"F040500","Index":"4"},
+{"Id":"F040505","Code":"F040505","GroupId":"GF0030","Name":"Xuất danh sách kỹ năng","ScreenCode":"F040500","Index":"5"},
+{"Id":"F040506","Code":"F040506","GroupId":"GF0030","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F040601","Code":"F040601","GroupId":"GF0031","Name":"Thêm mới nhóm bài thực hành","ScreenCode":"F040700","Index":"1"},
+{"Id":"F040602","Code":"F040602","GroupId":"GF0031","Name":"Chỉnh sửa nhóm bài thực hành","ScreenCode":"F040700","Index":"2"},
+{"Id":"F040603","Code":"F040603","GroupId":"GF0031","Name":"Xóa nhóm bài thực hành","ScreenCode":"F040700","Index":"3"},
+{"Id":"F040604","Code":"F040604","GroupId":"GF0031","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F040701","Code":"F040701","GroupId":"GF0032","Name":"Thêm mới bài thực hành","ScreenCode":"F040700","Index":"1"},
+{"Id":"F040702","Code":"F040702","GroupId":"GF0032","Name":"Chỉnh sửa bài thực hành","ScreenCode":"F040700","Index":"2"},
+{"Id":"F040703","Code":"F040703","GroupId":"GF0032","Name":"Xóa bài thực hành","ScreenCode":"F040700","Index":"3"},
+{"Id":"F040704","Code":"F040704","GroupId":"GF0032","Name":"Xem thông tin bài thực hành","ScreenCode":"F040700","Index":"4"},
+{"Id":"F040705","Code":"F040705","GroupId":"GF0032","Name":"Xuất danh sách bài thực hành","ScreenCode":"F040700","Index":"5"},
+{"Id":"F040706","Code":"F040706","GroupId":"GF0032","Name":"Xem thông tin thiết bị module","ScreenCode":"F040706","Index":"6"},
+{"Id":"F040707","Code":"F040707","GroupId":"GF0032","Name":"Xem danh sách vật tư","ScreenCode":"F040706","Index":"7"},
+{"Id":"F040708","Code":"F040708","GroupId":"GF0032","Name":"Xuất danh sách vật tư","ScreenCode":"F040706","Index":"8"},
+{"Id":"F040709","Code":"F040709","GroupId":"GF0032","Name":"Thêm thiết bị phụ trợ","ScreenCode":"F040706","Index":"9"},
+{"Id":"F040710","Code":"F040710","GroupId":"GF0032","Name":"Xóa thiết bị phụ trợ","ScreenCode":"F040706","Index":"10"},
+{"Id":"F040711","Code":"F040711","GroupId":"GF0032","Name":"Xem danh sách thiết bị phụ trợ","ScreenCode":"F040706","Index":"11"},
+{"Id":"F040712","Code":"F040712","GroupId":"GF0032","Name":"Xuất danh sách thiết bị phụ trợ","ScreenCode":"F040706","Index":"12"},
+{"Id":"F040713","Code":"F040713","GroupId":"GF0032","Name":"Thêm vật tư tiêu hao","ScreenCode":"F040706","Index":"14"},
+{"Id":"F040714","Code":"F040714","GroupId":"GF0032","Name":"Xóa vật tư tiêu hao","ScreenCode":"F040706","Index":"15"},
+{"Id":"F040715","Code":"F040715","GroupId":"GF0032","Name":"Xem danh sách vật tư tiêu hao","ScreenCode":"F040706","Index":"16"},
+{"Id":"F040716","Code":"F040716","GroupId":"GF0032","Name":"Xuất danh sách vật tư tiêu hao","ScreenCode":"F040706","Index":"17"},
+{"Id":"F040717","Code":"F040717","GroupId":"GF0032","Name":"Thêm chuyên gia","ScreenCode":"F040706","Index":"18"},
+{"Id":"F040718","Code":"F040718","GroupId":"GF0032","Name":"Xóa chuyên gia","ScreenCode":"F040706","Index":"19"},
+{"Id":"F040719","Code":"F040719","GroupId":"GF0032","Name":"Xem danh sách chuyên gia","ScreenCode":"F040706","Index":"20"},
+{"Id":"F040720","Code":"F040720","GroupId":"GF0032","Name":"Upload tài liệu đính kèm","ScreenCode":"F040706","Index":"21"},
+{"Id":"F040721","Code":"F040721","GroupId":"GF0032","Name":"Download tài liệu đính kèm","ScreenCode":"F040706","Index":"22"},
+{"Id":"F040722","Code":"F040722","GroupId":"GF0032","Name":"Xóa tài liệu đính kèm","ScreenCode":"F040706","Index":"23"},
+{"Id":"F040723","Code":"F040723","GroupId":"GF0032","Name":"Nhập nội dung bài thực hành","ScreenCode":"F040706","Index":"24"},
+{"Id":"F040724","Code":"F040724","GroupId":"GF0032","Name":"Xem nội dung bài thực hành","ScreenCode":"F040706","Index":"25"},
+{"Id":"F040725","Code":"F040725","GroupId":"GF0032","Name":"Thêm kỹ năng bài thực hành","ScreenCode":"F040706","Index":"26"},
+{"Id":"F040726","Code":"F040726","GroupId":"GF0032","Name":"Xóa kỹ năng bài thực hành","ScreenCode":"F040706","Index":"27"},
+{"Id":"F040727","Code":"F040727","GroupId":"GF0032","Name":"Xem danh sách kỹ năng bài thực hành","ScreenCode":"F040706","Index":"28"},
+{"Id":"F040728","Code":"F040728","GroupId":"GF0032","Name":"Xem phiên bản","ScreenCode":"F040706","Index":"29"},
+{"Id":"F040729","Code":"F040729","GroupId":"GF0032","Name":"Xuất danh sách thiết bị","ScreenCode":"F040706","Index":"30"},
+{"Id":"F040730","Code":"F040730","GroupId":"GF0032","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"31"},
+{"Id":"F040731","Code":"F040731","GroupId":"GF0032","Name":"Import thiết bị phụ trợ","ScreenCode":"F040706","Index":"13"},
+
+
+{"Id":"F050001","Code":"F050001","GroupId":"GF0033","Name":"Thêm mới môn học","ScreenCode":"F050000","Index":"1"},
+{"Id":"F050002","Code":"F050002","GroupId":"GF0033","Name":"Chỉnh sửa môn học","ScreenCode":"F050000","Index":"2"},
+{"Id":"F050003","Code":"F050003","GroupId":"GF0033","Name":"Xóa môn học","ScreenCode":"F050000","Index":"3"},
+{"Id":"F050004","Code":"F050004","GroupId":"GF0033","Name":"Xem thông tin môn học","ScreenCode":"F050000","Index":"4"},
+{"Id":"F050005","Code":"F050005","GroupId":"GF0033","Name":"Xuất danh sách môn học","ScreenCode":"F050000","Index":"5"},
+{"Id":"F050006","Code":"F050006","GroupId":"GF0033","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F050101","Code":"F050101","GroupId":"GF0034","Name":"Thêm mới chương trình đào tạo","ScreenCode":"F050100","Index":"1"},
+{"Id":"F050102","Code":"F050102","GroupId":"GF0034","Name":"Chỉnh sửa chương trình đào tạo","ScreenCode":"F050100","Index":"2"},
+{"Id":"F050103","Code":"F050103","GroupId":"GF0034","Name":"Xóa chương trình đào tạo","ScreenCode":"F050100","Index":"3"},
+{"Id":"F050104","Code":"F050104","GroupId":"GF0034","Name":"Xem thông tin chương trình đào tạo","ScreenCode":"F050100","Index":"4"},
+{"Id":"F050105","Code":"F050105","GroupId":"GF0034","Name":"Xuất danh sách chương trình đào tạo","ScreenCode":"F050100","Index":"5"},
+{"Id":"F050106","Code":"F050106","GroupId":"GF0034","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F050201","Code":"F050201","GroupId":"GF0035","Name":"Thêm mới nhóm phòng học","ScreenCode":"F050300","Index":"1"},
+{"Id":"F050202","Code":"F050202","GroupId":"GF0035","Name":"Chỉnh sửa nhóm phòng học","ScreenCode":"F050300","Index":"2"},
+{"Id":"F050203","Code":"F050203","GroupId":"GF0035","Name":"Xóa nhóm phòng học","ScreenCode":"F050300","Index":"3"},
+{"Id":"F050204","Code":"F050204","GroupId":"GF0035","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F050301","Code":"F050301","GroupId":"GF0036","Name":"Thêm mới phòng học","ScreenCode":"F050300","Index":"1"},
+{"Id":"F050302","Code":"F050302","GroupId":"GF0036","Name":"Chỉnh sửa phòng học","ScreenCode":"F050300","Index":"2"},
+{"Id":"F050303","Code":"F050303","GroupId":"GF0036","Name":"Xóa phòng học","ScreenCode":"F050300","Index":"3"},
+{"Id":"F050304","Code":"F050304","GroupId":"GF0036","Name":"Xem thông tin phòng học","ScreenCode":"F050300","Index":"4"},
+{"Id":"F050305","Code":"F050305","GroupId":"GF0036","Name":"Xuất danh sách phòng học","ScreenCode":"F050300","Index":"5"},
+{"Id":"F050306","Code":"F050306","GroupId":"GF0036","Name":"Thêm kỹ năng","ScreenCode":"F050304","Index":"6"},
+{"Id":"F050307","Code":"F050307","GroupId":"GF0036","Name":"Xóa kỹ năng","ScreenCode":"F050304","Index":"7"},
+{"Id":"F050308","Code":"F050308","GroupId":"GF0036","Name":"Xem danh sách kỹ năng","ScreenCode":"F050304","Index":"8"},
+{"Id":"F050309","Code":"F050309","GroupId":"GF0036","Name":"Thêm vật tư","ScreenCode":"F050304","Index":"9"},
+{"Id":"F050310","Code":"F050310","GroupId":"GF0036","Name":"Xóa vật tư","ScreenCode":"F050304","Index":"10"},
+{"Id":"F050311","Code":"F050311","GroupId":"GF0036","Name":"Xem danh sách vật tư","ScreenCode":"F050304","Index":"11"},
+{"Id":"F050312","Code":"F050312","GroupId":"GF0036","Name":"Tool hỗ trợ tạo phòng học","ScreenCode":"","Index":"12"},
+{"Id":"F050313","Code":"F050313","GroupId":"GF0036","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"13"},
+
+
+{"Id":"F050401","Code":"F050401","GroupId":"GF0037","Name":"Thêm mới nhóm nghề","ScreenCode":"F050500","Index":"1"},
+{"Id":"F050402","Code":"F050402","GroupId":"GF0037","Name":"Chỉnh sửa nhóm nghề","ScreenCode":"F050500","Index":"2"},
+{"Id":"F050403","Code":"F050403","GroupId":"GF0037","Name":"Xóa nhóm nghề","ScreenCode":"F050500","Index":"3"},
+{"Id":"F050404","Code":"F050404","GroupId":"GF0037","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F050501","Code":"F050501","GroupId":"GF0038","Name":"Thêm mới nghề","ScreenCode":"F050500","Index":"1"},
+{"Id":"F050502","Code":"F050502","GroupId":"GF0038","Name":"Chỉnh sửa nghề","ScreenCode":"F050500","Index":"2"},
+{"Id":"F050503","Code":"F050503","GroupId":"GF0038","Name":"Xóa nghề","ScreenCode":"F050500","Index":"3"},
+{"Id":"F050504","Code":"F050504","GroupId":"GF0038","Name":"Xem thông tin nghề","ScreenCode":"F050500","Index":"4"},
+{"Id":"F050505","Code":"F050505","GroupId":"GF0038","Name":"Xuất danh sách nghề","ScreenCode":"F050500","Index":"5"},
+{"Id":"F050506","Code":"F050506","GroupId":"GF0038","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F060001","Code":"F060001","GroupId":"GF0039","Name":"Thêm mới dự án","ScreenCode":"F060000","Index":"1"},
+{"Id":"F060002","Code":"F060002","GroupId":"GF0039","Name":"Chỉnh sửa dự án","ScreenCode":"F060000","Index":"2"},
+{"Id":"F060003","Code":"F060003","GroupId":"GF0039","Name":"Xóa dự án","ScreenCode":"F060000","Index":"3"},
+{"Id":"F060004","Code":"F060004","GroupId":"GF0039","Name":"Xem thông tin dự án","ScreenCode":"F060000","Index":"4"},
+{"Id":"F060005","Code":"F060005","GroupId":"GF0039","Name":"Xem thông tin dự án của phòng ban khác","ScreenCode":"F060000","Index":"5"},
+{"Id":"F060006","Code":"F060006","GroupId":"GF0039","Name":"Xuất danh sách dự án","ScreenCode":"F060000","Index":"6"},
+{"Id":"F060007","Code":"F060007","GroupId":"GF0039","Name":"Xem danh sách vấn đề","ScreenCode":"F060004","Index":"7"},
+{"Id":"F060008","Code":"F060008","GroupId":"GF0039","Name":"Upload tài liệu đính kèm","ScreenCode":"F060004","Index":"8"},
+{"Id":"F060009","Code":"F060009","GroupId":"GF0039","Name":"Download tài liệu định kèm","ScreenCode":"F060004","Index":"9"},
+{"Id":"F060010","Code":"F060010","GroupId":"GF0039","Name":"Xóa tài liệu đính kèm","ScreenCode":"F060004","Index":"10"},
+{"Id":"F060011","Code":"F060011","GroupId":"GF0039","Name":"Xem danh sách tài liệu đính kèm","ScreenCode":"F060004","Index":"11"},
+{"Id":"F060012","Code":"F060012","GroupId":"GF0039","Name":"Upload biên bản bàn giao","ScreenCode":"F060004","Index":"12"},
+{"Id":"F060013","Code":"F060013","GroupId":"GF0039","Name":"Download biên bản bàn giao","ScreenCode":"F060004","Index":"13"},
+{"Id":"F060014","Code":"F060014","GroupId":"GF0039","Name":"Xóa biên bản bàn giao","ScreenCode":"F060004","Index":"14"},
+{"Id":"F060015","Code":"F060015","GroupId":"GF0039","Name":"Xem danh sách biên bản bàn giao","ScreenCode":"F060004","Index":"15"},
+{"Id":"F060016","Code":"F060016","GroupId":"GF0039","Name":"Thêm mới sản phẩm","ScreenCode":"F060004","Index":"16"},
+{"Id":"F060017","Code":"F060017","GroupId":"GF0039","Name":"Sửa sản phẩm","ScreenCode":"F060004","Index":"17"},
+{"Id":"F060018","Code":"F060018","GroupId":"GF0039","Name":"Xóa sản phẩm","ScreenCode":"F060004","Index":"18"},
+{"Id":"F060019","Code":"F060019","GroupId":"GF0039","Name":"Xem danh sách sản phẩm","ScreenCode":"F060004","Index":"19"},
+{"Id":"F060020","Code":"F060020","GroupId":"GF0039","Name":"Import danh sách sản phẩm","ScreenCode":"F060004","Index":"20"},
+{"Id":"F060021","Code":"F060021","GroupId":"GF0039","Name":"Lập sai khác hợp đông","ScreenCode":"F060004","Index":"21"},
+{"Id":"F060022","Code":"F060022","GroupId":"GF0039","Name":"Lập tổng hợp thiết kế","ScreenCode":"F060004","Index":"22"},
+{"Id":"F060023","Code":"F060023","GroupId":"GF0039","Name":"Sửa tổng hợp thiết kế","ScreenCode":"F060004","Index":"23"},
+{"Id":"F060024","Code":"F060024","GroupId":"GF0039","Name":"Xem tổng hợp thiết kế","ScreenCode":"F060004","Index":"24"},
+{"Id":"F060025","Code":"F060025","GroupId":"GF0039","Name":"Xuất tổng hợp thiết kế","ScreenCode":"F060004","Index":"25"},
+{"Id":"F060026","Code":"F060026","GroupId":"GF0039","Name":"Thêm giải pháp","ScreenCode":"F060004","Index":"27"},
+{"Id":"F060027","Code":"F060027","GroupId":"GF0039","Name":"Xóa giải pháp","ScreenCode":"F060004","Index":"28"},
+{"Id":"F060028","Code":"F060028","GroupId":"GF0039","Name":"Xem danh sách giải pháp","ScreenCode":"F060004","Index":"29"},
+{"Id":"F060029","Code":"F060029","GroupId":"GF0039","Name":"Xóa tổng hợp thiết kế","ScreenCode":"","Index":"30"},
+{"Id":"F060030","Code":"F060030","GroupId":"GF0039","Name":"Tạo BOM thiết kế 2","ScreenCode":"","Index":"31"},
+{"Id":"F060031","Code":"F060031","GroupId":"GF0039","Name":"Xóa BOM thiết kế 2","ScreenCode":"","Index":"32"},
+{"Id":"F060032","Code":"F060032","GroupId":"GF0039","Name":"Xem BOM thiết kế 2","ScreenCode":"","Index":"33"},
+{"Id":"F060033","Code":"F060033","GroupId":"GF0039","Name":"Download tài liệu định kèm BOM thiết kế 2","ScreenCode":"","Index":"34"},
+{"Id":"F060034","Code":"F060034","GroupId":"GF0039","Name":"Xuất BOM thiết kế 2","ScreenCode":"","Index":"35"},
+{"Id":"F060035","Code":"F060035","GroupId":"GF0039","Name":"Phê duyệt tổng hợp thiết kế","ScreenCode":"","Index":"26"},
+{"Id":"F060036","Code":"F060036","GroupId":"GF0039","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"36"},
+{"Id":"F060037","Code":"F060037","GroupId":"GF0039","Name":"Xuất danh sách tài liệu","ScreenCode":"F060004","Index":"37"},
+{"Id":"F060038","Code":"F060038","GroupId":"GF0039","Name":"Import danh sách tài liệu","ScreenCode":"F060004","Index":"38"},
+{"Id":"F060039","Code":"F060039","GroupId":"GF0039","Name":"Quản lý nhóm tài liệu","ScreenCode":"F060000","Index":"40"},
+{"Id":"F060040","Code":"F060040","GroupId":"GF0039","Name":"Tiến độ thu tiền","ScreenCode":"F060000","Index":"41"},
+{"Id":"F060041","Code":"F060041","GroupId":"GF0039","Name":"Thêm lần thu tiền","ScreenCode":"F060000","Index":"42"},
+{"Id":"F060042","Code":"F060042","GroupId":"GF0039","Name":"Sửa lần thu tiền","ScreenCode":"F060000","Index":"43"},
+{"Id":"F060043","Code":"F060043","GroupId":"GF0039","Name":"Xóa lần thu tiền","ScreenCode":"F060000","Index":"44"},
+{"Id":"F060044","Code":"F060044","GroupId":"GF0039","Name":"Xem kế hoạch dự án","ScreenCode":"F060004","Index":"44"},
+
+
+{"Id":"F060101","Code":"F060101","GroupId":"GF0040","Name":"Thêm mới loại khách hàng","ScreenCode":"F060100","Index":"1"},
+{"Id":"F060102","Code":"F060102","GroupId":"GF0040","Name":"Chỉnh sửa loại khách hàng","ScreenCode":"F060100","Index":"2"},
+{"Id":"F060103","Code":"F060103","GroupId":"GF0040","Name":"Xóa loại khách hàng","ScreenCode":"F060100","Index":"3"},
+{"Id":"F060104","Code":"F060104","GroupId":"GF0040","Name":"Xem thông tin loại khách hàng","ScreenCode":"F060100","Index":"4"},
+{"Id":"F060105","Code":"F060105","GroupId":"GF0040","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F060201","Code":"F060201","GroupId":"GF0041","Name":"Thêm mới khách hàng","ScreenCode":"F060200","Index":"1"},
+{"Id":"F060202","Code":"F060202","GroupId":"GF0041","Name":"Chỉnh sửa khách hàng","ScreenCode":"F060200","Index":"2"},
+{"Id":"F060203","Code":"F060203","GroupId":"GF0041","Name":"Xóa khách hàng","ScreenCode":"F060200","Index":"3"},
+{"Id":"F060204","Code":"F060204","GroupId":"GF0041","Name":"Xem thông tin khách hàng","ScreenCode":"F060200","Index":"4"},
+{"Id":"F060205","Code":"F060205","GroupId":"GF0041","Name":"Xem thông tin khách hàng của sbu khác","ScreenCode":"F060200","Index":"5"},
+{"Id":"F060206","Code":"F060206","GroupId":"GF0041","Name":"Import danh sách khách hàng","ScreenCode":"F060200","Index":"6"},
+{"Id":"F060207","Code":"F060207","GroupId":"GF0041","Name":"Xuất danh sách khách hàng","ScreenCode":"F060200","Index":"7"},
+{"Id":"F060208","Code":"F060208","GroupId":"GF0041","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+
+
+{"Id":"F060401","Code":"F060401","GroupId":"GF0043","Name":"Thêm mới vấn đề","ScreenCode":"F060400","Index":"1"},
+{"Id":"F060402","Code":"F060402","GroupId":"GF0043","Name":"Chỉnh sửa  vấn đề","ScreenCode":"F060400","Index":"2"},
+{"Id":"F060403","Code":"F060403","GroupId":"GF0043","Name":"Chỉnh sửa vấn đề của người khác","ScreenCode":"F060400","Index":"3"},
+{"Id":"F060404","Code":"F060404","GroupId":"GF0043","Name":"Xóa vấn đề","ScreenCode":"F060400","Index":"4"},
+{"Id":"F060405","Code":"F060405","GroupId":"GF0043","Name":"Xóa vấn đề của người khác","ScreenCode":"F060400","Index":"5"},
+{"Id":"F060406","Code":"F060406","GroupId":"GF0043","Name":"Xem thông tin vấn đề","ScreenCode":"F060400","Index":"6"},
+{"Id":"F060407","Code":"F060407","GroupId":"GF0043","Name":"Xuất danh sách vấn đề","ScreenCode":"F060400","Index":"7"},
+{"Id":"F060408","Code":"F060408","GroupId":"GF0043","Name":"Xem thông tin xác nhận vấn đề","ScreenCode":"F060400","Index":"8"},
+{"Id":"F060409","Code":"F060409","GroupId":"GF0043","Name":"Yêu cầu xác nhận vấn đề","ScreenCode":"F060408","Index":"9"},
+{"Id":"F060410","Code":"F060410","GroupId":"GF0043","Name":"Hủy yêu cầu xác nhận vấn đề","ScreenCode":"F060408","Index":"10"},
+{"Id":"F060411","Code":"F060411","GroupId":"GF0043","Name":"Xác nhận vấn đề","ScreenCode":"F060408","Index":"11"},
+{"Id":"F060412","Code":"F060412","GroupId":"GF0043","Name":"Hủy xác nhận vấn đề","ScreenCode":"F060408","Index":"12"},
+{"Id":"F060413","Code":"F060413","GroupId":"GF0043","Name":"Yêu cầu xử lý vấn đề","ScreenCode":"F060408","Index":"13"},
+{"Id":"F060414","Code":"F060414","GroupId":"GF0043","Name":"Hủy yêu cầu xử lý vấn đề","ScreenCode":"F060408","Index":"14"},
+{"Id":"F060415","Code":"F060415","GroupId":"GF0043","Name":"Bắt đầu xử lý vấn đề","ScreenCode":"F060408","Index":"15"},
+{"Id":"F060416","Code":"F060416","GroupId":"GF0043","Name":"Hủy bắt đầu xử lý vấn đề","ScreenCode":"F060408","Index":"16"},
+{"Id":"F060417","Code":"F060417","GroupId":"GF0043","Name":"Hoàn thành xử lý","ScreenCode":"F060408","Index":"17"},
+{"Id":"F060418","Code":"F060418","GroupId":"GF0043","Name":"Hủy hoàn thành xử lý","ScreenCode":"F060408","Index":"18"},
+{"Id":"F060419","Code":"F060419","GroupId":"GF0043","Name":"Yêu cầu QC","ScreenCode":"F060408","Index":"19"},
+{"Id":"F060420","Code":"F060420","GroupId":"GF0043","Name":"Hủy yêu cầu QC","ScreenCode":"F060408","Index":"20"},
+{"Id":"F060421","Code":"F060421","GroupId":"GF0043","Name":"QC đạt","ScreenCode":"F060408","Index":"21"},
+{"Id":"F060422","Code":"F060422","GroupId":"GF0043","Name":"Hủy QC đạt","ScreenCode":"F060408","Index":"22"},
+{"Id":"F060423","Code":"F060423","GroupId":"GF0043","Name":"QC không đạt","ScreenCode":"F060408","Index":"23"},
+{"Id":"F060424","Code":"F060424","GroupId":"GF0043","Name":"Hủy QC không đạt","ScreenCode":"F060408","Index":"24"},
+{"Id":"F060425","Code":"F060425","GroupId":"GF0043","Name":"Upload bằng chứng khắc phục","ScreenCode":"F060408","Index":"25"},
+{"Id":"F060426","Code":"F060426","GroupId":"GF0043","Name":"Download bằng chứng khắc phục","ScreenCode":"F060408","Index":"26"},
+{"Id":"F060427","Code":"F060427","GroupId":"GF0043","Name":"Xóa bằng chứng khắc phục","ScreenCode":"F060408","Index":"27"},
+{"Id":"F060428","Code":"F060428","GroupId":"GF0043","Name":"Đóng vấn đề","ScreenCode":"","Index":"28"},
+{"Id":"F060429","Code":"F060429","GroupId":"GF0043","Name":"Hủy đóng vấn đề","ScreenCode":"","Index":"29"},
+{"Id":"F060430","Code":"F060430","GroupId":"GF0043","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"28"},
+{"Id":"F060431","Code":"F060431","GroupId":"GF0043","Name":"Xem tất cả các vấn đề","ScreenCode":"F060400","Index":"6"},
+{"Id":"F060432","Code":"F060432","GroupId":"GF0043","Name":"Thêm kế hoạch phòng ban khác tạo","ScreenCode":"F060408","Index":"30"},
+{"Id":"F060433","Code":"F060433","GroupId":"GF0043","Name":"Hủy kế hoạch phòng ban khác tạo","ScreenCode":"F060408","Index":"31"},
+{"Id":"F060434","Code":"F060434","GroupId":"GF0043","Name":"Xem tất cả các vấn đề","ScreenCode":"F060400","Index":"32"},
+
+{"Id":"F060501","Code":"F060501","GroupId":"GF0044","Name":"Thêm mới công việc","ScreenCode":"F060500","Index":"1"},
+{"Id":"F060502","Code":"F060502","GroupId":"GF0044","Name":"Chỉnh sửa công việc","ScreenCode":"F060500","Index":"2"},
+{"Id":"F060503","Code":"F060503","GroupId":"GF0044","Name":"Xóa công việc","ScreenCode":"F060500","Index":"3"},
+{"Id":"F060504","Code":"F060504","GroupId":"GF0044","Name":"Cấu hình công việc cho nhóm module","ScreenCode":"F060500","Index":"4"},
+{"Id":"F060505","Code":"F060505","GroupId":"GF0044","Name":"Xem cấu hình công việc","ScreenCode":"F060500","Index":"5"},
+{"Id":"F060506","Code":"F060506","GroupId":"GF0044","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F060601","Code":"F060601","GroupId":"GF0045","Name":"Cấu hình thời gian tiểu chuẩn","ScreenCode":"F060600","Index":"1"},
+{"Id":"F060602","Code":"F060602","GroupId":"GF0045","Name":"Xem thời gian tiêu chuẩn","ScreenCode":"F060600","Index":"2"},
+{"Id":"F060603","Code":"F060603","GroupId":"GF0045","Name":"Xác nhận đã cấu hình","ScreenCode":"F060600","Index":"3"},
+{"Id":"F060604","Code":"F060604","GroupId":"GF0045","Name":"Tính trung bình thời gian trong năm ","ScreenCode":"F060600","Index":"4"},
+{"Id":"F060605","Code":"F060605","GroupId":"GF0045","Name":"Import thời gian tiêu chuẩn","ScreenCode":"F060600","Index":"5"},
+{"Id":"F060606","Code":"F060606","GroupId":"GF0045","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F060701","Code":"F060701","GroupId":"GF0046","Name":"Thêm mới kế hoạch","ScreenCode":"F060700","Index":"1"},
+{"Id":"F060702","Code":"F060702","GroupId":"GF0046","Name":"Chỉnh sửa kế hoạch","ScreenCode":"F060700","Index":"2"},
+{"Id":"F060703","Code":"F060703","GroupId":"GF0046","Name":"Xóa kế hoạch","ScreenCode":"F060700","Index":"3"},
+{"Id":"F060704","Code":"F060704","GroupId":"GF0046","Name":"Xem thông tin kế hoạch","ScreenCode":"F060700","Index":"4"},
+{"Id":"F060705","Code":"F060705","GroupId":"GF0046","Name":"Xem thông tin kế hoạch của phòng ban khác","ScreenCode":"F060700","Index":"5"},
+{"Id":"F060706","Code":"F060706","GroupId":"GF0046","Name":"Xuất danh sách kế hoạch thiết kế","ScreenCode":"F060700","Index":"6"},
+{"Id":"F060707","Code":"F060707","GroupId":"GF0046","Name":"Nhập thời gian OT","ScreenCode":"","Index":"8"},
+{"Id":"F060708","Code":"F060708","GroupId":"GF0046","Name":"Nhập thời gian thực hiện","ScreenCode":"","Index":"9"},
+{"Id":"F060709","Code":"F060709","GroupId":"GF0046","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"10"},
+{"Id":"F060710","Code":"F060710","GroupId":"GF0046","Name":"Import kế hoạch thiết kế","ScreenCode":"F060700","Index":"7"},
+{"Id":"F060711","Code":"F060711","GroupId":"GF0046","Name":"Chỉnh sửa ngày theo HĐ","ScreenCode":"F060700","Index":"11"},
+
+
+
+{"Id":"F060801","Code":"F060801","GroupId":"GF0047","Name":"Xem thời gian làm việc","ScreenCode":"F060800","Index":"1"},
+{"Id":"F060802","Code":"F060802","GroupId":"GF0047","Name":"Xem thời gian làm việc của phòng ban khác","ScreenCode":"F060800","Index":"2"},
+{"Id":"F060803","Code":"F060803","GroupId":"GF0047","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F060901","Code":"F060901","GroupId":"GF0048","Name":"Xem tổng hợp kế hoạch thiết kế","ScreenCode":"F060900","Index":"1"},
+{"Id":"F060902","Code":"F060902","GroupId":"GF0048","Name":"Xem tổng hợp kế hoạch thiết kế của phòng ban khác","ScreenCode":"F060900","Index":"2"},
+{"Id":"F060903","Code":"F060903","GroupId":"GF0048","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F061001","Code":"F061001","GroupId":"GF0049","Name":"Xem Doashboard nhân sự","ScreenCode":"F061000","Index":"1"},
+{"Id":"F061002","Code":"F061002","GroupId":"GF0049","Name":"Xem Doashboard nhân sự của Phòng ban khác","ScreenCode":"F061000","Index":"2"},
+{"Id":"F061003","Code":"F061003","GroupId":"GF0049","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F061101","Code":"F061101","GroupId":"GF0050","Name":"Xem Dashboard dự án","ScreenCode":"F061100","Index":"1"},
+{"Id":"F061102","Code":"F061102","GroupId":"GF0050","Name":"Xem Dashboard dự án của phòng ban khác","ScreenCode":"F061100","Index":"2"},
+{"Id":"F061103","Code":"F061103","GroupId":"GF0050","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F070001","Code":"F070001","GroupId":"GF0051","Name":"Thêm mới nhóm giải pháp","ScreenCode":"F070000","Index":"1"},
+{"Id":"F070002","Code":"F070002","GroupId":"GF0051","Name":"Sửa nhóm giải pháp","ScreenCode":"F070000","Index":"2"},
+{"Id":"F070003","Code":"F070003","GroupId":"GF0051","Name":"Xóa nhóm giải pháp","ScreenCode":"F070000","Index":"3"},
+
+
+{"Id":"F070101","Code":"F070101","GroupId":"GF0051","Name":"Thêm mới giải pháp","ScreenCode":"F070000","Index":"4"},
+{"Id":"F070102","Code":"F070102","GroupId":"GF0051","Name":"Sửa giải pháp","ScreenCode":"F070000","Index":"5"},
+{"Id":"F070103","Code":"F070103","GroupId":"GF0051","Name":"Xóa giải pháp","ScreenCode":"F070000","Index":"6"},
+{"Id":"F070104","Code":"F070104","GroupId":"GF0051","Name":"Xem thông tin giải pháp","ScreenCode":"F070000","Index":"7"},
+{"Id":"F070105","Code":"F070105","GroupId":"GF0051","Name":"Xem thông tin giải pháp của Phòng ban khác","ScreenCode":"F070000","Index":"8"},
+{"Id":"F070106","Code":"F070106","GroupId":"GF0051","Name":"Xuất danh sách giải pháp","ScreenCode":"F070000","Index":"9"},
+{"Id":"F070107","Code":"F070107","GroupId":"GF0051","Name":"Uplaod tài liệu đính kèm","ScreenCode":"","Index":"10"},
+{"Id":"F070108","Code":"F070108","GroupId":"GF0051","Name":"Download tài liệu đính kèm","ScreenCode":"","Index":"11"},
+{"Id":"F070109","Code":"F070109","GroupId":"GF0051","Name":"Xem tài liệu đính kèm","ScreenCode":"","Index":"12"},
+{"Id":"F070110","Code":"F070110","GroupId":"GF0051","Name":"Thêm dự án giải pháp","ScreenCode":"","Index":"13"},
+{"Id":"F070111","Code":"F070111","GroupId":"GF0051","Name":"Xóa dự án","ScreenCode":"","Index":"14"},
+{"Id":"F070112","Code":"F070112","GroupId":"GF0051","Name":"Xem dánh sạch dự án","ScreenCode":"","Index":"15"},
+{"Id":"F070113","Code":"F070113","GroupId":"GF0051","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"16"},
+{"Id":"F070114","Code":"F070114","GroupId":"GF0051","Name":"Xác nhận đủ tài liệu","ScreenCode":"","Index":"17"},
+
+
+{"Id":"F080001","Code":"F080001","GroupId":"GF0052","Name":"Thêm mới nhân viên","ScreenCode":"F080000","Index":"1"},
+{"Id":"F080002","Code":"F080002","GroupId":"GF0052","Name":"Sửa nhân viên","ScreenCode":"F080000","Index":"2"},
+{"Id":"F080003","Code":"F080003","GroupId":"GF0052","Name":"Xóa nhân viên","ScreenCode":"F080000","Index":"3"},
+{"Id":"F080004","Code":"F080004","GroupId":"GF0052","Name":"Xem thông tin nhân viên","ScreenCode":"F080000","Index":"4"},
+{"Id":"F080005","Code":"F080005","GroupId":"GF0052","Name":"Import danh sách nhân vien","ScreenCode":"","Index":"5"},
+{"Id":"F080006","Code":"F080006","GroupId":"GF0052","Name":"Xuất danh sách nhân viên","ScreenCode":"","Index":"6"},
+{"Id":"F080007","Code":"F080007","GroupId":"GF0052","Name":"Cấp tài khoản ","ScreenCode":"","Index":"7"},
+{"Id":"F080008","Code":"F080008","GroupId":"GF0052","Name":"Xem thông tin tài khoản","ScreenCode":"","Index":"8"},
+{"Id":"F080009","Code":"F080009","GroupId":"GF0052","Name":"Thêm mới bằng cấp","ScreenCode":"","Index":"9"},
+{"Id":"F080010","Code":"F080010","GroupId":"GF0052","Name":"Sửa bằng cấp","ScreenCode":"","Index":"10"},
+{"Id":"F080011","Code":"F080011","GroupId":"GF0052","Name":"Xóa bằng cấp","ScreenCode":"","Index":"11"},
+{"Id":"F080012","Code":"F080012","GroupId":"GF0052","Name":"Thêm kỹ năng","ScreenCode":"","Index":"13"},
+{"Id":"F080013","Code":"F080013","GroupId":"GF0052","Name":"Xóa kỹ ăng","ScreenCode":"","Index":"14"},
+{"Id":"F080014","Code":"F080014","GroupId":"GF0052","Name":"Đánh giá điểm kỹ năng","ScreenCode":"","Index":"15"},
+{"Id":"F080015","Code":"F080015","GroupId":"GF0052","Name":"Xem danh sách khóa học","ScreenCode":"","Index":"16"},
+{"Id":"F080016","Code":"F080016","GroupId":"GF0052","Name":"Xem bằng cấp","ScreenCode":"","Index":"12"},
+{"Id":"F080017","Code":"F080017","GroupId":"GF0052","Name":"Đặt lại mật khẩu","ScreenCode":"","Index":"18"},
+{"Id":"F080018","Code":"F080018","GroupId":"GF0052","Name":"Khóa tài khoản đăng nhập","ScreenCode":"","Index":"19"},
+{"Id":"F080019","Code":"F080019","GroupId":"GF0052","Name":"Xem danh sách kỹ năng","ScreenCode":"","Index":"17"},
+{"Id":"F080020","Code":"F080020","GroupId":"GF0052","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"16"},
+{"Id":"F080021","Code":"F080021","GroupId":"GF0052","Name":"Xem Quy định, Quy trình","ScreenCode":"","Index":"21"},
+{"Id":"F080022","Code":"F080022","GroupId":"GF0052","Name":"Xem Công việc","ScreenCode":"","Index":"22"},
+
+
+{"Id":"F080101","Code":"F080101","GroupId":"GF0053","Name":"Thêm mới nhóm nhân viên","ScreenCode":"F080100","Index":"1"},
+{"Id":"F080102","Code":"F080102","GroupId":"GF0053","Name":"Chỉnh sửa nhóm nhân viên","ScreenCode":"F080100","Index":"2"},
+{"Id":"F080103","Code":"F080103","GroupId":"GF0053","Name":"Xóa nhóm nhân viên","ScreenCode":"F080100","Index":"3"},
+{"Id":"F080104","Code":"F080104","GroupId":"GF0053","Name":"Xem thông tin nhóm nhân vên","ScreenCode":"F080100","Index":"4"},
+{"Id":"F080105","Code":"F080105","GroupId":"GF0053","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F080201","Code":"F080201","GroupId":"GF0054","Name":"Thêm mới khóa học","ScreenCode":"F080200","Index":"1"},
+{"Id":"F080202","Code":"F080202","GroupId":"GF0054","Name":"Chỉnh sửa khóa học","ScreenCode":"F080200","Index":"2"},
+{"Id":"F080203","Code":"F080203","GroupId":"GF0054","Name":"Xóa khóa học","ScreenCode":"F080200","Index":"3"},
+{"Id":"F080204","Code":"F080204","GroupId":"GF0054","Name":"Xem thông tin khóa học","ScreenCode":"F080200","Index":"4"},
+{"Id":"F080205","Code":"F080205","GroupId":"GF0054","Name":"Upload tài liệu khóa học","ScreenCode":"F080200","Index":"5"},
+{"Id":"F080206","Code":"F080206","GroupId":"GF0054","Name":"Download tài liệu khóa học","ScreenCode":"F080200","Index":"6"},
+{"Id":"F080207","Code":"F080207","GroupId":"GF0054","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"7"},
+
+
+{"Id":"F080301","Code":"F080301","GroupId":"GF0069","Name":"Thêm mới nhóm kỹ năng","ScreenCode":"F080400","Index":"1"},
+{"Id":"F080302","Code":"F080302","GroupId":"GF0069","Name":"Sửa nhóm kỹ năng","ScreenCode":"F080400","Index":"2"},
+{"Id":"F080303","Code":"F080303","GroupId":"GF0069","Name":"Xóa nhóm kỹ năng","ScreenCode":"F080400","Index":"3"},
+{"Id":"F080304","Code":"F080304","GroupId":"GF0069","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F080401","Code":"F080401","GroupId":"GF0070","Name":"Thêm mới kỹ năng","ScreenCode":"F080400","Index":"1"},
+{"Id":"F080402","Code":"F080402","GroupId":"GF0070","Name":"Sửa kỹ năng","ScreenCode":"F080400","Index":"2"},
+{"Id":"F080403","Code":"F080403","GroupId":"GF0070","Name":"Xóa kỹ năng","ScreenCode":"F080400","Index":"3"},
+{"Id":"F080404","Code":"F080404","GroupId":"GF0070","Name":"Xem thông tin kỹ năng","ScreenCode":"F080400","Index":"4"},
+{"Id":"F080405","Code":"F080405","GroupId":"GF0070","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F080501","Code":"F080501","GroupId":"GF0071","Name":"Thêm mới vị trí công việc","ScreenCode":"F080500","Index":"1"},
+{"Id":"F080502","Code":"F080502","GroupId":"GF0071","Name":"Sửa vị trí công việc","ScreenCode":"F080500","Index":"2"},
+{"Id":"F080503","Code":"F080503","GroupId":"GF0071","Name":"Xóa vị trí công việc","ScreenCode":"F080500","Index":"3"},
+{"Id":"F080504","Code":"F080504","GroupId":"GF0071","Name":"Xem thông tin vị trí công việc","ScreenCode":"F080500","Index":"4"},
+{"Id":"F080505","Code":"F080505","GroupId":"GF0071","Name":"Xem thông tin vị trí công việc của phòng ban khác","ScreenCode":"F080500","Index":"5"},
+{"Id":"F080506","Code":"F080506","GroupId":"GF0071","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F080601","Code":"F080601","GroupId":"GF0072","Name":"Thêm mới chương trình đào tạo","ScreenCode":"F080600","Index":"1"},
+{"Id":"F080602","Code":"F080602","GroupId":"GF0072","Name":"Sửa chương trình đào tạo","ScreenCode":"F080600","Index":"2"},
+{"Id":"F080603","Code":"F080603","GroupId":"GF0072","Name":"Xóa chương trình đào tạo","ScreenCode":"F080600","Index":"3"},
+{"Id":"F080604","Code":"F080604","GroupId":"GF0072","Name":"Xem thông tin chương trình đào tạo","ScreenCode":"F080600","Index":"4"},
+{"Id":"F080605","Code":"F080605","GroupId":"GF0072","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F080701","Code":"F080701","GroupId":"GF0073","Name":"Thêm mới thời gian công việc","ScreenCode":"F080700","Index":"1"},
+{"Id":"F080702","Code":"F080702","GroupId":"GF0073","Name":"Sửa thời gian công việc","ScreenCode":"F080700","Index":"2"},
+{"Id":"F080703","Code":"F080703","GroupId":"GF0073","Name":"Xóa thời gian công việc","ScreenCode":"F080700","Index":"3"},
+{"Id":"F080704","Code":"F080704","GroupId":"GF0073","Name":"Xem thông tin thời gian công việc","ScreenCode":"F080700","Index":"4"},
+{"Id":"F080705","Code":"F080705","GroupId":"GF0073","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F080801","Code":"F080801","GroupId":"GF0074","Name":"Thêm mới nhật ký công việc","ScreenCode":"F080800","Index":"1"},
+{"Id":"F080802","Code":"F080802","GroupId":"GF0074","Name":"Sửa nhật ký công việc","ScreenCode":"F080800","Index":"2"},
+{"Id":"F080803","Code":"F080803","GroupId":"GF0074","Name":"Xóa nhật ký công việc","ScreenCode":"F080800","Index":"3"},
+{"Id":"F080804","Code":"F080804","GroupId":"GF0074","Name":"Xem thông tin nhật ký công việc","ScreenCode":"F080800","Index":"4"},
+{"Id":"F080805","Code":"F080805","GroupId":"GF0074","Name":"Xem thông tin nhật ký công việc của người khác","ScreenCode":"F080800","Index":"5"},
+{"Id":"F080806","Code":"F080806","GroupId":"GF0074","Name":"Xuất danh sách nhật ký công việc","ScreenCode":"F080800","Index":"6"},
+{"Id":"F080807","Code":"F080807","GroupId":"GF0074","Name":"Xuất danh sách nhật ký công việc của người khác","ScreenCode":"F080800","Index":"7"},
+{"Id":"F080808","Code":"F080808","GroupId":"GF0074","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"11"},
+{"Id":"F080809","Code":"F080809","GroupId":"GF0074","Name":"Thêm mới nhật ký công việc khi quá hạn","ScreenCode":"F080800","Index":"8"},
+{"Id":"F080810","Code":"F080810","GroupId":"GF0074","Name":"Sửa nhật ký công việc khi quá hạn","ScreenCode":"F080800","Index":"9"},
+{"Id":"F080811","Code":"F080811","GroupId":"GF0074","Name":"Xóa nhật ký công việc khi quá hạn","ScreenCode":"F080800","Index":"10"},
+
+
+{"Id":"F080901","Code":"F080901","GroupId":"GF0075","Name":"Thêm mới nhóm quyền","ScreenCode":"F080900","Index":"1"},
+{"Id":"F080902","Code":"F080902","GroupId":"GF0075","Name":"Sửa nhóm quyền","ScreenCode":"F080900","Index":"2"},
+{"Id":"F080903","Code":"F080903","GroupId":"GF0075","Name":"Xóa nhóm quyền","ScreenCode":"F080900","Index":"3"},
+{"Id":"F080904","Code":"F080904","GroupId":"GF0075","Name":"Xem thông tin nhóm quyền","ScreenCode":"F080900","Index":"4"},
+{"Id":"F080905","Code":"F080905","GroupId":"GF0075","Name":"Xem thông tin nhóm quyền của phòng ban khác","ScreenCode":"F080900","Index":"5"},
+{"Id":"F080906","Code":"F080906","GroupId":"GF0075","Name":"Thêm nhóm quyền phòng ban khác","ScreenCode":"","Index":"6"},
+{"Id":"F080907","Code":"F080907","GroupId":"GF0075","Name":"Chỉnh sửa nhóm quyền phòng ban khác","ScreenCode":"","Index":"7"},
+{"Id":"F080908","Code":"F080908","GroupId":"GF0075","Name":"Xóa nhóm quyền phòng ban khác","ScreenCode":"","Index":"8"},
+{"Id":"F080909","Code":"F080909","GroupId":"GF0075","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"9"},
+
+
+{"Id":"F090001","Code":"F090001","GroupId":"GF0055","Name":"Tạo cấu trúc thư mục","ScreenCode":"F090000","Index":"1"},
+{"Id":"F090002","Code":"F090002","GroupId":"GF0055","Name":"Thêm mới cấu hình thư mục","ScreenCode":"F090000","Index":"2"},
+{"Id":"F090003","Code":"F090003","GroupId":"GF0055","Name":"Sửa cấu hình thư mục","ScreenCode":"F090000","Index":"3"},
+{"Id":"F090004","Code":"F090004","GroupId":"GF0055","Name":"Xóa cấu hình thư mục","ScreenCode":"F090000","Index":"4"},
+{"Id":"F090005","Code":"F090005","GroupId":"GF0055","Name":"Xem cấu hình thư mục","ScreenCode":"F090000","Index":"5"},
+{"Id":"F090006","Code":"F090006","GroupId":"GF0055","Name":"Xem cấu trúc thư mục phòng ban khác","ScreenCode":"F090000","Index":"6"},
+{"Id":"F090007","Code":"F090007","GroupId":"GF0055","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"7"},
+
+
+
+{"Id":"F090101","Code":"F090101","GroupId":"GF0056","Name":"Biểu mẫu kiếm tra nguyên lý","ScreenCode":"F090100","Index":"1"},
+{"Id":"F090102","Code":"F090102","GroupId":"GF0056","Name":"Biểu mẫu bản vẽ nguyên lý - Bảng tính toán","ScreenCode":"F090100","Index":"2"},
+{"Id":"F090103","Code":"F090103","GroupId":"GF0056","Name":"Phương án thiết kế - Danh mục khối chức năng","ScreenCode":"F090100","Index":"3"},
+{"Id":"F090104","Code":"F090104","GroupId":"GF0056","Name":"Phương án thiết kế - Linh kiện chính, thông số mạch","ScreenCode":"F090100","Index":"4"},
+{"Id":"F090105","Code":"F090105","GroupId":"GF0056","Name":"Kiểm tra chất lượng sản phẩm mạch điện tử","ScreenCode":"F090100","Index":"5"},
+{"Id":"F090106","Code":"F090106","GroupId":"GF0056","Name":"Biểu mẫu hướng dẫn lắp ráp mạch điện tử","ScreenCode":"F090100","Index":"6"},
+{"Id":"F090107","Code":"F090107","GroupId":"GF0056","Name":"Phương án thiết kế - Mô tả chung - Sơ đồ khối","ScreenCode":"F090100","Index":"7"},
+{"Id":"F090108","Code":"F090108","GroupId":"GF0056","Name":"Biểu mẫu vật tư","ScreenCode":"F090100","Index":"8"},
+{"Id":"F090109","Code":"F090109","GroupId":"GF0056","Name":"Biểu mẫu kiểm tra bản vẽ mạch in","ScreenCode":"F090100","Index":"9"},
+{"Id":"F090110","Code":"F090110","GroupId":"GF0056","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"10"},
+
+
+{"Id":"F090201","Code":"F090201","GroupId":"GF0057","Name":"Hồ sơ điện","ScreenCode":"F090100","Index":"1"},
+{"Id":"F090202","Code":"F090202","GroupId":"GF0057","Name":"Hồ sơ cơ khí","ScreenCode":"F090100","Index":"2"},
+{"Id":"F090203","Code":"F090203","GroupId":"GF0057","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F090301","Code":"F090301","GroupId":"GF0058","Name":"Lập tín hiệu I/O","ScreenCode":"F090100","Index":"1"},
+{"Id":"F090302","Code":"F090302","GroupId":"GF0058","Name":"Vẽ sơ đồ thuật toán điều khiển","ScreenCode":"F090100","Index":"2"},
+{"Id":"F090303","Code":"F090303","GroupId":"GF0058","Name":"Danh sách hàm chức năng","ScreenCode":"F090100","Index":"3"},
+{"Id":"F090304","Code":"F090304","GroupId":"GF0058","Name":"Quá trình thử nghiệm","ScreenCode":"F090100","Index":"4"},
+{"Id":"F090305","Code":"F090305","GroupId":"GF0058","Name":"Danh mục thiết bị theo chức năng","ScreenCode":"F090100","Index":"5"},
+{"Id":"F090306","Code":"F090306","GroupId":"GF0058","Name":"Dữ liệu cài đặt","ScreenCode":"F090100","Index":"6"},
+{"Id":"F090307","Code":"F090307","GroupId":"GF0058","Name":"Kiểm tra nguyên lý","ScreenCode":"F090100","Index":"7"},
+{"Id":"F090308","Code":"F090308","GroupId":"GF0058","Name":"Hạng muc thiết kế","ScreenCode":"F090100","Index":"8"},
+{"Id":"F090309","Code":"F090309","GroupId":"GF0058","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"9"},
+
+
+{"Id":"F090401","Code":"F090401","GroupId":"GF0059","Name":"Tạo phác thảo thiết kế","ScreenCode":"F090100","Index":"1"},
+{"Id":"F090402","Code":"F090402","GroupId":"GF0059","Name":"Kiểm tra phương án thiết kế","ScreenCode":"F090100","Index":"2"},
+{"Id":"F090403","Code":"F090403","GroupId":"GF0059","Name":"Dự toán sơ bộ","ScreenCode":"F090100","Index":"3"},
+{"Id":"F090404","Code":"F090404","GroupId":"GF0059","Name":"Lâp thông số kỹ thuật","ScreenCode":"F090100","Index":"4"},
+{"Id":"F090405","Code":"F090405","GroupId":"GF0059","Name":"Xác nhận danh mục vật tư điện - điện tử","ScreenCode":"F090100","Index":"5"},
+{"Id":"F090406","Code":"F090406","GroupId":"GF0059","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F090501","Code":"F090501","GroupId":"GF0060","Name":"Hồ sơ thiết kế mạch điện tử","ScreenCode":"F090100","Index":"1"},
+{"Id":"F090502","Code":"F090406","GroupId":"GF0059","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+
+{"Id":"F090601","Code":"F090601","GroupId":"GF0061","Name":"Thêm mới định nghĩa thư mục","ScreenCode":"F090600","Index":"1"},
+{"Id":"F090602","Code":"F090602","GroupId":"GF0061","Name":"Sửa định nghĩa thư mục","ScreenCode":"F090600","Index":"2"},
+{"Id":"F090603","Code":"F090603","GroupId":"GF0061","Name":"Xóa định nghĩa thư mục","ScreenCode":"F090600","Index":"3"},
+{"Id":"F090604","Code":"F090604","GroupId":"GF0061","Name":"Thêm định nghĩa tài liệu","ScreenCode":"F090600","Index":"4"},
+{"Id":"F090605","Code":"F090605","GroupId":"GF0061","Name":"Sửa định nghĩa tài liệu","ScreenCode":"F090600","Index":"5"},
+{"Id":"F090606","Code":"F090606","GroupId":"GF0061","Name":"Xóa định nghĩa tài liệu","ScreenCode":"F090600","Index":"6"},
+{"Id":"F090607","Code":"F090607","GroupId":"GF0061","Name":"Xem thông tin định nghĩa","ScreenCode":"F090600","Index":"7"},
+{"Id":"F090608","Code":"F090608","GroupId":"GF0061","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+
+
+{"Id":"F090701","Code":"F090701","GroupId":"GF0062","Name":"Kiểm tra dữ liệu thiết kế","ScreenCode":"F090700","Index":"1"},
+{"Id":"F090702","Code":"F090702","GroupId":"GF0062","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"2"},
+
+
+{"Id":"F090801","Code":"F090801","GroupId":"GF0063","Name":"Thêm mới cấu trúc","ScreenCode":"F090800","Index":"1"},
+{"Id":"F090802","Code":"F090802","GroupId":"GF0063","Name":"Sửa cấu trúc","ScreenCode":"F090800","Index":"2"},
+{"Id":"F090803","Code":"F090803","GroupId":"GF0063","Name":"Xóa cấu trúc","ScreenCode":"F090800","Index":"3"},
+{"Id":"F090804","Code":"F090804","GroupId":"GF0063","Name":"Xem thông tin cấu trúc","ScreenCode":"F090800","Index":"4"},
+{"Id":"F090805","Code":"F090805","GroupId":"GF0063","Name":"Thêm định nghĩa tài liệu download","ScreenCode":"F090800","Index":"5"},
+{"Id":"F090806","Code":"F090806","GroupId":"GF0063","Name":"Sửa định nghĩa tài liệu download","ScreenCode":"F090800","Index":"6"},
+{"Id":"F090807","Code":"F090807","GroupId":"GF0063","Name":"Xóa định nghĩa tài liệu download","ScreenCode":"F090800","Index":"7"},
+{"Id":"F090808","Code":"F090808","GroupId":"GF0063","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+
+
+{"Id":"F090901","Code":"F090901","GroupId":"GF0064","Name":"Download tài liệu thiết kế","ScreenCode":"F090900","Index":"1"},
+{"Id":"F090902","Code":"F090902","GroupId":"GF0064","Name":"Download tài liệu tiết kế của SBU khác","ScreenCode":"F090900","Index":"2"},
+{"Id":"F090903","Code":"F090903","GroupId":"GF0064","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F091001","Code":"F091001","GroupId":"GF0065","Name":"Đổi tên file SCAN","ScreenCode":"F091000","Index":"1"},
+{"Id":"F091002","Code":"F091002","GroupId":"GF0065","Name":"Thêm Cấu hình file đổi tên","ScreenCode":"F091000","Index":"2"},
+{"Id":"F091003","Code":"F091003","GroupId":"GF0065","Name":"Sửa Cấu hình file đổi tên","ScreenCode":"F091000","Index":"3"},
+{"Id":"F091004","Code":"F091004","GroupId":"GF0065","Name":"Xóa Cấu hình file đổi tên","ScreenCode":"F091000","Index":"4"},
+{"Id":"F091005","Code":"F091005","GroupId":"GF0065","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"2"},
+
+
+{"Id":"F091101","Code":"F091101","GroupId":"GF0066","Name":"Download DMVT import SAP","ScreenCode":"F091100","Index":"1"},
+{"Id":"F091102","Code":"F091102","GroupId":"GF0066","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"2"},
+
+
+{"Id":"F091201","Code":"F091201","GroupId":"GF0067","Name":"Thêm ngành hàng","ScreenCode":"F091200","Index":"1"},
+{"Id":"F091202","Code":"F091202","GroupId":"GF0067","Name":"Sửa ngành hàng","ScreenCode":"F091200","Index":"2"},
+{"Id":"F091203","Code":"F091203","GroupId":"GF0067","Name":"Xóa ngành hàng","ScreenCode":"F091200","Index":"3"},
+{"Id":"F091204","Code":"F091204","GroupId":"GF0067","Name":"Xem thông tin ngành hàng","ScreenCode":"F091200","Index":"4"},
+{"Id":"F091205","Code":"F091205","GroupId":"GF0067","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F100001","Code":"F100001","GroupId":"GF0076","Name":"Dự báo nhân sự tương lai","ScreenCode":"","Index":"1"},
+{"Id":"F100002","Code":"F100002","GroupId":"GF0076","Name":"Dự báo dự án tương lai","ScreenCode":"","Index":"2"},
+{"Id":"F100003","Code":"F100003","GroupId":"GF0076","Name":"Báo cáo nhân viên hiện tại","ScreenCode":"","Index":"3"},
+{"Id":"F100004","Code":"F100004","GroupId":"GF0076","Name":"Tổng hợp dữ liệu thư viện","ScreenCode":"","Index":"4"},
+{"Id":"F100005","Code":"F100005","GroupId":"GF0076","Name":"Tổng hợp dữ liệu trình độ","ScreenCode":"","Index":"5"},
+{"Id":"F100006","Code":"F100006","GroupId":"GF0076","Name":"Tổng hợp dữ liệu nhân sự","ScreenCode":"","Index":"6"},
+{"Id":"F100007","Code":"F100007","GroupId":"GF0076","Name":"Cảnh báo chi phí","ScreenCode":"","Index":"7"},
+{"Id":"F100008","Code":"F100008","GroupId":"GF0076","Name":"Báo cáo chất lượng hiện tại","ScreenCode":"","Index":"8"},
+{"Id":"F100009","Code":"F100009","GroupId":"GF0076","Name":"Báo cáo tình trạng vật tư","ScreenCode":"","Index":"9"},
+{"Id":"F100010","Code":"F100010","GroupId":"GF0076","Name":"Báo cáo tình trạng module","ScreenCode":"","Index":"10"},
+{"Id":"F100011","Code":"F100011","GroupId":"GF0076","Name":"Báo cáo ứng dụng hiện tại","ScreenCode":"","Index":"11"},
+{"Id":"F100012","Code":"F100012","GroupId":"GF0076","Name":"Báo cáo chi phí hiện tại","ScreenCode":"","Index":"12"},
+{"Id":"F100013","Code":"F100013","GroupId":"GF0076","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"15"},
+{"Id":"F100014","Code":"F100014","GroupId":"GF0076","Name":"Báo cáo vấn đề tồn đọng","ScreenCode":"","Index":"13"},
+{"Id":"F100015","Code":"F100015","GroupId":"GF0076","Name":"Báo cáo tiến độ vấn dề tồn đọng","ScreenCode":"","Index":"14"},
+{"Id":"F100016","Code":"F100016","GroupId":"GF0076","Name":"Báo cáo tiến độ triển khai dự án","ScreenCode":"","Index":"15"},
+
+
+{"Id":"F110001","Code":"F110001","GroupId":"GF0077","Name":"Sửa thông tin ngày nghỉ","ScreenCode":"F110000","Index":"1"},
+{"Id":"F110002","Code":"F110002","GroupId":"GF0077","Name":"Xem ngày nghỉ","ScreenCode":"F110000","Index":"2"},
+{"Id":"F110003","Code":"F110003","GroupId":"GF0077","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F110101","Code":"F110101","GroupId":"GF0078","Name":"Xem tổng hợp thời gian làm việc","ScreenCode":"F110100","Index":"1"},
+{"Id":"F110102","Code":"F110102","GroupId":"GF0078","Name":"Xem tổng hợp thời gian làm việc của nhân viên khác","ScreenCode":"F110100","Index":"2"},
+{"Id":"F110103","Code":"F110103","GroupId":"GF0078","Name":"Xem tổng hợp thời gian của SBU khác","ScreenCode":"F110100","Index":"3"},
+{"Id":"F110104","Code":"F110104","GroupId":"GF0078","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F110201","Code":"F110201","GroupId":"GF0079","Name":"Kiểm tra giá vật tư","ScreenCode":"F110200","Index":"1"},
+{"Id":"F110202","Code":"F110202","GroupId":"GF0079","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"2"},
+
+
+{"Id":"F110301","Code":"F110301","GroupId":"GF0080","Name":"Thêm công đoạn","ScreenCode":"F110300","Index":"1"},
+{"Id":"F110302","Code":"F110302","GroupId":"GF0080","Name":"Sửa công đoạn","ScreenCode":"F110300","Index":"2"},
+{"Id":"F110303","Code":"F110303","GroupId":"GF0080","Name":"Xóa công đoạn","ScreenCode":"F110300","Index":"3"},
+{"Id":"F110304","Code":"F110304","GroupId":"GF0080","Name":"Xem thông tin công đoạn","ScreenCode":"F110300","Index":"4"},
+{"Id":"F110305","Code":"F110305","GroupId":"GF0080","Name":"Sửa công đoạn phòng ban khác","ScreenCode":"F110300","Index":"5"},
+{"Id":"F110306","Code":"F110306","GroupId":"GF0080","Name":"Xóa công đoạn phòng ban khác","ScreenCode":"F110300","Index":"6"},
+{"Id":"F110307","Code":"F110307","GroupId":"GF0080","Name":"Xem thông tin công đoạn phòng ban khác","ScreenCode":"F110300","Index":"7"},
+{"Id":"F110308","Code":"F110308","GroupId":"GF0080","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+
+
+
+{"Id":"F110401","Code":"F110401","GroupId":"GF0081","Name":"Thêm xếp loại","ScreenCode":"F110400","Index":"1"},
+{"Id":"F110402","Code":"F110402","GroupId":"GF0081","Name":"Sửa xếp loại","ScreenCode":"F110400","Index":"2"},
+{"Id":"F110403","Code":"F110403","GroupId":"GF0081","Name":"Xóa xếp loại","ScreenCode":"F110400","Index":"3"},
+{"Id":"F110404","Code":"F110404","GroupId":"GF0081","Name":"Xem thông tin xếp loại","ScreenCode":"F110400","Index":"4"},
+{"Id":"F110405","Code":"F110405","GroupId":"GF0081","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F110451","Code":"F110451","GroupId":"GF0082","Name":"Cấu hình thông số hệ thống","ScreenCode":"F110450","Index":"1"},
+{"Id":"F110452","Code":"F110452","GroupId":"GF0082","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"2"},
+
+
+{"Id":"F110501","Code":"F110501","GroupId":"GF0083","Name":"Xem lịch sử thao tác","ScreenCode":"F110500","Index":"1"},
+{"Id":"F110502","Code":"F110502","GroupId":"GF0083","Name":"Xem lịch sử thao tác phòng ban khác","ScreenCode":"F110500","Index":"2"},
+{"Id":"F110503","Code":"F110503","GroupId":"GF0083","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F110601","Code":"F110601","GroupId":"GF0084","Name":"Xem thông tin","ScreenCode":"F110600","Index":"1"},
+{"Id":"F110602","Code":"F110602","GroupId":"GF0084","Name":"Cấu hình hệ số năng lực","ScreenCode":"F110600","Index":"2"},
+{"Id":"F110603","Code":"F110603","GroupId":"GF0084","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F110701","Code":"F110701","GroupId":"GF0085","Name":"Xem thông tin kế hoạch","ScreenCode":"F110700","Index":"1"},
+{"Id":"F110702","Code":"F110702","GroupId":"GF0085","Name":"Xem thông tin kế hoạch của người khác","ScreenCode":"F110700","Index":"2"},
+{"Id":"F110703","Code":"F110703","GroupId":"GF0085","Name":"Nhập thời gian thực hiện","ScreenCode":"F110700","Index":"3"},
+{"Id":"F110704","Code":"F110704","GroupId":"GF0085","Name":"Xuất danh sách kế hoạch","ScreenCode":"","Index":"5"},
+{"Id":"F110705","Code":"F110705","GroupId":"GF0085","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+{"Id":"F110706","Code":"F110706","GroupId":"GF0085","Name":"Nhập thời gian thực hiện kế hoạch của người khác","ScreenCode":"F110700","Index":"4"},
+{"Id":"F110707","Code":"F110707","GroupId":"GF0085","Name":"Xem công việc của phòng ban","ScreenCode":"F110700","Index":"7"},
+{"Id":"F110708","Code":"F110708","GroupId":"GF0085","Name":"Xem công việc của cả công ty","ScreenCode":"F110700","Index":"8"},
+{"Id":"F110709","Code":"F110709","GroupId":"GF0085","Name":"Chỉ định người điều chỉnh kế hoạch","ScreenCode":"","Index":"9"},
+
+{"Id":"F110801","Code":"F110801","GroupId":"GF0086","Name":"Thêm mới thiết bị nhập khẩu","ScreenCode":"F110800","Index":"1"},
+{"Id":"F110802","Code":"F110802","GroupId":"GF0086","Name":"Chỉnh sửa thiết bị nhập khẩu","ScreenCode":"F110800","Index":"2"},
+{"Id":"F110803","Code":"F110803","GroupId":"GF0086","Name":"Xóa thiết bị nhập khẩu","ScreenCode":"F110800","Index":"3"},
+{"Id":"F110804","Code":"F110804","GroupId":"GF0086","Name":"Import thiết bị nhập khẩu","ScreenCode":"F110800","Index":"4"},
+{"Id":"F110805","Code":"F110805","GroupId":"GF0086","Name":"Xem dữ liệu phòng XNK","ScreenCode":"F110800","Index":"5"},
+{"Id":"F110806","Code":"F110806","GroupId":"GF0086","Name":"Xem dữ liệu phòng KD","ScreenCode":"F110800","Index":"6"},
+{"Id":"F110807","Code":"F110807","GroupId":"GF0086","Name":"Xem dữ liệu phòng KT","ScreenCode":"F110800","Index":"7"},
+{"Id":"F110808","Code":"F110808","GroupId":"GF0086","Name":"Xuất dữ liệu phòng XNK","ScreenCode":"","Index":"8"},
+{"Id":"F110809","Code":"F110809","GroupId":"GF0086","Name":"Xuất dữ liệu phòng KD","ScreenCode":"","Index":"9"},
+{"Id":"F110810","Code":"F110810","GroupId":"GF0086","Name":"Xuất dữ liệu phòng KT","ScreenCode":"","Index":"10"},
+{"Id":"F110811","Code":"F110811","GroupId":"GF0086","Name":"Cập nhật thông tin giá TPA","ScreenCode":"","Index":"11"},
+{"Id":"F110812","Code":"F110812","GroupId":"GF0086","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"12"},
+{"Id":"F110813","Code":"F110813","GroupId":"GF0086","Name":"Đồng bộ thiết bị tiêu chuẩn cho sản phẩm kinh doanh","ScreenCode":"","Index":"13"},
+
+
+{"Id":"F110851","Code":"F110851","GroupId":"GF0087","Name":"Thêm mới chủng loại hàng hóa","ScreenCode":"F110850","Index":"1"},
+{"Id":"F110852","Code":"F110852","GroupId":"GF0087","Name":"Chỉnh sửa nhóm chủng loại hàng hóa","ScreenCode":"F110850","Index":"2"},
+{"Id":"F110853","Code":"F110853","GroupId":"GF0087","Name":"Xóa nhóm chủng loại hàng hóa","ScreenCode":"F110850","Index":"3"},
+{"Id":"F110854","Code":"F110854","GroupId":"GF0087","Name":"Xem thông tin chủng loại hàng hóa","ScreenCode":"F110850","Index":"4"},
+{"Id":"F110855","Code":"F110855","GroupId":"GF0087","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F120001","Code":"F120001","GroupId":"GF0088","Name":"Thêm mới sản phẩm kinh doanh","ScreenCode":"F120000","Index":"1"},
+{"Id":"F120002","Code":"F120002","GroupId":"GF0088","Name":"Chinh sửa sản phẩm kinh doanh","ScreenCode":"F120000","Index":"2"},
+{"Id":"F120003","Code":"F120003","GroupId":"GF0088","Name":"Xóa sản phẩm kinh doanh","ScreenCode":"F120000","Index":"3"},
+{"Id":"F120004","Code":"F120004","GroupId":"GF0088","Name":"Xem thông tin sản phẩm kinh doanh","ScreenCode":"F120000","Index":"4"},
+{"Id":"F120005","Code":"F120005","GroupId":"GF0088","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+{"Id":"F120006","Code":"F120006","GroupId":"GF0088","Name":"Import tồn kho","ScreenCode":"","Index":"7"},
+{"Id":"F120007","Code":"F120007","GroupId":"GF0088","Name":"Xem tất cả sản phẩm","ScreenCode":"F120000","Index":"5"},
+{"Id":"F120008","Code":"F120008","GroupId":"GF0088","Name":"Chọn nhóm mặc định cho sản phẩm","ScreenCode":"F120000","Index":"6"},
+
+
+{"Id":"F120101","Code":"F120101","GroupId":"GF0089","Name":"Thêm mới xuất giữ","ScreenCode":"F120100","Index":"1"},
+{"Id":"F120102","Code":"F120102","GroupId":"GF0089","Name":"Chỉnh sửa xuất giữ","ScreenCode":"F120100","Index":"2"},
+{"Id":"F120103","Code":"F120103","GroupId":"GF0089","Name":"Xóa xuất giữ","ScreenCode":"F120100","Index":"3"},
+{"Id":"F120104","Code":"F120104","GroupId":"GF0089","Name":"Xem thông tin xuất giữ","ScreenCode":"F120100","Index":"4"},
+{"Id":"F120105","Code":"F120105","GroupId":"GF0089","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+
+{"Id":"F120201","Code":"F120201","GroupId":"GF0090","Name":"Xem chi tiết lịch sử xuất giữ","ScreenCode":"F120200","Index":"1"},
+
+
+{"Id":"F120301","Code":"F120301","GroupId":"GF0091","Name":"Xem chi tiết sai khác","ScreenCode":"F120300","Index":"1"},
+{"Id":"F120302","Code":"F120302","GroupId":"GF0091","Name":"Cập nhật sai khác so với nguồn","ScreenCode":"F120300","Index":"2"},
+
+
+{"Id":"F120401","Code":"F120401","GroupId":"GF0092","Name":"Thêm mới nhóm kinh doanh","ScreenCode":"F120400","Index":"1"},
+{"Id":"F120402","Code":"F120402","GroupId":"GF0092","Name":"Chinh sửa nhóm kinh doanh","ScreenCode":"F120400","Index":"2"},
+{"Id":"F120403","Code":"F120403","GroupId":"GF0092","Name":"Xóa nhóm kinh doanh","ScreenCode":"F120400","Index":"3"},
+{"Id":"F120404","Code":"F120404","GroupId":"GF0092","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F120501","Code":"F120501","GroupId":"GF0093","Name":"Thêm mới ứng dụng","ScreenCode":"F120500","Index":"1"},
+{"Id":"F120502","Code":"F120502","GroupId":"GF0093","Name":"Chinh sửa ứng dụng","ScreenCode":"F120500","Index":"2"},
+{"Id":"F120503","Code":"F120503","GroupId":"GF0093","Name":"Xóa nhóm ứng dụng","ScreenCode":"F120500","Index":"3"},
+{"Id":"F120504","Code":"F120504","GroupId":"GF0093","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F120601","Code":"F120601","GroupId":"GF0094","Name":"Cập nhật cấu hình","ScreenCode":"F120600","Index":"1"},
+{"Id":"F120602","Code":"F120602","GroupId":"GF0094","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"F120600","Index":"3"},
+{"Id":"F120603","Code":"F120603","GroupId":"GF0094","Name":"Xem cấu hình","ScreenCode":"F120600","Index":"2"},
+
+
+
+{"Id":"F120651","Code":"F120651","GroupId":"GF0096","Name":"Xem báo cáo ","ScreenCode":"F120650","Index":"1"},
+{"Id":"F120652","Code":"F120652","GroupId":"GF0096","Name":"Xuất excel báo cáo","ScreenCode":"F120650","Index":"2"},
+{"Id":"F120653","Code":"F120653","GroupId":"GF0096","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F120661","Code":"F120661","GroupId":"GF0097","Name":"Xem báo cáo ","ScreenCode":"F120660","Index":"1"},
+{"Id":"F120662","Code":"F120662","GroupId":"GF0097","Name":"Xuất excel báo cáo","ScreenCode":"F120660","Index":"2"},
+{"Id":"F120663","Code":"F120663","GroupId":"GF0097","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F120701","Code":"F120701","GroupId":"GF0098","Name":"Thêm mới chủng loại hàng hóa","ScreenCode":"F120700","Index":"1"},
+{"Id":"F120702","Code":"F120702","GroupId":"GF0098","Name":"Chỉnh sửa nhóm chủng loại hàng hóa","ScreenCode":"F120700","Index":"2"},
+{"Id":"F120703","Code":"F120703","GroupId":"GF0098","Name":"Xóa nhóm chủng loại hàng hóa","ScreenCode":"F120700","Index":"3"},
+{"Id":"F120704","Code":"F120704","GroupId":"GF0098","Name":"Xem thông tin chủng loại hàng hóa","ScreenCode":"F120700","Index":"4"},
+{"Id":"F120705","Code":"F120705","GroupId":"GF0098","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F120751","Code":"F120751","GroupId":"GF0099","Name":"Xem vật tư PR","ScreenCode":"F120750","Index":"1"},
+{"Id":"F120752","Code":"F120752","GroupId":"GF0099","Name":"Import vật tư PR","ScreenCode":"F120750","Index":"2"},
+{"Id":"F120753","Code":"F120753","GroupId":"GF0099","Name":"Xem vật tư của người khác","ScreenCode":"F120750","Index":"4"},
+{"Id":"F120754","Code":"F120754","GroupId":"GF0099","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+{"Id":"F120755","Code":"F120755","GroupId":"GF0099","Name":"Xóa vật tư","ScreenCode":"F120750","Index":"3"},
+
+
+{"Id":"F120801","Code":"F120801","GroupId":"GF0095","Name":"Thêm mới hồ sơ","ScreenCode":"F120800","Index":"1"},
+{"Id":"F120802","Code":"F120802","GroupId":"GF0095","Name":"Chỉnh sửa hồ sơ","ScreenCode":"F120800","Index":"2"},
+{"Id":"F120803","Code":"F120803","GroupId":"GF0095","Name":"Xóa hồ sơ","ScreenCode":"F120800","Index":"3"},
+{"Id":"F120804","Code":"F120804","GroupId":"GF0095","Name":"Xem hồ sơ của người khác","ScreenCode":"F120800","Index":"5"},
+{"Id":"F120805","Code":"F120805","GroupId":"GF0095","Name":"Xem hồ sơ đã kết thúc","ScreenCode":"","Index":"6"},
+{"Id":"F120806","Code":"F120806","GroupId":"GF0095","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"8"},
+{"Id":"F120807","Code":"F120807","GroupId":"GF0095","Name":"Xem thông tin hồ sơ","ScreenCode":"F120800","Index":"4"},
+{"Id":"F120808","Code":"F120808","GroupId":"GF0095","Name":"Thêm mới nhà cung cấp dịch vụ","ScreenCode":"","Index":"7"},
+
+
+{"Id":"F120851","Code":"F120851","GroupId":"GF0100","Name":"Xem báo cáo ","ScreenCode":"F120850","Index":"1"},
+{"Id":"F120852","Code":"F120852","GroupId":"GF0100","Name":"Xuất excel báo cáo","ScreenCode":"F120850","Index":"2"},
+{"Id":"F120853","Code":"F120853","GroupId":"GF0100","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+{"Id":"F120901","Code":"F120901","GroupId":"GF0113","Name":"Thêm mới nhóm câu hỏi","ScreenCode":"F120900","Index":"1"},
+{"Id":"F120902","Code":"F120902","GroupId":"GF0113","Name":"Chỉnh sửa nhóm câu hỏi","ScreenCode":"F120900","Index":"2"},
+{"Id":"F120903","Code":"F120903","GroupId":"GF0113","Name":"Xóa nhóm câu hỏi","ScreenCode":"F120900","Index":"3"},
+{"Id":"F120904","Code":"F120904","GroupId":"GF0113","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F120921","Code":"F120921","GroupId":"GF0101","Name":"Thêm mới câu hỏi","ScreenCode":"F120920","Index":"1"},
+{"Id":"F120922","Code":"F120922","GroupId":"GF0101","Name":"Chỉnh sửa câu hỏi","ScreenCode":"F120920","Index":"2"},
+{"Id":"F120923","Code":"F120923","GroupId":"GF0101","Name":"Xóa câu hỏi","ScreenCode":"F120920","Index":"3"},
+{"Id":"F120924","Code":"F120924","GroupId":"GF0101","Name":"Xem câu hỏi","ScreenCode":"F120920","Index":"4"},
+{"Id":"F120925","Code":"F120925","GroupId":"GF0101","Name":"Download tài liệu câu hỏi","ScreenCode":"F120920","Index":"5"},
+{"Id":"F120926","Code":"F120926","GroupId":"GF0101","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"6"},
+
+{"Id":"F120951","Code":"F120951","GroupId":"GF0102","Name":"Thêm mới loại hợp đồng lao động","ScreenCode":"F120950","Index":"1"},
+{"Id":"F120952","Code":"F120952","GroupId":"GF0102","Name":"Chỉnh sửa loại hợp đồng lao động","ScreenCode":"F120950","Index":"2"},
+{"Id":"F120953","Code":"F120953","GroupId":"GF0102","Name":"Xóa loại hợp đồng lao động","ScreenCode":"F120950","Index":"3"},
+{"Id":"F120954","Code":"F120954","GroupId":"GF0102","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121001","Code":"F121001","GroupId":"GF0103","Name":"Thêm mới nơi làm việc","ScreenCode":"F121000","Index":"1"},
+{"Id":"F121002","Code":"F121002","GroupId":"GF0103","Name":"Chỉnh sửa nơi làm việc","ScreenCode":"F121000","Index":"2"},
+{"Id":"F121003","Code":"F121003","GroupId":"GF0103","Name":"Xóa nơi làm việc","ScreenCode":"F121000","Index":"3"},
+{"Id":"F121004","Code":"F121004","GroupId":"GF0103","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121051","Code":"F121051","GroupId":"GF0104","Name":"Thêm mới lý do điều chỉnh thu nhập","ScreenCode":"F121050","Index":"1"},
+{"Id":"F121052","Code":"F121052","GroupId":"GF0104","Name":"Chỉnh sửa lý do điều chỉnh thu nhập","ScreenCode":"F121050","Index":"2"},
+{"Id":"F121053","Code":"F121053","GroupId":"GF0104","Name":"Xóa lý do điều chỉnh thu nhập","ScreenCode":"F121050","Index":"3"},
+{"Id":"F121054","Code":"F121054","GroupId":"GF0104","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121101","Code":"F121101","GroupId":"GF0105","Name":"Thêm mới lý do điều chỉnh BHXH","ScreenCode":"F121100","Index":"1"},
+{"Id":"F121102","Code":"F121102","GroupId":"GF0105","Name":"Chỉnh sửa lý do điều chỉnh BHXH","ScreenCode":"F121100","Index":"2"},
+{"Id":"F121103","Code":"F121103","GroupId":"GF0105","Name":"Xóa lý do điều chỉnh BHXH","ScreenCode":"F121100","Index":"3"},
+{"Id":"F121104","Code":"F121104","GroupId":"GF0105","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121151","Code":"F121151","GroupId":"GF0106","Name":"Thêm mới lý do nghỉ việc","ScreenCode":"F121150","Index":"1"},
+{"Id":"F121152","Code":"F121152","GroupId":"GF0106","Name":"Chỉnh sửa lý do nghỉ việc","ScreenCode":"F121150","Index":"2"},
+{"Id":"F121153","Code":"F121153","GroupId":"GF0106","Name":"Xóa lý do nghỉ việc","ScreenCode":"F121150","Index":"3"},
+{"Id":"F121154","Code":"F121154","GroupId":"GF0106","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121201","Code":"F121201","GroupId":"GF0107","Name":"Thêm mới ngân hàng","ScreenCode":"F121200","Index":"1"},
+{"Id":"F121202","Code":"F121202","GroupId":"GF0107","Name":"Chỉnh sửa ngân hàng","ScreenCode":"F121200","Index":"2"},
+{"Id":"F121203","Code":"F121203","GroupId":"GF0107","Name":"Xóa ngân hàng","ScreenCode":"F121200","Index":"3"},
+{"Id":"F121204","Code":"F121204","GroupId":"GF0107","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121251","Code":"F121251","GroupId":"GF0108","Name":"Thêm mới mức đóng bảo hiểm","ScreenCode":"F121250","Index":"1"},
+{"Id":"F121252","Code":"F121252","GroupId":"GF0108","Name":"Chỉnh sửa mức đóng bảo hiểm","ScreenCode":"F121250","Index":"2"},
+{"Id":"F121253","Code":"F121253","GroupId":"GF0108","Name":"Xóa mức đóng bảo hiểm","ScreenCode":"F121250","Index":"3"},
+{"Id":"F121254","Code":"F121254","GroupId":"GF0108","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121301","Code":"F121301","GroupId":"GF0109","Name":"Thêm mới tài liệu","ScreenCode":"F121300","Index":"1"},
+{"Id":"F121302","Code":"F121302","GroupId":"GF0109","Name":"Chỉnh sửa tài liệu","ScreenCode":"F121300","Index":"2"},
+{"Id":"F121303","Code":"F121303","GroupId":"GF0109","Name":"Xóa tài liệu","ScreenCode":"F121300","Index":"3"},
+{"Id":"F121304","Code":"F121304","GroupId":"GF0109","Name":"Hủy ban hành","ScreenCode":"F121300","Index":"4"},
+{"Id":"F121305","Code":"F121305","GroupId":"GF0109","Name":"Review tài liệu","ScreenCode":"F121300","Index":"5"},
+{"Id":"F121306","Code":"F121306","GroupId":"GF0109","Name":"Xem thông tin tài liệu","ScreenCode":"F121300","Index":"6"},
+{"Id":"F121307","Code":"F121307","GroupId":"GF0109","Name":"Upload tài liệu đính kèm","ScreenCode":"","Index":"7"},
+{"Id":"F121308","Code":"F121308","GroupId":"GF0109","Name":"Xóa tài liệu đính kèm","ScreenCode":"","Index":"8"},
+{"Id":"F121309","Code":"F121309","GroupId":"GF0109","Name":"Download tài liệu kính kèm","ScreenCode":"F121300","Index":"9"},
+{"Id":"F121310","Code":"F121310","GroupId":"GF0109","Name":"Thêm tài liệu tham chiếu","ScreenCode":"","Index":"10"},
+{"Id":"F121311","Code":"F121311","GroupId":"GF0109","Name":"Xóa tài liệu tham chiếu","ScreenCode":"","Index":"11"},
+{"Id":"F121312","Code":"F121312","GroupId":"GF0109","Name":"Thêm ban hành tài liệu","ScreenCode":"","Index":"12"},
+{"Id":"F121313","Code":"F121313","GroupId":"GF0109","Name":"Chỉnh sửa ban hành tài liệu","ScreenCode":"","Index":"13"},
+{"Id":"F121314","Code":"F121314","GroupId":"GF0109","Name":"Xóa ban hành tài liệu ","ScreenCode":"","Index":"14"},
+{"Id":"F121315","Code":"F121315","GroupId":"GF0109","Name":"Download tài liệu lần ban hành","ScreenCode":"","Index":"15"},
+{"Id":"F121316","Code":"F121316","GroupId":"GF0109","Name":"Xem vấn đề","ScreenCode":"","Index":"16"},
+{"Id":"F121317","Code":"F121317","GroupId":"GF0109","Name":"Thêm mới vấn đề","ScreenCode":"","Index":"17"},
+{"Id":"F121318","Code":"F121318","GroupId":"GF0109","Name":"Chỉnh sửa vấn đề","ScreenCode":"","Index":"18"},
+{"Id":"F121319","Code":"F121319","GroupId":"GF0109","Name":"Xóa vấn đề","ScreenCode":"","Index":"19"},
+{"Id":"F121320","Code":"F121320","GroupId":"GF0109","Name":"Upload biên bản họp","ScreenCode":"","Index":"20"},
+{"Id":"F121321","Code":"F121321","GroupId":"GF0109","Name":"Xóa biên bản họp","ScreenCode":"","Index":"21"},
+{"Id":"F121322","Code":"F121322","GroupId":"GF0109","Name":"Downoad biên bản họp","ScreenCode":"","Index":"22"},
+{"Id":"F121323","Code":"F121323","GroupId":"GF0109","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"23"},
+{"Id":"F121324","Code":"F121324","GroupId":"GF0109","Name":"Xem nội dung tài liệu","ScreenCode":"F121300","Index":"6"},
+
+
+{"Id":"F121351","Code":"F121351","GroupId":"GF0110","Name":"Xem tài liệu","ScreenCode":"F121350","Index":"1"},
+{"Id":"F121352","Code":"F121352","GroupId":"GF0110","Name":"Download tài liệu","ScreenCode":"F121350","Index":"2"},
+{"Id":"F121353","Code":"F121353","GroupId":"GF0110","Name":"Xem tài liệu của phòng ban khác","ScreenCode":"F121350","Index":"3"},
+{"Id":"F121354","Code":"F121354","GroupId":"GF0110","Name":"Download tài liệu của phòng ban khác","ScreenCode":"F121350","Index":"4"},
+{"Id":"F121355","Code":"F121355","GroupId":"GF0110","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+{"Id":"F121401","Code":"F121401","GroupId":"GF0111","Name":"Thêm mới loại tài liệu","ScreenCode":"F121400","Index":"1"},
+{"Id":"F121402","Code":"F121402","GroupId":"GF0111","Name":"Chỉnh sửa loại tài liệu","ScreenCode":"F121400","Index":"2"},
+{"Id":"F121403","Code":"F121403","GroupId":"GF0111","Name":"Xóa loại tài liệu","ScreenCode":"F121400","Index":"3"},
+{"Id":"F121404","Code":"F121404","GroupId":"GF0111","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121451","Code":"F121451","GroupId":"GF0112","Name":"Thêm mới nhóm tài liệu","ScreenCode":"F121450","Index":"1"},
+{"Id":"F121452","Code":"F121452","GroupId":"GF0112","Name":"Chỉnh sửa nhóm tài liệu","ScreenCode":"F121450","Index":"2"},
+{"Id":"F121453","Code":"F121453","GroupId":"GF0112","Name":"Xóa nhóm tài liệu","ScreenCode":"F121450","Index":"3"},
+{"Id":"F121454","Code":"F121454","GroupId":"GF0112","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121471","Code":"F121471","GroupId":"GF0114","Name":"Thêm mới kết quả đầu vào/ra","ScreenCode":"F121470","Index":"1"},
+{"Id":"F121472","Code":"F121472","GroupId":"GF0114","Name":"Chỉnh sửa kết quả đầu vào/ra","ScreenCode":"F121470","Index":"2"},
+{"Id":"F121473","Code":"F121473","GroupId":"GF0114","Name":"Xóa kết quả đầu vào/ra","ScreenCode":"F121470","Index":"3"},
+{"Id":"F121474","Code":"F121474","GroupId":"GF0114","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121501","Code":"F121501","GroupId":"GF0115","Name":"Thêm mới mức lương","ScreenCode":"F121500","Index":"1"},
+{"Id":"F121502","Code":"F121502","GroupId":"GF0115","Name":"Chỉnh sửa mức lương","ScreenCode":"F121500","Index":"2"},
+{"Id":"F121503","Code":"F121503","GroupId":"GF0115","Name":"Xóa mức lương","ScreenCode":"F121500","Index":"3"},
+{"Id":"F121504","Code":"F121504","GroupId":"GF0115","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121511","Code":"F121511","GroupId":"GF0116","Name":"Thêm mới nhóm lương","ScreenCode":"F121510","Index":"1"},
+{"Id":"F121512","Code":"F121512","GroupId":"GF0116","Name":"Chỉnh sửa nhóm lương","ScreenCode":"F121510","Index":"2"},
+{"Id":"F121513","Code":"F121513","GroupId":"GF0116","Name":"Xóa nhóm lương","ScreenCode":"F121510","Index":"3"},
+{"Id":"F121514","Code":"F121514","GroupId":"GF0116","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121521","Code":"F121521","GroupId":"GF0117","Name":"Thêm mới ngạch lương","ScreenCode":"F121520","Index":"1"},
+{"Id":"F121522","Code":"F121522","GroupId":"GF0117","Name":"Chỉnh sửa ngạch lương","ScreenCode":"F121520","Index":"2"},
+{"Id":"F121523","Code":"F121523","GroupId":"GF0117","Name":"Xóa ngạch lương","ScreenCode":"F121520","Index":"3"},
+{"Id":"F121524","Code":"F121524","GroupId":"GF0117","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121551","Code":"F121551","GroupId":"GF0118","Name":"Thêm mới công việc","ScreenCode":"F121550","Index":"1"},
+{"Id":"F121552","Code":"F121552","GroupId":"GF0118","Name":"Chỉnh sửa công việc","ScreenCode":"F121550","Index":"2"},
+{"Id":"F121553","Code":"F121553","GroupId":"GF0118","Name":"Xóa công việc","ScreenCode":"F121550","Index":"3"},
+{"Id":"F121554","Code":"F121554","GroupId":"GF0118","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+
+{"Id":"F121571","Code":"F121571","GroupId":"GF0119","Name":"Thêm mới dong chảy","ScreenCode":"F121570","Index":"1"},
+{"Id":"F121572","Code":"F121572","GroupId":"GF0119","Name":"Chỉnh sửa  dong chảy","ScreenCode":"F121570","Index":"2"},
+{"Id":"F121573","Code":"F121573","GroupId":"GF0119","Name":"Xóa dong chảy","ScreenCode":"F121570","Index":"3"},
+{"Id":"F121574","Code":"F121574","GroupId":"GF0119","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"4"},
+
+{"Id":"F121601","Code":"F121601","GroupId":"GF0120","Name":"Thêm mới yêu cầu tuyển dụng","ScreenCode":"F121600","Index":"1"},
+{"Id":"F121602","Code":"F121602","GroupId":"GF0120","Name":"Chỉnh sửa  yêu cầu tuyển dụng","ScreenCode":"F121600","Index":"2"},
+{"Id":"F121603","Code":"F121603","GroupId":"GF0120","Name":"Xóa yêu cầu tuyển dụng","ScreenCode":"F121600","Index":"3"},
+{"Id":"F121604","Code":"F121604","GroupId":"GF0120","Name":"Xem yêu cầu tuyển dụng","ScreenCode":"F121600","Index":"4"},
+{"Id":"F121605","Code":"F121605","GroupId":"GF0120","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F121631","Code":"F121631","GroupId":"GF0121","Name":"Thêm mới ứng tuyển","ScreenCode":"F121630","Index":"1"},
+{"Id":"F121632","Code":"F121632","GroupId":"GF0121","Name":"Chỉnh sửa ứng tuyển","ScreenCode":"F121630","Index":"2"},
+{"Id":"F121633","Code":"F121633","GroupId":"GF0121","Name":"Xóa ứng tuyển","ScreenCode":"F121630","Index":"3"},
+{"Id":"F121634","Code":"F121634","GroupId":"GF0121","Name":"Xem ứng tuyển","ScreenCode":"F121630","Index":"4"},
+{"Id":"F121635","Code":"F121635","GroupId":"GF0121","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+
+{"Id":"F121651","Code":"F121651","GroupId":"GF0122","Name":"Xe Hồ sơ ứng viên","ScreenCode":"F121650","Index":"1"},
+{"Id":"F121652","Code":"F121652","GroupId":"GF0122","Name":"Chỉnh sửa Hồ sơ ứng viên","ScreenCode":"F121650","Index":"2"},
+{"Id":"F121653","Code":"F121653","GroupId":"GF0122","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+
+
+{"Id":"F121681","Code":"F121681","GroupId":"GF0123","Name":"Xem thông tin phỏng vấn","ScreenCode":"F121680","Index":"1"},
+{"Id":"F121682","Code":"F121682","GroupId":"GF0123","Name":"Cập nhật kết quả phỏng vấn","ScreenCode":"F121680","Index":"2"},
+{"Id":"F121683","Code":"F121683","GroupId":"GF0123","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"3"},
+{"Id":"F121684","Code":"F121684","GroupId":"GF0123","Name":"Bắt đầu phỏng vấn","ScreenCode":"F121680","Index":"4"},
+{"Id":"F121685","Code":"F121685","GroupId":"GF0123","Name":"Xóa phỏng vấn","ScreenCode":"F121680","Index":"5"},
+{"Id":"F121686","Code":"F121686","GroupId":"GF0123","Name":"Thêm mới phỏng vấn","ScreenCode":"F121680","Index":"6"},
+
+
+{"Id":"F121701","Code":"F121701","GroupId":"GF0124","Name":"Thêm kênh tuyển dụng","ScreenCode":"F121700","Index":"1"},
+{"Id":"F121702","Code":"F121702","GroupId":"GF0124","Name":"Chỉnh kênh tuyển dụng","ScreenCode":"F121700","Index":"2"},
+{"Id":"F121703","Code":"F121703","GroupId":"GF0124","Name":"Xóa kênh tuyển dụng","ScreenCode":"F121700","Index":"3"},
+{"Id":"F121704","Code":"F121704","GroupId":"GF0124","Name":"Sử dụng các chức năng khi ở ngoài TPA","ScreenCode":"","Index":"5"},
+
+{"Id":"F121802","Code":"F121802","GroupId":"GF0128","Name":"Xem Meeting của phòng mình","ScreenCode":"F121800","Index":"2"},
+{"Id":"F121803","Code":"F121803","GroupId":"GF0128","Name":"Xem Meeting của cả công ty","ScreenCode":"F121800","Index":"3"}
+
+  ]
+}

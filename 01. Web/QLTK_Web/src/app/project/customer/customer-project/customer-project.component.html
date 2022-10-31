@@ -1,0 +1,84 @@
+
+    <div class="row margin-bottom-10">
+        <div class="col-xl-4 col-lg-12 col-md-12 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{model.totalItems}}</span> dự án</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:1630px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="120px" class="text-center">Loại dự án</th>
+                            <th width="100px" class="text-center">Trạng thái</th>
+                            <th width="100px" class="text-center">Mã dự án</th>
+                            <th width="200px" class="text-center">Tên dự án</th>
+                            <th width="250px" class="text-center">Tên SBU</th>
+                            <th width="150px" class="text-center">Tên phòng ban</th>
+                            <th width="110px" class="text-center">Ngày KickOff</th>
+                            <th width="110px" class="text-center">Ngày bắt đầu</th>
+                            <th width="110px" class="text-center">Ngày kết thúc</th>
+                            <th width="150px" class="text-center">Chi phí chuyển giao (FCM)</th>
+                            <th width="150px" class="text-center">Giá bán thực tế chưa VAT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of listDA; let i = index">
+                            <td class="text-center">{{startIndex+i}}</td>
+                            <td class="text-center"><nts-status-badge [items]="constant.ProjectTypes" [value]="row.Type"></nts-status-badge></td>
+                            <td class="text-center"><nts-status-badge [items]="constant.ProjectStatus" [value]="row.Status"></nts-status-badge></td>
+                            <td class="text-center"  [ngbTooltip]="row.Code" container="body">
+                                <a href="javascript:void(0)" class="bold"
+                                [routerLink]="['/du-an/quan-ly-du-an/chinh-sua/'+ row.Id]">{{row.Code}}</a>
+                            </td>
+                            <td class="text-center" [ngbTooltip]="row.Name" container="body">
+                                <a href="javascript:void(0)" class="bold"
+                                [routerLink]="['/du-an/quan-ly-du-an/chinh-sua/'+ row.Id]">{{row.Name}}</a>
+                            </td>
+                            <td [ngbTooltip]="row.SBUName" container="body" class="text-center">{{row.SBUName}}</td>
+                            <td class="text-center" [ngbTooltip]="row.DepartmentName" container="body">{{row.DepartmentName}}</td>
+                            <td class="text-center">{{row.KickOffDate|date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{row.DateFrom |date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{row.DateTo|date:'dd/MM/yyyy' }}</td>
+                            <td class="text-center">{{row.FCMPrice|number:'1.0-0'}}</td>
+                            <td class="text-center">{{row.SaleNoVAT|number:'1.0-0'}}</td>
+                        </tr>
+                    </tbody>
+                    <tfoot *ngIf="listDA.length == 0">
+                        <tr class="bold">
+                            <td colspan="16" min-width="300px" class="text-center"
+                                style="height: 300px; font-size: 20px;">Không
+                                có dữ liệu</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+            <div class="controls ">
+                <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                    (ngModelChange)="searchCustomerProject()" name="pageSize">
+                    <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                </select>
+            </div>
+            <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+            <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+                (pageChange)="searchCustomerProject()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                [boundaryLinks]="true"></ngb-pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>

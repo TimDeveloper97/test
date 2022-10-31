@@ -1,0 +1,291 @@
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <!-- Tab thông tin tiêu chuẩn -->
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">SBU
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select name="SBUId" required class="form-control" [(ngModel)]="model.SBUId"
+                                                (ngModelChange)="clickSBU()" [disUipermission]="['F020502','F020501']">
+                                                <option *ngFor="let item of listSBU" [ngValue]="item.Id">{{item.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Bộ phận sử dụng tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select name="DepartmentId" required class="form-control"
+                                                [(ngModel)]="model.DepartmentId"
+                                                [disUipermission]="['F020502','F020501']">
+                                                <option *ngFor="let item of listDepartment" [ngValue]="item.Id">
+                                                    {{item.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nhóm tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down [items]="listProductStandardGroup" [columns]="columnName"
+                                                ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="model.ProductStandardGroupId" name="ManufactureId" required
+                                                [disUipermission]="['F020502','F020501']">
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Loại
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select [disUipermission]="['F020502','F020501']" required
+                                                class="form-control" [(ngModel)]="model.DataType"
+                                                name="dataTypeProductStandard">
+                                                <option *ngFor="let c of constants.ListWorkType" [ngValue]="c.Id">
+                                                    {{c.Name}}
+                                                </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Mã tiêu chuẩn sản phẩm
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Code"
+                                                name="Codeproductstandardcreate" maxlength="100" required
+                                                [disUipermission]="['F020502','F020501']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tên tiêu chuẩn sản phẩm
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Name"
+                                                name="nameproductstandardcreate" maxlength="200" required
+                                                [disUipermission]="['F020502','F020501']">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Nội dung tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [(ngModel)]="model.Content" name="Content" class="form-control"
+                                                maxLength="300" [radUipermission]="['F020502','F020501']"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Mục đích tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [(ngModel)]="model.Target" name="Target" class="form-control"
+                                                maxLength="300" [radUipermission]="['F020502','F020501']"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Người tạo
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <label class="form-control">{{UserName}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Ngày tạo
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <label class="form-control">{{DateNow|date:'dd/MM/yyyy'}}</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Version
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Version"
+                                                name="Versionproductstandardcreate" maxlength="20"
+                                                [disUipermission]="['F020502','F020501']">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Nội dung sửa đổi
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" [(ngModel)]="model.EditContent"
+                                                name="EditContentproductstandardcreate" class="form-control"
+                                                maxlength="300" [disUipermission]="['F020502','F020501']">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh ok</label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button class="btn btn-success btn-upload"
+                                            (click)="fileImage.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="moduleImageInput" style="display: none;" type="file"
+                                            id="moduleImageInput" #fileImage (change)="uploadFileClickImage($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                                </ngx-gallery>
+                            </div>
+                            <br><br><br>
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh ng</label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button class="btn btn-success btn-upload"
+                                            (click)="fileImageV.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="moduleImageInputV" style="display: none;" type="file"
+                                            id="moduleImageInputV" #fileImageV (change)="uploadFileClickImageV($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptionsV?.length && galleryImagesV?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptionsV" [images]="galleryImagesV">
+                                </ngx-gallery>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-8 col-sm-12">
+                                    <p class="text-uppercase" style="white-space: nowrap"><b>Danh sách file đính kèm</b>
+                                    </p>
+                                </div>
+                                <div class="col-lg-5 col-md-4 col-sm-12 text-right">
+                                    <button type="button" class="btn btn-success btn-upload"
+                                        (click)="fileInput.click();" *appUipermission="['F020502','F020501']"><i
+                                            class="fas fa-arrow-up"></i> &nbsp;Upload
+                                        file</button>
+                                    <input name="fileproductstandardcreate" style="display: none;" type="file"
+                                        id="fileInput" #fileInput (change)="uploadFileClick($event)" multiple />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <perfect-scrollbar [config]="constants.ScrollXConfig"
+                                        style="height:auto; width:100%;">
+                                        <table class="table table-bordered" style="min-width:650px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="100px" class="text-center">Xử lý</th>
+                                                    <th min-width="250px" class="text-center">Tên file</th>
+                                                    <th width="150px" class="text-center">Dung lượng</th>
+                                                    <th width="100px" class="text-center">Ngày upload</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of model.ListFile; let i = index">
+                                                    <td class="text-center">{{StartIndex+i}}</td>
+                                                    <td class="text-center">
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            placement="top" container="body" ngbTooltip="Xóa"
+                                                            (click)="showConfirmDeleteFile(i)">
+                                                            <span class="fas fa-times" aria-hidden="true"
+                                                                *appUipermission="['F020502','F020501']"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>{{row.name}}</td>
+                                                    <td class="text-center">{{row.size / (1024*1024)| number: '1.1-3'}}
+                                                        MB</td>
+                                                    <td class="text-center">{{DateNow|date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2" disabled="false">
+                <a ngbNavLink>Lịch sử</a>
+                <ng-template ngbNavContent>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid"
+            (click)="save(false)" *appUipermission="['F020501','F020502']">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(true)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

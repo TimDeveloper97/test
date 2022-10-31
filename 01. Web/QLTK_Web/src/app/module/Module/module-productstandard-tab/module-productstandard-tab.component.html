@@ -1,0 +1,42 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="getModuleGroupInfo()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12">
+    <virtual-scroller #scroll [items]="listData" [style.height.px]="height" style=" display: block;">
+      <table class="table table-bordered table-fixed table-hover"
+        style="word-wrap: break-word; margin-bottom:0px !important;min-width: 1710px;">
+        <thead #header style="background-color: white">
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Mã tiêu chuẩn</th>
+            <th width="200px" class="text-center ">Tên tiêu chuẩn</th>
+            <th width="200px" class="text-center ">Nhóm tiêu chuẩn</th>
+            <th width="200px" class="text-center ">Bộ phận sử dụng </th>
+            <th min-width="200px" class="text-center ">Nội dung</th>
+            <th width="100px" class="text-center ">Ngày tạo</th>
+            <th width="100px" class="text-center ">Version</th>
+            <th width="200px" class="text-center ">Nội dung sửa đổi</th>
+            <th width="200px" class="text-center ">Người tạo</th>
+          </tr>
+        </thead>
+        <tbody #container>
+          <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+            <td width="50px" class="text-center">{{i+1}}</td>
+            <td width="200px">{{row.Code}}</td>
+            <td width="200px">{{row.Name}}</td>
+            <td width="200px">{{row.ProductStandardGroupName}}</td>
+            <td width="200px">{{row.DepartmentName}}</td>
+            <td min-width="200px">{{row.Content|limitTo:300}}</td>
+            <td width="100px" class="text-center">{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+            <td width="100px">{{row.Version}}</td>
+            <td width="200px">{{row.EditContent}}</td>
+            <td width="200px">{{row.CreateByName}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </virtual-scroller>
+  </div>

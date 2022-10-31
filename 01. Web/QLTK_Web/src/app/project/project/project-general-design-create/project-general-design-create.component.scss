@@ -1,0 +1,81 @@
+.project-ganeral-design-create {
+  .modal-dialog {
+    width: 100% !important;
+  }
+
+  @media (min-width: 576px) {
+    .modal-dialog {
+      max-width: 540px !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .modal-dialog {
+      max-width: 720px !important;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .modal-dialog {
+      max-width: 960px !important;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .modal-dialog {
+      max-width: 1140px !important;
+    }
+  }
+}
+
+app-project-general-design-create {
+  .custom-control {
+    min-height: 2rem;
+  }
+  .custom-control-label::before {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    color: #fff;
+    border-color: #007bff;
+    background-color: #fff;
+  }
+
+  .custom-control-label::after {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+
+  .custom-control-label {
+    line-height: 2rem;
+  }
+  .custom-control-input:checked ~ .custom-control-label-false::before {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    border-color: #28a745;
+    background-color: #28a745;
+  }
+  .custom-control-label-false::after {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+
+  .custom-control-input:checked ~ .custom-control-label-true::before {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+    color: #fff;
+    border-color: #007bff;
+    background-color: #007bff;
+  }
+  .custom-control-label-true::after {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
+  }
+
+  .selected {
+    background-color: aqua !important;
+  }
+
+  .warningError {
+    background-color: yellow;
+  }
+}
