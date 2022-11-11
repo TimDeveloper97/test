@@ -1,0 +1,87 @@
+.view-document-survey-content-model {
+    .modal-dialog {
+        width: 100%;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 540px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .modal-dialog {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .modal-dialog {
+            max-width: 1000px;
+        }
+    }
+
+    @media (min-width: 1366px) {
+        .modal-dialog {
+            max-width: 1300px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .modal-dialog {
+            max-width: 1500px;
+        }
+    }
+
+    @media (min-width: 1920px) {
+        .modal-dialog {
+            max-width: 1800px;
+        }
+    }
+
+    .ng2-pdf-viewer-container {
+        border: 1px solid #f1f1f1;
+    }
+
+    .page-content {
+        display: flex !important;
+        padding-top: 0px !important;
+    }
+    // Start css menu left
+    
+    .content-search-left .dx-treelist-rowsview .dx-selection.dx-row > td {
+        background-color: inherit;
+    }
+    .search-left-title {
+        background: white;
+        padding: 0 5px;
+        border: 1px solid #e6e3e3;
+    }
+    
+    .search-left {
+        width: 400px;
+        float: left;
+        max-width: 400px;
+        min-width: 400px;
+        margin-right: 10px;
+        background: #fff;
+        // padding: 0 10px;
+    }
+    .body-right {
+        width: 100%;
+        overflow-x: hidden;
+        //background-color: #ffffff;
+    }
+    // End css menu left
+    .box{
+        box-shadow: none;
+        -webkit-box-shadow: none;
+        border: 1px solid #e1e1e1;
+    }
+}

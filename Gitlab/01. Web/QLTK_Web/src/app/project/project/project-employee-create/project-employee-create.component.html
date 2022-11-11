@@ -1,0 +1,410 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row" style="padding: 0px 30px;">
+            <div class="col-md-9 col-lg-9 col-sm-12 col-xl-9">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                      <label class="form-label font-weight-bold">
+                        <h4 style="font-size: 20px; margin: 25px 0px;">Thông tin cá nhân</h4>
+                      </label>
+                    </div>
+                  </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Tên nhân viên
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="Name" [(ngModel)]="model.Name"
+                                    maxlength="100" required autofocus>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 radio">
+                        <label class="form-label">Giới tính
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <label class="radio">Nam
+                            <input type="radio" name="Gender" [(ngModel)]="model.Gender" required [value]="1">
+                            <span class="checkround"></span>
+                        </label>
+                        <label class="radio">Nữ
+                            <input type="radio" name="Gender" [(ngModel)]="model.Gender" required [value]="2">
+                            <span class="checkround"></span>
+                        </label>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày sinh
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="DateOfBirth"
+                                    [(ngModel)]="dateOfBirth" ngbDatepicker #DateOfBirth="ngbDatepicker"
+                                    [minDate]="minDateNotificationV">
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="DateOfBirth.toggle()" name="DateOfBirth">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Email cá nhân
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <input placeholder="name@example.com" type="Email" class="form-control"
+                                    [(ngModel)]="model.Email" name="Email" maxlength="300" email required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                       
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">MST TNCN
+                            </label>
+                            <div class="controls">
+                              <input type="text" class="form-control" name="TaxCode"
+                                [(ngModel)]="model.TaxCode" maxlength="10" ntsNumberInt>
+                            </div>
+                          </div>
+                    </div>
+                   
+
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Số điện thoại
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="PhoneNumber"
+                                    [(ngModel)]="model.PhoneNumber" maxlength="10" ntsNumberInt>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                          <label class="form-label">Nguyên quán
+                          </label>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="Address"
+                              [(ngModel)]="model.Address" maxlength="500">
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                          <label class="form-label">Nơi ở hiện tại
+                          </label>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="CurrentAddress"
+                              [(ngModel)]="model.CurrentAddress" maxlength="500">
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                          <label class="form-label">Tỉnh/TP hiện tại
+                          </label>
+                          <div class="controls">
+                            <nts-drop-down [items]="provinces" [columns]="columnNameAddress"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="model.CurrentAddressProvinceId" name="CurrentAddressProvinceId"
+                              (change)="getDistricts(model.CurrentAddressProvinceId,3)">
+                            </nts-drop-down>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                          <label class="form-label">Quận/ Huyện hiện tại
+                          </label>
+                          <div class="controls">
+                            <nts-drop-down [items]="currentDistricts" [columns]="columnNameAddress"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="model.CurrentAddressDistrictId" name="CurrentAddressDistrictId"
+                              (change)="getWards(model.CurrentAddressDistrictId,3)">
+                            </nts-drop-down>
+                          </div>
+                        </div>
+                      </div>
+      
+                      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                          <label class="form-label">Phường/ Xã hiện tại
+                          </label>
+                          <div class="controls">
+                            <nts-drop-down [items]="currentWards" [columns]="columnNameAddress"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="model.CurrentAddressWardId" name="CurrentAddressWardId">
+                            </nts-drop-down>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Ngân hàng 
+                            </label>
+                            <div class="controls">
+                                <nts-drop-down [disUipermission]="['F080001']" [items]="banks" [columns]="columnName"
+                                ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                [(ngModel)]="model.BankName"  name="BankName" (change)="getBankCode()">
+                              </nts-drop-down>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã ngân hàng
+                            </label>
+                            <div class="controls">
+                                <input type="text" [value] = "IBankCode" name="BankCode" [(ngModel)]="model.BankCode" class="form-control" 
+                                maxlength="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Số tài khoản 
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="BankAccount" [(ngModel)]="model.BankAccount"
+                                maxlength="100" ntsNumberInt>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Số CMND/CCCD
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="IdentifyNum"
+                                    [(ngModel)]="model.IdentifyNum" maxlength="12" required>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày cấp
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="CmtndDate"
+                                    [(ngModel)]="cmtndDate" ngbDatepicker #CmtndDate="ngbDatepicker"
+                                    [minDate]="minDateNotificationV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="CmtndDate.toggle()" name="CmtndDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Nơi cấp
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="IdentifyAddress"
+                                    [(ngModel)]="model.IdentifyAddress" maxlength="500" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="col-lg-12 col-md-12 col-sm-12 ">
+                          <label class="form-label font-weight-bold">
+                            <h4 style="font-size: 20px; margin: 25px 0px;">Thông tin nhân viên tham gia dự án</h4>
+                          </label>
+                    </div>
+
+                    <br>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Từ ngày
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="StartTime"
+                                    [(ngModel)]="startTime" ngbDatepicker #StartTime="ngbDatepicker"
+                                    [minDate]="minDateNotificationV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="StartTime.toggle()" name="StartTime">
+                                        <i claSs="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Đến ngày
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="EndTime"
+                                    [(ngModel)]="endTime" ngbDatepicker #EndTime="ngbDatepicker"
+                                    [minDate]="minDateNotificationV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="EndTime.toggle()" name="EndTime">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                       
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Phụ cấp
+                            </label>
+                            <div class="controls">
+                                <input currencyMask 
+                                [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" type="text" class="form-control" name="Subsidy" [(ngModel)]="model.Subsidy"
+                                    maxlength="18">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày bắt đầu phụ cấp
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="SubsidyStartTime"
+                                    [(ngModel)]="subsidyStartTime" ngbDatepicker #SubsidyStartTime="ngbDatepicker"
+                                    [minDate]="minDateNotificationV">
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="SubsidyStartTime.toggle()" name="SubsidyStartTime">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Ngày kết thúc phụ cấp
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="SubsidyEndTime"
+                                    [(ngModel)]="subsidyEndTime" ngbDatepicker #SubsidyEndTime="ngbDatepicker"
+                                    [minDate]="minDateNotificationV">
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="SubsidyEndTime.toggle()" name="SubsidyEndTime">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Vị trí trong dự án
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <select (change)="changeRole(model.RoleId)"  name = "RoleId" class="form-control" [(ngModel)]="model.RoleId" required>
+                                    <option *ngFor="let item of listRole" [ngValue]="item.Id">{{item.Name}}
+                                    </option>
+                                  </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mô tả công việc
+                            </label>
+                            <div class="input-group">
+                                <textarea
+                                    name="JobDescription" [(ngModel)]="model.JobDescription" maxlength="1500"
+                                    rows="1" class="form-control" [value] = "DescriptionRole">
+                                  </textarea>
+                              </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+                <div class="row" style="margin-top: 70px;">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="actions panel_actions">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                    <label class="form-label font-weight-bold">Ảnh nhân viên
+                                    </label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-right ">
+                                    <label class="form-label">Chọn ảnh
+                                    </label>
+                                    <i class="box_toggle material-icons actions-camera btn-file padding-top-5"
+                                        ngbTooltip="Thay ảnh">
+                                        photo_camera
+                                        <input type="file" id="fileInput" #fileInput accept="image/*"
+                                            (change)="onFileChange($event)" />
+                                    </i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9 img-avata  padding-0" style="margin-left: 45px;">
+                        <img class="img-thumbnail"
+                            [src]="fileProcess.fileModel.DataURL?fileProcess.fileModel.DataURL: ('/assets/img/noavatar.gif')">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <!-- Footer -->
+        <div class="modal-footer">
+            <ng-container>
+                <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+                    <i class="fa fa-save"></i>&nbsp;
+                    <span>Lưu</span>
+                </button>
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="closeModal()">
+                <i class="fa fa-power-off"></i> &nbsp;
+                <span>
+                    Đóng
+                </span>
+            </button>
+        </div>
+    </form>
+</div>

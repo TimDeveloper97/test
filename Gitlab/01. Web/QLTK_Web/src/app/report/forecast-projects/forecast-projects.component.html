@@ -1,0 +1,45 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <div class="row margin-bottom-10">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Số lượng dự án đang triển khai hiện tại:
+          <span class="bold text-danger">{{total}}</span>;</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Số lượng đầu việc chưa hoàn thành:
+          <span class="bold text-danger">{{totalUnfinishedPlanAll}}</span>;</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Số lượng vấn đề tồn đọng:
+          <span class="bold text-danger">{{totalError}}</span>;</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Số lượng vấn đề tồn đọng chưa có giải pháp:
+          <span class="bold text-danger">{{totalErrorNoSolution}}</span>;</label> &nbsp;
+        <label class="form-label" style="line-height:35px;">Số lượng vấn đề tồn đọng có giải pháp nhưng deadline chậm so
+          với deadline kick-off:
+          <span class="bold text-danger">{{totalErrorCompareDateline}}</span></label>&nbsp;
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:1000px">
+            <thead>
+              <tr>
+                <th min-width="200px" class="text-center">Dự án</th>
+                <th width="200px" class="text-center">Tỷ lệ hoàn thành dự án(%)</th>
+                <th width="200px" class="text-center">SL đầu việc theo dự án chưa hoàn thành</th>
+                <th width="200px" class="text-center">SL đầu việc theo dự án chưa có kế hoạch</th>
+                <th width="200px" class="text-center">SL đầu việc theo dự án có kế hoạch nhưng chậm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listProject; let i = index">
+                <td>{{row.Name}}</td>
+                <td class="text-center">{{row.FinishProject}}</td>
+                <td class="text-center">{{row.TotalUnfinishedPlan}}</td>
+                <td class="text-center">{{row.TotalUnplanned}}</td>
+                <td class="text-center">{{row.PlanSlow}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+</div>

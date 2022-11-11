@@ -1,0 +1,329 @@
+<div class='content-wrapper' style="padding-top: 10px;">
+  <div class="exportkeep-container">
+    <div class="exportkeep-left">
+      <div class="row">
+        <div class="col-12">
+          <section class="box">
+            <header class="panel_header">
+              <h2 class="title pull-left text-header">Danh sách đã chọn (Tổng số
+                <span class="bold text-danger">{{listProductCheck.length}}</span> đã chọn )
+              </h2>
+            </header>
+            <div class="content-body ">
+              <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollProducChose>
+                  <div #scrollProducChoseHeader style="overflow-x: auto;overflow: hidden;">
+                    <table class="table table-bordered table-fixed table-hover"
+                      style="word-wrap: break-word; margin-bottom:0px !important;min-width: 830px;">
+                      <thead>
+                        <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="210px" class="text-center">Ảnh</th>
+                          <th min-width="150px" class="text-center">Tên sản phẩm</th>
+                          <th width="120px" class="text-center">Mã sản phẩm</th>
+                          <th width="100px" class="text-center">SL xuất giữ</th>
+                          <th width="100px" class="text-center">SL khả dụng</th>
+                          <th width="100px" class="text-center">SL tồn kho</th>
+                        </tr>
+                      </thead>
+                    </table>
+                  </div>
+                  <perfect-scrollbar [config]="constant.ScrollConfig"  [style.height.px]="productHeight">
+                    <table class="table table-bordered table-fixed table-hover"
+                      style="word-wrap: break-word; margin-bottom:0px !important;min-width: 830px;">
+                      <tbody>
+                        <tr *ngFor="let row of listProductCheck; let i = index" cdkDrag>
+                          <td width="50px" class="text-center">{{row.index}}</td>
+                          <td width="210px" class="text-center"><img
+                              [src]="row.ImagePath != null ? config.ServerApi + row.ImagePath : '/assets/img/noimage.png' "
+                              height="120px" min-witdh="120px" max-witdh="120px"></td>
+                          <td min-width="150px">{{row.Name}}</td>
+                          <td width="120px">{{row.Code}}</td>
+                          <td width="100px" class="text-center">
+                            {{row.Quantity | number}}
+                          </td>
+                          <td width="100px" class="text-center">
+                            {{row.AvailableQuantity | number}}
+                          </td>
+                          <td width="100px" class="text-center">
+                            {{row.Inventory | number}}
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot *ngIf="listProductCheck.length == 0">
+                        <tr class="bold">
+                          <td colspan="7" min-width="300px" class="text-center" style="height: 135px; font-size: 20px;">
+                            Không
+                            có dữ liệu</td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </perfect-scrollbar>
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+    <div class="exportkeep-right">
+      <section class="box">
+        <div class="content-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h5 style="color: #116fbf;">Thông tin xuất giữ</h5>
+              <hr>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Mã xuất giữ
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input disabled name="codeExport" type="text" class="form-control" [(ngModel)]="model.Code"
+                    maxlength="300" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+              <div class="form-group ">
+                <label class="form-label">Ngày tạo
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="input-group">
+                  <input required class="form-control" disabled required placeholder="dd/mm/yyyy" name="DateOfBirth"
+                    [(ngModel)]="createDate" ngbDatepicker #DateOfBirth="ngbDatepicker"
+                    [minDate]="minDateNotificationV">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="DateOfBirth.toggle()" name="DateOfBirth">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+              <div class="form-group ">
+                <label class="form-label">Hạn xuất giữ
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="input-group">
+                  <input required class="form-control" disabled required placeholder="dd/mm/yyyy" name="DateOfBirth"
+                    [(ngModel)]="ExpiredDateV" ngbDatepicker #DateOfBirth="ngbDatepicker"
+                    [minDate]="minDateNotificationV">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="DateOfBirth.toggle()" name="DateOfBirth">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class=" col-xs-6 col-lg-6 col-md-6 col-sm-12">
+              <div class="form-group form-group-custom ">
+                <label class="form-label">Tình trạng thanh toán
+                </label>
+                <div class="controls">
+                  <select name="PayStatus" class="form-control" [(ngModel)]="model.PayStatus" disabled>
+                    <option *ngFor="let item of constant.KeepAndExportPayStatus" [ngValue]="item.Id">{{item.Name}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Ghi chú
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea [(ngModel)]="model.Note" name="Note" rows="2" class="form-control"
+                    [maxLength]="300"></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6">
+              <div class="form-group ">
+                <label class="form-label">Trạng thái
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="input-group">
+                  <span *ngIf="model.Status == 6" class="badge badge-success">
+                    Đúng hạn
+                  </span>
+                  <span *ngIf="model.Status == 5" class="badge badge-danger">
+                    Quá hạn
+                  </span>
+                  <span *ngIf="model.Status != 6 ||model.Status != 5" class="badge"
+                    [ngClass]="model.Status|filterbadgeclassinlist:constant.exportandkeepstatus">{{model.Status|filterinlist:constant.exportandkeepstatus}}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h5 style="color: #116fbf;">Thông tin khách hàng</h5>
+              <hr>
+            </div>
+
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+              <div class="form-group">
+                <label class="form-label">Khách hàng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input name="CustomerName" disabled type="text" class="form-control" [(ngModel)]="model.CustomerName">
+                </div>
+
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Mã khách hàng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="code" disabled type="text" class="form-control" [(ngModel)]="model.CustomerCode"
+                    maxlength="300">
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Nhóm khách hàng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="codegroup" disabled type="text" class="form-control"
+                    [(ngModel)]="model.CustomerTypeName" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Số điện thoại
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="PhoneNumber" disabled type="text" class="form-control"
+                    [(ngModel)]="model.CustomerPhoneNumber" maxlength="15" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Địa chỉ
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="Address" disabled type="text" class="form-control" [(ngModel)]="model.CustomerAddress"
+                    maxlength="300" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <h5 style="color: #116fbf;">Thông tin người tạo</h5>
+              <hr>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Tên người tạo
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="employeeName" disabled type="text" class="form-control" [(ngModel)]="user.employeeName"
+                    maxlength="300" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Mã người tạo
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="employeeCode" disabled type="text" class="form-control" [(ngModel)]="user.employeeCode"
+                    maxlength="300" required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Email
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="email" disabled type="text" class="form-control" [(ngModel)]="user.email" maxlength="300"
+                    required>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Phòng ban tạo
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="departmentName" disabled type="text" class="form-control"
+                    [(ngModel)]="user.departmentName" maxlength="300" required>
+                </div>
+              </div>
+            </div>
+
+            <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                <div class="form-group form-group-custom">
+                  <label class="form-label">SBU
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="controls">
+                    <input name="sbuName" disabled type="text" class="form-control" [(ngModel)]="user.sbuName"
+                      maxlength="300" required>
+                  </div>
+                </div>
+              </div> -->
+
+          </div>
+        </div>
+      </section>
+      <section class="box">
+        <div class="content-body">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right mt-3">
+              <button *ngIf="(model.Status == 6 || model.Status == 5) && this.model.CreateBy == user.employeeId"
+                type="button" (click)="showComfirmmanumitExportAndKeep()" class="btn btn-primary">
+                <i class="far fa-arrow-alt-circle-right"></i>&nbsp;
+                <span>Giải phóng</span>
+              </button>&nbsp;
+              <button *ngIf="(model.Status == 5 ||model.Status == 6) && this.model.CreateBy == user.employeeId "
+                type="button" (click)="showComfirSoldExportAndKeep()" class="btn btn-info">
+                <i class="fas fa-check"></i>&nbsp;
+                <span>Đã bán</span>
+              </button>&nbsp;
+              <button type="button" (click)="closeModal(false)" class="btn btn-danger">
+                <i class="fa fa-power-off"></i> &nbsp;
+                <span>
+                  Đóng
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>

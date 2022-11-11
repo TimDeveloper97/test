@@ -1,0 +1,193 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm" (ngSubmit)="f.form.valid">
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="row">
+              <div class="col-lg-12">
+                <p class="text-center" style="font-size:20px"><b>Thông số vật tư nguồn</b></p>
+                <div class="border">
+                  <div class="form-group form-group-custom">
+                    <label class="form-label">Nhóm vật tư
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                      <div class="input-group">
+                        <nts-drop-down-tree [disUipermission]="['F000302','F000301']" [items]="ListMaterialGroup"
+                          [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                          ntsAutoClose="true" [(ngModel)]="model.MaterialGroupSourceId" name="Id" required
+                          (change)="getParameterByGroupSourceId()"></nts-drop-down-tree>
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+                      <table class="table table-bordered " style="word-wrap: break-word ;min-width:200px;">
+                        <thead>
+                          <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th min-width="150px">Tên thông số</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <ng-container *appUipermission="['F000301','F000302']">
+                            <tr *ngFor="let row of ListParameterSource; let i = index;"
+                              [ngClass]="{'selected':selectSourceIndex == i}" (click)="loadSelect(i, row.Name)">
+                              <td class="text-center" width="50px">{{Index + i}}</td>
+                              <td>
+                                <a>{{row.Name}}</a>
+                              </td>
+                            </tr>
+                          </ng-container>
+
+                        </tbody>
+                      </table>
+                    </perfect-scrollbar>
+                  </div>
+                  <div class="text-right">
+                    <button *appUipermission="['F000301']" class="btn btn-xs btn-success" ngbTooltip="Chuyển"
+                      (click)="addFromSource()">
+                      <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                      Chuyển
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <p class="text-center" style="font-size:20px"><b>Thông số vật tư</b></p>
+            <div class="border">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Nhóm vật tư
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+
+                <div class="controls">
+                  <div class="input-group">
+                    <nts-drop-down-tree [disUipermission]="['F000302','F000301']" [items]="ListMaterialGroup"
+                      [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                      ntsAutoClose="true" [(ngModel)]="model.MaterialGroupId" name="Id" required
+                      (change)="getParameterByGroupId()"></nts-drop-down-tree>
+                    <!-- <dx-drop-down-box #d1 [(value)]="treeBoxValue" valueExpr="Id" displayExpr="Name"
+                      placeholder="Chọn nhóm vật tư" [showClearButton]="true" [dataSource]="ListMaterialGroup"
+                      (onValueChanged)="syncTreeViewSelection()" [(opened)]="isDropDownBoxOpened">
+
+                      <div *dxTemplate="let data of 'content'">
+                        <dx-tree-list id="Id" [dataSource]="ListMaterialGroup" keyExpr="Id" parentIdExpr="ParentId"
+                          [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[1]"
+                          [(selectedRowKeys)]="selectedRowKeys" [hoverStateEnabled]="true"
+                          (onSelectionChanged)="treeView_itemSelectionChanged($event)">
+                          <dxo-selection mode="single"></dxo-selection>
+                          <dxo-search-panel [visible]="true"></dxo-search-panel>
+                          <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                          <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+                        </dx-tree-list>
+                        <button type="button" (click)="closeDropDownBox()">
+                          Đóng
+                        </button>
+                      </div>
+                    </dx-drop-down-box> -->
+                  </div>
+                </div>
+              </div>
+              <div>
+                <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered " style="word-wrap: break-word ;min-width:300px;">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Cột xử lý</th>
+                        <th min-width="150px">Tên thông số</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *appUipermission="['F000301','F000302']">
+                        <tr *ngFor="let row of groupModel.ListParameter; let i = index;"
+                          [ngClass]="{'selected':selectIndex == i}" (click)="loadValue(row,i)">
+                          <td class="text-center" width="50px">{{Index + i}}</td>
+                          <td class="text-center">
+                            <button *appUipermission="['F000301']" type="button" class="btn btn-xs btn-danger"
+                              ngbTooltip="Xóa" (click)="deleteParam(row.Id,i)">
+                              <span class="fas fa-times" aria-hidden="true"></span>
+                            </button>
+                          </td>
+                          <td>
+                            <input [disUipermission]="['F000301']" type="text" [(ngModel)]="row.Name" class="form-control" [name]="'nameParameter' + i"
+                              required>
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <tr>
+                        <td class="text-center" width="50px"></td>
+                        <td class="text-center">
+                          <button *appUipermission="['F000301']"  type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng"
+                            (click)="addRowParameter()">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <input [disUipermission]="['F000301']" type="text" [(ngModel)]="NameParameter" class="form-control" name="nameParameter">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+              <div style="float:right">
+                <button *appUipermission="['F000301']" type="button" class="btn btn-success" ngbTooltip="Lưu" (click)="save()">
+                  <i class="fa fa-save"></i>&nbsp;
+                  Lưu
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <p class="text-center" style="font-size:20px"><b>Giá trị</b></p>
+            <div class="border">
+              <div style="padding-top: 65px">
+                <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+                  <table class="table table-bordered " style="word-wrap: break-word ;min-width:250px;">
+                    <thead>
+                      <tr>
+                        <th width="100px" class="text-center">Cột xử lý</th>
+                        <th min-width="150px">Giá trị</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <ng-container *ngIf="selectIndex >=0">
+                        <tr *ngFor="let row of groupModel.ListParameter[selectIndex].ListValue; let i = index">
+                          <td class="text-center" width="50px">
+                            <button *appUipermission="['F000301']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                              (click)="deleteValue(row.Id,i)">
+                              <span class="fas fa-times" aria-hidden="true"></span>
+                            </button>
+                          </td>
+                          <td>
+                            <input [disUipermission]="['F000301']" type="text" [(ngModel)]="row.Value" class="form-control" [name]="'value' + i">
+                          </td>
+                        </tr>
+                      </ng-container>
+                      <tr>
+                        <td class="text-center" width="50px">
+                          <button *appUipermission ="['F000301']" type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng"
+                            (click)="addRowValue()">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <input [disUipermission]="['F000301']" type="text" [(ngModel)]="Value" class="form-control" name="configmaterial">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

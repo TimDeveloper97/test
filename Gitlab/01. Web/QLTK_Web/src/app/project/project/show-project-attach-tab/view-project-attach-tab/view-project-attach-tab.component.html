@@ -1,0 +1,127 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Xem nội dung tài liệu : {{Name}}</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body padding-15">
+        <div class="page-content">
+            <!-- <div class="search-left">
+                <section class="box">
+                    <header>
+                        <label class="title">Thông tin tài liệu</label>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Tên tài liệu
+                                        <span class='text-danger text-strong'></span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" [(ngModel)]="Name" name="name"
+                                            maxlength="300" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <div class="form-group ">
+                                    <label class="form-label">Mã tài liệu
+                                        <span class='text-danger text-strong'></span>
+                                    </label>
+                                    <div class="controls">
+                                        <input type="text" class="form-control" [(ngModel)]="documentCode" name="name"
+                                            maxlength="300" disabled>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section class="box">
+                    <header>
+                        <label class="title">Danh sách file tài liệu</label>
+                    </header>
+                    <div class="content-body">
+                        <div style="overflow-x: auto;overflow: hidden;">
+                            <table class="table table-bordered table-fixed table-hover"
+                                style="margin-bottom:0px !important;min-width:320px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th min-width="200px" class="text-center">Tên file tài liệu</th>
+                                        <th width="70px" class="text-center">Xử lý</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <perfect-scrollbar [config]="constant.ScrollYConfig" style="width:100%;"
+                                [style.height.px]="height-240">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width: 300px;">
+                                    <tbody>
+                                        <tr *ngFor="let row of documents; let i = index">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td min-width="200px">{{row.FileName}}</td>
+                                            <td class="text-center" width="70px">
+                                                <ng-container *appUipermission="['F121324','F121351','F121353']">
+                                                    <button type="button" class="btn btn-xs btn-success"
+                                                        ngbTooltip="Xem" *ngIf="row.PDFLinkFile" (click)="loadFiles(row)"
+                                                        container="body">
+                                                        <span class="fas fa-eye" aria-hidden="true"></span>
+                                                    </button>&nbsp;
+                                                </ng-container>
+                                                <button type="button" (click)="downloadAFile(row)"
+                                                    *appUipermission="['F121352','F121354','F121309']"
+                                                    style="background-color: papayawhip" class="btn btn-xs"
+                                                    placement="top" ngbTooltip="Tải và lưu" container="body">
+                                                    <span class="fas fa-download" aria-hidden="true"
+                                                        style="color: black"></span>
+                                                </button>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+
+                        </div>
+                    </div>
+                </section>
+            </div> -->
+            <div class="body-right">
+                <section class="box">
+                    <header>
+                        <label class="title">Nội dung tài liệu</label>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <ng-container *ngIf="!isImg">
+                                    <div [style.height.px]="height">
+                                        <ng2-pdfjs-viewer pdfSrc="" #pdfViewerDocument></ng2-pdfjs-viewer>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="isImg">
+                                    <div [style.height.px]="height">
+                                        <app-image-viewer name="viewimage" [src]="images"></app-image-viewer>
+                                        <!-- <img [src]="images[0]" class="img-fluid rounded" alt="Responsive image"> -->
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

@@ -1,0 +1,168 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model" (change)="searchPlan()">
+            </nts-search-bar>
+          </div>
+
+          <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchPlan()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> kế hoạch</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button *appUipermission="['F060706','F110704']" type="button" class="btn btn-success" (click)="exportExcel()"
+            container="body">
+            <i class="fas fa-file-excel" aria-hidden="true"></i> &nbsp;Xuất exel
+          </button>&nbsp; &nbsp;
+          <!-- <button *appUipermission="['F060701']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+            container="body">
+            <i class="fa fa-plus"></i> &nbsp;
+            Thêm mới
+          </button> -->
+        </div>
+      </div>
+      <div class="row" #scrollPracticeMaterial>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed table-hover"
+              style="margin-bottom:0px !important; min-width: 2270px;">
+              <thead>
+                <tr>
+                  <th width="70px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="140px" class="text-center">Loại kế hoạch</th>
+                  <th width="70px" class="text-center">% hoàn thành</th>
+                  <th width="100px" class="text-center">Mã dự án</th>
+                  <th width="200px" class="text-center">Tên theo HĐ</th>
+                  <th width="100px" class="text-center">Mã theo TK</th>
+                  <th width="250px" class="text-center">Công việc</th>
+                  <th width="150px" class="text-center">Nhân viên thực hiện</th>
+                  <th width="80px" class="text-center">Thời gian dự kiến (ngày)</th>
+                  <th width="80px" class="text-center">Thời gian thực hiện (giờ)</th>
+                  <th width="100px" class="text-center">Ngày bắt đầu dư kiến</th>
+                  <th width="100px" class="text-center">Ngày kết thúc dự kiến</th>
+                  <th width="100px" class="text-center">Ngày bắt đầu thực tế</th>
+                  <th width="100px" class="text-center">Ngày kết thúc thực tế</th>
+                  <th width="200px" class="text-center">Tên dự án</th>
+                  <th width="150px" class="text-center">Mã theo hợp đồng</th>
+                  <th width="250px" class="text-center">Tên theo TK</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="height">
+            <table class="table table-bordered table-fixed table-hover" style="min-width:2260px">
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td width="70px" class="text-center">{{StartIndex+i}}
+                    <ng-container *ngIf="row.Description">
+
+                      <i class="fas fa-exclamation-circle icon-danger" ngbTooltip="Có mô tả" placement="top"
+                        container="body"></i>
+                    </ng-container>
+                  </td>
+                  <td width="100px" style="text-align: center">
+                    <button *appUipermission="['F060702','F060704','F060705']" type="button"
+                      (click)='showCreateUpdate(row.Id,row.Types,row.ExecutionTime)' class="btn btn-xs btn-warning" placement="top"
+                      ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button *appUipermission="['F110701','F110702','F060704','F060705']" class="btn btn-xs btn-primary"
+                      (click)="viewPlan(row.Id, row.Types, row.Done, row.TaskName, row.Description, row.ContractName, row.DesignCode, row.EstimateTime, row.ExecutionTime, row.ResponsiblePersionName, row.PlanStartDate, row.PlanDueDate, row.ActualStartDate, row.ActualEndDate)" ngbTooltip="Xem" placement="top" container="body">
+                      <span class="fas fa-eye" aria-hidden="true"></span>
+                    </button>&nbsp;
+                  </td>
+                  <td width="140px" class="text-center">
+                    <span *ngIf="row.Types == 1" class="badge badge-success">Công việc kế hoạch</span>
+                    <span *ngIf="row.Types == 2" class="badge badge-danger">Vấn đề tồn đọng</span>
+                    <span *ngIf="row.Types == 3" class="badge badge-warning">Công việc báo giá</span>
+                  </td>
+                  <td class="text-right td-progressbar" width="70px">
+                    <p>
+                      <ngb-progressbar type="success" textType="dark" [value]="row.Done" [showValue]="true">
+                      </ngb-progressbar>
+                    </p>
+                  </td>
+                  <td width="100px">{{row.ProjectCode}}</td>
+                  <td width="200px">{{row.ContractName}}</td>
+                  <td width="100px">{{row.DesignCode}}</td>
+                  <td width="250px">{{row.TaskName}}</td>
+                  <td width="150px">{{row.ResponsiblePersionName}}</td>
+                  <td class="text-center" width="80px">{{row.EstimateTime}}</td>
+                  <td class="text-center" width="80px">{{row.ExecutionTime}}</td>
+                  <td class="text-center" width="100px">{{row.PlanStartDate| date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="100px">{{row.PlanDueDate |date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="100px">{{row.ActualStartDate| date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="100px">{{row.ActualEndDate |date:'dd/MM/yyyy' }}</td>
+                  <td width="200px">{{row.ProjectName}}</td>
+                  <td width="150px">{{row.ContractCode}}</td>
+                  <td width="250px">{{row.DesignName}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="11" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchPlan()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber" (pageChange)="searchPlan()"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa kế hoạch</small>
+          <!-- <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa kế hoạch</small> -->
+          <button class="btn btn-view btn-primary">
+            <i class="fas fa-eye"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xem</small>
+          <!-- <button class="btn btn-view btn-success">
+            <i class="fas fa-stopwatch"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Log time</small> -->
+
+          <i class="fas fa-exclamation-circle icon-danger"></i> &nbsp;
+          <small class="padding-right-20">Có mô tả</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,35 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-12">
+        <input type="text" class="form-control" [value]="nameFile" disabled>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+        <button class="btn btn-success btn-upload" (click)="fileInput.click();">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import</button>
+        <input name="file" accept=".xlsx,.xls" style="display: none;" type="file" id="fileInput" #fileInput
+          (change)="handleFileInput($event.target.files)" />
+      </div>
+    </div>
+    <p>Tải mẫu <a href="javascript:;" (click)="dowloadFileTemplate()">tại đây.</a></p>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="save()">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Lưu</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

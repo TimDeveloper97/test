@@ -1,0 +1,281 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-lg-6">
+        <div class="form-group ">
+          <label class="form-label">Mã chuyên gia
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F040301','F040302']" type="text" class="form-control" [(ngModel)]="model.Code" name="Codeexpert" maxlength="20" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-lg-6">
+        <div class="form-group ">
+          <label class="form-label">Tên chuyên gia
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <input [disUipermission]="['F040301','F040302']" type="text" class="form-control" [(ngModel)]="model.Name" name="Nameexpert" maxlength="200"
+                required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-lg-6">
+        <div class="form-group ">
+          <label class="form-label">Trình độ
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <select [disUipermission]="['F040301','F040302']" name="DegreeId" class="form-control" [(ngModel)]="model.DegreeId">
+                <option *ngFor="let item of listDegree" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+              <div class="input-group-append">
+                <button [disUipermission]="['F040301','F040302']" type="button" (click)="showCreateUpdate(true,'')" class="btn btn-xs btn-success" placement="top"
+                  ngbTooltip="Thêm trình độ" container="body">
+                  <span class="fa fa-plus" aria-hidden="true"></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-lg-6">
+        <div class="form-group ">
+          <label class="form-label">Email
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F040301','F040302']" placeholder="name@example.com" type="emailexpert" class="form-control" [(ngModel)]="model.Email"
+              name="Email" maxlength="300" email>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-lg-6">
+        <div class="form-group ">
+          <label class="form-label">Điện thoại
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <input [disUipermission]="['F040301','F040302']" ntsNumberInt type="text" class="form-control" [(ngModel)]="model.PhoneNumber" name="PhoneNumber" maxlength="10">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-lg-12">
+        <div class="form-group ">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <textarea [radUipermission]="['F040301','F040302']" class="form-control" [(ngModel)]="model.Description" name="Descriptionexpert"
+                maxlength="300"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+      <h4>Tài khoản ngân hàng</h4>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+      <button *appUipermission="['F040301','F040302']" type="button" (click)="showCreateUpdateBank('','',true)" class="btn btn-success">
+        <span class="fa fa-plus" aria-hidden="true"></span> Thêm tài khoản ngân hàng
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed" style="min-width:920px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="70px" class="text-center">Xử lý </th>
+              <th width="200px" class="text-center">Số tài khoản</th>
+              <th width="200px" class="text-center">Tên ngân hàng</th>
+              <th width="200px" class="text-center">Chi nhánh ngân hàng</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listBank; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>
+              <td width="70px" style="text-align: center">
+                <button [disUipermission]="['F040301','F040302']" type="button" (click)='showCreateUpdateBank(row,i,false)' class="btn btn-xs btn-warning"
+                  placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button [disUipermission]="['F040301','F040302']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteBank(row.Id,i)" ngbTooltip="Xóa"
+                  placement="top">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+              <td width="200px">{{row.Account}}</td>
+              <td width="200px">{{row.Name}}</td>
+              <td wtdth="200px">{{row.AccountName}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+      <h4>Đơn vị công tác</h4>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+      <button *appUipermission="['F040301','F040302']" type="button" (click)="showCreateUpdateWorkPlace()" class="btn btn-success">
+        <span class="fa fa-plus" aria-hidden="true"></span> Thêm đơn vị công tác
+      </button>
+      &nbsp; &nbsp;
+      <button *appUipermission="['F040301','F040302']" type=" button" class="btn btn-success" (click)="showSelectWorkPlace()" ngbTooltip="Chọn đơn vị công tác"
+        placement="top">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+        Chọn đơn vị công tác
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered table-fixed" style="min-width:920px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="70px" class="text-center">Xử lý </th>
+              <th width="200px" class="text-center">Tình trạng công việc</th>
+              <th width="200px" class="text-center">Mã đơn vị công tác</th>
+              <th width="200px" class="text-center">Tên đơn vị công tác</th>
+              <th width="200px" class="text-center">Mô tả</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listBase; let i = index">
+              <td class="text-center" width="50px">{{i+1}}</td>
+              <td class="text-center">
+                <button [disUipermission]="['F040301','F040302']" type="button" (click)="showConfirmDeleteWorkPlace(row)" class="btn  btn-xs btn-danger"
+                  ngbTooltip="Xóa" container="body" placement="top">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+
+              <td class="ng-select-body" width="200px">
+                <div class="controls">
+                  <select name="{{row.Name+i}}" class="form-control" [(ngModel)]="row.Status">
+                    <option *ngFor="let status of listStatus" [ngValue]="status.id">{{status.name}}</option>
+                  </select>
+                </div>
+              </td>
+              <td width="200px">{{row.Code}}</td>
+              <td width="200px">{{row.Name}}</td>
+              <td width="200px">{{row.Description}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+      <h4>Chuyên môn</h4>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-right">
+      <button *appUipermission="['F040301','F040302']" type="button" (click)="showCreateUpdate(false,'')" class="btn btn-success">
+        <span class="fa fa-plus" aria-hidden="true"></span> Thêm chuyên môn
+      </button>
+      &nbsp; &nbsp;
+
+      <button *appUipermission="['F040301','F040302']" type=" button" class="btn btn-success" (click)="showSelectSpecialize()" ngbTooltip="Chọn chuyên môn"
+        placement="bottom">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+        Chọn chuyên môn
+      </button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:850px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="70px" class="text-center">Xử lý</th>
+              <th width="200px" class="text-center">Mã chuyên môn</th>
+              <th width="200px" class="text-center">Tên chuyên môn</th>
+              <th width="200px" class="text-center">Mô tả</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td width="50px" class="text-center">{{i+1}}</td>
+              <td width="70px" style="text-align: center">
+                <button [disUipermission]="['F040301','F040302']" type="button" (click)='showCreateUpdate(false,row.Id)' class="btn btn-xs btn-warning"
+                  placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button [disUipermission]="['F040301','F040302']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteSpecialize(row)" ngbTooltip="Xóa"
+                  placement="top">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+              <td width="200px">{{row.Code}}</td>
+              <td width="200px">{{row.Name}}</td>
+              <td wtdth="200px">{{row.Description}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F040301','F040302']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F040301']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

@@ -1,0 +1,129 @@
+* {
+  font-family: "Open Sans", Arial, Helvetica, sans-serif;
+}
+.header-report {
+  margin-bottom: 1rem;
+}
+.input-field {
+  border: 1px solid black;
+  width: 85%;
+  padding: 10px 5px 10px 20px;
+  border-radius: 20px;
+  float: right;
+}
+label {
+  font-weight: 700;
+}
+select {
+  margin: 0 10px;
+  padding: 0.25em;
+  border: 0;
+  border-bottom: 2px solid currentcolor;
+  font-weight: bold;
+  letter-spacing: 0.15em;
+  border-radius: 0;
+  &:focus,
+  &:active {
+    outline: 0;
+    border-bottom-color: red;
+  }
+}
+input[type="date"] {
+  margin: 0 10px;
+}
+.label {
+  width: 20px;
+  height: 20px;
+  margin: 0 10px;
+  top: -10px;
+}
+.right-content {
+  padding-top: 10px;
+}
+#visualization {
+  min-height: 80vh;
+  position: absolute;
+  left: -50px;
+}
+.scrollable {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  height: 300px;
+}
+.left-geochart {
+  overflow: hidden;
+  width: 100%;
+  border: 1px solid #bccef8;
+  border-radius: 20px;
+  padding: 5px 0 0 0;
+}
+.geochart-tooltip {
+  position: relative;
+  top: 20%;
+  left: 25px;
+  font-size: 10px;
+  width: 100px;
+  li {
+    list-style: none;
+    width: 70px;
+    position: relative;
+  }
+}
+.tooltip-box {
+  width: 10px;
+  height: 10px;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  top: 6px;
+}
+.ul-chart {
+  position: relative;
+  min-height: 40vh !important;
+  width: 100%;
+  border: 1px solid #bccef8;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.dl-chart {
+  margin-top: 20px;
+  width: 100%;
+  min-height: 41vh !important;
+  border: 1px solid #bccef8;
+  border-radius: 20px;
+  padding: 10px;
+}
+.employees-chart {
+  position: relative;
+}
+.filter {
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  z-index: 1;
+  border: 1px solid;
+  border-radius: 4px;
+  background-color: #fff;
+  padding-top: 5px;
+  i {
+    color: blue;
+    font-size: 16px;
+    font-family: "Font Awesome 6 Free" !important;
+  }
+}
+.bar-chart {
+  min-height: 300px;
+}
+.chart-title {
+  font-weight: 900;
+  text-align: center;
+  font-size: 1rem;
+}
+.custom-tooltip {
+  width: 70px;
+  height: 40px;
+  font-size: 8;
+  background-color: black;
+  color: white;
+}

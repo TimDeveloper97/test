@@ -1,0 +1,110 @@
+
+  <div class="modal-header">
+    <h3 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h3>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label"><h4>Tên vị trí <span class='text-danger text-strong'>&nbsp;*</span></h4></label>
+            <div class="controls">
+              <input type="text" class="form-control" [(ngModel)]="model.Name" name="RoleName" required>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label"><h4>Thứ tự hiển thị
+              <span class='text-danger text-strong'>&nbsp;*</span></h4>
+            </label>
+            <div class="controls">
+              <select required class="form-control" [(ngModel)]="model.Index" name="RoleIndex" required
+                [ngModelOptions]="{standalone: true}">
+                <option *ngFor="let c of listIndex" [ngValue]="c.Index"><h5>{{c.Exten}}</h5></option>
+              </select>
+              <!-- <input type="text" class="form-control" [(ngModel)]="model.Index" name="RoleIndex" required> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      
+  
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <label class="form-label"><h4>Tình trạng
+            <span class='text-danger text-strong'>&nbsp;*</span></h4>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 radio">
+          <label class="radio"><h5>Đang sử dụng</h5>
+            <input type="radio" name="use" [(ngModel)]="model.IsDisable" [value]="false">
+            <span class="checkround"></span>
+          </label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 radio">
+          <label class="radio"><h5>Không dùng</h5>
+            <input type="radio" name="notUse" [(ngModel)]="model.IsDisable" [value]="true">
+            <span class="checkround"></span>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <label class="form-label"><h4>Quyền thao tác kế hoạch dự án</h4></label>
+        </div>
+      </div>
+  
+      <div class="row" *ngFor="let row of model.PlanFunctions; let i = index;">
+        <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12" >
+            <input type="checkbox" [(ngModel)]="row.Checked" [name]="row.Code"/>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12" >
+        <label class="form-label" ><h5>{{row.Name}}</h5></label>
+        </div>
+      </div>
+  
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label class="form-label"><h4>Mô tả
+              <span class='text-danger text-strong'>&nbsp;</span></h4>
+            </label>
+            <div class="controls">
+              <h5><textarea [(ngModel)]="model.Descipton" name="RoleDescipton"
+                rows="5" class="form-control">
+      </textarea></h5>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+  
+  
+    </form>
+  </div>
+  
+  <div class="modal-footer">
+    <ng-container>
+      <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+        <i class="fa fa-save"></i>&nbsp;
+        <span>{{ModalInfo.SaveText}}</span>
+      </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+

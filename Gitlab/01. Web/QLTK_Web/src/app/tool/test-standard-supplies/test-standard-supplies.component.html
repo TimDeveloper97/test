@@ -1,0 +1,89 @@
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="form-group">
+      <label class="form-label">DMVT</label>
+      <div class="controls">
+        <input type="text" class="form-control" name="pathDMVT" [(ngModel)]="pathDMVT" readonly>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 margin-top-20 text-right">
+    <button class="btn btn-success btn-success-system" (click)="loadDMVT()">
+      <i class=""></i> &nbsp;Xem dữ liệu</button>&nbsp; &nbsp;
+    <button class="btn btn-success btn-success-system" (click)="exportReportDMVT()" [disabled]="listDMVT.length==0">
+      <i class="fa fa-plus"></i> &nbsp;Tạo biểu mẫu</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 margin-top-20">
+    <label class="form-label">Danh sách vật tư
+    </label>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-lg-12 col-xl-12">
+    <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+      <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:1330px;">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th min-width="200px" class="text-center ">Tên vật tư</th>
+            <th width="100px" class="text-center">Thông số</th>
+            <th width="120px" class="text-center ">Mã vật tư</th>
+            <th width="120px" class="text-center ">Mã vật liệu</th>
+            <th width="70px" class="text-center ">ĐV</th>
+            <th width="70px" class="text-center ">SL</th>
+            <th width="70px" class="text-center ">VL</th>
+            <th width="70px" class="text-center ">KL</th>
+            <th width="120px" class="text-center ">Hãng sản xuất</th>
+            <th width="150px" class="text-center ">Ghi chú</th>
+            <th width="120px" class="text-center ">Tên nhóm vật tư</th>
+            <th width="150px" class="text-center ">Mã nhóm vật tư</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <perfect-scrollbar [config]="constant.ScrollConfig" style="height: 500px;">
+      <table class="table table-bordered" style="min-width:1330px; ">
+        <!-- <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="120px" class="text-center ">Tên vật tư</th>
+            <th width="100px" class="text-center">Thông số</th>
+            <th min-width="120px" class="text-center ">Mã vật tư</th>
+            <th min-width="120px" class="text-center ">Mã vật liệu</th>
+            <th min-width="70px" class="text-center ">ĐV</th>
+            <th min-width="70px" class="text-center ">SL</th>
+            <th min-width="70px" class="text-center ">VL</th>
+            <th min-width="70px" class="text-center ">KL</th>
+            <th min-width="100px" class="text-center ">Hãng sản xuất</th>
+            <th min-width="150px" class="text-center ">Ghi chú</th>
+            <th min-width="120px" class="text-center ">Tên nhóm vật tư</th>
+            <th min-width="120px" class="text-center ">Mã nhóm vật tư</th>
+          </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let row of listDMVT; let i = index">
+            <td width="50px" class="text-center">{{row.Stt}}</td>
+            <td min-width="200px" class="text-center">{{row.Name}}</td>
+            <td width="100px" class="text-center">{{row.Specification}}</td>
+            <td width="120px" class="text-center">{{row.Code}}</td>
+            <td width="120px" class="text-center">{{row.RawMaterialCode}}</td>
+            <td width="70px" class="text-center">{{row.DV}}</td>
+            <td width="70px" class="text-center">{{row.SL}}</td>
+            <td width="70px" class="text-center">{{row.VL}}</td>
+            <td width="70px" class="text-center">{{row.KL}}</td>
+            <td width="120px" class="text-center">{{row.ManufactureCode}}</td>
+            <td width="150px" class="text-center">{{row.Note}}</td>
+            <td width="120px" class="text-center">{{row.MaterialGroupName}}</td>
+            <td width="150px" class="text-center">{{row.MaterialGroupCode}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

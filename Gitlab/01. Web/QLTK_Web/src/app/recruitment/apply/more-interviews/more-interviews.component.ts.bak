@@ -1,0 +1,173 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { MessageService, ComboboxService, DateUtils } from 'src/app/shared';
+import { CheckSpecialCharacter } from 'src/app/shared/common/check-special-characters';
+import { forkJoin } from 'rxjs';
+import { ApplyService } from '../../services/apply.service';
+
+@Component({
+  selector: 'app-more-interviews',
+  templateUrl: './more-interviews.component.html',
+  styleUrls: ['./more-interviews.component.scss']
+})
+export class MoreInterviewsComponent implements OnInit {
+
+  constructor(
+    private activeModal: NgbActiveModal,
+    private messageService: MessageService,
+    private comboboxService: ComboboxService,
+    private applyService: ApplyService,
+    public dateUtils: DateUtils,
+
+  ) { }
+  columnName: any[] = [{ Name: 'Code', Title: 'Mã nhóm' }, { Name: 'Name', Title: 'Tên nhóm' }];
+  employeeColumnName: any[] = [{ Name: 'Code', Title: 'Mã nhân viên' }, { Name: 'Name', Title: 'Tên nhân viên' }];
+  listSBU: any[] = [];
+  departments: any[] = [];
+  ModalInfo = {//m
+    Title: 'Thêm mới phỏng vấn',
+    SaveText: 'Lưu',
+  };
+  parentId: string;
+  listMoreInterviews: any[] = [];
+  listMoreInterviewsId: any[] = [];
+  employees: any[] = [];
+  isAction: boolean = false;
+  Id: string;
+  interviewDate: any = null;
+  EmployeeId : any;
+  ApplyId : string;
+
+
+  model: any = {
+    Id: '',
+    CandidateApplyId: '',
+  }
+  ngOnInit() {
+    this.model.CandidateApplyId = this.ApplyId;
+    this.getEmployees();
+    this.getCbbSBU();
+    this.getCbbDepartment();
+    if (this.Id) {
+      this.ModalInfo.Title = 'Chỉnh sửa phỏng vấn';
+      this.ModalInfo.SaveText = 'Lưu';
+      //this.getMoreInterviewsInfo();
+    }
+    else {
+      this.ModalInfo.Title = "Thêm mới phỏng vấn";
+    }
+
+  }
+
+  // getCbbWorkSkill() {
+  //   this.comboboxService.getListWorkSkill().subscribe((data: any) => {
+  //     this.listWorkSkill = data;
+  //     // lấy list id expandedRowKeys 
+  //     for (var item of this.listWorkSkill) {
+  //       this.listWorkSkillId.push(item.Id);
+  //       if (this.parentId == item.Id) {
+  //         this.model.Name = item.Name;
+  //       }
+  //     }
+  //   });
+  // }
+
+
+
+
+  // getMoreInterviewsInfo() {
+  //   this.applyService.getInforMoreInterviews({ Id: this.Id }).subscribe(data => {
+  //     this.model = data;
+  //   });
+  // }
+
+  createMoreInterviews(isContinue) {
+    this.applyService.createMoreInterviews(this.model).subscribe(
+      data => {
+        if (isContinue) {
+          this.isAction = true;
+          this.model = {
+            Id: '',
+            Name: '',
+            Description: '',
+          };
+          //this.model.MoreInterviewsGroupId = workSkillGroupId;
+          this.messageService.showSuccess('Thêm mới phỏng vấn thành công!');
+        }
+        else {
+          this.messageService.showSuccess('Thêm mới phỏng vấn thành công!');
+          this.closeModal(true);
+        }
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  // updateMoreInterviews() {
+  //   this.applyService.updateMoreInterviews(this.model).subscribe(
+  //     () => {
+  //       this.activeModal.close(true);
+  //       this.messageService.showSuccess('Cập nhật phỏng vấn thành công!');
+  //     },
+  //     error => {
+  //       this.messageService.showError(error);
+  //     }
+  //   );
+  // }
+  closeModal(isOK: boolean) {
+    this.activeModal.close(isOK ? isOK : this.isAction);
+  }
+
+  save(isContinue: boolean) {
+
+    this.model.InterviewBy =this.EmployeeId;
+    this.model.InterviewDate = null;
+    if (this.interviewDate) {
+      this.model.InterviewDate = this.dateUtils.convertObjectToDate(this.interviewDate);
+    }
+    if (this.Id) {
+      //this.updateMoreInterviews();
+    }
+    else {
+      this.createMoreInterviews(isContinue);
+    }
+  }
+
+  saveAndContinue() {
+    this.save(true);
+  }
+
+  getEmployees() {
+    this.comboboxService.getCbbEmployee().subscribe(
+      data => {
+        this.employees = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+  getCbbSBU() {
+    this.comboboxService.getCbbSBU().subscribe(
+      data => {
+        this.listSBU = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+  getCbbDepartment() {
+    this.comboboxService.getCbbDepartment().subscribe(
+      data => {
+        this.departments = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+}

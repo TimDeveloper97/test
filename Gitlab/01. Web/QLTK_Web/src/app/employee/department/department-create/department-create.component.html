@@ -1,0 +1,135 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã phòng ban
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030001','F030002']" type="text" class="form-control" [(ngModel)]="model.Code" name="Code" maxlength="20" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên phòng ban
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030001','F030002']" type="text" class="form-control" [(ngModel)]="model.Name" name="Name" maxlength="200" required>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">SBU
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <nts-drop-down [disUipermission]="['F030001','F030002']" [items]="listSBU" [columns]="columnName" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="model.SBUId" name="SBUId" required>
+            </nts-drop-down>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+        <div class="form-group">
+          <label class="form-label">Tình trạng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <label class="radio">Đang hoạt động
+            <input [disUipermission]="['F030001','F030002']"  type="radio" name="Status" [(ngModel)]="model.Status" value="0">
+            <span class="checkround"></span>
+          </label>
+          <label class="radio">Dừng hoạt động
+            <input [disUipermission]="['F030001','F030002']" type="radio" name="Status" [(ngModel)]="model.Status" value="1">
+            <span class="checkround"></span>
+          </label>
+          <!-- <div class="controls">
+            <select class="form-control" required [(ngModel)]="model.Status" name="Status">
+              <option value="0">Đang hoạt động</option>
+              <option value="1">Dừng hoạt động</option>
+            </select>
+          </div> -->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+        <div class="form-group">
+          <label class="form-label">Phòng thiết kế
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <label class="radio">Có
+            <input [disUipermission]="['F030001','F030002']"  type="radio" name="IsDesign" [(ngModel)]="model.IsDesign" [value] ="true">
+            <span class="checkround"></span>
+          </label>
+          <label class="radio">Không
+            <input [disUipermission]="['F030001','F030002']" type="radio" name="IsDesign" [(ngModel)]="model.IsDesign" [value] ="false">
+            <span class="checkround"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Số điện thoại
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030001','F030002']"  ntsNumberInt [(ngModel)]="model.PhoneNumber" name="PhoneNumber" rows="2" class="form-control"
+              maxLength="20">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030001','F030002']"  [(ngModel)]="model.Description" name="Description" rows="2" class="form-control" maxLength="300">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F030001','F030002']"  type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F030001']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

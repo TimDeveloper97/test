@@ -1,0 +1,318 @@
+<div class='content-wrapper page-content'>
+    <div class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{documentGroupSearchModel.TotalItems}}</span> nhóm
+                        tài liệu</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+                    <button type="button" (click)="showCreateUpdateGroup('', false)" class="btn btn-xs btn-success"
+                        *appUipermission="['F121451']" placement="bottom" ngbTooltip="Thêm nhóm module"
+                        container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12 0">
+                    <dx-tree-list id="employees" [dataSource]="documentGroups" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [autoExpandAll]="true" noDataText=" "
+                        [expandedRowKeys]="expandGroupKeys" [selectedRowKeys]="selectGroupKeys">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="240" placeholder="Nội dung tìm kiếm">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên nhóm" [minWidth]="200"></dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F121451']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-add"
+                                        ngbTooltip="Thêm nhóm" container="body"
+                                        (click)=" showCreateUpdateGroup(item.value, false)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F121452']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-update"
+                                        ngbTooltip="Sửa nhóm" container="body"
+                                        (click)=" showCreateUpdateGroup(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F121453']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete"
+                                        ngbTooltip="Xóa nhóm" container="body"
+                                        (click)=" showConfirmDeleteDocumentGroup(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <nts-search-bar [options]="searchOptions" [(ngModel)]="documentSearchModel"
+                            name="documentSearchModel" (change)="searchDocument()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchDocument()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-lg-8 col-md-8 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{documentSearchModel.TotalItems}}</span> tài
+                        liệu</label>&nbsp;
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12 text-right">
+                    <!-- <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body"
+                        *appUipermission="['F121301']">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button> -->
+                    <a type="button" [routerLink]="['/tai-lieu/quan-ly-tai-lieu/them-moi']" class="btn btn-success"
+                        *appUipermission="['F121301']">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1650px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Trạng thái</th>
+                                    <th width="150px" class="text-center">Mã tài liệu</th>
+                                    <th width="200px" class="text-center">Tên tài liệu</th>
+                                    <th width="200px" class="text-center">Bộ phận quản lý</th>
+                                    <th min-width="300px" class="text-center">Mô tả</th>
+                                    <th width="100px" class="text-center">Loại tài liệu</th>
+                                    <th width="80px" class="text-center">Phiên bản</th>
+                                    <th width="100px" class="text-center">Ngày phê duyệt</th>
+                                    <th width="100px" class="text-center">Ngày ban hành hiện tại</th>
+                                    <th width="100px" class="text-center">Thời gian hết hiệu lực</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- check date hết hạn -->
+                                <tr *ngFor="let row of documents; let i = index">
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">{{startIndex+i}}</td>
+                                    <td *ngIf="row.checkDate ==1" style="text-align: center" class="btn-danger">
+                                        <button class="btn btn-xs btn-info" container="body"
+                                            *appUipermission="['F121309']"
+                                            (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                            container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <!-- <button type="button" (click)='showCreateUpdate(row.Id)' *appUipermission="['F121302']" 
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp; -->
+                                        <a type="button"
+                                            [routerLink]="['/tai-lieu/quan-ly-tai-lieu/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body" *appUipermission="['F121302']">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button class="btn btn-xs btn-danger" *appUipermission="['F121303']"
+                                            (click)="showConfirmDeleteDocument(row.Id)" ngbTooltip="Xóa" placement="top"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button type="button" *appUipermission="['F121324']"
+                                            class="btn btn-xs btn-success" (click)="viewDocument(row)" placement="top"
+                                            ngbTooltip="Xem tài liệu" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">
+                                        <nts-status-badge [value]="row.Status" [items]="constant.DocumentStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td *ngIf="row.checkDate ==1" class="btn-danger">{{row.Code}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="btn-danger">{{row.Name}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="btn-danger">{{row.DepartmentName}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="btn-danger">{{row.Description}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="btn-danger">{{row.DocumentTypeName}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">{{row.Version}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">{{row.PromulgateDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">{{row.PromulgateLastDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==1" class="text-center btn-danger">{{row.ReviewDateTo|date:'dd/MM/yyyy'}}</td>
+                                    <!-- check date chưa hết hạn -->
+                                    <td *ngIf="row.checkDate ==0" class="text-center ">{{startIndex+i}}</td>
+                                    <td *ngIf="row.checkDate ==0" style="text-align: center">
+                                        <button class="btn btn-xs btn-info" container="body"
+                                            *appUipermission="['F121309']"
+                                            (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                            container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <!-- <button type="button" (click)='showCreateUpdate(row.Id)' *appUipermission="['F121302']" 
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp; -->
+                                        <a type="button"
+                                            [routerLink]="['/tai-lieu/quan-ly-tai-lieu/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body" *appUipermission="['F121302']">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button class="btn btn-xs btn-danger" *appUipermission="['F121303']"
+                                            (click)="showConfirmDeleteDocument(row.Id)" ngbTooltip="Xóa" placement="top"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button type="button" *appUipermission="['F121324']"
+                                            class="btn btn-xs btn-success" (click)="viewDocument(row)" placement="top"
+                                            ngbTooltip="Xem tài liệu" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td *ngIf="row.checkDate ==0" class="text-center">
+                                        <nts-status-badge [value]="row.Status" [items]="constant.DocumentStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td *ngIf="row.checkDate ==0" >{{row.Code}}</td>
+                                    <td *ngIf="row.checkDate ==0" >{{row.Name}}</td>
+                                    <td *ngIf="row.checkDate ==0" >{{row.DepartmentName}}</td>
+                                    <td *ngIf="row.checkDate ==0" >{{row.Description}}</td>
+                                    <td *ngIf="row.checkDate ==0" >{{row.DocumentTypeName}}</td>
+                                    <td *ngIf="row.checkDate ==0" class="text-center ">{{row.Version}}</td>
+                                    <td *ngIf="row.checkDate ==0" class="text-center ">{{row.PromulgateDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==0" class="text-center ">{{row.PromulgateLastDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==0" class="text-center ">{{row.ReviewDateTo|date:'dd/MM/yyyy'}}</td>
+                                    <!-- check date gần hết hạn -->
+                                <tr *ngFor="let row of documents; let i = index">
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">{{startIndex+i}}</td>
+                                    <td *ngIf="row.checkDate ==2" style="text-align: center" class="btn-warning">
+                                        <button class="btn btn-xs btn-info" container="body"
+                                            *appUipermission="['F121309']"
+                                            (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                            container="body">
+                                            <span class="fa fa-download" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <!-- <button type="button" (click)='showCreateUpdate(row.Id)' *appUipermission="['F121302']" 
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp; -->
+                                        <a type="button"
+                                            [routerLink]="['/tai-lieu/quan-ly-tai-lieu/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body" *appUipermission="['F121302']">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button class="btn btn-xs btn-danger" *appUipermission="['F121303']"
+                                            (click)="showConfirmDeleteDocument(row.Id)" ngbTooltip="Xóa" placement="top"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button type="button" *appUipermission="['F121324']"
+                                            class="btn btn-xs btn-success" (click)="viewDocument(row)" placement="top"
+                                            ngbTooltip="Xem tài liệu" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">
+                                        <nts-status-badge [value]="row.Status" [items]="constant.DocumentStatus">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td *ngIf="row.checkDate ==2" class="btn-warning">{{row.Code}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="btn-warning">{{row.Name}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="btn-warning">{{row.DepartmentName}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="btn-warning">{{row.Description}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="btn-warning">{{row.DocumentTypeName}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">{{row.Version}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">{{row.PromulgateDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">{{row.PromulgateLastDate|date:'dd/MM/yyyy'}}</td>
+                                    <td *ngIf="row.checkDate ==2" class="text-center btn-warning">{{row.ReviewDateTo|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="documents.length == 0">
+                                <tr class="bold">
+                                    <td colspan="10" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                            [(ngModel)]="documentSearchModel.PageSize" (ngModelChange)="searchDocument()"
+                            name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="documentSearchModel.TotalItems"
+                        [(page)]="documentSearchModel.PageNumber" (pageChange)="searchDocument()"
+                        [pageSize]="documentSearchModel.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true">
+                    </ngb-pagination>
+                </div>
+            </div>
+            <hr />
+
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-info">
+                        <i class="fa fa-download"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Tải tài liệu</small>
+
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa tài liệu</small>
+
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa tài liệu</small>
+
+                    <button class="btn btn-view btn-success">
+                        <i class="far fa-eye"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xem tài liệu</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

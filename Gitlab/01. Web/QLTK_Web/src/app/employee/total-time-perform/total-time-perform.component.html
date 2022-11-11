@@ -1,0 +1,218 @@
+<div class='content-wrapper'>
+  <div class="content-body ">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4">
+          <div class="form-group ">
+            <label class="form-label">SBU
+            </label>
+            <div class="controls">
+              <nts-drop-down [disUipermission]="['F110103']" [items]="listSBU" [columns]="columnName"
+                (change)="getListDepartmentBySBUId(searchModel.SBUId)" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                ntsAutoClose="true" [(ngModel)]="searchModel.SBUId" name="SBUId">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4">
+          <div class="form-group ">
+            <label class="form-label">Phòng ban
+            </label>
+            <div class="controls">
+              <nts-drop-down [disUipermission]="['F110103']" [items]="listDepartment"
+                (change)="getListEmployeeBydepartment(searchModel.DepartmentId)" [columns]="columnDepaterment"
+                ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                [(ngModel)]="searchModel.DepartmentId" name="DepartmentId">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xl-4">
+          <div class="form-group ">
+            <label class="form-label"> Nhân viên<span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <nts-drop-down [disUipermission]="['F110102']" [items]="listEmployee" [columns]="columnEmployee"
+                ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="searchModel.EmployeeId"
+                name="EmployeeId">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+          <div class="form-group ">
+            <label class="form-label">Từ ngày
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input class="form-control" [(ngModel)]="searchModel.DateStartV" ngbDatepicker #dateFrom="ngbDatepicker"
+                name="option.FieldNameFrom" (ngModelChange)="changeDate()" placeholder="Từ ngày"
+                (click)="dateFrom.toggle();$event.stopPropagation();">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="dateFrom.toggle()" name="DateOfBirth">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+          <div class="form-group ">
+            <label class="form-label">Đến ngày
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="input-group">
+              <input class="form-control" name="option.FieldNameTo" [(ngModel)]="searchModel.DateEndV" ngbDatepicker
+                #dateTo="ngbDatepicker" placeholder="Đến ngày" (click)="dateTo.toggle();$event.stopPropagation();"
+                disabled>
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="dateTo.toggle()" name="DateOfBirth">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-xl-4 col-md-12 col-sm-12 text-right margin-top-20">
+          <button class="btn btn-success btn-success-system" (click)="searchWorkingTime()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="content-body">
+    <div class="row time-list" #scrollTime>
+      <div class="time-left">
+        <table class="table table-bordered table-fixed mb-0" style="min-width:380px; height:81px">
+          <thead>
+            <tr style="height:50px">
+              <th width="100px" class="text-center p-0">Mã module</th>
+              <th width="200px" class="text-center p-0">Tên công việc</th>
+              <th min-width="80px" class="text-center p-0">Thời gian</th>
+            </tr>
+            <tr style="height:31px">
+              <th style="background-color: #ccc; color:black;" width="100px" class="text-right">
+              </th>
+              <th style="background-color: #ccc; color:black;" width="200px" class="text-right">
+              </th>
+              <th style="background-color: #ccc; color:black;" min-width="80px" class="text-right">
+                {{TotalMonth}}
+              </th>
+
+            </tr>
+          </thead>
+        </table>
+        <div #scrollWorkingTimeHeader style="overflow-x: auto;overflow: hidden;" [style.height.px]="height">
+          <table class="table table-bordered table-fixed" style="min-width:380px;">
+            <colgroup>
+              <col width="100px">
+              <col width="200px">
+              <col min-width="80px">
+            </colgroup>
+            <tbody>
+              <ng-container *ngFor="let row of listData; let i = index">
+                <tr style="height: 31px;" class="row-project">
+
+                  <td style="overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;" colspan="2" width="300px" class="bold text-left">
+                    <span style="color: white; " placement="top" [ngbTooltip]="row.Name"
+                      container="body">{{row.Name}}</span>
+                  </td>
+
+                  <td min-width="80px" class="bold text-right">
+                    <span *ngIf="row.ExitDay" style="color: white; ">{{row.TotalWorkTime}}</span>
+                  </td>
+                </tr>
+
+                <tr *ngFor="let row1 of row.ListWorkDiaryTime; let i = index" style="height: 31px;">
+                  <td width="100px" style="overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;" >
+                   <span container="body">{{row1.ModuleCode}}</span>
+                  </td>
+
+                  <td width="200px" style="overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;" >
+                    <a [ngbTooltip]="row1.Name" container="body" placement="left-top">
+                      {{row1.Name}}
+                    </a>
+                  </td>
+                  <td min-width="80px"  class="bold text-right">
+                    <span *ngIf="row1.TotalWorkTime > 0" >{{row1.TotalWorkTime}}</span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="time-right">
+        <div #scrollTimeHeader style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:1150px">
+            <thead>
+              <tr  style="height: 25px;">
+                <th min-width="25px" class="text-center ListTem p-0" *ngFor="let row of listTem; let i = index"
+                  [ngClass]="{'holiday':row.IsHoliday}">
+                  {{row.Day!=1?'T'+row.Day:'CN'}}
+                </th>
+              </tr>
+              <tr  style="height: 24px;">
+                <th min-width="25px" class="text-center p-0" *ngFor="let item of listDays; let j=index"
+                  [ngClass]="{'holiday':item.IsHoliday}">
+                  {{item.DateTime | date:'dd'}}
+                </th>
+              </tr>
+              <tr  style="height: 31px;">
+                <th style="background-color: #ccc;color:black;" min-width="25px" class="text-center"
+                  *ngFor="let item of listDays; let j=index">
+                  <span *ngIf="item.TotalTimeDay>0" style="height: 31px;">
+                    {{item.TotalTimeDay}}
+                  </span>
+                </th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="height">
+          <table class="table table-bordered table-fixed" style="min-width:1150px">
+            <colgroup>
+              <col min-width="1150px">
+            </colgroup>
+            <tbody>
+              <ng-container *ngFor="let row of listData; let i = index">
+                <tr  style="height: 31px;" class="row-project">
+                  <td class="text-center"
+                    *ngFor="let row1 of row.ListMondayWorkDiaryTime; let i = index"
+                    [ngClass]="{'holiday':row1.IsHoliday}">
+                    <span *ngIf="row1" style="color: white;" class="text-center">{{row1}}</span>
+                  </td>
+                </tr>
+                <tr *ngFor="let row1 of row.ListWorkDiaryTime; let i = index"  style="height: 31px;">
+                  <td min-width="25px" class="text-center"
+                    *ngFor="let item of row1.ListWorkingTime; let  i=index" [ngClass]="{'holiday':item.IsHoliday}">
+                    <span *ngIf="item.ExitDay" class="text-center">{{item.TotalTime}}</span>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+
+    </div>
+  </div>
+</div>

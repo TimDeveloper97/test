@@ -1,0 +1,104 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Mã chức vụ
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030101','F030102']" type="text" class="form-control" [(ngModel)]="model.Code"
+              name="code" maxlength="200" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Tên chức vụ
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F030101','F030102']" type="text" class="form-control" [(ngModel)]="model.Name"
+              name="name" maxlength="200" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="form-group ">
+          <label class="form-label">Thứ tự ưu tiên
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F030101','F030102']" required class="form-control" [(ngModel)]="model.Index"
+              name="Index" [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let c of listJobResition" [ngValue]="c.Index">{{c.Index}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+        <div class="form-group ">
+          <label class="form-label">Chức vụ duy nhất
+          </label>
+          <div class="controls">
+            <div class="custom-control custom-checkbox">
+              <input [disUipermission]="['F030101','F030102']" class="text-center" [(ngModel)]="model.IsOnlyOne"
+                type="checkbox" class="custom-control-input" id="IsOnlyOne" name="IsOnlyOne">
+              <label class="custom-control-label" for="IsOnlyOne"></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Ghi chú
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [radUipermission]="['F030101','F030102']" [(ngModel)]="model.Description" name="Description"
+              rows="5" class="form-control" [maxLength]="300"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F030101','F030102']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F030101']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

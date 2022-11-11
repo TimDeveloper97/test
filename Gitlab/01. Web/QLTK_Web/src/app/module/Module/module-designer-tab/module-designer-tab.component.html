@@ -1,0 +1,35 @@
+<div class="row">
+  <div class="col-md-4 text-left">
+    <label class="form-label" style="line-height:35px;">Danh sách người thiết kế
+    </label>
+  </div>
+  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="getDesigners()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constant.ScrollXConfig">
+      <table class="table table-bordered table-fixed" style="min-width:450px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th min-width="200px" class="text-center">Nhân viên thiết kế</th>
+            <th width="200px" class="text-center">Thiết kế</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listEmployee; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{row.Designer}}</td>
+            <td class="text-center">
+              {{row.DesignType| filterinlist:constant.DesignTypes}} 
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

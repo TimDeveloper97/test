@@ -1,0 +1,119 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+  <div class="modal-body padding-15">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+        <div class="form-group ">
+          <label class="form-label">Mã nhóm bài thực hành/công đoạn
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F040601','F040602']" type="text" class="form-control" [(ngModel)]="model.Code" name="codepracticegroup" maxlength="20"
+              required>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+        <div class="form-group ">
+          <label class="form-label">Tên nhóm bài thực hành/công đoạn
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input  [disUipermission]="['F040601','F040602']" type="text" class="form-control" [(ngModel)]="model.Name" name="namepracticegroup" maxlength="200"
+              required>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+        <div class="form-group ">
+          <label class="form-label">Nhóm cha
+          </label>
+          <nts-drop-down  [disUipermission]="['F040601','F040602']" [items]="listPracticeGroup" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+            ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.ParentId" name="PracticeGroupId">
+          </nts-drop-down>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea  [radUipermission]="['F040601','F040602']" [(ngModel)]="model.Description" name="Description" rows="5" class="form-control"
+              [maxLength]="300"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-left">
+        <label class="form-label" style="line-height:35px;">Danh sách chuyên môn</label>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right">
+        <button *appUipermission="['F040601','F040602']" type=" button" class="btn btn-success" (click)="showSelectSpecialize()">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+          Chọn
+        </button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12 mt-2">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:850px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="70px" class="text-center">Xử lý</th>
+                <th width="200px" class="text-center">Mã chuyên môn</th>
+                <th width="200px" class="text-center">Tên chuyên môn</th>
+                <th width="200px" class="text-center">Mô tả</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listSpecialize; let i = index">
+                <td width="50px" class="text-center">{{i+1}}</td>
+                <td width="70px" style="text-align: center">
+                  <button *appUipermission="['F040601','F040602']"  class="btn btn-xs btn-danger" (click)="showConfirmDeleteSpecialize(row)" title="Xóa">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td width="200px">{{row.Code}}</td>
+                <td width="200px">{{row.Name}}</td>
+                <td wtdth="200px">{{row.Description}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+</form>
+
+<!-- Footer -->
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F040601','F040602']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="idUpdate===''">
+    <button *appUipermission="['F040601','F040602']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

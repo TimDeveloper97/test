@@ -1,0 +1,17 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-12">                  
+                    <ul>
+                        <li *ngFor="let department of departments" class="li-department">
+                            <a [routerLink]="['/tivi/bao-cao/bao-cao-van-de-ton-dong-phong-ban/'+department.Id]" class="btn">                             
+                                <span class="title">{{department.Name}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

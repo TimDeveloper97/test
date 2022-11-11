@@ -1,0 +1,372 @@
+<div class='content-wrapper page-content'>
+    <section class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{modelProductGroup.TotalItems}}</span> nhóm thiết bị</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 text-right">
+                    <button type="button" (click)="ShowCreateUpdateProductGroup('',false)"
+                        class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm nhóm thiết bị"
+                        container="body" *appUipermission="['F030301']">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <dx-tree-list id="employees" [dataSource]="listProductGroup" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="[1]" noDataText=" ">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" placeholder="Tìm kiếm theo mã nhóm"></dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Danh sách nhóm thiết bị" [minWidth]="200">
+                        </dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="60px">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container *appUipermission="['F030302']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-update" ngbTooltip="Sửa nhóm"
+                                        (click)=" ShowCreateUpdateProductGroup(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F030303']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-delete" ngbTooltip="Xóa nhóm"
+                                        (click)=" showConfirmDeleteProductGroups(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>
+                                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelProduct" name="modelProduct"
+                            (change)="searchProduct(productGroupId)">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right mt-2">
+                        <button class="btn btn-success btn-success-system" (click)="searchProduct(productGroupId)">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;&nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{modelProduct.TotalItems}}</span> thiết bị;</label>&nbsp;
+                    <label class="form-label" style="line-height:35px;">
+                        <span class="bold text-danger">{{modelProduct.Status2}}</span> thiết bị chưa đủ dữ
+                        liệu;</label>&nbsp;
+                    <label class="form-label" style="line-height:35px;">
+                        <span class="bold text-danger">{{modelProduct.Status1}}</span> thiết bị đã đủ dữ
+                        liệu;</label>&nbsp;
+                    <label class="form-label" style="line-height:35px;">Ngày đồng bộ gần nhất:
+                        <span class="bold text-danger">{{modelProduct.Date|date:'dd/MM/yyyy'}}</span></label>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+                    <button *appUipermission="['F030401']" type="button" class="btn btn-success"
+                        (click)='showCreate("")' container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <button *appUipermission="['F030419']" type="button" class="btn btn-success"
+                        (click)='syncSaleProduct(false)' container="body">
+                        <i class="fas fa-sync-alt"></i>
+                        Đồng bộ sản phẩm
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="btn btn-success btn-file" (click)="exportExcel();"
+                                *appUipermission="['F030418']">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+                            <button *appUipermission="['F030419']" class="btn btn-success btn-file"
+                                (click)="showImportSyncSaleProduct()">
+                                <i class="fas fa-sync-alt"></i> &nbsp;Import đồng bộ sản phẩm kinh doanh</button>
+                            <button class="btn btn-success btn-file" (click)="updateNewPrice()">
+                                <i class="fas fa-sync-alt"></i> &nbsp;Cập nhật giá mới</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2260px">
+                            <thead>
+                                <tr>
+                                <tr>
+                                    <ng-container *appUipermission="['F030419']">
+                                        <th style="text-align:center; padding-top: 10px" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkeds" name="checkeds"
+                                                (change)="selectAllFunction()" style="height:20px; width:20px;">
+                                        </th>
+                                    </ng-container>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="120px" class="text-center">Xử lý</th>
+                                    <th min-width="250px" class="text-center">Tên thiết bị</th>
+                                    <th width="110px" class="text-center">Mã thiết bị</th>
+                                    <th width="120px" class="text-center">Nhóm thiết bị</th>
+                                    <th width="100px" class="text-center">Giá</th>
+                                    <th width="50px" class="text-center">Lỗi</th>
+                                    <th width="70px" class="text-center">DM BTH</th>
+                                    <th width="80px" class="text-center">BV layout</th>
+                                    <th width="120px" class="text-center">HD Thực hành</th>
+                                    <th width="140px" class="text-center">Tài liệu HD bảo trì</th>
+                                    <th width="50px" class="text-center">DMVT</th>
+                                    <th width="80px" class="text-center">Báo giá</th>
+                                    <th width="60px" class="text-center">Catalog</th>
+                                    <th width="100px" class="text-center">Thời gian SX</th>
+                                    <th width="100px" class="text-center">Phiên bản</th>
+                                    <th width="100px" class="text-center">Kết quả test</th>
+                                    <th width="100px" class="text-center">Tình trạng</th>
+                                    <th width="200px" class="text-center">Phòng ban</th>
+                                    <th width="100px" class="text-center">Chuyển thư viện</th>
+                                    <th width="100px" class="text-center">Ngày đồng bộ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listProduct; let i = index">
+                                    <ng-container *appUipermission="['F030419']">
+                                        <td style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;"
+                                                (change)="pushChecker(row)">
+                                        </td>
+                                    </ng-container>
+                                    <td class="text-center">{{StartIndex+i}}</td>
+
+                                    <td style="text-align: center">
+                                        <a *appUipermission="['F030402','F030404']" type="button"
+                                            [routerLink]="['/thiet-bi/quan-ly-thiet-bi/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <!-- <button *appUipermission="['F030402','F030404']" type="button" (click)='showCreate(row.Id)'
+                      class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp; -->
+                                        <button *appUipermission="['F030403']" class="btn btn-xs btn-danger"
+                                            container="body" (click)="showConfirmDelete(row.Id)" ngbTooltip="Xóa"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <!-- <ng-container *ngIf="row.IsTestResult == true; else elseTemplate">
+                      <button type="button" (click)='Config(row.Id)' class="btn btn-xs btn-success" container="body" ngbTooltip="Đã xác nhận">
+                        <i class="fa fa-check" aria-hidden="true"></i>
+                      </button>&nbsp;
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <button type="button" (click)='NotConfig(row.Id)' class="btn btn-xs btn-warning_2" container="body" ngbTooltip="Chưa xác nhận">
+                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                      </button>&nbsp;
+                    </ng-template> -->
+                                    </td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.ProductGroupCode}}</td>
+                                    <td class="text-right">{{row.Pricing|number:'1.0-0'}}</td>
+                                    <td class="text-right">{{row.ErrorCount}}</td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsPracticeExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="!row.IsPracticeExist" class="custom-checkbox">
+                                                <span (click)="showClick(row.Id, 3)" style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsLayoutExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+                                            <div *ngIf="!row.IsLayoutExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsManualExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="!row.IsManualExist" class="custom-checkbox">
+                                                <span (click)="showClick(row.Id, 2)" style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="row.IsManualMaintenance" class="custom-checkbox">
+                                            <span style="font-size: 16px; color:forestgreen;"> <i
+                                                    class="fas fa-check"></i></span>
+                                        </div>
+
+                                        <div *ngIf="!row.IsManualMaintenance" class="custom-checkbox">
+                                            <span (click)="showClick(row.Id, 4)" style="font-size: 16px; color:red;"> <i
+                                                    class="fas fa-exclamation-triangle"></i></span>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsMaterialExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+                                            <div *ngIf="!row.IsMaterialExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div>
+                                            <div *ngIf="row.IsQuoteExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="!row.IsQuoteExist" class="custom-checkbox">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <div *ngIf="row.IsCatalog">
+                                            <span style="font-size: 16px; color:forestgreen;"> <i
+                                                    class="fas fa-check"></i></span>
+                                        </div>
+
+                                        <div *ngIf="!row.IsCatalog">
+                                            <span type="button" (click)="showClick(row.Id, 1)" style="font-size: 16px; color:red;"> <i
+                                                    class="fas fa-exclamation-triangle"></i></span>
+                                        </div>
+                                    </td>
+                                    <td>{{row.ProcedureTime}}</td>
+                                    <td>{{row.CurentVersion}}</td>
+                                    <td>
+                                        <span class="badge badge-pill badge-success" *ngIf="row.IsTestResult">Đã
+                                            test</span>
+                                        <span class="badge badge-pill badge-danger" *ngIf="!row.IsTestResult">Chưa
+                                            test</span>
+                                    </td>
+                                    <td>
+                                        <span class="badge badge-pill badge-primary" *ngIf="row.Status=='1'">Chỉ dùng
+                                            một lần</span>
+                                        <span class="badge badge-pill badge-success" *ngIf="row.Status=='2'">Thiết bị
+                                            chuẩn</span>
+                                        <span class="badge badge-pill badge-danger" *ngIf="row.Status=='3'">Ngừng sử
+                                            dụng</span>
+                                    </td>
+                                    <td>{{row.DepartmentName}}</td>
+                                    <td>
+                                        <span class="badge badge-pill badge-success" *ngIf="row.IsSendSale">Đã
+                                            chuyển</span>
+                                        <span class="badge badge-pill badge-danger" *ngIf="!row.IsSendSale">Chưa
+                                            chuyển</span>
+                                    </td>
+                                    <td class="text-center">{{row.SyncDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listProduct.length == 0">
+                                <tr class="bold">
+                                    <td colspan="14" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="modelProduct.PageSize"
+                            (ngModelChange)="searchProduct(productGroupId)" name="pageSize">
+                            <option *ngFor="let item of LstpageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="modelProduct.TotalItems" [(page)]="modelProduct.PageNumber"
+                        (pageChange)="searchProduct(productGroupId)" [pageSize]="modelProduct.PageSize" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa thiết bị</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa thiết bị</small>
+
+                    <span style="font-size: 13px; color:forestgreen;"> <i class="fas fa-check"></i></span> &nbsp;
+                    <small class="padding-right-20">Đã đủ tài liệu</small>
+
+                    <span style="font-size: 13px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span> &nbsp;
+                    <small class="padding-right-20">Chưa đủ tài liệu</small>
+
+                    <button class="btn btn-view btn-success">
+                        <i class="fas fa-plus"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Thêm nhóm thiết bị</small>
+
+                    <button class="btn btn-view btn-success">
+                        <i class="fa fa-check"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Đã xác nhận</small>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

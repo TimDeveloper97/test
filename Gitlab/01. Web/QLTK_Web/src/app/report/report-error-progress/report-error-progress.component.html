@@ -1,0 +1,225 @@
+<div class='content-wrapper page-content'>
+  <section class="body-right">
+    <div class="content-body">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-8">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="module" (change)="report()">
+            </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="report()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body padding-15">
+      <div class="row">
+        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 text-left">
+          <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [legend]="barChartLegend" [chartType]="barChartType" [colors]="barChartColors" [plugins]="barChartPlugins">
+          </canvas>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label bold" style="line-height:35px;">BẢNG TỔNG HỢP CÔNG VIỆC THEO TUẦN THEO PHÒNG BAN
+            <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+          </label>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-right">
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollDepartment>
+          <div #scrollDepartmentHeader style="height: auto; width:100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" [style.min-width.px]="depMinWidth">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th min-width="200px" class="text-center">Tên phòng ban</th>
+                  <th width="100px" class="text-center">Tỉ lệ % hoàn thành CV</th>
+                  <th width="150px" class="text-center">Số lượng công việc</th>
+                  <th width="80px" class="text-center">Tồn trước kỳ</th>
+                  <th width="80px" class="text-center">Tổng kì này</th>
+                  <th class="text-center" *ngFor="let row of weeks;" width="60px"
+                    [ngClass]="{'week-today':row.IsToDay}">{{row.Title}}</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" [style.min-width.px]="depMinWidth">
+              <tbody>
+                <ng-container *ngFor="let row of errorFixs; let i = index">
+                  <tr [ngClass]="{'selected':departmentSelectIndex==i}" (click)="selectDepartment(i)">
+                    <td width="50px" rowspan="2" class="text-center">{{i+1}}</td>
+                    <td min-width="200px" rowspan="2">{{row.Name}}</td>
+                    <td width="100px" class="text-center" rowspan="2">{{row.FinishPercent}}%</td>
+                    <td width="150px">Trễ hoàn thành</td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.OpeningTotal>0" class="bold"
+                        (click)="showErrorWork(0,row.Id,row,1, true)">{{row.OpeningTotal}}</a>
+                      <span *ngIf="!row.OpeningTotal">-</span>
+                    </td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.DelayTotal>0" class="bold"
+                        (click)="showErrorWork(1,row.Id,row,1, false)">{{row.DelayTotal}}</a>
+                      <span *ngIf="!row.DelayTotal">-</span>
+                    </td>
+                    <ng-container *ngFor="let item of row.DelayValues;">
+                      <td width="60px" class="text-center"  [ngClass]="{'week-today':item.IsToDay}">
+                        <a href="javascript:void(0)" *ngIf="item.Value>0" class="bold"
+                          (click)="showErrorWork(1,row.Id,item,1, false)">{{item.Value}}</a>
+                        <span *ngIf="!item.Value">-</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                  <tr [ngClass]="{'selected':departmentSelectIndex==i}" (click)="selectDepartment(i)">
+                    <td width="150px">Phải làm theo kế hoạch</td>
+                    <td width="80px"></td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.Total>0" class="bold plan-color" 
+                        (click)="showErrorWork(2,row.Id,row,1,false)">{{row.Total}}</a>
+                      <span *ngIf="!row.Total">-</span>
+                    </td>
+                    <ng-container *ngFor="let item of row.PlanValues;">
+                      <td width="60px" class="text-center" [ngClass]="{'week-today':item.IsToDay}">
+                        <a href="javascript:void(0)" *ngIf="item.Value>0" class="bold " [ngClass]="{'plan-color':item.IsLessToDay}"
+                          (click)="showErrorWork(2,row.Id,item,1,false)">{{item.Value}}</a>
+                        <span *ngIf="!item.Value">-</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label bold" style="line-height:35px;">BẢNG TỔNG HỢP CÔNG VIỆC THEO TUẦN THEO NHÂN VIÊN
+            <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+          </label>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollEmployee>
+          <div #scrollEmployeeHeader style="height: auto; width:100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" [style.min-width.px]="empMinWidth">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th min-width="200px" class="text-center">Tên phòng ban</th>
+                  <th width="100px" class="text-center">Tỉ lệ % hoàn thành CV</th>
+                  <th width="150px" class="text-center">Số lượng công việc</th>
+                  <th width="80px" class="text-center">Tồn trước kỳ</th>
+                  <th width="80px" class="text-center">Tổng kì này</th>
+                  <th class="text-center" *ngFor="let row of weeks;" width="60px" [ngClass]="{'week-today':row.IsToDay}">{{row.Title}}</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" [style.min-width.px]="empMinWidth">
+              <tbody>
+                <ng-container *ngFor="let row of errorFixBys; let i = index">
+                  <tr [ngClass]="{'selected':employeeSelectIndex==i}" (click)="selectEmployee(i)">
+                    <td width="50px" rowspan="2" class="text-center">{{i+1}}</td>
+                    <td min-width="200px" rowspan="2">{{row.Name}}</td>
+                    <td width="100px" class="text-center" rowspan="2">{{row.FinishPercent}}%</td>
+                    <td width="150px">Trễ hoàn thành</td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.OpeningTotal>0" class="bold"
+                        (click)="showErrorWork(0,row.Id, row,2, true)">{{row.OpeningTotal}}</a>
+                      <span *ngIf="!row.OpeningTotal">-</span>
+                    </td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.DelayTotal>0" class="bold"
+                        (click)="showErrorWork(1,row.Id, row,2, false)">{{row.DelayTotal}}</a>
+                      <span *ngIf="!row.DelayTotal">-</span>
+                    </td>
+                    <ng-container *ngFor="let item of row.DelayValues;">
+                      <td width="60px" class="text-center" [ngClass]="{'week-today':item.IsToDay}">
+                        <a href="javascript:void(0)" *ngIf="item.Value>0" class="bold"
+                          (click)="showErrorWork(1,row.Id, item, 2,false)">{{item.Value}}</a>
+                        <span *ngIf="!item.Value">-</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                  <tr [ngClass]="{'selected':employeeSelectIndex==i}" (click)="selectEmployee(i)">
+                    <td width="150px">Phải làm theo kế hoạch</td>
+                    <td width="80px"></td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.Total>0" class="bold plan-color"
+                        (click)="showErrorWork(2,row.Id,row,2,false)">{{row.Total}}</a>
+                      <span *ngIf="!row.Total">-</span>
+                    </td>
+                    <ng-container *ngFor="let item of row.PlanValues;">
+                      <td width="60px" class="text-center" [ngClass]="{'week-today':item.IsToDay}">
+                        <a href="javascript:void(0)" *ngIf="item.Value>0" class="bold" [ngClass]="{'plan-color':item.IsLessToDay}"
+                          (click)="showErrorWork(2,row.Id, item,2, false)">{{item.Value}}</a>
+                        <span *ngIf="!item.Value">-</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+      <!-- BẢNG TỔNG HỢP CÁC CÔNG VIỆC BỊ ĐIỀU CHỈNH KẾ HOẠCH -->
+      <div class="row mt-1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label bold" style="line-height:35px;">BẢNG TỔNG HỢP CÁC CÔNG VIỆC BỊ ĐIỀU CHỈNH KẾ HOẠCH
+          </label>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollErrorChangedPlan>
+          <div #scrollErrorChangedPlanHeader style="height: auto; width:100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" [style.min-width.px]="empMinWidth">
+              <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th min-width="200px" class="text-center">Phòng ban quản lý dự án</th>
+                    <th width="200px" class="text-center">Tổng số công việc có điều chỉnh kế hoạch</th>
+                    <th width="80px" class="text-center">Tồn trước kỳ</th>
+                    <th class="text-center" *ngFor="let row of days;" width="60px" [ngClass]="{'day-today':row.IsToDayECP}">{{row.TitleECP}}</th>
+                  </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" [style.min-width.px]="empMinWidth">
+              <tbody>
+                <ng-container *ngFor="let row of errorChangePlans; let i = index">
+                  <tr [ngClass]="{'selected':departmentSelectIndex==i}" (click)="selectDepartment(i)">
+                    <td width="50px" class="text-center">{{i+1}}</td>
+                    <td min-width="200px">{{row.DepartmentName}}</td>
+                    <td width="200px" class="text-center" >{{row.TotalError}}</td>
+                    <td width="80px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="row.TotalPreviousPeriod>0" class="bold"
+                        (click)="showErrorChangePlan(row.Id, -9999)">{{row.TotalPreviousPeriod}}</a>
+                      <span *ngIf="!row.TotalPreviousPeriod">-</span>
+                    </td>
+
+                    <ng-container *ngFor="let item of row.NumOfChange; let j = index">
+                      <td width="60px" class="text-center" [ngClass]="{'day-today':item.IsToDayECP}">
+                        <a href="javascript:void(0)" *ngIf="item>0" class="bold" [ngClass]="{'plan-color':item.IsLessToDay}"
+                          (click)="showErrorChangePlan(row.Id, j)">{{item}}</a>
+                        <span *ngIf="!item">-</span>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </ng-container>
+                
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>   
+      </div>
+    </div>
+  </section>
+</div>

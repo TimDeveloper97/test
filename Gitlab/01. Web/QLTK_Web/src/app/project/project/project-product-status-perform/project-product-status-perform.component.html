@@ -1,0 +1,37 @@
+<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered " style="word-wrap: break-word" [style.min-width]=" (200+ListStage.length*150)+'px'">
+        <thead>
+          <tr >
+            <th  min-width="200px" class="text-center">Tên sản phẩm</th>
+            <th *ngFor="let item of ListStage; let i = index"
+            colspan="1" [width]="150" class="text-center ">{{item.StageName}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of ListPlanResult, let i = index;">
+            <td min-width="200px" class="text-center">{{row.ProductName}}</td>
+
+            <td *ngFor="let item of row.ListStage; let i = index" [width]="150" class="text-center">
+              <ng-container *ngIf="item.Status ==2">
+                <div class="progress">
+                  <div class="progress-bar bg-warning" [style.width]="item.DoneRatio+'%'">{{item.DoneRatio}}%</div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="item.Status ==1">
+                Open
+              </ng-container>
+              <ng-container *ngIf="item.Status ==3">
+                Hoàn thành
+              </ng-container>
+              <ng-container *ngIf="item.Status ==4">
+                Không triển khai
+              </ng-container>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+
+  </div>

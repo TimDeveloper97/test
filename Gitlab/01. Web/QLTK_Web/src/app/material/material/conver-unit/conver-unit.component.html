@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group form-group-custom">
+      <label class="form-label">Tên vật tư
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.Name}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group form-group-custom">
+      <label class="form-label">Mã vật tư
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.Code}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group ">
+      <label class="form-label">Hãng sản xuất
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.ManufactureName}}</label>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <perfect-scrollbar [config]="constants.ScrollYConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered " style="word-wrap: break-word ;min-width:850px;">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="100px" class="text-center">Xử lý</th>
+            <th width="150px" class="text-center">Đơn vị tính</th>
+            <th width="200px" class="text-center">Số lượng</th>
+            <th width="150px" class="text-center">Đơn vị chuyển đổi</th>
+            <th width="200px" class="text-center">Số lượng chuyển đổi</th>
+            <th width="200px" class="text-center">Tỷ lệ hao mòn (%)</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listConverUnit; let i = index;" [ngClass]="{'selected':selectIndex == i}"
+            (click)="loadValue(row,i)">
+            <td class="text-center" width="50px">{{i+1}}</td>
+            <td class="text-center">
+              <button  *appUipermission="['F000013']"
+              type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" (click)="deleteRow(row.Id,i)">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" type="text" [(ngModel)]="row.UnitName" class="form-control" [name]="'UnitName'+i" disabled>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" type="number" [(ngModel)]="row.Quantity" class="form-control" [name]="'Quantity'+i">
+            </td>
+            <td>
+              <select [name]="'UnitId'+i" required class="form-control" [(ngModel)]="row.UnitId">
+                <option value="">Tất cả</option>
+                <option *ngFor="let item of listUnit" [ngValue]="item.Id">
+                  {{item.Name}}</option>
+              </select>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" ntsNumberInt type="text" [(ngModel)]="row.ConvertQuantity" class="form-control"
+                [name]="'ConvertQuantity'+i">
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" ntsNumberInt type="text" [(ngModel)]="row.LossRate" class="form-control text-right"
+                name="'LossRate'+i">
+            </td>
+          </tr>
+          <tr>
+            <td class="text-center" width="50px"></td>
+            <td class="text-center">
+              <button  *appUipermission="['F000002']" type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng" (click)="addRowParameter()">
+                <i class="fa fa-plus"></i>
+              </button>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" type="text" [(ngModel)]="unitName" class="form-control" name="'unitName'+i" disabled>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" type="number" [(ngModel)]="quantity" class="form-control" name="'quantity'+i">
+            </td>
+            <td>
+              <select [disUipermission]="['F000002']" name="'unitId'+i" required class="form-control" [(ngModel)]="unitId" >
+                <option *ngFor="let item of listUnit" [ngValue]="item.Id">
+                  {{item.Name}}</option>
+              </select>
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" ntsNumberInt type="text" [(ngModel)]="convertQuantity" class="form-control"
+                name="'convertQuantity'+i">
+            </td>
+            <td>
+              <input [disUipermission]="['F000002']" ntsNumberInt type="text" [(ngModel)]="LossRate" class="form-control text-right"
+                name="'LossRate'+i">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3 mb-3">
+    <ng-container>
+      <button  *appUipermission="['F000002']"  type="button" class="btn btn-success" (click)="save()">
+        <i class="fa fa-save"></i>&nbsp;
+        <span>Lưu</span>
+      </button>
+    </ng-container>&nbsp;
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

@@ -1,0 +1,137 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Thuộc dòng chảy
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down-tree [items]="flowStages" [columns]="columnName" ntsParentId="ParentId"
+                            ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                            [(ngModel)]="flowStageModel.ParentId" name="ParentId">
+                        </nts-drop-down-tree>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã dòng chảy
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="flowStageModel.Code" name="Code"
+                            maxlength="50" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên dòng chảy
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="flowStageModel.Name" name="name"
+                            maxlength="300" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="form-label">Ghi chú
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <textarea [(ngModel)]="flowStageModel.Note" name="Note" rows="5" class="form-control"
+                            [maxLength]="300"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row  margin-bottom-5">
+                    <div class="col-md-6 text-left">
+                        <label class="form-label" style="line-height:35px;">Tổng số
+                            <span class="bold text-danger">{{flowStageModel.OutputResults.length}}</span> kết quả đầu ra
+                        </label>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <button *appUipermission="['F080001']" type="button" class="btn btn-success"
+                            (click)='chooseOutputResult()' container="body">
+                            <i class="fa fa-plus"></i>
+                            Chọn
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:880px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Xử lý</th>
+                                <th width="150px" class="text-center">Mã kết quả đầu ra</th>
+                                <th min-width="200px" class="text-center">Tên kết quả đầu ra</th>
+                                <th width="200px" class="text-center">SBU</th>
+                                <th width="200px" class="text-center">Phòng ban</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of flowStageModel.OutputResults; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                        (click)="showConfirmDeleteOutputResult(i)" container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td>
+                                    {{row.Code}}
+                                </td>
+                                <td>
+                                    {{row.Name}}
+                                </td>
+                                <td>
+                                    {{row.SBUName}}
+                                </td>
+                                <td>
+                                    {{row.DepartmentName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="flowStageModel.Id ==''">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

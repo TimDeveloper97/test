@@ -1,0 +1,20 @@
+.folder-definition-create .modal-dialog {
+  max-width: 950px !important;
+  width: 950px !important;
+}
+
+app-folder-definition-create{
+  .cbb-inline{
+    display: flex;
+
+    label{
+      padding-top: 7px;
+    padding-right: 10px;
+    }
+  }
+
+  .custom-checkbox{
+    height: 32px;
+    padding-top: 6px;
+  }
+}

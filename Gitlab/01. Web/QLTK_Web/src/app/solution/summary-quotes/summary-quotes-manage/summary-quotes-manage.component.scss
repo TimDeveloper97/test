@@ -1,0 +1,63 @@
+.content-wrapper {
+    .item-new {
+        border: none;
+        text-align: center;
+        color: orange;
+        background: none;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    .item-old {
+        border: none;
+        text-align: center;
+        color: rgb(6, 168, 168);
+        background: none;
+        padding-bottom: 0px;
+        padding-top: 0px;
+    }
+
+    table tr.selected {
+        background-color: #ccc !important;
+    }
+}
+
+
+// Status: 1 => "Chưa có kế hoạch" ? 2 => "Đang triển khai" ? 3 => "Đã xong" ? 4 => "Trễ kế hoạch"
+//Đã xong
+.color-data-3 {
+    background-color: #28a745 !important;
+    color: white !important;
+
+    &::after {
+        border-left-color: #28a745 !important;
+    }
+}
+//đang làm
+.color-data-2 {
+    background-color: #007bff !important;
+    color: white !important;
+
+    &::after {
+        border-left-color: #007bff !important;
+    }
+}
+
+//Chưa có kế hoạch
+.color-data-1 {
+    background-color: #007bff !important;
+    color: white !important;
+
+    &::after {
+        border-left-color: #007bff !important;
+    }
+}
+//trễ
+.color-data-4 {
+    background-color: #ff0000 !important;
+    color: white !important;
+
+    &::after {
+        border-left-color: #ff0000 !important;
+    }
+}

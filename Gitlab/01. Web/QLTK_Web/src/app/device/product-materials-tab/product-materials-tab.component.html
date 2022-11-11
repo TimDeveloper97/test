@@ -1,0 +1,104 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Tên vật tư</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Name" [(ngModel)]="model.MaterialName">
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Mã vật tư</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Code" [(ngModel)]="model.MaterialCode">
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-right margin-top-20">
+          <button class="btn btn-success btn-success-system" (click)="searchProductMaterialsTab()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <section class="box ">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left div-system">Danh sách vật tư</h2>
+    </header>
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listData.length}}</span> vật tư </label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn  btn-success" (click)="ExportExcel()">
+            <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+            Xuất excel
+          </button>&nbsp; &nbsp;
+          <button type="button" class="btn btn-success" (click)="showClick()" container="body">
+            <i class="fa fa-plus"></i>
+            Chọn
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constants.ScrollXConfig">
+            <table class="table table-bordered table-fixed" style="min-width:950px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="150px" class="text-center">Tên vật tư</th>
+                  <th width="150px" class="text-center">Mã vật tư</th>
+                  <th width="150px" class="text-center">Thông số</th>
+                  <th width="150px" class="text-center">Mã vật liệu</th>
+                  <th width="150px" class="text-center">Đơn vị</th>
+                  <th width="150px" class="text-center">Số lượng</th>
+                  <th width="150px" class="text-center">Giá</th>
+                  <th width="150px" class="text-center">Thành tiền</th>
+                  <th width="150px" class="text-center">Vật liệu</th>
+                  <th width="150px" class="text-center">Khối lượng</th>
+                  <th width="150px" class="text-center">Hãng SX</th>
+                  <th width="150px" class="text-center">Ghi chú</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center" width="50px">{{i+1}}</td>
+                  <td class="text-center">
+                    <button type="button" (click)="showConfirmDelete(row.Id)" class="btn  btn-xs btn-danger"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td width="150px">{{row.MaterialName}}</td>
+                  <td width="150px">{{row.MaterialCode}}</td>
+                  <td width="150px">{{row.Specification}}</td>
+                  <td width="150px">{{row.RawMaterialCode}}</td>
+                  <td width="150px">{{row.UnitName}}</td>
+                  <td width="150px" class="text-center">{{row.Quantity|number:'1.0-0'}}</td>
+                  <td width="150px" class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                  <td width="150px" class="text-right">{{row.Amount|number:'1.0-0'}}</td>
+                  <td width="150px">{{row.RawMaterial}}</td>
+                  <td width="150px">{{row.Weight}}</td>
+                  <td width="150px">{{row.ManufacturerCode}}</td>
+                  <td width="150px">{{row.Note}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

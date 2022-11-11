@@ -1,0 +1,31 @@
+app-total-time-perform {
+    .holiday {
+        background-color: #faa;
+        color: black;
+    }
+
+    .datetime {
+        text-align: center;
+        width: 100px;
+        display: inline-block;
+    }
+
+    .time-list {
+        flex-wrap: nowrap;
+        padding-left: 15px ;
+        padding-right: 15px ;
+    }
+
+    .time-left {
+        width: 380px;
+    }
+
+    .time-right {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .row-project{
+        background-color: #525252;
+    }
+}

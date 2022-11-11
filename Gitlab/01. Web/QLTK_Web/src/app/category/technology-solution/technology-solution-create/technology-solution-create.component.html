@@ -1,0 +1,159 @@
+<div class="modal-header">
+  <h3 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h3>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã công nghệ<span class='text-danger text-strong'>&nbsp;*</span></label>
+          <div class="controls">
+            <input [maxlength]="10" type="text" class="form-control" [(ngModel)]="model.Code" name="Code" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên công nghệ <span class='text-danger text-strong'>&nbsp;*</span></label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Thứ tự hiển thị
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select required class="form-control" [(ngModel)]="model.Index" name="Index" required
+              [ngModelOptions]="{standalone: true}">
+              <option *ngFor="let c of listIndex" [ngValue]="c.Index">{{c.Exten}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhà cung cấp
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <dx-drop-down-box #d1 [(value)]="treeBoxValue" valueExpr="Id" displayExpr="Code" placeholder="Chọn nhà cung cấp..."
+                [showClearButton]="true" [dataSource]="ListSupplierGroup" (onValueChanged)="syncTreeViewSelection($event)" [(opened)]="isDropDownBoxOpened">
+                <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid id="Id" [dataSource]="ListSupplierGroup" keyExpr="Id" parentIdExpr="ParentId" [columns]="['Code', 'Name']" [caption]="['Mã NCC', 'Tên NCC']"
+                    [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [wordWrapEnabled]="true"
+                    [selection]="{ mode: 'multiple' }" [hoverStateEnabled]="true" [paging]="{ enabled: true, pageSize: 10 }"
+                    [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [height]="345"
+                    [(selectedRowKeys)]="selectedRowKeys" (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+                    (onRowDblClick)="onRowDblClick()">
+                  </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Hãng sản xuất
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <dx-drop-down-box #d1 [(value)]="treeBoxValueManufacture" valueExpr="Id" displayExpr="Code" placeholder="Chọn hãng sản xuất..."
+                [showClearButton]="true" [dataSource]="ListManufactureGroup" (onValueChanged)="syncTreeViewSelectionManufacture($event)" [(opened)]="isDropDownBoxOpenedManufacture">
+                <div *dxTemplate="let data of 'content'">
+                  <dx-data-grid id="Id" [dataSource]="ListManufactureGroup" keyExpr="Id" parentIdExpr="ParentId" [columns]="['Code', 'Name']" [captions]="['Mã NCC', 'Tên NCC']"
+                    [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [wordWrapEnabled]="true"
+                    [selection]="{ mode: 'multiple' }" [hoverStateEnabled]="true" [paging]="{ enabled: true, pageSize: 10 }"
+                    [filterRow]="{ visible: true }" [scrolling]="{ mode: 'virtual' }" [height]="345"
+                    [(selectedRowKeys)]="selectedRowKeysManufacture" (onSelectionChanged)="treeView_itemSelectionChangedManufacture($event)"
+                    (onRowDblClick)="onRowDblClickManufacture()">
+                  </dx-data-grid>
+                </div>
+              </dx-drop-down-box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mô tả
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Description" name="RoleDescipton" rows="5" class="form-control">
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ghi chú
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Note" name="Note" rows="1" class="form-control">
+            </textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">
+            Tình trạng <span class='text-danger text-strong'>&nbsp;*</span>
+
+          </label>
+        </div>
+      </div>
+      <div class="controls">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+          <label class="radio">
+            Đang sử dụng
+            <input type="radio" name="use" [(ngModel)]="model.IsEnable" [value]="true">
+            <span class="checkround"></span>
+          </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <label class="radio">
+            Không sử dụng
+            <input type="radio" name="notUse" [(ngModel)]="model.IsEnable" [value]="false">
+            <span class="checkround"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

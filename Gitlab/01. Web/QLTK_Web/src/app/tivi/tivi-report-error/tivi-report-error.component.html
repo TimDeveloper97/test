@@ -1,0 +1,204 @@
+<div class='content-wrapper page-content'>
+  <section class="body-right">    
+    <div class="content-body padding-15">
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left ">
+          <label class="form-label bold" style="line-height:35px;">Danh sách Phòng ban quản lý dự án
+            <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+          </label>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-right">
+          <!-- <button class="btn btn-success btn-file" (click)="exportExcel()">
+            <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>         -->
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollDepartmentManage>
+          <div #scrollDepartmentManageHeader style="height: auto; width:100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" style="min-width: 1050px;">
+              <thead>
+                <tr>
+                  <th width="50px" rowspan="2" class="text-center">STT</th>
+                  <th min-width="200px" rowspan="2" class="text-center">Phòng ban quản lý</th>
+                  <th width="200px" rowspan="2" class="text-center">Số dự án có vấn đề</th>
+                  <th width="200px" rowspan="2" class="text-center">Số vấn đề đang giải quyết </th>
+                  <th width="200px" rowspan="2" class="text-center">Số vấn đề trễ</th>
+                  <th width="200px" rowspan="2" class="text-center">Tổng giá trị dự án</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" style="min-width: 1050px;">
+              <tbody>
+                <tr *ngFor="let row of errorProjects; let i = index" [ngClass]="{'selected':manageSelectIndex==i}">
+                  <td width="50px" class="text-center bold" style="font-size: 20px;">{{i+1}}</td>
+                  <td min-width="200px" class="bold" style="font-size: 20px;">{{row.Name}}</td>
+                  <td width="200px" class="text-center bold" style="font-size: 20px;">
+                    <a target="_blank" *ngIf="row.ProjectQuantity>0" [routerLink]="['/du-an/quan-ly-du-an']"
+                      class="bold"
+                      [queryParams]="{errorStatus:2,departmentId:row.Id, sbuId:row.SBUId}">{{row.ProjectQuantity}}</a>
+                    <span *ngIf="!row.ProjectQuantity">-</span>
+                  </td>
+                  <td width="200px" class="text-center bold" style="font-size: 20px;">
+                    <a target="_blank" *ngIf="row.ErrorQuantity>0" [routerLink]="['/du-an/quan-ly-van-de']" class="bold"
+                      [queryParams]="{fixStatus:1,departmentManageId:row.Id}">{{row.ErrorQuantity}}</a>
+                    <span *ngIf="!row.ErrorQuantity">-</span>
+                  </td>
+                  <td width="200px" class="text-center bold" style="font-size: 20px;">
+                    <a target="_blank" *ngIf="row.ErrorDelay>0" [routerLink]="['/du-an/quan-ly-van-de']" class="bold"
+                      [queryParams]="{fixStatus:2,departmentManageId:row.Id}">{{row.ErrorDelay}}</a>
+                    <span *ngIf="!row.ErrorDelay">-</span>
+                  </td>
+                  <td width="200px" class="text-right bold" style="font-size: 20px;">{{row.ProjectAmount|number}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label bold" style="line-height:35px;">Danh sách Bộ phận khắc phục
+            <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+          </label>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-right">
+          <!-- <button class="btn btn-success btn-file" (click)="exportExcel()">
+            <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>         -->
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollDepartment>
+          <div #scrollDepartmentHeader style="height: auto; width: 100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" [style.min-width.px]="depMinWidth">
+              <thead>
+                <tr>
+                  <th width="50px" rowspan="2" class="text-center">STT</th>
+                  <th min-width="200px" rowspan="2" class="text-center">Bộ phận khắc phục</th>
+                  <th min-width="60px" rowspan="2" class="text-center">Tổng CV trễ</th>
+                  <th width="60px" rowspan="2" class="text-center">Tổng CV tr.khai</th>
+                  <th width="270px" colspan="5" class="text-center" *ngFor="let row of stages;">{{row}}</th>
+                </tr>
+                <tr>
+                  <ng-container *ngFor="let row of stages;">
+                    <th width="50px" class="text-center">Ngày trễ</th>
+                    <th width="50px" class="text-center">Vấn đề</th>
+                    <th width="50px" class="text-center">C.việc</th>
+                    <th width="60px" class="text-center">CV trễ</th>
+                    <th width="60px" class="text-center">CV tr.khai</th>
+                  </ng-container>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" [style.min-width.px]="depMinWidth">
+              <tbody>
+                <tr *ngFor="let row of errorFixs; let i = index" [ngClass]="{'selected':departmentSelectIndex==i}"
+                  (click)="selectDepartment(i)">
+                  <td width="50px" class="text-center">{{i+1}}</td>
+                  <td min-width="198px">{{row.Name}}</td>
+                  <td width="60px" class="text-center">
+                    <a href="javascript:void(0)" *ngIf="row.TotalWorkDelay>0" class="bold">{{row.TotalWorkDelay}}</a>
+                    <span *ngIf="!row.TotalWorkDelay">-</span>
+                  </td>
+                  <td width="60px" class="text-center">
+                    <a href="javascript:void(0)" *ngIf="row.TotalWorkToDo>0" class="bold">{{row.TotalWorkToDo}}</a>
+                    <span *ngIf="!row.TotalWorkToDo">-</span>
+                  </td>
+                  <ng-container *ngFor="let item of row.Values;">
+                    <td width="50px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="item.Deadline>0" class="bold">{{item.Deadline}}</a>
+                      <span *ngIf="!item.Deadline">-</span>
+                    </td>
+                    <td width="50px" class="text-center">
+                      <a target="_blank" *ngIf="item.ErrorQuantity>0" [routerLink]="['/du-an/quan-ly-van-de']"
+                        class="bold"
+                        [queryParams]="{departmentId: row.Id, stageId:item.Id, dateFrom: model.DateFrom, dateTo: model.DateTo, projectId: model.ProjectId}">{{item.ErrorQuantity}}</a>
+                      <span *ngIf="!item.ErrorQuantity">-</span>
+                    </td>
+                    <td width="50px" class="text-center">
+                      <a *ngIf="item.WorkQuantity>0" href="javascript:void(0)" class="bold">{{item.WorkQuantity}}</a>
+                      <span *ngIf="!item.WorkQuantity">-</span>
+                    </td>
+                    <td width="60px" class="text-center" [ngClass]="{'bg-danger':item.WorkDelay>0}">
+                      <a href="javascript:void(0)" *ngIf="item.WorkDelay>0" class="bold">{{item.WorkDelay}}</a>
+                      <span *ngIf="!item.WorkDelay">-</span>
+                    </td>
+                    <td width="60px" class="text-center" [ngClass]="{'bg-accent':item.WorkToDo>0}">
+                      <a href="javascript:void(0)" *ngIf="item.WorkToDo>0" class="bold">{{item.WorkToDo}}</a>
+                      <span *ngIf="!item.WorkToDo">-</span>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row mt-1">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+          <label class="form-label bold" style="line-height:35px;">Danh sách Người khắc phục
+            <!-- <span class="bold text-danger">{{model.TotalItems}}</span> -->
+          </label>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" #scrollEmployee>
+          <div #scrollEmployeeHeader style="height: auto; width:100%;overflow: hidden">
+            <table class="table table-bordered table-hover mb-0" [style.min-width.px]="empMinWidth">
+              <thead>
+                <tr>
+                  <th width="50px" rowspan="2" class="text-center">STT</th>
+                  <th min-width="200px" rowspan="2" class="text-center">Người khắc phục</th>
+                  <th width="270px" colspan="5" class="text-center" *ngFor="let row of departments;">{{row}}</th>
+                </tr>
+                <tr>
+                  <ng-container *ngFor="let row of departments;">
+                    <th width="50px" class="text-center">Ngày trễ</th>
+                    <th width="50px" class="text-center">Vấn đề</th>
+                    <th width="50px" class="text-center">C.việc</th>
+                    <th width="60px" class="text-center">CV trễ</th>
+                    <th width="60px" class="text-center">CV tr.khai</th>
+                  </ng-container>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 400px; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" [style.min-width.px]="empMinWidth">
+              <tbody>
+                <tr *ngFor="let row of errorFixBys; let i = index" [ngClass]="{'selected':employeeSelectIndex==i}"
+                  (click)="selectEmployee(i)">
+                  <td width="50px" class="text-center">{{i+1}}</td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <ng-container *ngFor="let item of row.Values;">
+                    <td width="50px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="item.Deadline>0" class="bold">{{item.Deadline}}</a>
+                      <span *ngIf="!item.Deadline">-</span>
+                    </td>
+                    <td width="50px" class="text-center">
+                      <a target="_blank" [routerLink]="['/du-an/quan-ly-van-de']" *ngIf="item.ErrorQuantity>0"
+                        class="bold"
+                        [queryParams]="{employeeId: row.Id, departmentId:item.Id, dateFrom: model.DateFrom, dateTo: model.DateTo, projectId: model.ProjectId }">{{item.ErrorQuantity}}</a>
+                      <span *ngIf="!item.ErrorQuantity">-</span>
+                    </td>
+                    <td width="50px" class="text-center">
+                      <a href="javascript:void(0)" *ngIf="item.WorkQuantity>0" class="bold">{{item.WorkQuantity}}</a>
+                      <span *ngIf="!item.WorkQuantity">-</span>
+                    </td>
+                    <td width="60px" class="text-center" [ngClass]="{'bg-danger':item.WorkDelay>0}">
+                      <a href="javascript:void(0)" *ngIf="item.WorkDelay>0" class="bold">{{item.WorkDelay}}</a>
+                      <span *ngIf="!item.WorkDelay">-</span>
+                    </td>
+                    <td width="60px" class="text-center" [ngClass]="{'bg-accent':item.WorkToDo>0}">
+                      <a href="javascript:void(0)" *ngIf="item.WorkToDo>0" class="bold">{{item.WorkToDo}}</a>
+                      <span *ngIf="!item.WorkToDo">-</span>
+                    </td>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

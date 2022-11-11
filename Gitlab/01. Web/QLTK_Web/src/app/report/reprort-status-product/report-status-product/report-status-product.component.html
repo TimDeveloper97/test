@@ -1,0 +1,79 @@
+<div class='content-wrapper page-content'>
+  <section class="body-right">
+    <div class="content-body">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-8">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="product" (change)="searchProduct()">
+            </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchProduct()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body padding-15">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số thiết bị:
+            <span class="bold text-danger">{{model.TotalItems}}</span></label>
+        </div>
+
+        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-6 text-right">
+          <button class="btn btn-success btn-file" (click)="exportExcel()">
+            <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>&nbsp;
+          <button class="btn btn-success btn-file" (click)="exportExcelProduct()">
+            <i class="fas fa-file-excel"></i> &nbsp;Xuất excel theo tìm kiếm</button>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1080px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Mã thiết bị</th>
+                  <th min-width="250px" class="text-center">Tên thiết bị</th>
+                  <th width="120px" class="text-center">Mã dự án</th>
+                  <th width="320px" class="text-center">Tên dự án</th>
+                  <th width="130px" class="text-center">Tổng số lượng sử dụng</th>
+                  <th width="110px" class="text-center">Số lần được sử dụng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listProductUse; let i = index">
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td>{{row.ProductCode}}</td>
+                  <td>{{row.ProductName}}</td>
+                  <td>{{row.ProjectCode}}</td>
+                  <td>{{row.ProjectName}}</td>
+                  <td class="text-center">{{row.TotalProductInProject}}</td>
+                  <td class="text-center">{{row.TotalProduct}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchProduct()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber" (pageChange)="searchProduct()"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+    </div>
+  </section>
+</div>

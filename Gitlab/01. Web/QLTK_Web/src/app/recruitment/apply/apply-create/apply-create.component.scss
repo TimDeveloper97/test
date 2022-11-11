@@ -1,0 +1,23 @@
+app-cantidate-create{
+    .img-avata{
+        text-align: center;
+    }
+
+    @media (min-width: 1366px) {
+        .img-thumbnail{
+          width: 100%;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .img-thumbnail{
+            width: 77%;
+        }
+    }
+
+    @media (min-width: 1920px) {
+        .img-thumbnail{
+            width: 63%;
+        }
+    }
+}

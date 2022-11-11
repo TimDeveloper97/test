@@ -1,0 +1,228 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu về giải pháp
+    </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listFileSolution;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu Catalog
+  </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listCatalog;let i=index">
+                <td class="text-center">{{i+1}}</td>
+
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu đào tạo kỹ thuật
+  </label>
+    </div>
+
+
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listTechnicalTraning;let i=index">
+                <td class="text-center">{{i+1}}</td>
+
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu đào tạo Sale
+  </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listSaleTraining;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu hướng dẫn sử dụng
+  </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listUserManual;let i=index">
+                <td class="text-center">{{i+1}}</td>
+
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu hướng dẫn sửa lỗi
+  </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listFixError;let i=index">
+                <td class="text-center">{{i+1}}</td>
+
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu khác
+  </label>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listOtherDocument;let i=index">
+                <td class="text-center">{{i+1}}</td>
+
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>

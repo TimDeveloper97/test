@@ -1,0 +1,57 @@
+<div class='content-wrapper'>
+  <div class="content-body pb-0">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-lg-8">
+          <nts-search-bar [options]="searchOptions" [(ngModel)]="projectSearchModel" name="projectSearchModel"
+            (change)="getListGeneralInformationProject()">
+          </nts-search-bar>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+          <button class="btn btn-success btn-success-system" (click)="getListGeneralInformationProject()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content-body">
+    <div class="row mb-1">
+      <div class="col-md-12 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{totalBeingImplemented}}</span> dự án đang triển khai;</label>
+        <label class="form-label" style="line-height:35px;">&nbsp;
+          <span class="bold text-danger">{{totalFinish}}</span> dự án đã hoàn thành</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:1000px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Mã dự án</th>
+                <th min-width="200px" class="text-center">Tên dự án</th>
+                <th width="200px" class="text-center">Thời gian cần thực hiện (giờ)</th>
+                <th width="250px" class="text-center">Thời gian có thể thực hiện (giờ)</th>
+                <th width="200px" class="text-center">Cân đối (giờ)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listData; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{row.Code}}</td>
+                <td>{{row.Name}}</td>
+                <td class="text-right">{{row.TotalTime}}</td>
+                <td class="text-right">{{row.TakeTime}}</td>
+                <td class="text-right">{{row.Symmetrical}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </div>
+</div>

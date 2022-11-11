@@ -1,0 +1,330 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="content-wrapper padding-top-10">
+        <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Mã yêu cầu tuyển dụng
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" class="form-control" [(ngModel)]="requestModel.Code" name="code"
+                                maxlength="200" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Phòng ban
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <nts-drop-down [items]="listDepartment" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                ntsMode="single" ntsAutoClose="true" [(ngModel)]="requestModel.DepartmentId"
+                                name="DepartmentId" required>
+                            </nts-drop-down>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Vị trí tuyển dụng
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <nts-drop-down [items]="listWorkType" [columns]="columnNameWorkType" ntsValue="Id"
+                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                [(ngModel)]="requestModel.WorkTypeId" name="WorkTypeId" required (change)="getCompanySalaryById()">
+                            </nts-drop-down>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Số lượng cần
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.Quantity" class="form-control" name="Quantity"
+                                maxlength="100" ntsNumberInt required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Thời gian cần
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy" name="RecruitmentDeadline"
+                                [(ngModel)]="requestModel.RecruitmentDeadline" ngbDatepicker
+                                #requestDeadline="ngbDatepicker" required>
+                            <div class="input-group-append">
+                                <span class="dtp-icon" (click)="requestDeadline.toggle()" name="RecruitmentDeadline">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Loại hình
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <div class="custom-control custom-radio custom-control-inline"
+                                *ngFor="let row of constant.RecruitmentRequestType; let i = index;">
+                                <input type="radio" class="custom-control-input" [id]="'Type'+i" name="Type"
+                                    [(ngModel)]="requestModel.Type" [value]="row.Id" required>
+                                <label class="custom-control-label" [for]="'Type'+i">{{row.Name}}</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Mức lương dự kiến tối thiểu
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.MinSalary" class="form-control" name="MinSalary"
+                                maxlength="300" currencyMask required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Mức lương dự kiến tối đa
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.MaxSalary" class="form-control" name="MaxSalary"
+                                maxlength="300" currencyMask required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Mức lương theo quy định công ty min
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.MinCompanySalary" class="form-control" name="MinCompanySalary"
+                                maxlength="300" currencyMask required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Mức lương theo quy định công ty max
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.MaxCompanySalary" class="form-control" name="MaxCompanySalary"
+                                maxlength="300" currencyMask required>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Lý do tuyển
+                            <span class='text-danger text-strong'>&nbsp;</span>
+                        </label>
+                        <div class="controls">
+                            <input type="text" [(ngModel)]="requestModel.RecruitmentReason" class="form-control"
+                                name="Reason" maxlength="300">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Ngày nhận yêu cầu
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy" name="RequestDate"
+                                [(ngModel)]="requestModel.RequestDate" ngbDatepicker #requestDate="ngbDatepicker"
+                                required>
+                            <div class="input-group-append">
+                                <span class="dtp-icon" (click)="requestDate.toggle()" name="RequestDate">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Ngày nhận phê duyệt
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy" name="ApprovalDate"
+                                [(ngModel)]="requestModel.ApprovalDate" ngbDatepicker #approvalDate="ngbDatepicker"
+                                required>
+                            <div class="input-group-append">
+                                <span class="dtp-icon" (click)="approvalDate.toggle()" name="RequestDate">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label">Mô tả công việc
+                            <span class='text-danger text-strong'>&nbsp;</span>
+                        </label>
+                        <div class="controls">
+                            <textarea [(ngModel)]="requestModel.Description" name="Description" rows="5"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label">Yêu cầu tuyển dụng
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                        </label>
+                        <div class="controls">
+                            <textarea [(ngModel)]="requestModel.Request" name="Request" rows="5" class="form-control"
+                                required></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-xs-6 col-sm-12">
+                    <div class="form-group">
+                        <label class="form-label">Trang thiết bị cần
+                            <span class='text-danger text-strong'>&nbsp;</span>
+                        </label>
+                        <div class="controls">
+                            <textarea [(ngModel)]="requestModel.Equipment" name="Equipment" rows="5"
+                                class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="id">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <label>
+                            Danh sách hợp đồng
+                            <span class='text-danger text-strong'>&nbsp;</span>
+                        </label>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                        <div style="margin-left: 5px" class="upload-btn-wrapper">
+                            <button *appUipermission="['F030402','F030401']"
+                                class="btn btn-success btn-upload" (click)="fileInput.click();">
+                                <i class="fas fa-arrow-up"></i> &nbsp;Thêm tài liệu</button>
+                            <input name="file" style="display: none;" type="file"
+                                id="fileAttachInput" #fileInput (change)="uploadFile($event)" />
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                            <table class="table table-bordered" style="min-width:670px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="80px" class="text-center">Xử lý</th>
+                                        <th min-width="200px" class="text-center">Tên file</th>
+                                        <th width="100px" class="text-center">Dung lượng</th>
+                                        <th width="100px" class="text-center">Ngày tải</th>
+                                        <th width="150px" class="text-center">Người tải</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ng-container *ngFor="let row of requestModel.ListAttach; let i = index">
+                                        <tr *ngIf="!row.IsDelete">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <ng-container *ngIf="row.FilePath">
+                                                    <button type="button" (click)="downloadAFile(row)"
+                                                        style="background-color: papayawhip" class="btn btn-xs"
+                                                        placement="top" ngbTooltip="Download" container="body">
+                                                        <span class="fas fa-download" aria-hidden="true"
+                                                            style="color: black"></span>
+                                                    </button>&nbsp;
+                                                </ng-container>
+                                                <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                    (click)="showConfirmDeleteFile(row,i,1)">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                {{row.FileName}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                            </td>
+                                            <td class="text-center">
+                                                {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                            </td>
+                                            <td class="text-center">
+                                                {{row.CreateName}}
+                                            </td>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="modal-footer">
+                <ng-container *ngIf="requestModel.Id">
+                    <nts-status-badge [items]="constant.RecruitmentRequestStatus" [value]="requestModel.Status"
+                        style="position: absolute;left: 10px;"></nts-status-badge>
+                </ng-container>
+                <ng-container *ngIf="requestModel.Id  && requestModel.Status !=2">
+                    <button type="button" class="btn btn-dark" (click)="showConfirmCancelStatus()">
+                        <i class="fas fa-check"></i>&nbsp;
+                        <span>Hủy yêu cầu</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="requestModel.Status == 0">
+                    <button type="button" class="btn btn-warning" (click)="nextStatus()">
+                        <i class="fas fa-check"></i>&nbsp;
+                        <span>Hoàn thành</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="requestModel.Status == 1">
+                    <button type="button" class="btn btn-danger" (click)="backStatus()">
+                        <i class="fas fa-check"></i>&nbsp;
+                        <span>Hủy hoàn thành</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="requestModel.Status !=2">
+                    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+                        <i class="fa fa-save"></i>&nbsp;
+                        <span>{{modalInfo.SaveText}}</span>
+                    </button>
+                </ng-container>
+                <ng-container *ngIf="!requestModel.Id">
+                    <button type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                        (click)="saveAndContinue()">
+                        <i class="fa fa-save"></i>&nbsp;
+                        <span>Lưu & tiếp tục</span>
+                    </button>
+                </ng-container>
+                <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                    <i class="fa fa-power-off"></i> &nbsp;
+                    <span>
+                        Đóng
+                    </span>
+                </button>
+            </div>
+        </form>
+  
+
+
+</div>

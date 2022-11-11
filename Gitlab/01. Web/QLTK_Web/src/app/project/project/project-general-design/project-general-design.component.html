@@ -1,0 +1,91 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Danh sách tổng hợp thiết kế</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+        <button *appUipermission="['F060022']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+          container="body">
+          <i class="fa fa-plus"></i>
+          Thêm mới
+        </button>
+      </div>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:1700px">
+            <thead>
+              <tr>
+                <th width="150px" class="text-center">Xử lý</th>
+                <th width="80px" class="text-center">Tình trạng</th>
+                <th width="70px" class="text-center">Lần lập</th>
+                <th width="200px" class="text-center">Mã sản phẩm HĐ</th>
+                <th width="200px" class="text-center">Tên sản phẩm HĐ</th>
+                <th width="200px" class="text-center">Mã sản phẩm TK</th>
+                <th width="200px" class="text-center">Tên sản phẩm TK</th>
+                <th width="200px" class="text-center">Bộ phận yêu cầu</th>
+                <th width="200px" class="text-center">Bộ phận thực hiện</th>
+                <th width="100px" class="text-center">Ngày yêu cầu</th>
+                <th width="100px" class="text-center">Ngày lập</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listData; let i = index">
+                <td class="text-center">
+                  <button *appUipermission="['F060023','F060024','F060025']" type="button"
+                    (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning" placement="top"
+                    ngbTooltip="Cập nhật" container="body">
+                    <span class="fa fa-edit" aria-hidden="true"></span>
+                  </button>&nbsp;
+                  <button *appUipermission="['F060029']" class="btn btn-xs btn-danger"
+                    (click)="showConfirmDeleteProjectGeneralDesign(row.Id)" placement="top" ngbTooltip="Xóa"
+                    container="body">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>&nbsp;
+                  <button *appUipermission="['F060025']" type="button" class="btn btn-xs btn-success"
+                    ngbTooltip="Xuất THTK" (click)="exportExcel(row.Id)">
+                    <span class="fa fa-file-excel" aria-hidden="true"></span>
+                  </button>&nbsp;
+                  <button *appUipermission="['F060025']" type="button" class="btn btn-xs btn-success"
+                    ngbTooltip="Xuất BOM" (click)="exportExcelBOM(row.Id)">
+                    <span class="far fa-file-excel" aria-hidden="true"></span>
+                  </button>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.ApproveStatus == '0'" class="badge badge-danger">Chưa duyệt</span>
+                  <span *ngIf="row.ApproveStatus == '1'" class="badge badge-success">Đã duyệt</span>
+                </td>
+                <td class="text-center">{{row.CreateIndex}}</td>
+                <td>{{row.ProjectProductCode}}</td>
+                <td>{{row.ProjectProductName}}</td>
+                <td>{{row.DesignCode}}</td>
+                <td>{{row.DesignName}}</td>
+                <td>{{row.DepartmentRequestName}}</td>
+                <td>{{row.DepartmentCreateName}}</td>
+                <td>{{row.RequestDate|date:'dd/MM/yyyy'}}</td>
+                <td>{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+              </tr>
+            </tbody>
+            <tfoot *ngIf="listData.length == 0">
+              <tr class="bold">
+                <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                  có dữ liệu</td>
+              </tr>
+            </tfoot>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

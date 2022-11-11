@@ -1,0 +1,134 @@
+<div class='content-wrapper'>
+    <section class="box ">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-6 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelExpert"
+                            (change)="searchExpert()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchExpert()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{model.TotalItems}}</span> chuyên gia</label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button *appUipermission="['F040301']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button *appUipermission="['F040305']" class="btn  btn-success" (click)="ExportExcel()">
+                                <i class="fa fa-file-excel" aria-hidden="true"></i>
+                                Xuất excel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1570px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px" class="text-center">Xử lý</th>
+                                    <th width="120px" class="text-center">Mã chuyên gia</th>
+                                    <th min-width="200px" class="text-center">Tên chuyên gia</th>
+                                    <th width="200px" class="text-center">Đơn vị công tác</th>
+                                    <th width="150px" class="text-center">Trình độ</th>
+                                    <th width="250px" class="text-center">Chuyên môn</th>
+                                    <th width="120px" class="text-center">Số điện thoại</th>
+                                    <th width="400px" class="text-center">Chi nhánh ngân hàng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index">
+                                    <td class="text-center">{{StartIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button *appUipermission="['F040302','F040304']" type="button" (click)='showCreateUpdate(row.Id)'
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button *appUipermission="['F040303']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteExpert(row.Id)"
+                                            placement="top" ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.WorkPlaceName}}</td>
+                                    <td>{{row.DegreeName}}</td>
+                                    <td>{{row.SpecializeName}}</td>
+                                    <td>{{row.PhoneNumber}}</td>
+                                    <td style="padding: 0">
+                                        <div *ngIf="row.ListBank.length > 0">
+                                            <div *ngFor="let row2 of row.ListBank; let i = index">
+                                                <span *ngIf="row2.AccountName == ''" width="150px">STK: {{row2.Account}} - Ngân hàng: {{row2.Name}}</span>
+                                                <span *ngIf="row2.AccountName != ''" width="150px">STK: {{row2.Account}} - Chi nhánh: {{row2.AccountName}} - Ngân hàng: {{row2.Name}}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="16" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">
+                                        Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="searchExpert()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+                        (pageChange)="searchExpert()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa chuyên gia</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa chuyên gia</small>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

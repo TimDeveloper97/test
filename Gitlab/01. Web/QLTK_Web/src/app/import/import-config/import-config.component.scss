@@ -1,0 +1,46 @@
+app-import-config {
+    .btn-add{
+        padding: 3px 12px;
+    }
+
+    .step-list {
+        display: flex;
+        flex-wrap: nowrap;
+
+        .card {
+            min-width: 400px;
+            max-width: 500px;
+
+            &:not(:first-child) {
+                margin-left: 15px;
+            }
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 5px 15px;
+                background-color: #fff;
+                color: #039e49;
+
+                .title {
+                    font-size: 15px;
+                    font-weight: 500;
+                }
+            }
+
+            .card-body {
+                padding: 0px;
+            }
+
+            .nav-tabs {
+                .nav-link {
+                    color: #7e7e7e;
+                    &.active {
+                        color: #ee0033;
+                    }
+                }
+            }
+        }
+    }
+}

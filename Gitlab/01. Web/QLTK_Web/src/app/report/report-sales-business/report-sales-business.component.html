@@ -1,0 +1,136 @@
+<div class="content-wrapper page-content">
+  <section class="body-right">
+    <div class="content-body">
+      <div class="row header-report">
+        <div class="col-md-8">
+          <div class="input-field">
+            <label for="mode">Chế độ xem</label>
+            <select
+              name="mode"
+              id="mode"
+              [(ngModel)]="model.ViewMode"
+              (change)="changeViewMode()"
+            >
+              <option *ngFor="let item of viewMode" [ngValue]="item.value">
+                {{ item.text }}
+              </option>
+            </select>
+            <input
+              type="date"
+              name="from"
+              id="from"
+              [(ngModel)]="fromDate"
+              (change)="getCurrentDuration()"
+            />
+            <input
+              type="date"
+              name="to"
+              id="to"
+              [(ngModel)]="toDate"
+              (change)="getCurrentDuration()"
+            />
+            <select name="customerType" id="customerType">
+              <option value="">Khách hàng cuối</option>
+              <option value="">Thương mại</option>
+            </select>
+            <select
+              name="chartType"
+              id="chartType"
+              [(ngModel)]="model.TypeChart"
+              (change)="changeTypeChart()"
+            >
+              <option *ngFor="let item of listTypeChart" [ngValue]="item">
+                {{ item }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4 right-content">
+          <label for="">Đơn vị biểu đồ: Tỷ (VNĐ)</label>
+          <span class="label" style="background: #c874cc"></span>
+          <span>Doanh số đăng ký</span>
+          <span class="label" style="background: #746bf3"></span>
+          <span>Doanh số đạt được</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 left-geochart">
+          <p class="chart-title">Biểu đồ doanh số theo khu vực địa lý</p>
+          <div id="visualization"></div>
+          <div class="geochart-tooltip">
+            <ul>
+              <li>
+                trên 10 tỷ
+                <span class="tooltip-box" style="background: #d35e57"></span>
+              </li>
+              <li>
+                7.5-10 tỷ
+                <span class="tooltip-box" style="background: #eebe46"></span>
+              </li>
+              <li>
+                5-7.5 tỷ
+                <span class="tooltip-box" style="background: #d3b346"></span>
+              </li>
+              <li>
+                2.5-5 tỷ
+                <span class="tooltip-box" style="background: #dbe2c4"></span>
+              </li>
+              <li>
+                0-2.5 tỷ
+                <span class="tooltip-box" style="background: #c7f8f2"></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-9">
+          <div class="row upper-chart">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="ul-chart bar-chart">
+                <p class="chart-title">
+                  Biểu đồ doanh số theo lĩnh vực sản xuất
+                </p>
+                <div id="ulChart" class="scrollable"></div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="ul-chart bar-chart">
+                <p class="chart-title">Biểu đồ doanh số hàng theo ứng dụng</p>
+                <div id="ulChart2" class="scrollable"></div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+              <div class="ul-chart bar-chart">
+                <p class="chart-title">Biểu đồ doanh số theo ngành hàng</p>
+                <div id="ulChart3" class="scrollable"></div>
+              </div>
+            </div>
+          </div>
+          <div class="row lower-chart">
+            <div class="col-md-6">
+              <div class="dl-chart bar-chart employees-chart">
+                <p class="chart-title">
+                  Bảng thống kê doanh số theo nhân viên kinh doanh phụ trách
+                </p>
+                <button class="filter" (click)="openModal()">
+                  <i class="fa-solid fa-filter"></i>
+                </button>
+                <div id="dlChart" class="scrollable"></div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="dl-chart bar-chart employees-chart">
+                <p class="chart-title">
+                  Bảng thống kê doanh số theo phòng ban kinh doanh
+                </p>
+                <button class="filter" (click)="openDepartmentModal()">
+                  <i class="fa-solid fa-filter"></i>
+                </button>
+                <div id="dlChart2" class="scrollable"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,73 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Tính trung bình thời gian làm việc trong năm</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row" *ngIf="!model.IsImport">
+      <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="form-group">
+          <input class="form-control" name="dateFrom" [(ngModel)]="model.DateFrom" ngbDatepicker
+            #dateFrom="ngbDatepicker" placeholder="Từ ngày" (click)="dateFrom.toggle();$event.stopPropagation();">
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-12 col-lg-6">
+        <div class="form-group">
+          <input class="form-control" name="dateTo" [(ngModel)]="model.DateTo" ngbDatepicker #dateTo="ngbDatepicker"
+          placeholder="Đến ngày" (click)="dateTo.toggle();$event.stopPropagation();">
+        </div>
+      </div>
+    </div>
+    <div class="row" *ngIf="model.IsImport">
+      <div class="col-lg-9 col-md-9 col-sm-12">
+        <input type="text" class="form-control" [value]="fileName" disabled>
+      </div>
+      <div class="col-lg-3 col-md-3 col-sm-12 text-right">
+        <button  class="btn btn-success btn-upload" (click)="fileInput.click();">
+          <i class="fas fa-arrow-up"></i> &nbsp;Import</button>
+        <input  name="importFileCalculateAverage" accept=".xlsx,.xls" style="display: none;" type="file" id="fileInput" #fileInput
+          (change)="handleFileInput($event.target.files)" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="form-group">
+          <div class="controls">
+            Xuất Excel <input type="checkbox" [(ngModel)]="model.IsExportExcel" style="height:15px; width:15px;"
+              name="chkIsExportExcel" (change)="changeExport()">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="form-group">
+          <div class="controls">
+            Cập nhật dữ liệu <input type="checkbox" [(ngModel)]="model.IsCalculate" style="height:15px; width:15px;"
+              name="chkIsCalculate" (change)="changeCalculate()">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-sm-12 col-lg-4">
+        <div class="form-group">
+          <div class="controls">
+            Import Excel <input type="checkbox" [(ngModel)]="model.IsImport" style="height:15px; width:15px;"
+              name="chkIsImport" (change)="changeImport()">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="exportExcel()">
+    <span>Chọn</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

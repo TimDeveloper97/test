@@ -1,0 +1,12 @@
+<app-topbar></app-topbar>
+
+<div class="page-container row-fluid" appUisectionbox>
+    <div class="page-sidebar {{appSetting.MenuFolded ? 'collapseit' : 'expandit'}}">
+        <app-leftbar></app-leftbar>
+    </div>
+    <section id="main-content" class="{{appSetting.MenuFolded ? 'sidebar_shift' : ''}}">
+        <section class="wrapper main-wrapper">
+            <router-outlet></router-outlet>
+        </section>
+    </section>    
+</div>

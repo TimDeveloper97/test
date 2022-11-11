@@ -1,0 +1,688 @@
+<div class='content-wrapper'>
+    <form name="form" class="tab-form-demo mt-2" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin </a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thuộc dòng chảy
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down-tree [items]="flowStages" [columns]="columnName"
+                                        ntsParentId="ParentId" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                                        ntsAutoClose="true" [(ngModel)]="taskModel.FlowStageId" name="FlowStageId">
+                                    </nts-drop-down-tree>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Mã công việc
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="taskModel.Code" name="Code"
+                                        maxlength="50" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Tên công việc
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="taskModel.Name" name="Name"
+                                        maxlength="500" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 radio">
+                            <div class="form-group ">
+                                <label class="form-label">Công việc thiết kế module nguồn
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <ng-container>
+                                        <label class="radio">Có
+                                            <input type="radio" name="IsDesignModule"
+                                                [(ngModel)]="taskModel.IsDesignModule" [value]="true">
+                                            <span class="checkround"></span>
+                                        </label>
+                                        <label class="radio">Không
+                                            <input type="radio" name="IsDesignModule"
+                                                [(ngModel)]="taskModel.IsDesignModule" [value]="false">
+                                            <span class="checkround"></span>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4" *ngIf="taskModel.IsDesignModule">
+                            <div class="form-group ">
+                                <label class="form-label">Loại công việc
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <select name="Type" class="form-control" [(ngModel)]="taskModel.Type" required>
+                                        <option *ngFor="let item of constants.TaskTypes" [ngValue]="item.Id">
+                                            {{item.Name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Thời gian tiêu chuẩn
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <input ntsNumberInt type="text" class="form-control"
+                                        [(ngModel)]="taskModel.TimeStandard" name="TimeStandard" maxlength="9" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Trình độ học vấn
+                                </label>
+                                <nts-drop-down [items]="degrees" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.DegreeId"
+                                    name="DegreeId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Chuyên ngành
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" [(ngModel)]="taskModel.Specialization"
+                                        name="Specialization" maxlength="300">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Lĩnh vực chuyên môn
+                                </label>
+                                <nts-drop-down [items]="specializes" [columns]="columnName" ntsValue="Id"
+                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                    [(ngModel)]="taskModel.SpecializeId" name="SpecializeId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+
+                        <!-- <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Vị trí thực hiện
+                                </label>
+                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.WorkTypeRId"
+                                    name="WorkTypeRId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Vị trí phê duyệt
+                                </label>
+                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.WorkTypeAId"
+                                    name="WorkTypeAId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Vị trí hỗ trợ
+                                </label>
+                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.WorkTypeSId"
+                                    name="WorkTypeSId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Vị trí tư vấn
+                                </label>
+                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.WorkTypeCId"
+                                    name="WorkTypeCId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Vị trí thông báo
+                                </label>
+                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.WorkTypeIId"
+                                    name="WorkTypeIId">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">SBU
+                                </label>
+                                <nts-drop-down [items]="sbus" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                    ntsMode="single" ntsAutoClose="true" [(ngModel)]="taskModel.SBUId" name="SBUId"
+                                    (ngModelChange)="getCbbDepartment()">
+                                </nts-drop-down>
+                            </div>
+                        </div>
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="form-group">
+                                <label class="form-label">Phòng ban
+                                </label>
+                                <nts-drop-down [items]="departments" [columns]="columnName" ntsValue="Id"
+                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                    [(ngModel)]="taskModel.DepartmentId" name="DepartmentId">
+                                </nts-drop-down>
+                            </div>
+                        </div> -->
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Giá trị công việc (%)
+                                </label>
+                                <div class="controls">
+                                    <input currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                        name="GiaTri" type="text" [(ngModel)]="taskModel.PercentValue"
+                                        class="form-control" maxlength="5">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 radio">
+                            <div class="form-group ">
+                                <label class="form-label">Công việc theo dự án
+                                </label>
+                                <div class="controls">
+                                    <ng-container>
+                                        <label class="radio">Có
+                                            <input type="radio" name="IsProjectWork"
+                                                [(ngModel)]="taskModel.IsProjectWork" [value]="true">
+                                            <span class="checkround"></span>
+                                        </label>
+                                        <label class="radio">Không
+                                            <input type="radio" name="IsProjectWork"
+                                                [(ngModel)]="taskModel.IsProjectWork" [value]="false">
+                                            <span class="checkround"></span>
+                                        </label>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                            <!-- <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;"> -->
+                            <table class="table table-bordered " style="word-wrap: break-word ;min-width:850px;">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="50px" class="text-center">Xử lý</th>
+                                        <th min-width="140px" class="text-center">Vị trí thực hiện </th>
+                                        <th width="140px" class="text-center">Vị trí phê duyệt</th>
+                                        <th width="140px" class="text-center">Vị trí hỗ trợ</th>
+                                        <th width="140px" class="text-center">Vị trí tư vấn</th>
+                                        <th width="140px" class="text-center">Vị trí thông báo</th>
+                                        <th width="140px" class="text-center">SBU</th>
+                                        <th width="140px" class="text-center">Phòng ban</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of taskModel.TaskWorkTypes; let i = index;">
+                                        <td class="text-center" width="50px">{{i+1}}</td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                (click)="deleteRow(i)">
+                                                <span class="fas fa-times" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.WorkTypeRId" [name]="'WorkTypeR' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.WorkTypeAId" [name]="'WorkTypeA' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.WorkTypeSId" [name]="'WorkTypeS' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.WorkTypeCId" [name]="'WorkTypeC' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.WorkTypeIId" [name]="'WorkTypeI' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td>
+                                            <nts-drop-down [items]="sbus" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.SBUId" [name]="'SBU' + i"
+                                                (ngModelChange)="getCbbDepartment(row.SBUId,i)">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td *ngIf="row.checkDepartment==true">
+                                            <nts-drop-down [items]="row.DepartmentIds" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.DepartmentId" [name]="'Department' + i">
+                                            </nts-drop-down>
+                                        </td>
+                                        <td *ngIf="row.checkDepartment==false">
+                                            <nts-drop-down [items]="row.DepartmentIds" [columns]="columnName" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="row.DepartmentId" [name]="'Department' + i">
+                                            </nts-drop-down>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                                <tfoot>
+                                    <tr class="bold">
+                                        <td class="text-center" width="50px"></td>
+                                        <td class="text-center">
+                                            <button type="button" class="btn btn-xs btn-success" ngbTooltip="Thêm dòng"
+                                                (click)="addRow()">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <!-- </perfect-scrollbar> -->
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label class="form-label">Mô tả
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <textarea [(ngModel)]="taskModel.Description" name="Description" rows="5"
+                                        class="form-control" maxlength="500"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="2">
+                <a ngbNavLink>Kỹ năng/kiến thức </a>
+                <ng-template ngbNavContent>
+                    <div class="row margin-bottom-5">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách kỹ năng/kiến thức</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                            <button type=" button" class="btn btn-success" (click)="showSelectSkill()">
+                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                Chọn kỹ năng/kiến thức
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollYConfig"
+                                style="height:auto;max-height: 400px; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width:1050px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="50px" class="text-center">Xử lý </th>
+                                            <th min-width="200px" class="text-center">Tên kỹ năng/kiến thức</th>
+                                            <th width="200px" class="text-center">Nhóm kỹ năng/kiến thức</th>
+                                            <th width="400px" class="text-center">Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of taskModel.Skills; let i = index">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button *appUipermission="['F050001','F050002']" type="button"
+                                                    (click)="showConfirmDeleteSkill(i)" class="btn  btn-xs btn-danger"
+                                                    ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>{{row.Name}}</td>
+                                            <td>{{row.WorkSkillGroupName}}</td>
+                                            <td>{{row.Description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <div class="row margin-bottom-5 mt-3">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách khóa học</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollYConfig"
+                                style="height:auto;max-height: 400px; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width:1000px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="150px" class="text-center">Mã khóa học </th>
+                                            <th min-width="200px" class="text-center">Tên khóa học</th>
+                                            <th width="200px" class="text-center">Thời gian đào tạo (Phút)</th>
+                                            <th width="400px" class="text-center">Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of courses; let i = index">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td>{{row.Code}}</td>
+                                            <td>{{row.Name}}</td>
+                                            <td>{{row.StudyTime }}</td>
+                                            <td>{{row.Description}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="3">
+                <a ngbNavLink>Tài liệu</a>
+                <ng-template ngbNavContent>
+                    <div class="row margin-bottom-5">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách tài liệu</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                            <button type=" button" class="btn btn-success" (click)="chooseDocument()">
+                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                Chọn tài liệu
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width:750px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="100px" class="text-center">Xử lý </th>
+                                            <th width="200px" class="text-center">Mã tài liệu</th>
+                                            <th min-width="200px" class="text-center">Tên tài liệu</th>
+                                            <th width="200px" class="text-center">Nhóm tài liệu</th>
+                                            <th width="200px" class="text-center">Loại tài liệu</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of taskModel.Documents; let i = index">
+                                            <td class="text-center" width="50px">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button class="btn btn-xs btn-info" container="body"
+                                                    (click)="downAllDocumentProcess(row.ListFile)"
+                                                    ngbTooltip="Tải tài liệu" container="body">
+                                                    <span class="fa fa-download" aria-hidden="true"></span>
+                                                </button>&nbsp;
+                                                <button *appUipermission="['F050001','F050002']" type="button"
+                                                    (click)="showConfirmDeleteDocument(i)"
+                                                    class="btn  btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>&nbsp;
+                                                <button *appUipermission="['F000906']" type="button"
+                                                    class="btn btn-xs btn-success" (click)="viewDocument(row)"
+                                                    placement="top" ngbTooltip="Xem tài liệu" container="body">
+                                                    <span class="far fa-eye" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>{{row.Code}}</td>
+                                            <td>{{row.Name}}</td>
+                                            <td>{{row.DocumentGroupName}}</td>
+                                            <td>{{row.DocumentTypeName}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="4">
+                <a ngbNavLink>Công cụ</a>
+                <ng-template ngbNavContent>
+                    <div class="row margin-bottom-5">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách công cụ</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                            <button type=" button" class="btn btn-success" (click)="showSelectMaterial()">
+                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                Chọn công cụ
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered table-fixed table-hover" style="min-width:1270px">
+                                    <thead>
+                                        <tr>
+                                            <th width="40px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý </th>
+                                            <th width="200px" class="text-center">Nhóm vật tư </th>
+                                            <th width="200px" class="text-center">Mã hãng sản xuất</th>
+                                            <th width="250px" class="text-center">Mã vật tư </th>
+                                            <th min-width="200px" class="text-center">Tên vật tư</th>
+                                            <th width="100px" class="text-center">Số lượng</th>
+                                            <th width="80px" class="text-center">Giá</th>
+                                            <th width="120px" class="text-center">Thành tiền</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of taskModel.Materials; let i = index">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button *appUipermission="['F050310']" type="button"
+                                                    (click)="showConfirmDeleteMaterial(i)"
+                                                    class="btn  btn-xs btn-danger" ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>{{row.MaterialGroupName}}</td>
+                                            <td>{{row.ManufactureCode}}</td>
+                                            <td>{{row.Code}}</td>
+                                            <td>{{row.Name}}</td>
+                                            <td class="text-center">
+                                                <input type="text" [(ngModel)]="row.Quantity" class="form-control"
+                                                    ntsNumberInt [name]="'Quantity'+i">
+                                            </td>
+                                            <td class="text-right">{{row.Pricing | number:'1.0-0'}}</td>
+                                            <td class="text-right">{{row.Pricing * row.Quantity| number:'1.0-0'}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="5">
+                <a ngbNavLink>Đầu vào</a>
+                <ng-template ngbNavContent>
+                    <div class="row margin-bottom-5">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách đầu vào</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                            <button type=" button" class="btn btn-success" (click)="chooseInputResult()">
+                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                Chọn đầu vào
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1130px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th width="200px" class="text-center">Mã kết quả đầu ra</th>
+                                            <th min-width="200px" class="text-center">Tên kết quả đầu ra</th>
+                                            <th width="200px" class="text-center">SBU</th>
+                                            <th width="200px" class="text-center">Phòng ban</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of taskModel.InputResults; let i = index">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                    placement="top" (click)="showConfirmDeleteInputResult(i)"
+                                                    container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                {{row.Code}}
+                                            </td>
+                                            <td>
+                                                {{row.Name}}
+                                            </td>
+                                            <td>
+                                                {{row.SBUName}}
+                                            </td>
+                                            <td>
+                                                {{row.DepartmentName}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="6">
+                <a ngbNavLink>Kết quả đầu ra</a>
+                <ng-template ngbNavContent>
+                    <div class="row margin-bottom-5">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                            <h4>Danh sách kết quả đầu ra</h4>
+                        </div>
+                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                            <button type=" button" class="btn btn-success" (click)="chooseOutputResult()">
+                                <span class="fa fa-plus" aria-hidden="true"></span>
+                                Chọn đầu ra
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:1130px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th width="200px" class="text-center">Mã kết quả đầu ra</th>
+                                            <th min-width="200px" class="text-center">Tên kết quả đầu ra</th>
+                                            <th width="200px" class="text-center">SBU</th>
+                                            <th width="200px" class="text-center">Phòng ban</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of taskModel.OutputResults; let i = index">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                    placement="top" (click)="showConfirmDeleteOutputResult(i)"
+                                                    container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                {{row.Code}}
+                                            </td>
+                                            <td>
+                                                {{row.Name}}
+                                            </td>
+                                            <td>
+                                                {{row.SBUName}}
+                                            </td>
+                                            <td>
+                                                {{row.DepartmentName}}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+    <section class="box ">
+        <div class="content-body padding-15 ">
+            <div class="row">
+                <div class="col-12 text-right">
+                    <ng-container>
+                        <button type="button" class="btn btn-success" [disabled]="!f.form.valid || taskModel.Code ==null || taskModel.Name ==null || taskModel.Code =='' || taskModel.Name ==''" 
+                        (click)="save(false)">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>{{modalInfo.SaveText}}</span>
+                        </button>&nbsp;
+                    </ng-container>
+                    <ng-container *ngIf="taskModel.Id ==''">
+                        <button type="button" class="btn btn-success" [disabled]="!f.form.valid || taskModel.Code ==null || taskModel.Name ==null || taskModel.Code =='' || taskModel.Name ==''"
+                            (click)="saveAndContinue()">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>Lưu & tiếp tục</span>
+                        </button>&nbsp;
+                    </ng-container>
+                    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                        <i class="fa fa-power-off"></i> &nbsp;
+                        <span>
+                            Đóng
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

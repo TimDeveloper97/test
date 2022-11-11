@@ -1,0 +1,163 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                    <label class="form-label">Tên lần phỏng vấn
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="workTypeInterviewModel.Name" name="Name"
+                            maxlength="100" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                    <label class="form-label">SBU phỏng vấn
+
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="sbus" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="workTypeInterviewModel.SBUId" name="SBUId"
+                            (ngModelChange)="getCbbDepartment()" (change)="getName(workTypeInterviewModel.SBUId)">
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                    <label class="form-label">Mã SBU phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" readonly value="{{codeSBU}}">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                    <label class="form-label">Phòng ban phỏng vấn
+
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="departments" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="workTypeInterviewModel.DepartmentId"
+                            name="DepartmentId" (change)="getNameDepartment(workTypeInterviewModel.DepartmentId)">
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6">
+                <div class="form-group ">
+                    <label class="form-label">Mã phòng ban phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" readonly value="{{codeDepartment}}">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row margin-bottom-5">
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 text-left">
+                <h4>Danh sách câu hỏi</h4>
+            </div>
+            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 text-right">
+                <button type=" button" class="btn btn-success" (click)="chooseQuestion()">
+                    <span class="fa fa-plus" aria-hidden="true"></span>
+                    Chọn câu hỏi
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:930px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Xử lý</th>
+                                <th width="100px" class="text-center">Mã câu hỏi</th>
+                                <th min-width="200px" class="text-center">Nội dung</th>
+                                <th width="150px" class="text-center">Nhóm câu hỏi</th>
+                                <th width="150px" class="text-center">Loại câu hỏi</th>
+                                <th width="200px" class="text-center">Đáp án</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of workTypeInterviewModel.Questions; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa" placement="top"
+                                        (click)="showConfirmDeleteQuestion(i)" container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>&nbsp;
+                                    <button class="btn btn-xs btn-info" container="body"
+                                        (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                        container="body">
+                                        <span class="fa fa-download" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td>{{row.Code}}</td>
+                                <td>
+                                    <div [innerHTML]="row.Content"></div>
+
+                                </td>
+                                <td>{{row.QuestionGroupName}}</td>
+                                <td>
+                                    <span *ngIf="row.Type==1">Câu hỏi Đúng/ Sai</span>
+                                    <span *ngIf="row.Type==2">Câu hỏi mở</span>
+                                </td>
+                                <td>
+                                    <ng-container *ngIf="row.Type==1">
+                                        <span *ngIf="row.Answer=='1'">Đúng</span>
+                                        <span *ngIf="row.Answer=='2'">Sai</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="row.Type==2">
+                                        {{row.Answer}}
+                                    </ng-container>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class=" modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{modalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="workTypeInterviewModel.Id ==''">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

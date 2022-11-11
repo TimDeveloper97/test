@@ -1,0 +1,89 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listAccessory.length}}</span>phụ kiện</label>&nbsp;
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:3220px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Ảnh</th>
+                                    <th min-width="150px" class="text-center">Tên tiếng Anh</th>
+                                    <th width="150px" class="text-center">Tên tiếng Việt</th>
+                                    <th width="120px" class="text-center">MODEL</th>
+                                    <th width="150px" class="text-center">Mã nhóm thiết bị</th>
+                                    <th width="150px" class="text-center">Mã nhóm thiết bị con</th>
+                                    <th width="150px" class="text-center">Hãng sản xuất</th>
+                                    <th width="150px" class="text-center">Xuất xứ</th>
+                                    <th width="150px" class="text-center">Chủng loại hàng hóa</th>
+                                    <th width="200px" class="text-center">Thông số kỹ thuật</th>
+                                    <th width="200px" class="text-center">Thông số cho khách hàng</th>
+                                    <th width="100px" class="text-center">Ngày cập nhập TSKT</th>
+                                    <th width="100px" class="text-center">VAT</th>
+                                    <th width="100px" class="text-center">Giá vật tư</th>
+                                    <th width="100px" class="text-center">Giá bán EXW TPA</th>
+                                    <th width="200px" class="text-center">Ngày cập nhập giá EXW TPA</th>
+                                    <th width="100px" class="text-center">Giá public lên web</th>
+                                    <th width="100px" class="text-center">Hiệu lực của giá từ ngày</th>
+                                    <th width="100px" class="text-center">Hiệu lực của giá đến ngày</th>
+                                    <th width="100px" class="text-center">Thời gian giao hàng</th>
+                                    <th width="100px" class="text-center">Tồn kho</th>
+                                    <th width="100px" class="text-center">SL xuất giữ</th>
+                                    <th width="100px" class="text-center">SL khả dụng</th>
+                                    <th width="100px" class="text-center">Ngày update tồn kho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listAccessory; let i = index">
+
+                                    <td class="text-center">{{i+1}}</td>
+
+                                    <td><img *ngIf="row.ImagePath!='' && row.ImagePath!=null" [src]="config.ServerFileApi+row.ImagePath" height="80px" min-witdh="60px" max-witdh="60px">
+                                    </td>
+                                    <td>{{row.EName}}</td>
+                                    <td>{{row.VName}}</td>
+                                    <td>{{row.Model}}</td>
+                                    <td>{{row.GroupCode}}</td>
+                                    <td>{{row.ChildGroupCode}}</td>
+                                    <td>{{row.ManufactureName}}</td>
+                                    <td>{{row.CountryName}}</td>
+                                    <td>{{row.ProductTypeName}}</td>
+                                    <td>{{row.Specifications}}</td>
+                                    <td>{{row.CustomerSpecifications}}</td>
+                                    <td>{{row.SpecificationDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.VAT|number}}</td>
+                                    <td class="text-center">{{row.MaterialPrice|number}}</td>
+                                    <td class="text-center">{{row.EXWTPAPrice|number}}</td>
+                                    <td class="text-center">{{row.EXWTPADate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.PublicPrice|number}}</td>
+                                    <td class="text-center">{{row.ExpireDateFrom|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.ExpireDateTo|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.DeliveryTime}}</td>
+                                    <td class="text-center">{{row.Inventory}}</td>
+                                    <td class="text-center">{{row.ExportQuantity}}</td>
+                                    <td class="text-center">{{row.ExportQuantity}}</td>
+                                    <td class="text-center">{{row.InventoryDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listAccessory.length == 0">
+                                <tr class="bold">
+                                    <td colspan="27" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <hr />
+        </div>
+
+    </section>
+</div>

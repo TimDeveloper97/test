@@ -1,0 +1,51 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase">Xuất Kế Hoạch Dự Án</h4>
+</div>
+<div class="modal-body padding-15">
+    <div style="display: flex;">
+        <div style=" width: 40%;">
+            <label><b>Ngày Bắt Đầu</b></label>
+        </div>
+        <div style=" display: flex; width: 60%;">
+            <div class="input-group">
+                <input container="body" class="form-control" placeholder="Ngày" [name]="PlanStartDate"
+                    [(ngModel)]="modelSearchProject.PlanStartDate" ngbDatepicker
+                    #PlanStartDate="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                    [maxDate]="{year: 2100, month: 12, day: 31}"
+                    (click)="PlanStartDate.toggle();$event.stopPropagation();" required>
+            </div>
+        </div>
+    </div>
+    <div style="display: flex;">
+        <div style=" width: 40%;">
+            <label><b>Ngày Kết Thúc</b></label>
+        </div>
+        <div style=" display: flex; width: 60%;">
+            <div class="input-group">
+                <input container="body" class="form-control" placeholder="Ngày" [name]="PlanEndDate"
+                    [(ngModel)]="modelSearchProject.PlanEndDate" ngbDatepicker
+                    #PlanEndDate="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                    [maxDate]="{year: 2100, month: 12, day: 31}"
+                    (click)="PlanEndDate.toggle();$event.stopPropagation();" required>
+            </div>
+        </div>
+    </div>
+    &nbsp; &nbsp;
+    <br>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="display: block; text-align: right;">
+        <button type="button" class="btn btn-success " (click)="exportExcel()" [disabled]="modelSearchProject.PlanEndDate == null || modelSearchProject.PlanStartDate == null">
+            <i class="fa fa-search"></i> &nbsp;
+            <span>
+                Xuất
+            </span>
+        </button>
+        &nbsp;&nbsp;
+        <button type="button" class="btn btn-danger " (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+
+</div>

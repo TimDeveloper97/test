@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase">Thông báo</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body padding-15" style="font-size: 18px">
+    <p>{{message}}</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" ngbAutofocus class="btn btn-success" (click)="ok()" style="height:40px;">
+      <i class="fas fa-check"></i>&nbsp;
+      <span>Loại bỏ ký tự đặc biệt </span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal()" style="height:40px;">
+      <i class="fas fa-times"></i>&nbsp;
+      <span>Nhập lại</span>
+    </button>
+  </div>

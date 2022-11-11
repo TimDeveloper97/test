@@ -1,0 +1,115 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+      <div class="content-body pb-0">
+          <form name="searchForm" #f="ngForm">
+              <div class="row">
+                  <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                      <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="searchCourse"
+                          (change)="searchSaleGroup()">
+                      </nts-search-bar>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+                      <button class="btn btn-success btn-success-system" (click)="searchSaleGroup()"
+                          (change)="searchSaleGroup()">
+                          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                      <button class="btn btn-default btn-default-system" (click)="clear()">
+                          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                  </div>
+              </div>
+          </form>
+      </div>
+
+      <div class="content-body ">
+          <div class="row margin-bottom-10">
+              <div class="col-md-6 text-left">
+                  <label class="form-label" style="line-height:35px;">Tổng số
+                      <span class="bold text-danger">{{searchModel.TotalItems}}</span> nhóm kinh doanh</label>
+              </div>
+              <div class="col-md-6 text-right">
+                  <button *appUipermission="['F120401']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+                      <i class="fa fa-plus"></i>
+                      Thêm mới
+                  </button>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                  <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                      <table class="table table-bordered" style="min-width:780px">
+                          <thead>
+                              <tr>
+                                  <th width="50px" class="text-center">STT</th>
+                                  <th width="80px" class="text-center">Xử lý</th>
+                                  <!-- <th width="80px" class="text-center">Ảnh</th> -->
+                                  <th width="150px" class="text-center">Tên nhóm</th>
+                                  <th width="150px" class="text-center">Số nhân viên</th>
+                                  <th width="150px" class="text-center">Số sản phẩm</th>
+                                  <th min-width="200px" class="text-center">Ghi chú</th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let row of listData; let i = index">
+                                  <td class="text-center">{{startIndex+i}}</td>
+                                  <td style="text-align: center">
+                                      <button *appUipermission="['F120402']" type="button" (click)='showCreateUpdate(row.Id)'
+                                          class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                          container="body">
+                                          <span class="fa fa-edit" aria-hidden="true"></span>
+                                      </button>&nbsp;
+                                      <button *appUipermission="['F120403']" class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)"
+                                          ngbTooltip="Xóa" placement="top">
+                                          <span class="fas fa-times" aria-hidden="true"></span>
+                                      </button>
+                                  </td>
+                                  <!-- <td>
+                                      <img [src]="(row.ImagePath!='' && row.ImagePath!=null )? '/assets/img/noavatar.gif' : config.ServerFileApi+row.ImagePath" height="80px">
+                                  </td> -->
+                                  <td>{{row.Name}}</td>
+                                  <td>{{row.TotalEmployee}}</td>
+                                  <td>{{row.TotalProduct }}</td>
+                                  <td>{{row.Note}}</td>
+                              </tr>
+                          </tbody>
+                          <tfoot *ngIf="listData.length == 0">
+                              <tr class="bold">
+                                  <td colspan="10" min-width="300px" class="text-center"
+                                      style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                              </tr>
+                          </tfoot>
+                      </table>
+                  </perfect-scrollbar>
+              </div>
+          </div>
+          <br>
+          <div class="row">
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                  <div class="controls ">
+                      <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                          (ngModelChange)="searchSaleGroup()" name="pageSize">
+                          <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                      </select>
+                  </div>
+                  <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+              </div>
+              <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                  <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                      (pageChange)="searchSaleGroup()" [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true"
+                      [boundaryLinks]="true"></ngb-pagination>
+              </div>
+          </div>
+          <hr />
+          <div class="row">
+              <div class="col-md-12">
+                  <button class="btn btn-view btn-warning">
+                      <i class="fa fa-edit"></i>
+                  </button>&nbsp;
+                  <small class="padding-right-20">Sửa nhóm kinh doanh</small>
+                  <button class="btn btn-view btn-danger">
+                      <i class="fas fa-times"></i>
+                  </button>&nbsp;
+                  <small class="padding-right-20">Xóa nhóm kinh doanh</small>
+              </div>
+          </div>
+      </div>
+  </section>
+</div>

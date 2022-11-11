@@ -1,0 +1,100 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">
+      Lọc nhân viên theo phòng ban
+    </h3>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="closeModal(false)"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Chọn phòng ban</label>
+            <div class="controls">
+              <select
+                name="cmbDepartment"
+                id="cmbDepartment"
+                [(ngModel)]="model.Department"
+                (change)="changeDepartment()"
+              >
+                <option *ngFor="let item of listDepartment" [ngValue]="item.Id">
+                  {{ item.Code }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12 text-left">
+          <label class="form-label" style="line-height: 35px"
+            >Tổng số
+            <span class="bold text-danger"> {{ listBase.length }}</span> nhân
+            viên</label
+          >
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-xl-12 col-lg-12">
+          <virtual-scroller
+            #scroll
+            [items]="listBase"
+            style="display: block; height: 250px"
+          >
+            <table
+              class="table table-bordered table-fixed table-hover"
+              style="
+                word-wrap: break-word;
+                margin-bottom: 0px !important;
+                min-width: 200px;
+              "
+            >
+              <thead #header style="background-color: white">
+                <tr>
+                  <th class="test-center" width="50px">Chọn</th>
+                  <th min-width="150px" class="test-center">Tên phòng ban</th>
+                </tr>
+              </thead>
+
+              <tbody #container>
+                <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                  <td class="text-center">
+                    <input
+                      type="checkbox"
+                      [(ngModel)]="row.Checked"
+                      name="{{ 'Checked' + row.Code + i }}"
+                      style="height: 20px; width: 20px"
+                    />
+                  </td>
+                  <td>{{ row.Code }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </virtual-scroller>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-check"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span> Đóng </span>
+    </button>
+  </div>
+</div>

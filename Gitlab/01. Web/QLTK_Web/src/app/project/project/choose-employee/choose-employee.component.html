@@ -1,0 +1,472 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn nhân viên tham gia dự án</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  
+    <div class="modal-body padding-10">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="form-group ">
+            <label style="padding-left: 10px;" class="form-label">Chọn loại nhân sự
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            &nbsp;
+            <label class="radio">Nhân viên TPA
+              <input type="radio" name="PromulgateType" (change)="changeObjectType()" [(ngModel)]="model.Type" [value]="1">
+              <span class="checkround"></span>
+            </label>
+            &nbsp; &nbsp;
+            <label class="radio ml-1">Nhân viên ngoài
+              <input type="radio" name="PromulgateType" (change)="changeObjectType()" [(ngModel)]="model.Type" [value]="2">
+              <span class="checkround"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+  
+      <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+          <div class="row" *ngIf="model.Type==1">
+            <div class="col-lg-8">
+              <nts-search-bar [options]="searchOptions" [(ngModel)]="modelSearch" name="modelSearch"
+                (change)="changeObjectType()">
+              </nts-search-bar>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+              <button class="btn btn-success btn-success-system" (click)="changeObjectType()">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+              <button class="btn btn-default btn-default-system" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+            </div>
+          </div>
+          <div class="row" *ngIf="model.Type==2">
+            <div class="col-lg-8">
+              <nts-search-bar [options]="searchOptionsEx" [(ngModel)]="modelSearch" name="modelSearch"
+                (change)="changeObjectTypeEx()">
+              </nts-search-bar>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+              <button class="btn btn-success btn-success-system" (click)="changeObjectTypeEx()">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+              <button class="btn btn-default btn-default-system" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-6 col-sm-6 text-left">
+              <label *ngIf="model.Type==1" class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listEmployee.length}}</span> nhân viên chưa chọn</label>
+              <label *ngIf="model.Type==2" class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listExEmployee.length}}</span> nhân viên ngoài chưa chọn</label>
+            </div>
+            <div class="col-md-6 col-sm-6 text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listEmployeeSelect.length}}</span> nhân viên đã chọn</label>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+              <div *ngIf="model.Type==1" class="table-left">
+                <virtual-scroller #scroll [items]="listEmployee" style=" display: block; height: 400px;">
+                  <table class="table table-bordered table-fixed table-hover"
+                    style="word-wrap: break-word; margin-bottom:0px !important; min-width: 890px;">
+                    <thead #header style="background-color: white">
+                      <tr>
+                        <th style="text-align:center;padding-top: 10px;" width="30px">
+                          <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                            style="height:20px; width:20px;" (change)="checkAll(true)">
+                        </th>
+                        <th width="40px" class="text-center">STT</th>
+                        <th width="80px" class="text-center">Hình ảnh</th>
+                        <th width="90px" class="text-center">Mã NV</th>
+                        <th width="160px" class="text-center">Tên NV</th>
+                        <th width="190px" class="text-center">Email</th>
+                        <th width="100px" class="text-center">SĐT</th>
+                        <th min-width="200px" class="text-center">Phòng ban</th>
+                      </tr>
+                    </thead>
+  
+                    <tbody #container>
+                      <tr *ngFor="let row of scroll.viewPortItems; let i = index"
+                          [ngClass]="{'selected':selectIndex == i}"
+                          (click)="loadParam(row.EmployeeId, i);">
+                        <td style="text-align:center" width="30px">
+                          <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                            style="height:20px; width:20px;">
+                        </td>
+                        <td class="text-center" width="40px">{{row.Index}}</td>
+                        <td  width="80px" *ngIf="row.ImagePath!=''" class="text-center">
+                          <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 50px; height: 50px;">
+                        </td>
+                         <td  width="80px" *ngIf="row.ImagePath==''" class="text-center">
+                          <img src="/assets/img/people.png" style="border-radius: 50%; width: 50px; height: 50px;">
+                        </td>
+                        <td class="text-center" width="90px">{{row.Code}}</td>
+                        <td class="text-center" width="160px">{{row.Name}}</td>
+                        <td class="text-center" width="190px">{{row.Email}}</td>
+                        <td class="text-center" width="100px">{{row.PhoneNumber}}</td>
+                        <td class="text-center" min-width="200px">{{row.DepartmentName}}</td>
+  
+                      </tr>
+                    </tbody>
+                  </table>
+                </virtual-scroller>
+              </div>
+              <div *ngIf="model.Type==2" class="table-left">
+                <virtual-scroller #scroll [items]="listExEmployee" style=" display: block; height: 400px;">
+                  <table class="table table-bordered table-fixed table-hover"
+                    style="word-wrap: break-word; margin-bottom:0px !important; min-width: 600px;">
+                    <thead #header style="background-color: white">
+                      <tr>
+                        <th style="text-align:center;padding-top: 10px;" width="30px">
+                          <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                            style="height:20px; width:20px;" (change)="checkAllEx(true)">
+                        </th>
+                        <th width="40px" class="text-center">STT</th>
+                        <th width="80px" class="text-center">Hình ảnh</th>
+                        <th width="160px" class="text-center">Tên NV</th>
+                        <th width="190px" class="text-center">Email</th>
+                        <th width="100px" class="text-center">SĐT</th>
+                      </tr>
+                    </thead>
+  
+                    <tbody #container>
+                      <tr *ngFor="let row of scroll.viewPortItems; let i = index"
+                          [ngClass]="{'selected':selectIndexEX == i}"
+                          (click)="loadParamEX(row.EmployeeId, i);">
+                        <td style="text-align:center" width="30px">
+                          <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                            style="height:20px; width:20px;">
+                        </td>
+                        <td class="text-center" width="40px">{{row.Index}}</td>
+                        <td  width="80px" *ngIf="row.ImagePath!=''" class="text-center">
+                          <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 50px; height: 50px;">
+                        </td>
+                         <td  width="80px" *ngIf="row.ImagePath==''" class="text-center">
+                          <img src="/assets/img/people.png" style="border-radius: 50%; width: 50px; height: 50px;">
+                        </td>
+                        <td class="text-center" width="160px">{{row.Name}}</td>
+                        <td class="text-center" width="190px">{{row.Email}}</td>
+                        <td class="text-center" width="100px">{{row.PhoneNumber}}</td>
+  
+                      </tr>
+                    </tbody>
+                  </table>
+                </virtual-scroller>
+              </div>
+              <div class="table-center">
+                <button type="button" ngbTooltip="Chọn nhân viên" class="btn btn-success" (click)="addRow()">
+                  <i class="fa fa-angle-right"></i>
+                </button>
+                <button type="button" ngbTooltip="Bỏ chọn nhân viên" class="btn btn-danger" (click)="removeRow()">
+                  <i class="fa fa-angle-left"></i>
+                </button>
+              </div>
+              <div class="table-left">
+                <div *ngIf="model.Type==1" class="text-right">
+                  <virtual-scroller #scroll [items]="listEmployeeSelect" style=" display: block; min-height: 400px;">
+                    <table class="table table-bordered table-fixed table-hover"
+                      style="word-wrap: break-word; margin-bottom:0px !important; min-width: 1390px;">
+                      <thead #header style="background-color: white">
+                        <tr>
+                          <th style="text-align:center;padding-top: 10px;" width="40px">
+                            <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                              style="height:20px; width:20px;" (change)="checkAll(false)">
+                          </th>
+                          <th width="40px" class="text-center">STT</th>
+                          <th width="80px" class="text-center">Hình ảnh</th>
+                          <th width="90px" class="text-center">Mã NV</th>
+                          <th width="160px" class="text-center">Tên NV</th>
+                          <th width="150px" class="text-center text-strong">Vị trí trong DA
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                          </th>
+                          <th width="120px" class="text-center text-strong">Tham gia từ ngày
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                          </th>
+                          <th width="120px" class="text-center text-strong">Đến ngày
+                            <span class='text-danger text-strong'>&nbsp;*</span>
+                          </th>
+                          <th width="250px" class="text-center">Mô tả công việc</th>
+                          <th width="100px" class="text-center text-strong">Phụ cấp
+                          </th>
+                          <th width="120px" class="text-center">Ngày bắt đầu PC
+                          <th width="120px" class="text-center">Ngày kết thúc PC
+                        </tr>
+                      </thead>
+    
+                      <tbody #container>
+                          <tr *ngFor="let row of listEmployeeSelect; let i = index">
+                            <td style="text-align:center" width="40px">
+                              <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                                style="height:20px; width:20px;">
+                            </td>
+                            <td class="text-center" width="40px">{{i+1}}</td>
+                            <td  width="80px" *ngIf="row.ImagePath!=''" class="text-center">
+                              <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 50px; height: 50px;">
+                            </td>
+                             <td  width="80px" *ngIf="row.ImagePath==''" class="text-center">
+                              <img src="/assets/img/people.png" style="border-radius: 50%; width: 50px; height: 50px;">
+                            </td>
+                            <td class="text-center" width="90px">{{row.Code}}</td>
+                            <td class="text-center" width="160px">{{row.Name}}</td>
+                            <td width="150px" class="text-center">
+                              <select (change)="changeRole(row.RoleId)" [name]='"RoleId"+ i' class="form-control" [(ngModel)]="row.RoleId" required>
+                                <option *ngFor="let item of listRole" [ngValue]="item.Id">{{item.Name}}
+                                </option>
+                              </select>
+                            </td>
+                            <td width="120px" class="text-center">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                [name]='"StartTime" + i' [(ngModel)]="row.startTime" ngbDatepicker #StartTime="ngbDatepicker" required>
+                                <div class="input-group-append">
+                                  <span class="dtp-icon" (click)="StartTime.toggle()" name="StartTime">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td width="120px" class="text-center">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                [name]='"EndTime"+i' [(ngModel)]="row.endTime" ngbDatepicker #EndTime="ngbDatepicker" required>
+                                <div class="input-group-append">
+                                  <span class="dtp-icon" (click)="EndTime.toggle()" name="EndTime">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td width="250px" class="text-center">
+                              <div class="input-group">
+                                <textarea [(ngModel)]="row.JobDescription" [name]='"JobDescription"+i'
+                                    rows="1" class="form-control" [value] = "DescriptionRole">
+                                  </textarea>
+                              </div>
+                            </td>
+                            <td width="100px" class="text-center">
+                              <input currencyMask 
+                              [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" type="text" class="form-control"
+                              [(ngModel)]="row.Subsidy" [name]='"Subsidy"+i' maxlength="18">
+                            </td>
+                            <td width="120px" class="text-center">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                [name]='"SubsidyStartTime"+i' [(ngModel)]="row.subsidyStartTime" ngbDatepicker #SubsidyStartTime="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <span class="dtp-icon" (click)="SubsidyStartTime.toggle()" name="SubsidyStartTime">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                            <td width="120px" class="text-center">
+                              <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                [name]='"SubsidyEndTime"+i' [(ngModel)]="row.subsidyEndTime" ngbDatepicker #SubsidyEndTime="ngbDatepicker">
+                                <div class="input-group-append">
+                                  <span class="dtp-icon" (click)="SubsidyEndTime.toggle()" name="SubsidyEndTime">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                      </tbody>
+                    </table>
+                  </virtual-scroller>
+                </div>
+                <div *ngIf="model.Type==2" class="text-right">
+                    <virtual-scroller #scroll [items]="listEmployeeSelect" style=" display: block; min-height: 400px;">
+                      <table class="table table-bordered table-fixed table-hover"
+                        style="word-wrap: break-word; margin-bottom:0px !important; min-width: 1200px;">
+                        <thead #header style="background-color: white">
+                          <tr>
+                            <th style="text-align:center;padding-top: 10px;" width="40px">
+                              <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                                style="height:20px; width:20px;" (change)="checkAll(false)">
+                            </th>
+                            <th width="40px" class="text-center">STT</th>
+                            <th width ="80px" class="text-center">Hình ảnh</th>
+                            <th width="160px" class="text-center">Tên NV</th>
+                            <th width="150px" class="text-center text-strong">Vị trí trong DA
+                              <span class='text-danger text-strong'>&nbsp;*</span>
+                            </th>
+                            <th width="120px" class="text-center text-strong">Tham gia từ ngày
+                              <span class='text-danger text-strong'>&nbsp;*</span>
+                            </th>
+                            <th width="120px" class="text-center text-strong">Đến ngày
+                              <span class='text-danger text-strong'>&nbsp;*</span>
+                            </th>
+                            <th width="250px" class="text-center">Mô tả công việc</th>
+                            <th width="100px" class="text-center text-strong">Phụ cấp
+                            </th>
+                            <th width="120px" class="text-center">Ngày bắt đầu PC
+                            <th width="120px" class="text-center">Ngày kết thúc PC
+                          </tr>
+                        </thead>
+      
+                        <tbody #container>
+                            <tr *ngFor="let row of listEmployeeSelect; let i = index">
+                              <td style="text-align:center" width="40px">
+                                <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                                  style="height:20px; width:20px;">
+                              </td>
+                              <td class="text-center" width="40px">{{i+1}}</td>
+                              <td  width="80px" *ngIf="row.ImagePath!=''" class="text-center">
+                                <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 50px; height: 50px;">
+                              </td>
+                               <td  width="80px" *ngIf="row.ImagePath==''" class="text-center">
+                                <img src="/assets/img/people.png" style="border-radius: 50%; width: 50px; height: 50px;">
+                              </td>
+                              <td class="text-center" width="160px">{{row.Name}}</td>
+                              <td width="150px" class="text-center">
+                                <select (change)="changeRole(row.RoleId)" [name]='"RoleId"+ i' class="form-control" [(ngModel)]="row.RoleId" required>
+                                  <option *ngFor="let item of listRole" [ngValue]="item.Id">{{item.Name}}
+                                  </option>
+                                </select>
+                              </td>
+                              <td width="120px" class="text-center">
+                                <div class="input-group">
+                                  <input class="form-control" placeholder="dd/mm/yyyy"
+                                  [name]='"StartTime" + i'[(ngModel)]="row.startTime" ngbDatepicker #StartTime="ngbDatepicker" required>
+                                  <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="StartTime.toggle()" name="StartTime">
+                                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td width="120px" class="text-center">
+                                <div class="input-group">
+                                  <input class="form-control" placeholder="dd/mm/yyyy"
+                                  [name]='"EndTime"+i' [(ngModel)]="row.endTime" ngbDatepicker #EndTime="ngbDatepicker" required>
+                                  <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="EndTime.toggle()" name="EndTime">
+                                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td width="250px" class="text-center">
+                                <div class="input-group">
+                                  <textarea [(ngModel)]="row.JobDescription" [name]='"JobDescription"+i'
+                                      rows="1" class="form-control" [value] = "DescriptionRole">
+                                    </textarea>
+                                </div>
+                              </td>
+                              <td width="100px" class="text-center">
+                                <input currencyMask [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" type="text"
+                                  class="form-control" [(ngModel)]="row.Subsidy" [name]='"Subsidy"+i' maxlength="18">
+                              </td>
+                              <td width="120px" class="text-center">
+                                <div class="input-group">
+                                  <input class="form-control" placeholder="dd/mm/yyyy"
+                                  [name]='"SubsidyStartTime"+i' [(ngModel)]="row.subsidyStartTime" ngbDatepicker #SubsidyStartTime="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="SubsidyStartTime.toggle()" name="SubsidyStartTime">
+                                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                              <td width="120px" class="text-center">
+                                <div class="input-group">
+                                  <input class="form-control" placeholder="dd/mm/yyyy"
+                                  [name]='"SubsidyEndTime"+i' [(ngModel)]="row.subsidyEndTime" ngbDatepicker #SubsidyEndTime="ngbDatepicker">
+                                  <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="SubsidyEndTime.toggle()" name="SubsidyEndTime">
+                                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                        </tbody>
+                      </table>
+                    </virtual-scroller>
+                </div>
+              </div>
+            </div>
+  
+            <div *ngIf="model.Type==1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listProByEmployeeId.length}}</span> dự án - {{EmployeeCode}} - {{EmployeeName}}</label>
+            </div>
+  
+            <div *ngIf="model.Type==2" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+              <label class="form-label" style="line-height:35px;">Tổng số
+                <span class="bold text-danger">{{listProByEmployeeId.length}}</span> dự án - {{ExternalEmployeeName}}</label>
+            </div>
+            
+            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+              <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered" style="min-width:1340px">
+                  <thead>
+                    <tr>
+                      <th width="40px" class="text-center">STT</th>
+                      <th width="60px" class="text-center">Mã DA</th>
+                      <th width="160px" class="text-center">Tên dự án</th>
+                      <th width="100px" class="text-center">Trạng thái DA</th>
+                      <th width="150px" class="text-center">Vị trí trong DA</th>
+                      <th width="100px" class="text-center">Trạng thái DA</th>
+                      <th width="300px" class="text-center">Mô tả công việc</th>
+                      <th width="160px" class="text-center">Thời gian tham gia DA</th>
+                      <th width="120px" class="text-center">Đánh giá</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let row of listProByEmployeeId; let i = index">
+                      <td class="text-center">{{StartIndex+i}}</td>
+                      <td class="text-center">{{row.Code}}</td>
+                      <td class="text-center">{{row.ProjectName}}</td>
+                      <td class="text-center">
+                        <nts-status-badge [items]="constants.ProjectStatus" [value]="row.StatusProject"></nts-status-badge>
+                      </td>
+                      <td class="text-center">{{row.RoleName}}</td>
+                      <td class="text-center">
+                        <span class="badge badge-pill badge-success" *ngIf="row.Status == true">ON</span>
+                        <span class="badge badge-pill badge-default" *ngIf="row.Status == false">OFF</span>
+                      </td>
+                      <td>
+                        <nts-text-more [ntsLimit]="30" [ntsText]="row.JobDescription"></nts-text-more>
+                        <!-- {{row.JobDescription}} -->
+                      </td>
+                      <td class="text-center">{{row.StartTime|date:'dd/MM/yyyy'}} - {{row.EndTime|date:'dd/MM/yyyy'}}</td>
+                      <td class="text-center">
+                        <span class="badge badge-pill badge-danger" *ngIf="row.Evaluate=='1'">Xuất sắc</span>
+                        <span class="badge badge-pill badge-success" *ngIf="row.Evaluate=='2'">Tốt</span>
+                        <span class="badge badge-pill badge-warning" *ngIf="row.Evaluate=='3'">Khá</span>
+                        <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='4'">Trung bình</span>
+                        <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='5'">Chưa có đánh giá</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </perfect-scrollbar>
+            </div> 
+  
+          </div>
+        </form>
+      </div>
+  
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="save()" >
+          <i class="fa fa-check"></i>&nbsp;
+          <span>Lưu</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+          <i class="fa fa-power-off"></i> &nbsp;
+          <span>
+            Đóng
+          </span>
+        </button>
+      </div>
+    </div>
+</div>

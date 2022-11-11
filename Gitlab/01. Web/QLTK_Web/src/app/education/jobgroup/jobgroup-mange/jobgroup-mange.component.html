@@ -1,0 +1,134 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left">Tìm kiếm</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-3 col-md-6 col-sm-12 ">
+            <div class="form-group">
+              <label class="form-label">Mã nhóm</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="Code" [(ngModel)]="model.Code">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-6 col-sm-12 ">
+            <div class="form-group">
+              <label class="form-label">Tên nhóm nghề</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="Name" [(ngModel)]="model.Name">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-6 col-md-12 col-sm-12 text-right margin-top-20">
+            <button class="btn btn-success btn-success-system" (click)="searchJobGroups()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="box ">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left div-system">Danh sách nhóm nghề</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.totalItems}}</span> nhóm nghề</label>
+        </div>
+
+        <div class="col-md-6 text-right">
+          <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:950px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center" >STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="200px" class="text-center">Mã nhóm nghề</th>
+                  <th width="500px" class="text-center">Tên nhóm nghề</th>
+                  <th min-width="100px" class="text-center ">Mô tả</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr *ngFor="let row of listDA; let i = index">
+                  <td width="50px" class="text-center">{{startIndex+i}}</td>
+                  <td width="100px" style="text-align: center">
+                    <button type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                      placement="bottom" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteJobGroup(row.Id)"
+                      title="Xóa">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td width="200px">{{row.Code}}</td>
+                  <td width="500px">{{row.Name}}</td>
+                  <td min-width="100px">{{row.Description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchJobGroups()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber" (pageChange)="searchJobGroups()"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+
+      <hr />
+      
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa nhóm nghề </small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa nhóm nghề</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

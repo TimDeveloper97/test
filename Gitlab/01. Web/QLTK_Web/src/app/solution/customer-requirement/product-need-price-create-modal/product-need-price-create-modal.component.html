@@ -1,0 +1,146 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên thiết bị
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Name" name="Name" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã thiết bị
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Code" name="Code" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Tên nhà sản suất
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.ManufactureName"
+                            name="ManufactureName" maxlength="300" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Chủng loại hàng hóa
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <select data-size="3" class="form-control" [(ngModel)]="model.ProductType"
+                            name="productType" required>
+                            <option style="height: auto;" *ngFor="let item of ProductType"
+                                [ngValue]="item.Id">
+                                {{item.Name}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Số lượng
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Quantity" name="Quantity" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Đơn vị
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Unit" name="Unit" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Giá
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input currencyMask type="text" class="form-control" [(ngModel)]="model.Price" name="Price" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Ngày giao hàng
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="input-group">
+                        <input container="body" class="form-control" placeholder="dd/mm/yyyy" [name]="deliveryDate"
+                            [(ngModel)]="model.DeliveryDate" ngbDatepicker #deliveryDate="ngbDatepicker"
+                            [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}" required>
+                        <div class="input-group-append">
+                            <span class="dtp-icon" (click)="deliveryDate.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Thông số kỹ thuật
+                    </label>
+                    <div class="controls">
+                        <textarea [(ngModel)]="model.Specifications" name="Specifications" rows="5"
+                            class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group">
+                    <label class="form-label">Ghi chú
+                    </label>
+                    <div class="controls">
+                        <textarea [(ngModel)]="model.Note" name="Note" rows="5" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <!-- <ng-container  *ngIf="Id===''">
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & Tiếp tục</span>
+        </button>
+    </ng-container> -->
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

@@ -1,0 +1,76 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Năm</label>
+            <div class="controls">
+              <select name="DesignBy" class="form-control" [(ngModel)]="model.Year" (change)="searchCost()">
+                <option *ngFor="let item of listYear" [ngValue]="item">{{item}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="content-body padding-15">
+    <div class="row margin-bottom-10">
+      <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng chi phí dự kiến triển khai được:
+          <span class="bold text-danger">{{totalCost|number:'1.0-0'}}</span></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width: 1100px">
+            <thead>
+              <tr>
+                <th width="100px" class="text-center">Tháng</th>
+                <th width="200px" class="text-center">Dự kiến chi tiêu</th>
+                <th width="200px" class="text-center">Số tiền chi tiêu</th>
+                <th width="200px" class="text-center">Trạng thái</th>
+                <th min-width="400px" class="text-center">Chi phí tháng tiếp theo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listCostWarning; let i = index">
+                <td class="text-center">{{row.Month}}</td>
+                <td>
+                  <input currencyMask [disabled]="row.CheckEstimatedCost!=0"
+                    [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="'EstimatedCost'+i" type="text" class="form-control" [(ngModel)]="row.EstimatedCost"
+                    maxlength="18" (ngModelChange)="TotalEstimatedCosts()">
+                </td>
+                <td>
+                  <input currencyMask [disabled]="row.CheckRealCost!=0"
+                    [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="'RealCost'+i" type="text" class="form-control" [(ngModel)]="row.RealCost" maxlength="18"
+                    (ngModelChange)="TotalRealCost()">
+                </td>
+                <td class="text-right">{{row.EstimatedCost-row.RealCost|number:'1.0-0'}}</td>
+                <td class="text-right">{{row.NextMonthCost|number:'1.0-0'}}</td>
+              </tr>
+              <tr>
+                <td class="text-center">Tổng:</td>
+                <td class="text-right">{{totalEstimatedCost|number:'1.0-0'}}</td>
+                <td class="text-right">{{totalRealCost|number:'1.0-0'}}</td>
+                <td class="text-right">{{totalStatusCost|number:'1.0-0'}}</td>
+                <td class="text-right">{{totalNextMonth|number:'1.0-0'}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12 text-right">
+        <button type="button" class="btn btn-success" container="body" (click)="createCost()">
+          <i class="fa fa-save"></i>
+          Lưu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

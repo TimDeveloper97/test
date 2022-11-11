@@ -1,0 +1,26 @@
+ TinymceModule.withConfig({ 
+     plugins: ['image code','visualblocks','preview','table','advlist','print','preview','fullpage','searchreplace','autolink','directionality','visualblocks','visualchars','fullscreen','link','media','template','codesample','table','charmap','hr','pagebreak','nonbreaking','anchor','toc','insertdatetime','advlist','lists','textcolor','wordcount','imagetools','contextmenu','colorpicker','textpattern','help'], 
+     language: 'vi_VN',
+     file_picker_types: 'image', 
+     automatic_uploads: true, 
+     toolbar: 'undo redo | bold | italic | underline | strikethrough| alignleft | aligncenter | alignright | alignjustify | alignnone | styleselect | formatselect | fontselect | fontsizeselect | cut | copy | paste | outdent | indent | blockquote | hr | preview | fullscreen | numlist | backcolor | rtl | ltr | link image | table | media | code',
+     file_picker_callback: function(callback, value, meta) { 
+      var input = document.createElement('input');
+      input.setAttribute('type', 'file');
+      input.setAttribute('accept', 'image/*'); 
+      input.onchange = function() {
+        var res = <HTMLInputElement>this;
+        var file:File = res.files[0];
+        var reader = new FileReader();
+        reader.onload = function () {
+          var base64 = reader.result.split(',')[1];
+          // call the callback and populate the Title field with the file name
+          //cb('data:image/png;base64,'+base64, { title: file.name });
+          callback('http://localhost:8081/fileUpload/device/08032018115537_2-1513589039451.jpg', { title: file.name });
+        };
+        reader.readAsDataURL(file);
+      };
+      
+      input.click();
+    }
+    })

@@ -1,0 +1,64 @@
+.choose-employee {
+    .modal-dialog {
+        width: 100%;
+    }
+
+    @media (min-width: 576px) {
+        .modal-dialog {
+            max-width: 540px;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .modal-dialog {
+            max-width: 720px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .modal-dialog {
+            max-width: 960px;
+        }
+    }
+
+    @media (min-width: 1366px) {
+        .modal-dialog {
+            max-width: 1300px;
+        }
+    }
+
+    @media (min-width: 1600px) {
+        .modal-dialog {
+            max-width: 1500px;
+        }
+    }
+
+    @media (min-width: 1920px) {
+        .modal-dialog {
+            max-width: 1800px;
+        }
+    }
+
+    .table-choose {
+        display: flex;
+    }
+
+    .table-left {
+        flex-basis: calc(100% / 2 - 25px);
+    }
+
+    .table-center {
+        width: 50px;
+        text-align: center;
+        margin-top: 150px;
+
+        button:first-of-type {
+            margin-bottom: 10px;
+        }
+    }
+
+    .table-right {
+        flex-basis: calc(100% / 2 - 25px);
+        overflow: hidden;
+    }
+}

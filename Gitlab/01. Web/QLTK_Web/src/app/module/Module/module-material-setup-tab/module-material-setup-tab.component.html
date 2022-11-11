@@ -1,0 +1,258 @@
+<div class="row">
+  <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12 text-left">
+    <label class="form-label" style="line-height:35px;">Tổng số
+      <span class="bold text-danger">{{listData.length}}</span> vật tư</label>&nbsp;
+  </div>
+  <div class="col-md-12 col-lg-6 col-xl-6 col-sm-12 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="searchModuleMaterial()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:1190px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Mã vật tư</th>
+            <th min-width="200px" class="text-center">Tên vật tư</th>
+            <th width="120px" class="text-center">Hãng</th>
+            <th width="150px" class="text-center">File cài đặt</th>
+            <th width="150px" class="text-center">Datasheet</th>
+            <th width="120px" class="text-center">Tình trạng</th>
+            <th width="200px" class="text-center">Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listData; let j = index" [ngClass]="{'selected':selectIndex == j}"
+            (click)="loadParam(j, row.Id, row.ManufacturerId, row.MaterialId);">
+            <td class="text-center">{{j+1}}</td>
+            <td>{{row.MaterialCode}}</td>
+            <td>{{row.MaterialName}}</td>
+            <td>{{row.ManufacturerCode}}</td>
+            <td>
+              <div class="row" style="padding-left: 1cm">
+                <button class="btn btn-xs btn-success" (click)="fileInput.click();">
+                  <i class="fas fa-arrow-up"></i> &nbsp;</button>
+                <input name="file" style="display: none;" type="file" id="fileInput" #fileInput
+                  (change)="uploadFileClickSetup($event,row.ManufactureId,row.MaterialId,row.Id)" multiple />
+                <div *ngIf="row.ListFileSetup && row.ListFileSetup.length>0" class="custom-control custom-checkbox">
+                  <span style="font-size: 15px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                </div>
+                <div *ngIf="!row.ListFileSetup || row.ListFileSetup.length==0" class="custom-control custom-checkbox">
+                  <span style="font-size: 15px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                </div>&nbsp;
+                <button type="button" (click)="DownloadAllFileSetup(row.ListFileSetup)" ngbTooltip="Download"
+                  class="btn btn-xs btn-danger">
+                  <i class="fa fa-arrow-down"></i>
+                </button>
+              </div>
+            </td>
+            <td style="padding-left: 1cm">
+              <div class="row">
+                <div class="upload-btn-wrapper">
+                  <button class="btn btn-xs btn-success" (click)="fileData.click();">
+                    <i class="fas fa-arrow-up"></i> &nbsp;</button>
+                  <input name="filemodulematerial" style="display: none;" type="file" id="fileData" #fileData
+                    (change)="uploadFileClickDatasheet($event,row.ManufactureId,row.MaterialId,row.Id)" multiple />
+                </div>
+                <div *ngIf="row.ListDatashet && row.ListDatashet.length>0" class="custom-control custom-checkbox">
+                  <span style="font-size: 15px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                </div>
+                <div *ngIf="!row.ListDatashet || row.ListDatashet.length==0" class="custom-control custom-checkbox">
+                  <span style="font-size: 15px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                </div>&nbsp;
+                <button type="button" (click)="downAllDocumentProcess(row.ListDatashet)" ngbTooltip="Download"
+                  class="btn btn-xs btn-danger">
+                  <i class="fa fa-arrow-down"></i>
+                </button>
+              </div>
+            </td>
+            <td class="text-center">
+              <div *ngIf="row.ListFileSetup.length>0 && row.ListDatashet.length>0">Đã đủ tài liệu</div>
+              <div
+                *ngIf="(row.ListFileSetup.length == 0 && row.ListDatashet.length==0 ) || (row.ListFileSetup.length > 0 && row.ListDatashet.length==0 ) || (row.ListFileSetup.length == 0 && row.ListDatashet.length >0 )">
+                Chưa đủ tài liệu</div>
+            </td>
+            <td>{{row.Note}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+
+<!-- File cài đặt  -->
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="text-left col-lg-6 col-md-6 col-sm-6">
+        <b style="color: black" class="text-uppercase">File cài đặt</b>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <b>Tổng số
+      <b style="color: red">{{modelModuleMaterial.ListFileSetup.length}}</b> file</b>
+    <table class="table table-bordered" style="min-width:750px">
+      <thead>
+        <tr>
+          <th width="50px" class="text-center">STT</th>
+          <th width="100px" class="text-center">Xử lý</th>
+          <th min-width="200px" class="text-center">Tên file</th>
+          <th width="100px" class="text-center">Dung lượng</th>
+          <th width="100px" class="text-center">Ngày tải lên</th>
+          <th width="200px " class="text-center">Người tải lên</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of modelModuleMaterial.ListFileSetup;let i=index">
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-center">
+
+            <ng-container>
+              <button *appUipermission="['F000011']" class="btn btn-xs btn-danger"
+                (click)="showConfirmDeleteFileSetup(i)" ngbTooltip="Xóa" container="body">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container *ngIf="row.Id!=null && row.Id!=''">
+              <button *appUipermission="['F000010']" style="background-color: papayawhip" class="btn btn-xs"
+                (click)="DownloadAFile(row)" ngbTooltip="Tải" container="body">
+                <span class="fa fa-download" aria-hidden="true"></span>
+              </button>
+            </ng-container>
+          </td>
+          <td>
+            <span *ngIf="row.Id=='' || row.Id == null ">{{row.name}}</span>
+            <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+          </td>
+          <td>
+            <span *ngIf="row.Id=='' || row.Id == null">{{row.size / (1024*1024)| number: '1.1-3'}} MB</span>
+            <span *ngIf="row.Id!=null">{{row.Size / (1024*1024)| number: '1.1-3'}} MB</span>
+          </td>
+          <td>
+            <span *ngIf="row.Id!=null">{{row.UpdateDate |date:'dd/MM/yyyy'}}</span>
+            <span *ngIf="row.Id=='' || row.Id == null ">{{DateNow|date:'dd/MM/yyyy'}}</span>
+          </td>
+          <td>
+            <span *ngIf="row.Id!=null">{{row.UpdateBy}}</span>
+            <span *ngIf="row.Id=='' || row.Id == null">{{UserName}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+<!-- Tài kiệu kỹ thuật DataSheet -->
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <div class="row">
+      <div class="text-left col-lg-6 col-md-6 col-sm-6">
+        <b style="color: black" class="text-uppercase">Tài liệu kỹ thuật (DataSheet)</b>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+    <b>Tổng số
+      <b style="color: red">{{modelModuleMaterial.ListFileDataSheet.length}}</b> file</b>
+    <table class="table table-bordered" style="min-width:750px">
+      <thead>
+        <tr>
+          <th width="50px" class="text-center">STT</th>
+          <th width="100px" class="text-center">Xử lý</th>
+          <th min-width="200px" class="text-center">Tên file</th>
+          <th width="100px" class="text-center">Dung lượng</th>
+          <th width="100px" class="text-center">Ngày tải lên</th>
+          <th width="200px" class="text-center">Người tải lên</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of modelModuleMaterial.ListFileDataSheet;let i=index">
+          <td class="text-center">{{i+1}}</td>
+          <td class="text-center">
+            <ng-container>
+              <button *appUipermission="['F000011']" class="btn btn-xs btn-danger"
+                (click)="showConfirmDeleteFileDataSheet(i)" ngbTooltip="Xóa" container="body">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>&nbsp;
+            </ng-container>
+
+            <ng-container *ngIf="row.Id!=null && row.Id!=''">
+              <button *appUipermission="['F000010']" style="background-color: papayawhip" class="btn btn-xs"
+                (click)="DownloadAFileDataSheet(row)" ngbTooltip="Tải" container="body">
+                <span class="fa fa-download" aria-hidden="true"></span>
+              </button>
+            </ng-container>
+          </td>
+          <td>
+            <span *ngIf="row.Id=='' || row.Id == null">{{row.name}}</span>
+            <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+
+          </td>
+          <td>
+            <span *ngIf="row.Id=='' || row.Id == null">{{row.size / (1024*1024)| number: '1.1-3'}} MB</span>
+            <span *ngIf="row.Id!=null">{{row.Size / (1024*1024)| number: '1.1-3'}} MB</span>
+          </td>
+          <td>
+            <span *ngIf="row.Id!=null">{{row.UpdateDate |date:'dd/MM/yyyy'}}</span>
+            <span *ngIf="row.Id=='' || row.Id == null">{{DateNow|date:'dd/MM/yyyy'}}</span>
+          </td>
+          <td>
+            <span *ngIf="row.Id!=null">{{row.UpdateBy}}</span>
+            <span *ngIf="row.Id=='' || row.Id == null">{{UserName}}</span>
+            <span *ngIf="row.Id!=null">{{UserName}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-9 col-md-9 col-sm-12 col-xl-12">
+    <span style="font-size: 15px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+    &nbsp;
+    <small class="padding-right-20">Đủ tài liệu</small>
+
+    <span style="font-size: 15px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+    &nbsp;
+    <small class="padding-right-20">Thiếu tài liệu</small>
+
+    <span style="font-size: 15px; color:forestgreen;"> <i class="fas fa-arrow-up"></i></span>
+    &nbsp;
+    <small class="padding-right-20">Upload tài liệu</small>
+
+    <span style="font-size: 20px; color:red;"> <i style="font-size:16px;" class="fa fa-arrow-down"></i></span>
+    &nbsp;
+    <small class="padding-right-20">Download tài liệu</small>
+  </div>
+  <div class="col-lg-3 col-md-3 col-sm-12 col-xl-12 text-right">
+    <ng-container>
+      <button type="button" class="btn btn-success" (click)="showConfirmUploadVersion()">
+        <i class="fa fa-save"></i>&nbsp;
+        <span>Lưu</span>
+      </button>
+    </ng-container>&nbsp;
+
+    <ng-container>
+      <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span> Đóng</span>
+      </button>
+    </ng-container>
+  </div>
+</div>

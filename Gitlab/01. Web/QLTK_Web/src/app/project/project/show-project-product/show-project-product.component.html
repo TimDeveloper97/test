@@ -1,0 +1,767 @@
+<form name="searchForm" #f="ngForm">
+    <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="search"
+                (change)="searchProjectProduct()">
+            </nts-search-bar>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchProjectProduct()">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+            <div ngbDropdown class="d-inline-block">
+          <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+              class="fas fa-cog"></i></button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button *appUipermission="['F060021']" class="btn btn-success btn-success-system" (click)="exportExcel()">
+              <i class="fas fa-not-equal"></i> &nbsp;Sai khác HĐ</button>
+            <!-- <button *appUipermission="['F060016']" type="button" class="btn btn-success" (click)="showCreateUpdate('','')"
+              container="body">
+              <i class="fa fa-plus"></i>
+              Thêm mới
+            </button>
+            <button *appUipermission="['F060020']" type="button" class="btn btn-warning" (click)="importProduct()">
+              <i class="fa fa-file-excel"></i>
+              Import thống số hợp đồng
+            </button> -->
+            <button type="button" class="btn btn-info" (click)="downloadDocument()">
+              <i class="fa fa-download"></i>
+              Download tài liệu sản phẩm
+            </button>
+          </div>
+        </div>
+        </div>
+    </div>
+</form>
+<div class="row padding-top-10">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" style="height: 1320px;">
+        <div>
+            <label class="form-label" style="line-height:35px;"> Tổng số
+                <span class="bold text-danger">{{totalParent|number}}</span> sản phẩm;</label>&nbsp;
+            <label class="form-label" style="line-height:35px;"> Tổng tiền Định mức vật tư thiết kế:
+                <span class="bold text-danger"
+                    [ngClass]="{'warring_amountTHTK':totalAmount!=PriceFCM}">{{totalAmount|number}}</span>;</label>&nbsp;
+            <label class="form-label" style="line-height:35px;"> Tổng tiền THTK:
+                <span class="bold text-danger"
+                    [ngClass]="{'warring_amountTHTK':colorTHTK==true}">{{totalAmountTHTK|number}}</span>;</label>&nbsp;
+            <!-- <label class="form-label" style="line-height:35px;"> Tổng tiền Chi phí phát sinh:
+                <span class="bold text-danger">{{totalAmountIncurred|number}}</span>;</label>&nbsp; -->
+            <label class="form-label" style="line-height:35px;"> Hạn mức còn lại của TK:
+                <span class="bold text-danger">{{totalAmount - totalAmountTHTK -
+                    totalAmountIncurred|number}}</span></label>
+        </div>
+        <as-split direction="vertical">
+            <as-split-area size="10" minSize="10" maxSize="40">
+                <dx-tree-list class="sp-1" id="employees" [dataSource]="listDA" keyExpr="Id" parentIdExpr="ParentId"
+                    [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                    (onSelectionChanged)="onSelectionChanged($event)" (onRowUpdated)="onRowUpdated($event)">
+                    <dxo-selection mode="single"></dxo-selection>
+                    <dxo-editing mode="cell" [allowUpdating]="true">
+                    </dxo-editing>
+                    <dxi-column cssClass="my-class" dataField="ContractIndex" [allowEditing]="false" caption="Hạng mục"
+                        [minWidth]="80">
+                    </dxi-column>
+
+                    <dxi-column cssClass="my-class" dataField="ContractCode" [allowEditing]="false"
+                        caption="Mã theo hợp đồng" width="200px" cellTemplate="template_ContractCode">
+                    </dxi-column>
+
+                    <div *dxTemplate="let item of 'template_ContractCode'">
+                        <span
+                            [ngClass]="{'text-danger warring_amountTHTK':item.data.IsMaterial==false}">{{item.data.ContractCode}}</span>
+                    </div>
+
+
+                    <dxi-column cssClass="my-class" dataField="ContractName" [allowEditing]="false"
+                        caption="Tên theo hợp đồng" width="300px" cellTemplate="template_ContractName">
+                    </dxi-column>
+
+                    <div *dxTemplate="let item of 'template_ContractName'">
+                        <span
+                            [ngClass]="{'text-danger warring_amountTHTK':item.data.IsMaterial==false}">{{item.data.ContractName}}</span>
+                    </div>
+
+                    <dxi-column cssClass="my-class" dataField="Code" [allowEditing]="false" caption="Mã theo thiết kế"
+                        width="200px">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="Name" [allowEditing]="false" caption="Tên theo thiết kế"
+                        width="200px">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="DatatypeName" [allowEditing]="false"
+                        caption="Kiểu dữ liệu" width="110px"></dxi-column>
+                    <dxi-column cssClass="my-class" dataField="ModuleStatusName" [allowEditing]="false"
+                        caption="Tình trạng module" width="140px">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="DesignStatusName" [allowEditing]="false"
+                        caption="Phân loại hàng hóa" width="140px">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="Quantity" [allowEditing]="false" caption="SL Hợp đồng"
+                        [width]="75" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="RealQuantity" [allowEditing]="false"
+                        caption="SL thực" width="105px" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="Price" [allowEditing]="false" caption="Đinh mức VT TK"
+                        width="105px" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="Amount" [allowEditing]="false" caption="Thành tiền"
+                        width="105px" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="QuantityTHTK" [allowEditing]="false"
+                        caption="Số lượng THTK" [width]="115" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="PriceTHTK" [allowEditing]="false" caption="Đơn giá THTK/thực tế"
+                        width="105px" format="#,##0">
+                    </dxi-column>
+                    <dxi-column cssClass="my-class" dataField="AmountTHTK" [allowEditing]="false"
+                        cellTemplate="template_AmountTHTKTemplate" caption="Thành tiền THTK/thực tế" [width]="125"
+                        format="#,##0">
+                    </dxi-column>
+                    <!-- <dxi-column cssClass="my-class" dataField="AmountIncurred" [allowEditing]="false"
+                        caption="Chi phí phát sinh" width="105px" format="#,##0">
+                    </dxi-column> -->
+                    <div *dxTemplate="let item of 'template_AmountTHTKTemplate'">
+                        <span
+                            [ngClass]="{'text-danger warring_amountTHTK':item.data.ColorGeneralDesign==false}">{{item.data.AmountTHTK|number}}</span>
+                    </div>
+                    <dxi-column dataField="IsGeneralDesign" [allowEditing]="true" caption="Tổng hợp thiết kế"
+                        width="140px" class="custom-control custom-checkbox"></dxi-column>
+
+                    <dxi-column cssClass="my-class" dataField="DesignWorkStatus"
+                        cellTemplate="template_DesignWorkStatus" [allowEditing]="false" caption="Trạng thái thiết kế"
+                        width="140px">
+                    </dxi-column>
+
+                    <div *dxTemplate="let item of 'template_DesignWorkStatus'">
+                        <nts-status [items]="constants.DesignWorkStatus" [value]="item.data.DesignWorkStatus">
+                        </nts-status>
+                    </div>
+
+                    <dxi-column cssClass="my-class" dataField="DesignCloseDate" [allowEditing]="false"
+                        caption="Ngày đóng thiết kế" width="140px" cellTemplate="template_DesignCloseDate">
+                    </dxi-column>
+
+                    <div *dxTemplate="let item of 'template_DesignCloseDate'">
+                        <span class="text-center">{{item.data.DesignCloseDate|date:'dd/MM/yyyy'}}</span>
+                    </div>
+
+                    <dxi-column cssClass="my-class" dataField="GeneralDesignLastDate" [allowEditing]="false"
+                        caption=" Cột ngày tạo THTK cuối cùng" width="140px" cellTemplate="template_DesignCloseDate">
+                    </dxi-column>
+
+                    <div *dxTemplate="let item of 'template_GeneralDesignLastDate'">
+                        <span class="text-center">{{item.data.GeneralDesignLastDate|date:'dd/MM/yyyy'}}</span>
+                    </div>
+
+
+                    <dxi-column cssClass="my-class" dataField="Note" [allowEditing]="false" caption="Mô tả"
+                        [minWidth]="200">
+                    </dxi-column>
+                </dx-tree-list>
+
+            </as-split-area>
+            <as-split-area size="90" minSize="50" maxSize="90">
+                <ul ngbNav #nav="ngbNav" class="nav-tabs" [(activeId)]="activeTabId">
+                    <li [ngbNavItem]="1" [disabled]="permissionService.checkPermission(['F060019','F060017'])">
+                        <a ngbNavLink>Thông tin</a>
+                        <ng-template ngbNavContent>
+                            <ng-container *ngIf="projectProductId!=null">
+                                <!-- <button *appUipermission="['F060017']" type="button" class="btn btn-success btn-save"
+                    [disabled]="!f.form.valid" (click)="save(false)">
+                    <i class="fa fa-save"></i>&nbsp;
+                    <span>Lưu</span>
+                  </button> -->
+                                <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+                                    <div class="row">
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Sản phẩm cha
+                                                </label>
+                                                <nts-drop-down-tree [items]="listProjectProduct"
+                                                    [columns]="columnProjectProduct" ntsParentId="ParentId"
+                                                    ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="projectProductModel.ParentId" name="projectproduct"
+                                                    [disUipermission]="['F060017']" disabled>
+                                                </nts-drop-down-tree>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Mã theo hợp đồng
+                                                </label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="projectProductModel.ContractCode"
+                                                        name="ContractCode" maxlength="50"
+                                                        [disUipermission]="['F060017']" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Tên theo hợp đồng
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="projectProductModel.ContractName"
+                                                        name="ContractName" maxlength="300" required
+                                                        [disUipermission]="['F060017']" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Kiểu dữ liệu
+                                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <select name="DataType" required class="form-control"
+                                                        [(ngModel)]="projectProductModel.DataType"
+                                                        [disUipermission]="['F060017']" disabled>
+                                                        <option *ngFor="let item of listDataType" [ngValue]="item.Id"
+                                                            disabled>{{item.Name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12"
+                                            *ngIf="projectProductModel.DataType==4 || projectProductModel.DataType==3">
+                                            <div class="form-group">
+                                                <label class="form-label">Mã theo thiết kế
+                                                </label>
+                                                <nts-drop-down-tree [items]="listModule" [columns]="columnName"
+                                                    ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code"
+                                                    ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="projectProductModel.ModuleId" name="moduleId"
+                                                    placeholder="Chọn thiết kế" [disUipermission]="['F060017']"
+                                                    disabled>
+                                                </nts-drop-down-tree>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12"
+                                            *ngIf="projectProductModel.DataType==2">
+                                            <div class="form-group ">
+                                                <label class="form-label">Mã theo thiết kế
+                                                </label>
+                                                <nts-drop-down-tree [items]="listProduct" [columns]="columnName"
+                                                    ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code"
+                                                    ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="projectProductModel.ProductId" name="productId"
+                                                    placeholder="Chọn thiết kế" [disUipermission]="['F060017']"
+                                                    disabled>
+                                                </nts-drop-down-tree>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Tình trạng module
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <select name="ModuleStatus" required class="form-control"
+                                                        [(ngModel)]="projectProductModel.ModuleStatus"
+                                                        [disUipermission]="['F060017']" disabled>
+                                                        <option *ngFor="let item of listModuleStatus"
+                                                            [ngValue]="item.Id" disabled>{{item.Name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Tình trạng thiết kế
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <select name="DesignStatus" required class="form-control"
+                                                        [(ngModel)]="projectProductModel.DesignStatus"
+                                                        [disUipermission]="['F060017']">
+                                                        <option *ngFor="let item of listDesignStatus"
+                                                            [ngValue]="item.Id">{{item.Name}}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Số lượng
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <input currencyMask
+                                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                        name="Quantity" type="text" class="form-control"
+                                                        [(ngModel)]="projectProductModel.Quantity" maxlength="18"
+                                                        [disUipermission]="['F060017']" required disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày dự kiến hoàn thành thiết kế
+                                                </label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group input-date">
+                                                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                                                name="ExpectedDesignFinishDate"
+                                                                [(ngModel)]="expectedDesignFinishDate" ngbDatepicker
+                                                                #ExpectedDesignFinishDate="ngbDatepicker"
+                                                                [disUipermission]="['F060017']" disabled>
+                                                            <div class="input-group-append"
+                                                                [disUipermission]="['F060017']">
+                                                                <span class="dtp-icon"
+                                                                    (click)="ExpectedDesignFinishDate.toggle();$event.stopPropagation();">
+                                                                    <i class="far fa-calendar-alt" style="color: #999;"
+                                                                        disabled></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày dự kiến hoàn thành sản xuất
+                                                </label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group input-date">
+                                                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                                                name="ExpectedMakeFinishDate"
+                                                                [(ngModel)]="expectedMakeFinishDate" ngbDatepicker
+                                                                #ExpectedMakeFinishDate="ngbDatepicker"
+                                                                [disUipermission]="['F060017']" disabled>
+                                                            <div class="input-group-append"
+                                                                [disUipermission]="['F060017']">
+                                                                <span class="dtp-icon"
+                                                                    (click)="ExpectedMakeFinishDate.toggle();$event.stopPropagation();"
+                                                                    disabled>
+                                                                    <i class="far fa-calendar-alt"
+                                                                        style="color: #999;"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày dự kiến chuyển giao
+                                                </label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <div class="input-group input-date">
+                                                            <input class="form-control" placeholder="dd/mm/yyyy"
+                                                                name="ExpectedTransferDate"
+                                                                [(ngModel)]="expectedTransferDate" ngbDatepicker
+                                                                #ExpectedTransferDate="ngbDatepicker"
+                                                                [disUipermission]="['F060017']" disabled>
+                                                            <div class="input-group-append"
+                                                                [disUipermission]="['F060017']">
+                                                                <span class="dtp-icon"
+                                                                    (click)="ExpectedTransferDate.toggle();$event.stopPropagation();"
+                                                                    disabled>
+                                                                    <i class="far fa-calendar-alt"
+                                                                        style="color: #999;"></i>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày dự kiến giao hàng
+                                                    <span class='text-danger text-strong'></span>
+                                                </label>
+                                                <div class="controls">
+                                                    <div class="input-group ">
+                                                        <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="DeliveryDate" [(ngModel)]="deliveryDate" ngbDatepicker
+                                                            #DeliveryDate="ngbDatepicker"
+                                                            [disUipermission]="['F060017']" disabled>
+                                                        <div class="input-group-append" [disUipermission]="['F060017']">
+                                                            <span class="dtp-icon"
+                                                                (click)="DeliveryDate.toggle();$event.stopPropagation();"
+                                                                disabled>
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày chuyển giao
+                                                    <span class='text-danger text-strong'></span>
+                                                </label>
+                                                <div class="controls">
+                                                    <div class="input-group ">
+                                                        <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="TransferDate" [(ngModel)]="transferDate" ngbDatepicker
+                                                            #TransferDate="ngbDatepicker"
+                                                            [disUipermission]="['F060017']" disabled>
+                                                        <div class="input-group-append" [disUipermission]="['F060017']">
+                                                            <span class="dtp-icon"
+                                                                (click)="TransferDate.toggle();$event.stopPropagation();"
+                                                                disabled>
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group form-group-custom">
+                                                <label class="form-label">Định mức vật tư thiết kế
+                                                </label>
+                                                <div class="controls">
+                                                    <input currencyMask
+                                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                                        name="Price" type="text" class="form-control"
+                                                        [(ngModel)]="projectProductModel.Price" maxlength="18"
+                                                        [disUipermission]="['F060017']" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Hạng mục</label>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control"
+                                                        [(ngModel)]="projectProductModel.ContractIndex"
+                                                        name="ContractIndex" maxlength="50"
+                                                        [disUipermission]="['F060017']" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3 checkbox">
+                                            <label class="form-label">
+                                            </label>
+                                            <div class="custom-control custom-checkbox margin-top-10">
+                                                <input [disUipermission]="['F060017']" type="checkbox"
+                                                    class="custom-control-input" id="IsGeneralDesign"
+                                                    name="IsGeneralDesign"
+                                                    [(ngModel)]="projectProductModel.IsGeneralDesign" disabled>
+                                                <label class="custom-control-label" for="IsGeneralDesign">Tổng hợp thiết
+                                                    kế</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 radio">
+                                            <div class="form-group ">
+                                                <label class="form-label">Trạng thái làm thiết kế
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <ng-container>
+                                                    <label class="radio">Đang thiết kế
+                                                        <input type="radio" name="valueTrueFalse"
+                                                            [(ngModel)]="projectProductModel.DesignWorkStatus"
+                                                            [value]="false" disabled>
+                                                        <span class="checkround"></span>
+                                                    </label>
+                                                    <label class="radio">Đã xong
+                                                        <input type="radio" name="valueTrueFalse"
+                                                            [(ngModel)]="projectProductModel.DesignWorkStatus"
+                                                            [value]="true" disabled>
+                                                        <span class="checkround"></span>
+                                                    </label>
+                                                </ng-container>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày đóng thiết kế
+                                                    <span class='text-danger text-strong'></span>
+                                                </label>
+                                                <div class="controls">
+                                                    <div class="input-group ">
+                                                        <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="designCloseDate" [(ngModel)]="designCloseDate"
+                                                            ngbDatepicker #DesignCloseDate="ngbDatepicker"
+                                                            [disUipermission]="['F060016']" disabled>
+                                                        <div class="input-group-append" [disUipermission]="['F060016']">
+                                                            <span class="dtp-icon"
+                                                                (click)="DesignCloseDate.toggle();$event.stopPropagation();">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                                            <div class="form-group ">
+                                                <label class="form-label">Ngày tạo THTK gần nhất
+                                                    <span class='text-danger text-strong'></span>
+                                                </label>
+                                                <div class="controls">
+                                                    <div class="input-group ">
+                                                        <input type="text" class="form-control" placeholder="dd/mm/yyyy"
+                                                            name="generalDesignLastDate"
+                                                            [(ngModel)]="generalDesignLastDate" ngbDatepicker
+                                                            #GeneralDesignLastDate="ngbDatepicker"
+                                                            [disUipermission]="['F060016']" disabled>
+                                                        <div class="input-group-append" [disUipermission]="['F060016']"
+                                                            disabled>
+                                                            <span class="dtp-icon"
+                                                                (click)="GeneralDesignLastDate.toggle();$event.stopPropagation();">
+                                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Thông số
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <textarea [(ngModel)]="projectProductModel.Specifications"
+                                                        name="Specifications" rows="10" class="form-control"
+                                                        [disUipermission]="['F060017']" disabled ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                            <div class="form-group">
+                                                <label class="form-label">Mô tả
+                                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                                </label>
+                                                <div class="controls">
+                                                    <textarea [(ngModel)]="projectProductModel.Note" name="Note"
+                                                        rows="2" class="form-control" [maxLength]="300"
+                                                        [disUipermission]="['F060017']" disabled ></textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                        <button *appUipermission="['F060017']" type="button" class="btn btn-success"
+                          [disabled]="!f.form.valid" (click)="save(false)">
+                          <i class="fa fa-save"></i>&nbsp;
+                          <span>Lưu</span>
+                        </button>
+                      </div>
+                    </div> -->
+                                </form>
+                            </ng-container>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="2"
+                        [disabled]="(projectProductModel.DataType!=4 && projectProductModel.DataType!=3) || permissionService.checkPermission(['F060030','F060031','F060032','F060033','F060034'])">
+                        <a ngbNavLink>Lịch sử VT mua trước</a>
+                        <ng-template ngbNavContent>
+                            <app-show-project-product-bom [ProjectProductId]="projectProductId"
+                                [ModuleId]="projectProductModel.ModuleId">
+                            </app-show-project-product-bom>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="3"
+                        [disabled]="(projectProductModel.DataType!=4 && projectProductModel.DataType!=3 && projectProductModel.ParentDataType!=4 && projectProductModel.ParentDataType!=3) || permissionService.checkPermission(['F060030','F060031','F060032','F060033','F060034'])">
+                        <a ngbNavLink>Danh mục vật tư</a>
+                        <ng-template ngbNavContent>
+                            <app-show-project-product-material [ModuleId]="moduleId" [ParentModuleId]="parentModuleId"
+                                [ProjectProductId]="projectProductId" [ContractCode]="projectProductModel.ContractCode">
+                            </app-show-project-product-material>
+                        </ng-template>
+                    </li>
+                    <li [ngbNavItem]="4" [disabled]="projectProductModel.DataType != 2">
+                        <a ngbNavLink>Ấn phẩm marketing</a>
+                        <ng-template ngbNavContent>
+                          <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center">
+                              <label class="form-label" style="line-height:35px;">Tên thiết bị :&nbsp;&nbsp;
+                              </label>
+                              <a target="_blank"
+                                [routerLink]="['/du-an/quan-ly-du-an/xem-tai-lieu-dinh-kem/'+projectProductModel.ProductId]"
+                                class="bold" [activeId]="active">{{projectProductModel.ProductName}}</a>
+                            </div>
+                          </div>
+                          <div class="row">
+                            <table class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-center" border="1">
+                              <tbody>
+                                <tr>
+                                  <td style="background-color: rgb(6,83,156); color: rgb(255, 255, 255);">
+                                   Ấn phẩm cần
+                                  </td>
+                                  <td style="background-color: rgb(6,83,156); color: rgb(255, 255, 255);" class="text-left">Tên ấn phẩm</td>
+                                  <td style="background-color: rgb(6,83,156); color: rgb(255, 255, 255);">
+                                   Tình trạng
+                                  </td>
+                                  <td style="background-color: rgb(6,83,156); color: rgb(255, 255, 255);">
+                                    Ghi chú
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <input type="checkbox" [(ngModel)]="checkModel.MarketingCatalogs" name="chkDesignFolder1"
+                                      style="height:15px; width:15px;">
+                                  </td>
+                                  <td class="text-left">Catalog</td>
+                                  <td>
+                                    <span *ngIf="projectProductModel.IsCantalogs == false" class="badge badge-danger"
+                                      style="margin-top: 13px">Chưa có</span>
+                                    <span *ngIf="projectProductModel.IsCantalogs == true" class="badge badge-success"
+                                      style="margin-top: 13px">Đã có</span>
+                                  </td>
+                                  <td>
+                                    <textarea [(ngModel)]="projectProductModel.CatalogRequireNote" name="CatalogRequireNote" rows="1" class="form-control"
+                                      ></textarea>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <input type="checkbox" [(ngModel)]="checkModel.MarketingPractice" name="chkDesignFolder2"
+                                    style="height:15px; width:15px;">
+                                  </td>
+                                  <td class="text-left">Hướng dẫn thực hành
+                                  </td>
+                                  <td>
+                                    <span *ngIf="projectProductModel.IsMarketingPractice == false" class="badge badge-danger"
+                                      style="margin-top: 13px">Chưa có</span>
+                                    <span *ngIf="projectProductModel.IsMarketingPractice == true" class="badge badge-success"
+                                      style="margin-top: 13px">Đã có</span>
+                                  </td>
+            
+                                  <td>
+                                    <textarea [(ngModel)]="projectProductModel.PracticeGuideRequireNote" name="PracticeGuideRequireNote" rows="1" class="form-control"
+                                      ></textarea>
+                                  </td>
+            
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <input type="checkbox" [(ngModel)]="checkModel.MarketingDevice" name="chkDesignFolder3"
+                                style="height:15px; width:15px;">
+                                  </td>
+                                  <td class="text-left">Hướng dẫn sử dụng thiết bị
+                                  </td>
+                                  <td>
+                                    <span *ngIf="projectProductModel.IsMarketingDevice == false" class="badge badge-danger"
+                                      style="margin-top: 13px">Chưa có</span>
+                                    <span *ngIf="projectProductModel.IsMarketingDevice == true" class="badge badge-success"
+                                      style="margin-top: 13px">Đã có</span>
+                                  </td>
+            
+                                  <td>
+                                    <textarea [(ngModel)]="projectProductModel.UserGuideRequireNote" name="UserGuideRequireNote" rows="1" class="form-control"
+                                      ></textarea>
+                                  </td>
+            
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <input type="checkbox" [(ngModel)]="checkModel.MarketingMaintenance" name="chkDesignFolder4"
+                                    style="height:15px; width:15px;">
+                                  </td>
+                                  <td class="text-left">Hướng dẫn bảo trì
+                                  </td>
+                                  <td>
+                                    <span *ngIf="projectProductModel.IsMarketingMaintenance == false" class="badge badge-danger"
+                                      style="margin-top: 13px">Chưa có</span>
+                                    <span *ngIf="projectProductModel.IsMarketingMaintenance == true" class="badge badge-success"
+                                      style="margin-top: 13px">Đã có</span>
+                                  </td>
+            
+                                  <td>
+                                    <textarea [(ngModel)]="projectProductModel.MaintenaineGuideRequireNote" name="MaintenaineGuideRequireNote" rows="1" class="form-control"
+                                      ></textarea>
+                                  </td>
+            
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <br>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+                              <button *appUipermission="['F060017']" type="button" class="btn btn-success"
+                                [disabled]="!f.form.valid" (click)="save(false)">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu</span>
+                              </button>
+                            </div>
+                          </div>
+                        </ng-template>
+                      </li>
+                      <li [ngbNavItem]="5" [disabled]="!projectProductModel.IsNeedQC">
+                        <a ngbNavLink>Tiêu chí</a>
+                        <ng-template ngbNavContent>
+                          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success mt-md-1 mt-xl-0" (click)='showCreateQCChecklist()'
+                              container="body">
+                              <i class="fa fa-plus"></i>
+                              Thêm mới
+                            </button>&nbsp;
+                          </div>
+                          <div class="row">
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                              <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:700px">
+                                  <thead>
+                                    <tr>
+                                      <th width="50px" class="text-center">STT</th>
+                                      <th width="80px" class="text-center">Xử lý</th>
+                                      <th width="120px" class="text-center">Tên tiêu chuẩn</th>
+                                      <th width="200px" class="text-center">Nhóm tiêu chuẩn</th>
+                                      <th width="200px" class="text-center">Nội dung</th>
+                      
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="let row of checkList; let i = index">
+                                      <td class="text-center">{{i +1}}</td>
+                                      <td>
+                                        <button class="btn btn-xs btn-danger" (click)="showDelete(row.Id)" placement="top" ngbTooltip="Xóa">
+                                          <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+            
+                                      </td>
+                                      <td class="text-center">
+                                        {{row.Name}}
+                                      </td>
+                                      <td class="text-center">
+                                        {{row.ProductStandardGroupName}}
+                                      </td>
+                                      <td class="text-center">{{row.Content}}</td>
+                                    </tr>
+                                  </tbody>
+                                  <tfoot *ngIf="checkList.length == 0">
+                                    <tr class="bold">
+                                      <td colspan="17" min-width="2590px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                                        có
+                                        dữ liệu</td>
+                                    </tr>
+                                  </tfoot>
+                                </table>
+                              </perfect-scrollbar>
+                            </div>
+                      
+                          </div>
+                        </ng-template>
+                      </li>
+                </ul>
+                <div [ngbNavOutlet]="nav"></div>
+            </as-split-area>
+        </as-split>app-incurred-material
+    </div>
+</div>

@@ -1,0 +1,205 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Dự án
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <nts-drop-down [disUipermission]="['F080801','F080802','F080809','F080810']" [disabled]="model.ObjectId"
+                required [items]="listProject" [columns]="columnProject" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                ntsAutoClose="true" [(ngModel)]="model.ProjectId" name="ProjectId">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên công việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F080801','F080802','F080809','F080810']" [disabled]="model.ObjectId" name="Name"
+              type="text" class="form-control" required [(ngModel)]="model.Name">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày làm việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <div class="input-group">
+              <input [disUipermission]="['F080801','F080802','F080809','F080810']" class="form-control" required
+                placeholder="dd/mm/yyyy" name="StartWorking" [(ngModel)]="startWorking" ngbDatepicker
+                #StartWorking="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="StartWorking.toggle()" name="StartWorking">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">Thời gian thực hiện (giờ)
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <input [disUipermission]="['F080801','F080802','F080809','F080810']" name="TotalTime" type="text"
+                class="form-control" required [(ngModel)]="model.TotalTime">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Giờ bắt đầu
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <ngb-timepicker [(ngModel)]="model.StartTime" name="StartTime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Giờ kết thúc
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <ngb-timepicker [(ngModel)]="model.EndTime" name="EndTime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">% hoàn thành công việc
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <select required [disUipermission]="['F080801','F080802','F080809','F080810']" name="Done"
+                class="form-control" [(ngModel)]="model.Done">
+                <option *ngFor="let sbu of contant.WorkDiary_Done" [ngValue]="sbu.Id">{{sbu.Name}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Địa điểm
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input required [disUipermission]="['F080801','F080802','F080809','F080810']" name="Address" type="text"
+              class="form-control" [(ngModel)]="model.Address">
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">Ghi chú
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <textarea [radUipermission]="['F080801','F080802','F080809','F080810']" rows="3" name="Note" type="text"
+                class="form-control" [(ngModel)]="model.Note">
+              </textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">Tên nhân viên
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input name="nameEmployee" type="text" class="form-control" value="{{model.EmployeeName}}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã nhân viên
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <input name="codeEmployee" type="text" class="form-control" value="{{model.EmployeeCode}}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">Phòng ban
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input name="nameDepartment" type="text" class="form-control" value="{{model.DepartmentName}}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <div class="form-group form-group-custom">
+            <label class="form-label">SBU
+              <span class='text-danger text-strong'>&nbsp;</span>
+            </label>
+            <div class="controls">
+              <input name="nameDepartment" type="text" class="form-control" value="{{model.SBUName}}" readonly>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button *appUipermission="['F080801','F080802','F080809','F080810']" type="button" class="btn btn-success"
+    [disabled]="!f.form.valid" (click)="save(false)">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>{{modalInfo.SaveText}}</span>
+  </button>&nbsp;
+  <ng-container *ngIf="model.Id=='' || model.Id == null">
+    <button *appUipermission="['F080801','F080809']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>&nbsp;
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

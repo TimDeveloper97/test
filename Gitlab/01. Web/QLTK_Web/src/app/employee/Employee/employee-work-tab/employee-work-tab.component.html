@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+            <label class="form-label">Tên nhân viên
+
+            </label>
+            <div class="controls">
+                <input type="text" class="form-control" name="EmployeeName" [(ngModel)]="EmployeeName" maxlength="100"
+                    disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+            <label class="form-label">Mã nhân viên
+
+            </label>
+            <div class="controls">
+                <input type="text" class="form-control" name="EmployeeCode" [(ngModel)]="EmployeeCode" maxlength="100"
+                    disabled>
+            </div>
+        </div>
+    </div>
+
+</div>
+<div class="row" #scrollPracticeMaterial>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-left">
+        <label class="form-label" style="line-height:35px;">Danh sách công việc</label>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-right mb-1">
+        <button class="btn btn-default btn-default-system" (click)="getListWork()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+    </div>
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:950px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="150px" class="text-center">Mã công việc</th>
+                <th min-width="250px" class="text-center">Tên công việc</th>
+                <th width="100px" class="text-center">R</th>
+                <th width="100px" class="text-center">A</th>
+                <th width="100px" class="text-center">S</th>
+                <th width="100px" class="text-center">C</th>
+                <th width="100px" class="text-center">I</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listData; let i = index">
+                <td class="text-center">{{i+1}}</td>
+                <td>{{row.Code}}</td>
+                <td>
+                  {{row.Name}}
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.WorkTypeRId==row.WorkTypeId">X</span>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.WorkTypeAId==row.WorkTypeId">X</span>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.WorkTypeSId==row.WorkTypeId">X</span>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.WorkTypeCId==row.WorkTypeId">X</span>
+                </td>
+                <td class="text-center">
+                  <span *ngIf="row.WorkTypeIId==row.WorkTypeId">X</span>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+</div>

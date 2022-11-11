@@ -1,0 +1,66 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Chọn công đoạn cho sản phẩm {{Data.ContractName}}</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                    <virtual-scroller #scroll [items]="listData" style=" display: block;height: 400px;">
+                        <table class="table table-bordered table-fixed table-hover"
+                            style="word-wrap: break-word; margin-bottom:0px !important;min-width: 800px;">
+                            <thead #header style="background-color: white">
+                                <tr>
+                                    <th style="text-align:center; padding-top: 10px" width="60px">
+                                        <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                                            style="height:20px; width:20px;" (change)="checkAll(true)">
+                                    </th>
+                                    <th width="40px" class="text-center">STT</th>
+                                    <th width="200px" class="text-center">Tên công đoạn</th>
+                                    <th width="200px" class="text-center ">Mã công đoạn</th>
+                                    <th min-width="200px" class="text-center ">Mô tả</th>
+                                    <th width="100px" class="text-center ">Màu</th>
+                                </tr>
+                            </thead>
+                            <tbody #container>
+                                <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                    <td style="text-align:center" width="60px">
+                                        <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                                            style="height:20px; width:20px;">
+                                    </td>
+                                    <td class="text-center" width="40px">{{i+1}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>
+                                        {{row.Note}}
+                                    </td>
+                                    <td class="text-center">
+                                        <div [style.background-color]="row.Color" style="width: 70px;"
+                                            class="badge badge-light" [style.color]="row.Color">
+                                            {{row.Color}}
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </virtual-scroller>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)=" choose()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Chọn</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

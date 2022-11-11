@@ -1,0 +1,39 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">Chọn nhóm vật tư theo chức năng</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body padding-15" style="height: 600px;">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+      <div class="col-md-12 col-sm-12 col-lg-12 padding-0">
+        <div class="form-group">
+          <label class="form-label">Tên nhóm vật tư</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="namechoosematerial" [(ngModel)]="materialGroupModel.MaterialGroupName" #name="ngModel" disabled>
+          </div>
+        </div>
+      </div> 
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <dx-tree-list [disUipermission] = "['F001101']" id="folder" [dataSource]="listMaterialGroup" keyExpr="Id" parentIdExpr="ParentId"
+          [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+          (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listId" noDataText=" " height="450">
+          <dxo-selection mode="single"></dxo-selection>
+          <dxi-column dataField="Name" caption="Danh sách nhóm vật tư chức năng"></dxi-column>
+        </dx-tree-list>
+      </div>
+    </form>
+  </div>
+  
+  <div class="modal-footer">
+    <button *appUipermission = "['F001101']" type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>

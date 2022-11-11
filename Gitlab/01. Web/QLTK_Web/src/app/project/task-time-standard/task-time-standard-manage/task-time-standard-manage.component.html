@@ -1,0 +1,147 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelTaskTimeStandard"
+              (change)="searchTaskTimeStandard()">
+            </nts-search-bar>
+          </div>
+
+          <div class="col-xl-4 col-md-12 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchTaskTimeStandard()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body ">
+      <div class="row mb-1">
+        <div class="col-md-4 text-left">
+          <label class="form-label">Danh sách nhân viên cấu hình</label> |&nbsp;
+          <span class="badge badge-pill badge-success" *ngIf="status == 1">Đã cấu hình</span>
+          <span class="badge badge-pill badge-danger" *ngIf="status == 0">Chưa cấu hình</span>
+
+        </div>
+        <div class="col-md-8 text-right">
+          <ng-container *appUipermission="['F060603']">
+            <ng-container *ngIf="status == 0; else elseTemplate">
+              <button type="button" (click)='Config()' class="btn btn-success" container="body">Đã cấu hình
+                <!-- <span class="fas fa-lock" aria-hidden="true"></span> -->
+              </button>&nbsp;
+            </ng-container>
+            <ng-template #elseTemplate>
+              <button type="button" (click)='NotConfig()' class="btn btn-danger" container="body">Chưa cấu hình
+                <!-- <span class="fas fa-lock-open" aria-hidden="true"></span> -->
+              </button>&nbsp;
+            </ng-template>
+          </ng-container>
+          <button *appUipermission="['F060601']" type="button" class="btn btn-success" (click)="save()"
+            container="body">
+            <i class="fa fa-save"></i>
+            Lưu
+          </button>
+          <div ngbDropdown class="d-inline-block" *appUipermission="['F060605','F060604']">
+            &nbsp;
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *appUipermission="['F060604']" type="button" class="btn btn-success"
+                (click)="CaculateAverageInYear()" container="body">
+                <i class="fa fa-calculator"></i>
+                Tính trung bình thời gian trong năm
+              </button>
+              <button *appUipermission="['F060605']" type="button" class="btn btn-success"
+                (click)="importTaskTimeStandard()" container="body">
+                <i class="fa fa-file-excel"></i>
+                Import thời gian tiêu chuẩn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row" #scrollPractice>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+          <div #scrollPracticeHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+              [style.min-width.px]="1250+ListWorkType.length*100">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="50px" class="text-center">STT</th>
+                  <th rowspan="2" style="min-width:200px" class="text-center">Tên nhân viên</th>
+                  <th rowspan="2" width="150px" class="text-center">Mã nhân viên</th>
+                  <th rowspan="2" width="150px" class="text-center">Vị trí</th>
+                  <th [style.width.px]="100 *ListWorkType.length" class="text-center" *ngIf="ListWorkType.length> 0"
+                    [colSpan]="ListWorkType.length" class="text-center">Công việc</th>
+                  <th class="text-center" *ngIf="ListWorkType.length == 0" width="100px">Công việc</th>
+                  <th rowspan="2" width="300px" class="text-center">Tên SBU</th>
+                  <th rowspan="2" width="300px" class="text-center">Tên phòng ban</th>
+                </tr>
+                <tr>
+                  <th *ngFor="let row of ListWorkType" width="100px" class="text-center">{{row.Name}}</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="height">
+
+            <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+              [style.min-width.px]="1250+ListWorkType.length*100">
+              <colgroup>
+                <col width="50px">
+                <col min-width="200px">
+                <col width="150px">
+                <col width="150px">
+                <ng-container *ngIf="ListWorkType.length> 0">
+                  <col *ngFor="let row of ListWorkType" width="100px">
+                </ng-container>
+                <col *ngIf="ListWorkType.length ==0" width="100px">
+                <col width="300px">
+                <col width="300px">
+              </colgroup>
+              <tbody>
+                <ng-container *ngFor="let row of listData; let i = index">
+                  <tr [ngClass]="{'selected':selectIndex==i}" (click)="loadValue(row,i)">
+                    <td width="50px" class="text-center">{{StartIndex+i}}</td>
+                    <td style="min-width:200px">{{row.EmployeeName}}</td>
+                    <td width="150px">{{row.EmployeeCode}}</td>
+                    <td width="150px">{{row.WorkTypeName}}</td>
+                    <td width="100px" *ngFor="let row1 of row.ListWorkType"
+                      [ngClass]="{'time_standard':row1.TimeStandard >0}">
+                      <ng-container *ngIf="row1.TimeStandard >0 || status==0">
+                        <input *appUipermission="['F060601','F060602']" [disabled]="status==1" style="width: 80px;"
+                          type="number" [(ngModel)]="row1.TimeStandard" name="{{'TimeStandard'+row1.TimeStandard+i}}"
+                          maxlength="9" (change)="functionAvg()">
+                      </ng-container>
+                    </td>
+                    <td width="100px" *ngIf="row.ListWorkType.length == 0"></td>
+                    <td width="300px">{{row.SBUName}}</td>
+                    <td width="300px">{{row.DepartmantName}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td class="text-center bold" colspan="4">Thời gian trung bình</td>
+                  <td *ngFor="let _row of listAvg" width="100px" class="text-center">{{_row.Avg}}</td>
+                  <td width="300px"></td>
+                  <td width="300px"></td>
+                </tr>
+              </tfoot>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td [colSpan]="9+ListWorkType.length" min-width="300px" class="text-center"
+                    style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

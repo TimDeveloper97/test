@@ -1,0 +1,130 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left div-system">Báo cáo dự án</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Năm</label>
+              <div class="controls">
+                <select class="form-control" [(ngModel)]="model.Year" name="Year"
+                  (change)="GetReportApplicationPresent()">
+                  <option *ngFor="let year of listYear" [value]="year">
+                    {{year}} </option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-lg-8 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalProjectToNotFinish}}</span> dự án chưa hoàn thành |
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalProjectFinish}}</span> dự án đã hoàn thành |
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalSolutionUse}}</span> giải pháp đang triển khai
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalSolutionToProject}}</span> giải pháp thành dự án |
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalSolutionNotToProject}}</span> giải pháp không thành dự án |
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalSolutionStop}}</span> giải pháp tạm dừng |
+          </label>&nbsp;
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{TotalSolutionCancel}}</span> giải pháp bị hủy
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </section>
+  <section class="box">
+    <div class="content-body padding-15">
+      <div class="row mt-3">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+          <label class="form-label" style="line-height:35px;">Bảng giải pháp
+            <span class="bold text-danger"></span></label>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 text-left">
+          <label class="form-label" style="line-height:35px;">Bảng dự án
+            <span class="bold text-danger"></span></label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-xl-6 col-md-6 col-sm-6 col-lg-6">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:550px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="250px" class="text-center">Tình trạng giải pháp</th>
+                  <th width="250px" class="text-center"> Giá bán thực tế không VAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of list_Solution; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td>
+                    <span *ngIf="row.Status == 1"> Giải pháp đang triển khai</span>
+                    <span *ngIf="row.Status == 2"> Giáp pháp thành dự án</span>
+                    <span *ngIf="row.Status == 3"> Giải pháp không thành dự án</span>
+                    <span *ngIf="row.Status == 4"> Giải pháp tạm dừng</span>
+                    <span *ngIf="row.Status == 5"> Giải pháp hủy</span>
+                  </td>
+                  <td class="text-right">{{row.TotalCostSolution|number:'1.0-0'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+
+        <div class="col-xl-6 col-md-6 col-sm-6 col-lg-6">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:550px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="250px" class="text-center">Tình trạng dự án</th>
+                  <th width="250px" class="text-center"> Giá bán thực tế không VAT</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of list_Project; let i = index">
+                  <td class="text-center">{{i +1}}</td>
+                  <td>
+                    <!-- <span *ngIf="row.Status ==  '1' ">Dự án chưa bắt đầu</span>
+                    <span *ngIf="row.Status ==  '2' ">Dự án đang thiết kế </span>
+                    <span *ngIf="row.Status ==  '3' ">Dự án đã xong thiết kế</span>
+                    <span *ngIf="row.Status ==  '4' ">Dự án đang viết tài liệu</span>
+                    <span *ngIf="row.Status ==  '5' ">Dự án đã xong tài liệu</span>
+                    <span *ngIf="row.Status ==  '6' ">Dự án đang chuyển giao</span>
+                    <span *ngIf="row.Status ==  '7' ">Dự án Hoàn thành dự án</span> -->
+                    <span *ngIf="row.Status=='1'" class="badge badge-danger">Chưa bắt đầu</span>
+                    <span *ngIf="row.Status=='2'" class="badge badge-warning">Đang triển khai</span>
+                    <span *ngIf="row.Status=='3'" class="badge badge-success">Đã hoàn thành</span>
+                  </td>
+                  <td class="text-right">{{row.TotalCostProject | number:'1.0-0'}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

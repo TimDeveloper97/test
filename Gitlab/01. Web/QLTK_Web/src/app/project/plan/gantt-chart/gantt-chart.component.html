@@ -1,0 +1,143 @@
+<div class='content-wrapper'>
+  <section class="box">
+    <!-- <div id="demo-container">
+      <div class="widget-container">
+        <dx-gantt id="myGantt" taskListWidth="500" [height]="height" [firstDayOfWeek]="1"
+          [taskTitlePosition]="titlePosition" [scaleType]="scaleType"
+          [taskTooltipContentTemplate]="'taskTooltipContentTemplate'" [startDateRange]="startDateRange"
+          [endDateRange]="endDateRange" (onScaleCellPrepared)="onScaleCellPrepared($event)"
+          (onTaskEditDialogShowing)="onTaskEditDialogShowing($event)" (onInitialized)="onInitialized($event)">
+          <dxi-strip-line [start]="dateTime" [end]="dateTime">
+          </dxi-strip-line>
+          <dxo-tasks [dataSource]="listData" keyExpr="Id" parentIdExpr="ParentId" titleExpr="Name"
+            progressExpr="DoneRatio" startExpr="PlanStartDate" endExpr="PlanDueDate" colorExpr="Color"></dxo-tasks>
+
+          <dxi-column dataField="Name" caption="Sản phẩm" [width]="300"></dxi-column>
+          <dxi-column dataField="PlanStartDate" caption="Ngày bắt đầu triển khai" dataType="date" alignment="center"
+            format="dd/MM/yyyy">
+          </dxi-column>
+          <dxi-column dataField="PlanDueDate" caption="Ngày kết thúc triển khai" dataType="date" alignment="center"
+            format="dd/MM/yyyy">
+          </dxi-column>
+
+          <dxo-editing [enabled]="false"></dxo-editing>
+          <div *dxTemplate="let task of 'taskTooltipContentTemplate'" class="custom-task-edit-tooltip">
+            <div class="custom-tooltip-title">{{ task.Name }}</div>
+            <div class="custom-tooltip-title">Ngày bắt đầu triển khai: {{ task.PlanStartDate|date:'dd/MM/yyyy'}}</div>
+            <div class="custom-tooltip-title">Ngày kết thúc triển khai: {{ task.PlanDueDate|date:'dd/MM/yyyy'}}</div>
+            <div class="custom-tooltip-title">% hoàn thành: {{task.DoneRatio}}</div>
+          </div>
+        </dx-gantt>
+      </div>
+    </div> -->
+    <!-- idMapping='Id' parentIdMapping='ParentId' -->
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+              <nts-search-bar [options]="searchOptions" [(ngModel)]="searchModel" name="seachProductName"
+                  (change)="search()">
+              </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+              <button class="btn btn-success btn-success-system" (click)="search()">
+                  <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+              <button class="btn btn-default btn-default-system" (click)="clear()">
+                  <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>&nbsp;&nbsp;
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Ngày bắt đầu
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="dateFrom" [(ngModel)]="dateFrom"
+                    ngbDatepicker #DateFrom="ngbDatepicker" (ngModelChange)="search()">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Ngày kết thúc
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <div class="input-group">
+                  <input class="form-control" placeholder="dd/mm/yyyy" name="dateTo" [(ngModel)]="dateTo" ngbDatepicker
+                    #t="ngbDatepicker" (ngModelChange)="search()">
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="t.toggle();$event.stopPropagation();">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="content-body">
+      <div class="row">
+        <div class="col-12">
+          <ejs-gantt id="GridLines" #gantt height="800px" [dataSource]="listData" [gridLines]="gridLines"
+            [allowSelection]="true" [treeColumnIndex]="0" [taskFields]="taskSettings"
+            [splitterSettings]="splitterSettings" [projectStartDate]="startDateRange" [projectEndDate]="endDateRange" [includeWeekend]="true" [allowUnscheduledTasks]="true"
+            [highlightWeekends]="true" [tooltipSettings]="tooltipSettings" [timelineSettings]="timelineSettings"
+            [eventMarkers]="eventMarkers" [selectionSettings]="selectionSettings" [enableVirtualization]="true" 
+            [workWeek]="workWeek" (queryTaskbarInfo)="queryTaskbarInfo($event)"  (rowDataBound)="rowDataBound($event)">
+            <e-columns>
+              <e-column field='Name' headerText='Sản phẩm' textAlign='Left' width='300px'></e-column>
+              <e-column field='PlanStartDate' headerText='Ngày bắt đầu triển khai' width='100px' format="dd/MM/yyyy"
+                textAlign="center"></e-column>
+              <e-column field='PlanDueDate' headerText='Ngày kết thúc triển khai' width='100px' format="dd/MM/yyyy"
+                textAlign="center"></e-column>
+            </e-columns>
+
+            <ng-template #tooltipSettingsTaskbar let-data>
+              <div>
+                <table>
+                  <ng-container>
+                    <tr>
+                      <td style="padding:3px" colspan="2">{{data.Name}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px">Ngày bắt đầu:</td>
+                      <td style="padding:3px">{{data.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px">Ngày kết thúc:</td>
+                      <td style="padding:3px">{{data.PlanDueDate|date:'dd/MM/yyyy'}}</td>
+                    </tr>
+                    <tr>
+                      <td style="padding:3px">% hoàn thành:</td>
+                      <td style="padding:3px">{{data.DoneRatio}}</td>
+                    </tr>
+                  </ng-container>
+                </table>
+              </div>
+            </ng-template>
+          </ejs-gantt>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <small class="padding-right-20">( Ctrl + <i class="fas fa-arrow-up"></i>) Thu gọn</small>
+
+          <small class="padding-right-20">( Ctrl + <i class="fas fa-arrow-down"></i>) Mở rộng</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

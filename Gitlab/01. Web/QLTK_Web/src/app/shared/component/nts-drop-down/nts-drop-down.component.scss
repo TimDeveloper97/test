@@ -1,0 +1,25 @@
+.dx-toolbar {
+  .dx-toolbar-after {
+    width: 100%;
+    padding-left: 0px;
+
+    .dx-datagrid-search-panel {
+      margin-left: 0px;
+      width: 100% !important;
+    }
+  }
+}
+
+.dx-popup-content{
+  .content-tree{
+    height: calc(100% - 40px);
+  }
+}
+
+nts-drop-down{
+  &.ng-invalid{
+    .dx-texteditor-input{
+      border-color: #ef5350 !important;
+    }
+  }
+}

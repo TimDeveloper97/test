@@ -1,0 +1,220 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Số lượng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F090806']"  class="form-control" [(ngModel)]="dataDistributionFileModel.GetType" name="GetType"
+              required>
+              <option value="0">Nhiều file</option>
+              <option value="1">Một file</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="form-group ">
+          <label class="form-label">Tên file
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']" type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.Name" maxLength="300"
+              name="dataDistributionName">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Kiểu file
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F090806']"  class="form-control" [(ngModel)]="dataDistributionFileModel.Type" name="TypedataDistributionFile"
+              required>
+              <option value="1">Cơ khí</option>
+              <option value="2">Điện</option>
+              <option value="3">Điện tử</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="form-group ">
+          <label class="form-label">Đường dẫn nguồn
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FolderContain"
+              maxLength="300" name="dataDistributionType" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="form-group ">
+          <label class="form-label">Đuôi
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.Extension" maxLength="300"
+              name="dataDistributionExtension" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="form-group">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [disUipermission]="['F090806']"  [(ngModel)]="dataDistributionFileModel.Description" name="Description" rows="5"
+              class="form-control" maxLength="300"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <label class="form-label">Chế độ trong file danh mục vật tư
+        </label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group ">
+          <label class="form-label">Mã vật tư bắt đầu bằng
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterMaterialCodeStart"
+              maxLength="300" name="FilterMaterialCodeStart" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="form-group ">
+          <label class="form-label">Thông số
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterThongSo"
+              maxLength="300" name="dataDistributionFilterThongSo" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="form-group ">
+          <label class="form-label">Mã vật liệu
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterRawMaterialCode" maxLength="300"
+              name="FilterRawMaterialCode" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="form-group ">
+          <label class="form-label">Đơn vị
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"  type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterDonVi" maxLength="300"
+              name="FilterDonVi" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="form-group ">
+          <label class="form-label">Vật liệu
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterRawMaterial"
+              maxLength="300" name="FilterRawMaterial" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 ">
+        <div class="form-group ">
+          <label class="form-label">Mã Hãng sản xuất
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F090806']"type="text" class="form-control" [(ngModel)]="dataDistributionFileModel.FilterManufacturer"
+              maxLength="300" name="FilterManufacturer" [disabled]="dataDistributionFileModel.GetType!='0'">
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="custom-control custom-checkbox margin-top-15">
+          <input [disUipermission]="['F090806']"  type="checkbox" class="custom-control-input" id="tem" name="tem"
+            [(ngModel)]="dataDistributionFileModel.TEM" [disabled]="dataDistributionFileModel.GetType!='0'">
+          <label class="custom-control-label" for="tem">TEM</label>
+        </div>
+
+        <div class="custom-control custom-checkbox margin-top-15">
+          <input [disUipermission]="['F090806']"  type="checkbox" class="custom-control-input" id="mat" name="mat"
+            [(ngModel)]="dataDistributionFileModel.MAT" [disabled]="dataDistributionFileModel.GetType!='0'">
+          <label class="custom-control-label" for="mat">MẶT</label>
+        </div>
+        <div class="custom-control custom-checkbox margin-top-15">
+          <input [disUipermission]="['F090806']"  type="checkbox" class="custom-control-input" id="filtermavatlieu" name="filtermavatlieu"
+            [(ngModel)]="dataDistributionFileModel.FilterMaVatLieu" [disabled]="dataDistributionFileModel.GetType!='0'">
+          <label class="custom-control-label" for="filtermavatlieu">Có Mã vật liệu</label>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 ">
+        <div class="custom-control custom-checkbox margin-top-15">
+          <input type="checkbox" class="custom-control-input" id="tem" name="tem"
+            [(ngModel)]="dataDistributionFileModel.IsFolderMaterial" [disabled]="dataDistributionFileModel.GetType!='0'">
+          <label class="custom-control-label" for="tem" >Tạo thư mục theo mã vật tư</label>
+        </div>
+      </div>
+    </div> -->
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F090806']"  type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="!idUpdate">
+    <button *appUipermission="['F090806']"  type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

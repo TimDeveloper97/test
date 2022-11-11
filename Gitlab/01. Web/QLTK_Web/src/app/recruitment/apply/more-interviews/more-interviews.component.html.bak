@@ -1,0 +1,103 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Người phỏng vấn dự kiếm
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="employees" [columns]="employeeColumnName" ntsValue="Id"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="EmployeeId"
+                            name="EmployeeName" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Ngày hẹn phỏng vấn
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <div class="input-group">
+                            <input class="form-control" placeholder="dd/mm/yyyy" name="interviewDate"
+                                [(ngModel)]="interviewDate" ngbDatepicker #ngbinterviewDate="ngbDatepicker" >
+                            <div class="input-group-append">
+                                <span class="dtp-icon" (click)="ngbinterviewDate.toggle()" name="ngbinterviewDate">
+                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian hẹn phỏng vấn
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.InterviewTime" name="Time" [spinners]="false">
+                        </ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">SBU người phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="listSBU" [columns]="employeeColumnName" ntsValue="Id"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId"
+                            name="EmployeeSBU" required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Phòng ban người phỏng vấn
+                        <span class='text-danger text-strong'></span>
+                    </label>
+                    <div class="controls">
+                        <nts-drop-down [items]="departments" [columns]="employeeColumnName" ntsValue="Id"
+                            ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.DepartmentId"
+                            name="EmployeeDepartment"  required>
+                        </nts-drop-down>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button *appUipermission="['F080401','F080402']" type="button" class="btn btn-success"
+            [disabled]="!f.form.valid" (click)="save(false)">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <ng-container *ngIf="Id===''">
+        <button *appUipermission="['F080401']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+            (click)="saveAndContinue()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>Lưu & Tiếp tục</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

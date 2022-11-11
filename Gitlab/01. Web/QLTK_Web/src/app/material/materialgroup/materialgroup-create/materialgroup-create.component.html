@@ -1,0 +1,122 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Thuộc nhóm
+          </label>
+          <div class="controls">
+            <nts-drop-down-tree [disUipermission]="['F000102','F000104','F000101']" [items]="ListMaterialGroup"
+              [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+              ntsAutoClose="true" [(ngModel)]="model.ParentId" name="ParentId">
+            </nts-drop-down-tree>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Mã nhóm vật tư
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F000102','F000104','F000101']" type="text" class="form-control"
+              [(ngModel)]="model.Code" name="Codematerialgroup" maxlength="50" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Tên nhóm vật tư
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F000102','F000104','F000101']" type="text" class="form-control"
+              [(ngModel)]="model.Name" name="namematerialgroup" maxlength="300" required>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Loại
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F000102','F000104','F000101']" class="form-control" [(ngModel)]="model.Type"
+              name="Typematerialgroup" required>
+              <option value="1">Điện, điện tử</option>
+              <option value="2">Cơ khí</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">Thuộc nhóm TPA
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F000102','F000104','F000101']" required class="form-control"
+              [(ngModel)]="model.MaterialGroupTPAId" name="MaterialGroupTPAId">
+              <option *ngFor="let tpa of ListTPA" [ngValue]="tpa.Id">{{tpa.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group">
+          <label class="form-label">Ghi chú
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [radUipermission]="['F000102','F000104','F000101']" [(ngModel)]="model.Description"
+              name="Descriptionmaterialgroup" rows="5" class="form-control" [maxLength]="300"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F000101','F000102']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F000102','F000101']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

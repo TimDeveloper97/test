@@ -1,0 +1,119 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="content-body padding-15">
+  <div class="row margin-bottom-10">
+    <div class="col-md-6 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listData.length}}</span> công việc</label>
+    </div>
+  </div>
+  <div class="row" #scrollPracticeMaterial>
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+        <table class="table table-bordered table-fixed table-hover"
+          style="margin-bottom:0px !important; min-width: 3450px;">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Xử lý</th>
+              <th width="100px" class="text-center">Mã dự án</th>
+              <th width="150px" class="text-center">Mã theo TK</th>
+              <th width="150px" class="text-center">Tên theo TK</th>
+              <th min-width="200px" class="text-center">Kế hoạch</th>
+              <th width="150px" class="text-center">Người phụ trách</th>
+              <th width="100px" class="text-center">Thời gian thực hiện (h)</th>
+              <th width="100px" class="text-center">Ngày bắt đầu dư kiến</th>
+              <th width="100px" class="text-center">Ngày kết thúc dự kiến</th>
+              <th width="100px" class="text-center">Ngày bắt đầu thực tế</th>
+              <th width="100px" class="text-center">Ngày kết thúc thực tế</th>
+              <th width="100px" class="text-center">Tình trạng công việc</th>
+              <th width="100px" class="text-center">Thời gian thực tế (h)</th>
+              <th width="150px" class="text-center">Người tạo</th>
+              <th width="250px" class="text-center">Tên dự án</th>
+              <th width="150px" class="text-center">Mã theo hợp đồng</th>
+              <th width="150px" class="text-center">Tên theo hợp đồng</th>
+              <th width="150px" class="text-center">Mã nghành hàng</th>
+              <th width="100px" class="text-center">Số lượng</th>
+              <th width="100px" class="text-center">Giá tổng hợp TK</th>
+              <th width="100px" class="text-center">Kiểu dữ liệu</th>
+              <th width="150px" class="text-center">Tình trạng bổ sung ngoài hợp đồng</th>
+              <th width="100px" class="text-center">Tình trạng TK</th>
+              <th width="100px" class="text-center">Ngày kickoff</th>
+              <th width="130px" class="text-center">Ngày hoàn thành TK dự kiến</th>
+              <th width="120px" class="text-center">Ngày hoàn thành SX dự kiến</th>
+              <th width="100px" class="text-center">Ngày chuyển giao dự kiến</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="height">
+        <table class="table table-bordered table-fixed table-hover" style="min-width:3450px">
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index">
+              <td width="50px" class="text-center">{{StartIndex+i}}</td>
+              <td width="100px" style="text-align: center">
+                <button *appUipermission="['F060702','F060704','F060705']" type="button"
+                  (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning" placement="top"
+                  ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button *appUipermission="['F060703']" class="btn btn-xs btn-danger"
+                  (click)="showConfirmDeletePlan(row.Id)" ngbTooltip="Xóa" placement="top" container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>&nbsp;              
+              </td>
+              <td width="100px">{{row.ProjectCode}}</td>
+              <td width="150px">{{row.DesignCode}}</td>
+              <td width="150px">{{row.DesignName}}</td>
+              <td min-width="200px">{{row.Name}}</td>
+              <td width="150px">{{row.ResponsiblePersion}}</td>
+              <td width="100px" class="text-center">{{row.EsimateTime}}</td>
+              <td width="100px">{{row.StartDate | date:'dd/MM/yyyy'}}</td>
+              <td width="100px">{{row.EndDate | date:'dd/MM/yyyy'}}</td>
+              <td width="100px">{{row.RealStartDate | date:'dd/MM/yyyy'}}</td>
+              <td width="100px">{{row.RealEndDate | date:'dd/MM/yyyy'}}</td>
+              <td width="100px">
+                <span *ngIf="row.Status == 1"> Chưa thực hiện</span>
+                <span *ngIf="row.Status == 2"> Đang thực hiện</span>
+                <span *ngIf="row.Status == 3"> Đã hoàn thành</span>
+              </td>
+              <td width="100px" class="text-center">{{row.ExecutionTime}}</td>
+              <td width="150px">{{row.CreateByName}}</td>
+              <td width="250px">{{row.ProjectName}}</td>
+              <td width="150px">{{row.ContractCode}}</td>
+              <td width="150px">{{row.ContractName}}</td>
+              <td width="150px">{{row.IndustryCode}}</td>
+              <td width="100px" class="text-center">{{row.Quantity}}</td>
+              <td width="100px" class="text-right">{{row.PricingModule | number}}</td>
+              <td width="100px">{{row.DataType}}</td>
+              <td width="150px">{{row.ModuleStatusView}}</td>
+              <td width="100px">{{row.DesignStatusView}}</td>
+              <td width="100px">{{row.KickOffDate | date:'dd/MM/yyyy'}}</td>
+              <td width="130px">{{row.ExpectedDesignFinishDate | date:'dd/MM/yyyy'}}</td>
+              <td width="120px">{{row.ExpectedMakeFinishDate | date:'dd/MM/yyyy'}}</td>
+              <td width="100px">{{row.ExpectedTransferDate| date:'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listData.length == 0">
+            <tr class="bold">
+              <td colspan="11" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

@@ -1,0 +1,206 @@
+<div class='content-wrapper'>
+
+    <div class="content-body pb-0">
+        <form name="searchForm" #f="ngForm">
+            <div class="row">
+                <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                    <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelTaskTimeStandard"
+                        (change)="search()">
+                    </nts-search-bar>
+                </div>
+
+                <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 text-right">
+                    <button class="btn btn-success btn-success-system" (click)="search()">
+                        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="content-body ">
+
+        <div class="row margin-bottom-10">
+            <div class="col-md-6 text-left">
+                <label class="form-label" style="line-height:35px;">Tổng số
+                    <span class="bold text-danger">{{model.TotalItems}}</span> công đoạn</label>
+            </div>
+
+            <div class="col-md-6 text-right">
+                <button *appUipermission="['F110301','F110302']" type="button" class="btn btn-success"
+                    (click)="showCreateUpdate('')" container="body">
+                    <i class="fa fa-plus"></i>
+                    Thêm mới
+                </button>
+            </div>
+        </div>
+
+
+        <div class="row" #scrollHeaderSkill>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 mt-2">
+                <div #scrollSkill style="overflow-x: auto;overflow: hidden;">
+                    <table class="table table-bordered table-fixed mb-0" style="word-wrap: break-word ;"
+                        [style.min-width.px]="1500">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="100px" class="text-center">Xử lý</th>
+                                <th width="150px" class="text-center">Tên công đoạn</th>
+                                <th width="100px" class="text-center">Mã công đoạn</th>
+                                <th width="100px" class="text-center">Màu</th>
+                                <th width="100px" class="text-center">Tình trạng</th>
+                                <th width="200px" class="text-center">SBU</th>
+                                <th width="200px" class="text-center">Phòng ban</th>
+                                <th width="100px" class="text-center">Thời gian sản xuất(ngày)</th>
+                                <th min-width="250px" class="text-center ">Mô tả</th>
+                                <th min-width="150px" class="text-center ">Ngày cập nhật</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="400">
+                    <table class="table table-bordered table-fixed mb-0" [style.min-width.px]="1500">
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+                            <tr *ngFor="let row of listData; let i = index" cdkDrag cdkDragLockAxis="y">
+                                <td width="50px" class="text-center">
+                                    <span class="fas fa-arrows-alt" aria-hidden="true"></span>&nbsp;{{i+1}}
+                                </td>
+                                <td width="100px" class="text-center">
+                                    <button *appUipermission="['F110302','F110304','F110305','F110307']" type="button"
+                                        (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                                        placement="top" ngbTooltip="Cập nhật" container="body">
+                                        <span class="fa fa-edit" aria-hidden="true"></span>
+                                    </button>&nbsp;
+                                    <button *appUipermission="['F030203','F110306']" class="btn btn-xs btn-danger"
+                                        (click)="showConfirmDelete(row.Id)" placement="top" ngbTooltip="Xóa"
+                                        container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td width="150px">{{row.Name}}</td>
+                                <td width="100px">{{row.Code}}</td>
+                                <td width="100px" class="text-center">
+                                    <div [style.background-color]="row.Color" class="badge badge-light" [style.color]="row.Color">
+                                        {{row.Color}}
+                                    </div>
+                                </td>
+                                <td width="100px" class="text-center">
+                                    <span *ngIf="row.IsEnable == true" class="badge badge-success">Còn sử dụng</span>
+                                    <span *ngIf="row.IsEnable == false" class="badge badge-danger">Không sử dụng</span>
+                                </td>
+                                <td width="200px">{{row.SBUName}}</td>
+                                <td width="200px">{{row.DepartmentName}}</td>
+                                <td width="100px">{{row.Time}}</td>
+                                <td width="250px">
+                                    <textarea [(ngModel)]="row.Note" class="form-control"
+                                        [name]="'note' + i" rows="3"></textarea>
+                                </td>
+                                <td width="150px">{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div>
+
+        <!-- <div class="row" #scrollHeaderSkill>
+            <div class="col-md-12 col-sm-12 col-lg-12" #scrollSkill>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:1450px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="100px" class="text-center">Xử lý</th>
+                                <th width="150px" class="text-center">Tên công đoạn</th>
+                                <th width="100px" class="text-center">Mã công đoạn</th>
+                                <th width="100px" class="text-center">Màu</th>
+                                <th width="100px" class="text-center">Tình trạng</th>
+                                <th width="200px" class="text-center">SBU</th>
+                                <th width="200px" class="text-center">Phòng ban</th>
+                                <th width="100px" class="text-center">Thời gian sản xuất(ngày)</th>
+                                <th min-width="250px" class="text-center ">Mô tả</th>
+                                <th min-width="150px" class="text-center ">Ngày cập nhật</th>
+
+                            </tr>
+                        </thead>
+                        <tbody cdkDropList (cdkDropListDropped)="onDrop($event)">
+                            <tr *ngFor="let row of listData; let i = index" cdkDrag cdkDragLockAxis="y">
+                                <td width="50px" class="text-center">
+                                    <span class="fas fa-arrows-alt" aria-hidden="true"></span>&nbsp;{{i+1}}
+                                </td>
+                                <td width="100px" class="text-center">
+                                    <button *appUipermission="['F110302','F110304','F110305','F110307']" type="button"
+                                        (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                                        placement="top" ngbTooltip="Cập nhật" container="body">
+                                        <span class="fa fa-edit" aria-hidden="true"></span>
+                                    </button>&nbsp;
+                                    <button *appUipermission="['F030203','F110306']" class="btn btn-xs btn-danger"
+                                        (click)="showConfirmDelete(row.Id)" placement="top" ngbTooltip="Xóa"
+                                        container="body">
+                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                    </button>
+                                </td>
+                                <td width="150px">{{row.Name}}</td>
+                                <td width="100px">{{row.Code}}</td>
+                                <td width="100px" class="text-center">
+                                    <div [style.background-color]="row.Color" class="badge badge-light" [style.color]="row.Color">
+                                        {{row.Color}}
+                                    </div>
+                                </td>
+                                <td width="100px" class="text-center">
+                                    <span *ngIf="row.IsEnable == true" class="badge badge-success">Còn sử dụng</span>
+                                    <span *ngIf="row.IsEnable == false" class="badge badge-danger">Không sử dụng</span>
+                                </td>
+                                <td width="200px">{{row.SBUName}}</td>
+                                <td width="200px">{{row.DepartmentName}}</td>
+                                <td width="100px">{{row.Time}}</td>
+                                <td width="250px">
+                                    <textarea [(ngModel)]="row.Note" class="form-control"
+                                        [name]="'note' + i" rows="3"></textarea>
+                                </td>
+                                <td width="150px">{{row.UpdateDate|date:'dd/MM/yyyy'}}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot *ngIf="listData.length == 0">
+                            <tr class="bold">
+                                <td colspan="8" min-width="300px" class="text-center"
+                                    style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div> -->
+
+        <!-- <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="search()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+                        (pageChange)="search()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div> -->
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-view btn-warning">
+                    <i class="fa fa-edit"></i>
+                </button>&nbsp;
+                <small class="padding-right-20">Sửa công đoạn</small>
+                <button class="btn btn-view btn-danger">
+                    <i class="fas fa-times"></i>
+                </button>&nbsp;
+                <small class="padding-right-20">Xóa công đoạn</small>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,144 @@
+app-export-and-keep-show {
+    .exportkeep-container {
+      display: flex;
+  
+      .box {
+        margin-top: 0px;
+  
+        .panel_header {
+          background-color: #fff;
+        }
+      }
+  
+      .exportkeep-left {
+        width: 100%;
+        background-color: transparent;
+        overflow: hidden;
+  
+        .box .panel_header .title {
+          font-size: 14px;
+          padding: 0px 18px 0 15px;
+          font-family: "Open Sans", Arial, Helvetica, sans-serif;
+  
+          &:after {
+            height: 30px;
+          }
+        }
+  
+        .box .content-body {
+          padding: 0px 15px 15px 15px;
+        }
+      }
+  
+      .exportkeep-right {
+        flex-basis: 420px;
+        min-width: 420px;
+        margin-left: 10px;
+  
+        hr{
+          margin-bottom: 5px;
+        }
+      }
+    }
+  
+    .export-product-container {
+      display: flex;
+  
+      .export-product-left {
+        flex-basis: 160px;
+        min-width: 160px;
+        background-color: transparent;
+      }
+  
+      .export-product-right {
+        width: 100%;
+        margin-left: 10px;
+        overflow: hidden;
+  
+        .input-group nts-search-bar {
+          flex: 1 1 auto;
+        }
+  
+        .active {
+          background-color: #007bff;
+          color: #fff;
+        }
+  
+        @media (min-width: 576px) {
+          .card-columns {
+            column-count: 1;
+            column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
+          }
+        }
+  
+        @media (min-width: 1366px) {
+          .card-columns {
+            column-count: 2;
+            column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
+          }
+        }
+  
+        @media (min-width: 1601px) {
+          .card-columns {
+            column-count: 3;
+            column-gap: 1.25rem;
+            orphans: 1;
+            widows: 1;
+          }
+        }
+  
+        .pagination {
+          margin-bottom: 0;
+        }
+  
+        .card {
+          min-height: 95px;
+  
+          &:hover {
+            background-color: rgba(0, 0, 0, 0.075);
+            cursor: pointer;
+          }
+  
+          .card-body {
+            display: flex;
+            padding: 0px;
+  
+            .card-body-left {
+              flex-basis: 80px;
+              min-width: 80px;
+            }
+  
+            .card-body-right {
+              width: 100%;
+              padding: 5px;
+  
+              p {
+                margin-bottom: 5px;
+              }
+  
+              p:not(:first-child) {
+                margin-bottom: 0px;
+              }
+  
+              .product-name {
+                min-height: 46px;
+                word-break: break-all;
+              }
+  
+              .product-quantity {
+                p {
+                  margin-bottom: 0px;
+                  line-height: 16px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  

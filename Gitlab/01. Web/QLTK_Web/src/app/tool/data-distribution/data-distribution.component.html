@@ -1,0 +1,131 @@
+<div class="content-wrapper page-content">
+  <section class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="controls">
+            <div class="input-group">
+              <nts-drop-down  [items]="listSBU" [columns]="columnNameSBU" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                ntsAutoClose="true" [(ngModel)]="sbuId" name="SBUId" (ngModelChange)="getCBBDepartment()"
+                placeholder="Chọn SBU">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div class="controls">
+            <div class="input-group">
+              <nts-drop-down [items]="listDepartment" [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Code"
+                ntsMode="single" ntsAutoClose="true" [(ngModel)]="modelDataDistribution.DepartmentId"
+                name="DepartmentId" (ngModelChange)="searchDataDistribution()" placeholder="Chọn Phòng ban">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-1 mb-1">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+          <label class="form-label" style="line-height:25px;">Danh sách thư mục</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 text-right">
+          <button type="button" *appUipermission="['F090801']" (click)="showCreateUpdateFolder('', false)"
+            class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm thư mục" container="body"
+            [disabled]="!modelDataDistribution.DepartmentId">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="employees" [dataSource]="listDataDistribution" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+            (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listDataDistributionId" noDataText=" ">
+            <dxo-selection mode="single"></dxo-selection>
+            <!-- <dxo-search-panel [visible]="true" [width]="255" placeholder="Tìm kiếm theo mã">
+            </dxo-search-panel> -->
+            <dxi-column dataField="Name" caption="Tên thư mục"></dxi-column>
+            <!-- <dxi-column dataField="Name" caption="Tên nhóm vật tư" [minWidth]="200">
+            </dxi-column> -->
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+              <div *dxTemplate="let item of 'cellEditTemplate'">
+                <ng-container *appUipermission="['F090803']" >
+                  <button *ngIf="item.value != 0" type="button" placement="bottom" class="item-delete"
+                    ngbTooltip="Xóa thư mục" (click)=" showConfirmDeleteDataDistribution(item.value)">
+                    <i class="far fa-trash-alt"></i></button>
+                </ng-container>
+
+                <ng-container *appUipermission="['F090802']" >
+                  <button *ngIf="item.value != 0" type="button" placement="bottom" class="item-update"
+                    ngbTooltip="Sửa thư mục" (click)="showCreateUpdateFolder(item.value, true)">
+                    <i class="fa fa-edit"></i></button>
+                </ng-container>
+
+                <ng-container *appUipermission="['F090801']" >
+                  <button *ngIf="item.value != 0" type="button" placement="bottom" class="item-add"
+                    ngbTooltip="Thêm thư mục" (click)="showCreateUpdateFolder(item.value, false)">
+                    <i class="fas fa-plus"></i></button>
+                </ng-container>
+              </div>
+            </dxi-column>
+
+          </dx-tree-list>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="body-right">
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listFile.length}}</span> file</label>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+          <button *appUipermission="['F090805']" type="button" class="btn btn-success mt-md-1 mt-xl-0" (click)='showChooseFile()' container="body"
+            [disabled]="!dataDistributionIdSelected">
+            <i class="fa fa-plus"></i>
+            Chọn file download
+          </button>&nbsp;
+          <button *appUipermission="['F090806']" type="button" class="btn btn-success mt-md-1 mt-xl-0" (click)="showFielManage()">
+            <i class="fas fa-cog"></i>
+            Cấu hình file
+          </button>
+        </div>
+      </div>
+      <div class="row mt-2">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:680px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="80px" class="text-center">Xử lý</th>
+                  <th min-width="150px" class="text-center">Tên file</th>
+                  <th width="400px" class="text-center">Đường dẫn</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listFile; let i = index">
+                  <td class="text-center">{{i+1}}</td>
+                  <td class="text-center">
+                    <button *appUipermission="['F090807']" class="btn btn-xs btn-danger"
+                      (click)="showConfirmDeleteFile(row.DataDistributionFileLinkId)" placement="bottom"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.FolderContain}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

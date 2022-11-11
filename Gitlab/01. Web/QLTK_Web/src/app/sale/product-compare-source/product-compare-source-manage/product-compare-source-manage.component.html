@@ -1,0 +1,113 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" (change)="searchProductCompareSource()"
+                            [(ngModel)]="model" name="model">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right mt-2">
+                        <button class="btn btn-success btn-success-system" (click)="searchProductCompareSource()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Số lượng
+                        <span class="bold text-danger">{{listData.length}}</span> sản phẩm so với nguồn</label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <ng-container *appUipermission="['F120302']">
+                        <button *ngIf="listSelect.length > 0" type="button" class="btn btn-success"
+                            (click)="showComfirmUpdate()" container="body">
+                            <i class="fa fa-plus"></i>
+                            Cập nhật
+                        </button>
+                    </ng-container>
+
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12" #scrollProducStandard>
+                    <div #scrollProducStandardHeader style="overflow-x: auto;overflow: hidden;">
+                        <table class="table table-bordered table-hover mb-0" [style.min-width.px]="minWidth">
+                            <thead>
+                                <tr>
+                                    <th style="text-align:center;padding-top: 10px;" width="60px">
+                                        <input [(ngModel)]="checkedTop" type="checkbox" name="{{'checkedTop'}}"
+                                            style="height:20px; width:20px;" (change)="checkAll()">
+                                    </th>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px">Xử lý</th>
+                                    <th width="100px" class="text-center">Mã sản phẩm</th>
+                                    <th min-width="150px" class="text-center">Tên sản phẩm</th>
+                                    <th width="150px" class="text-center">Nguồn</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                    <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;"
+                        [style.height.px]="height">
+                        <table class="table table-bordered table-hover" [style.min-width.px]="minWidth">
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index"
+                                    [ngClass]="{'selected': selectIndex == i}" (click)="selectProduct(i)">
+                                    <td style="text-align:center" width="60px">
+                                        <input [disUipermission]="['F120302']" (change)="checkItem(row)"
+                                            [(ngModel)]="row.Checked" type="checkbox" name="{{'Checked'+row.Name+i}}"
+                                            style="height:20px; width:20px;">
+                                    </td>
+                                    <td style="text-align:center" width="50px">{{i+1}}</td>
+                                    <td width="80px" class="text-center">
+                                        <a *appUipermission="['F120301']" type="button"
+                                            (click)="showProductCompareDetail(row.IdSaleProduct)"
+                                            class="btn btn-xs btn-success" placement="top" ngbTooltip="Xem"
+                                            container="body">
+                                            <span class="fa fa-eye" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                    </td>
+                                    <td width="100px">{{row.Code}}</td>
+                                    <td min-width="150px">{{row.Name}}</td>
+                                    <td width="150px">{{row.Source |filterinlist:constant.Source}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="15" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <!-- <hr />
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="pushDataToList()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+                        (pageChange)="pushDataToList()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div> -->
+        </div>
+    </section>
+</div>

@@ -1,0 +1,789 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="searchForm" #f="ngForm">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs">
+        <!-- Tab hồ sơ thiết kế mạch điện tử -->
+        <li [ngbNavItem]="'tab-HSTKMDT'">
+          <a ngbNavLink>Hồ sơ thiết kế mạch điện tử</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                  <label class="form-label_2">Mã module</label>
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="ProductCode"
+                      [(ngModel)]="modelProfileElectronicDesign.ProductCode">
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-7 col-lg-7">
+                <label class="form-label">Hồ sơ thiết kế mạch điện tử</label>
+                <div>
+                  <label class="form-label"></label>
+                </div>
+                <label class="form-label">1.Phương án thiết kế - Mô tả chung, sơ đồ khối</label>
+                <label class="form-label">2.Phương án thiết kế - Danh mục khối chức năng</label>
+                <label class="form-label">3.Phương án thiết kế - Linh kiện chính, thông số mạch, sai khác thông
+                  số</label>
+                <label class="form-label">4.Kiểm tra bản vẽ nguyên lý</label>
+                <label class="form-label">5.Bản vẽ nguyên lý-Bảng tính toán</label>
+                <label class="form-label">6.Danh mục vật tư</label>
+                <label class="form-label">7.Kiểm tra bản vẽ mạch in</label>
+                <label class="form-label">8.Kiểm tra chất lượng sản phẩm</label>
+                <label class="form-label">9.Tài liệu HD lắp ráp</label>
+                <label class="form-label">10.File mạch in</label>
+                <label class="form-label">11.Các file 3D mạch in</label>
+                <label class="control-label">a.File mạch in đã hàn linh kiện</label>
+                <label class="control-label">b.File hướng dẫn lắp ráp</label>
+                <label class="form-label">12.Các file chương trình</label>
+                <label class="control-label">a. File chương trình KCS</label>
+                <label class="control-label">b.File chương trình chính</label>
+              </div>
+
+              <div class="col-md-1 col-lg-1">
+                <label class="form-label">Bản mềm</label>
+                <div>
+                  <label class="form-label"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_1_M" name="check_1_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_1_M">
+                  <label class="custom-control-label" for="check_1_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_2_M" name="check_2_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_2_M">
+                  <label class="custom-control-label" for="check_2_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_3_M" name="check_3_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_3_M">
+                  <label class="custom-control-label" for="check_3_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_4_M" name="check_4_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_4_M">
+                  <label class="custom-control-label" for="check_4_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_5_M" name="check_5_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_5_M">
+                  <label class="custom-control-label" for="check_5_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_6_M" name="check_6_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_6_M">
+                  <label class="custom-control-label" for="check_6_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_7_M" name="check_7_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_7_M">
+                  <label class="custom-control-label" for="check_7_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_8_M" name="check_8_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_8_M">
+                  <label class="custom-control-label" for="check_8_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_9_M" name="check_9_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_9_M">
+                  <label class="custom-control-label" for="check_9_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_10_M" name="check_10_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_10_M">
+                  <label class="custom-control-label" for="check_10_M"></label>
+                </div>
+                <label class="form-label"></label>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_11a_M" name="check_11a_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_11a_M">
+                  <label class="custom-control-label" for="check_11a_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_11b_M" name="check_11b_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_11b_M">
+                  <label class="custom-control-label" for="check_11b_M"></label>
+                </div>
+                <label class="form-label"></label>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_12a_M" name="check_12a_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_12a_M">
+                  <label class="custom-control-label" for="check_12a_M"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_12b_M" name="check_12b_M"
+                    [(ngModel)]="modelProfileElectronicDesign.check_12b_M">
+                  <label class="custom-control-label" for="check_12b_M"></label>
+                </div>
+              </div>
+
+              <div class="col-md-1 col-lg-1">
+                <label class="form-label">Bản cứng</label>
+                <div>
+                  <label class="form-label"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_1_C" name="check_1_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_1_C">
+                  <label class="custom-control-label" for="check_1_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_2_C" name="check_2_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_2_C">
+                  <label class="custom-control-label" for="check_2_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_3_C" name="check_3_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_3_C">
+                  <label class="custom-control-label" for="check_3_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_4_C" name="check_4_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_4_C">
+                  <label class="custom-control-label" for="check_4_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_5_C" name="check_5_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_5_C">
+                  <label class="custom-control-label" for="check_5_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_6_C" name="check_6_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_6_C">
+                  <label class="custom-control-label" for="check_6_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_7_C" name="check_7_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_7_C">
+                  <label class="custom-control-label" for="check_7_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_8_C" name="check_8_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_8_C">
+                  <label class="custom-control-label" for="check_8_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_9_C" name="check_9_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_9_C">
+                  <label class="custom-control-label" for="check_9_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_10_C" name="check_10_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_10_C">
+                  <label class="custom-control-label" for="check_10_C"></label>
+                </div>
+                <label class="form-label"></label>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_11a_C" name="check_11a_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_11a_C">
+                  <label class="custom-control-label" for="check_11a_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_11b_C" name="check_11b_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_11b_C">
+                  <label class="custom-control-label" for="check_11b_C"></label>
+                </div>
+                <label class="form-label"></label>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_12a_C" name="check_12a_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_12a_C">
+                  <label class="custom-control-label" for="check_12a_C"></label>
+                </div>
+                <div class="custom-control custom-checkbox checkbox-input">
+                  <input type="checkbox" class="custom-control-input " id="check_12b_C" name="check_12b_C"
+                    [(ngModel)]="modelProfileElectronicDesign.check_12b_C">
+                  <label class="custom-control-label" for="check_12b_C"></label>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <button *appUipermission="['F090501']" class="btn_1 btn-success mt-3"
+                  (click)="GeneralProfileElectronicDesign()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Hồ sơ thiết kế mạch điện tử
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <!-- Tab Hồ thiết kế -->
+        <li [ngbNavItem]="'tab-HSTK'">
+          <a ngbNavLink>Hồ sơ thiết kế</a>
+          <ng-template ngbNavContent>
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+              <div class="form-group">
+                <label class="form-label_2">Mã module</label>
+                <span class='text-danger text-strong'>&nbsp;*</span>
+                <div class="controls">
+                  <input type="text" class="form-control" name="ProductCode"
+                    [(ngModel)]="modelElectronicRecord.ProductCode">
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label class="form-label">1. Danh sách hồ sơ thiết kế</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_14_4" name="check_14_4"
+                    [(ngModel)]="modelElectronicRecord.check_14_4">
+                  <label class="custom-control-label" for="check_14_4">1.1 Dữ liệu cài đặt</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_15_4" name="check_15_4"
+                    [(ngModel)]="modelElectronicRecord.check_15_4">
+                  <label class="custom-control-label" for="check_15_4">1.2 Bảng kiểm tra nguyên lý</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_16_4" name="check_16_4"
+                    [(ngModel)]="modelElectronicRecord.check_16_4">
+                  <label class="custom-control-label" for="check_16_4">1.3 Bảng dữ liệu lập trình</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_17_4" name="check_17_4"
+                    [(ngModel)]="modelElectronicRecord.check_17_4">
+                  <label class="custom-control-label" for="check_17_4">1.4 Hạng mục thiết kế</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_18_4" name="check_18_4"
+                    [(ngModel)]="modelElectronicRecord.check_18_4">
+                  <label class="custom-control-label" for="check_18_4">1.5 Hồ sơ thiết kế điện</label>
+                </div>
+
+                <label class="form-label mt-3">2. Dữ liệu chương trình sơ đồ đầu nối</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_20_4" name="check_20_4"
+                    [(ngModel)]="modelElectronicRecord.check_20_4">
+                  <label class="custom-control-label" for="check_20_4">2.1 File chương trình sơ đồ đầu nối</label>
+                </div>
+
+                <label class="form-label mt-3">3. Dữ liệu sơ đồ đầu nối</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_22_4" name="check_22_4"
+                    [(ngModel)]="modelElectronicRecord.check_22_4">
+                  <label class="custom-control-label" for="check_22_4">3.1 File sơ đồ đầu nối điện</label>
+                </div>
+
+                <label class="form-label mt-3">4. Dữ liệu lập trình HMI</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_24_4" name="check_24_4"
+                    [(ngModel)]="modelElectronicRecord.check_24_4">
+                  <label class="custom-control-label" for="check_24_4">4.1 File lập trình HMI</label>
+                </div>
+
+                <label class="form-label mt-3">5. Dữ liệu lập trình PLC</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_26_4" name="check_26_4"
+                    [(ngModel)]="modelElectronicRecord.check_26_4">
+                  <label class="custom-control-label" for="check_26_4">5.1 File lập trình PLC</label>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <button *appUipermission="['F090201']" class="btn_1 btn-success mt-3"
+                  (click)="GeneralElectronicRecord()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Tạo File hồ sơ điện
+                </button>
+              </div>
+              <!-- </div>
+            <div class="row"> -->
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <label class="form-label">1. Dữ liệu thiết kế cơ khí</label>
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_14_3" name="check_14_3"
+                    [(ngModel)]="modelMechanicalRecord.check_14_3" [disabled]="true">
+                  <label class="custom-control-label" for="check_14_3">1.1 File danh mục vật tư</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_15_3" name="check_15_3"
+                    [(ngModel)]="modelMechanicalRecord.check_15_3" [disabled]="true">
+                  <label class="custom-control-label" for="check_15_3">1.2 Thư mục chứa các file doc</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_16_3" name="check_16_3"
+                    [(ngModel)]="modelMechanicalRecord.check_16_3" [disabled]="true">
+                  <label class="custom-control-label" for="check_16_3">1.2.1 File hồ sơ thiết kế</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_17_3" name="check_17_3"
+                    [(ngModel)]="modelMechanicalRecord.check_17_3">
+                  <label class="custom-control-label" for="check_17_3">1.2.2 File phác thảo thiết kế</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_18_3" name="check_18_3"
+                    [(ngModel)]="modelMechanicalRecord.check_18_3" [disabled]="true">
+                  <label class="custom-control-label" for="check_18_3">1.3 Thư mục chứa TK 3D</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_19_3" name="check_19_3"
+                    [(ngModel)]="modelMechanicalRecord.check_19_3" [disabled]="true">
+                  <label class="custom-control-label" for="check_19_3">1.4 Thư mục chứa bản vẽ gia công 2D</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_20_3" name="check_20_3"
+                    [(ngModel)]="modelMechanicalRecord.check_20_3">
+                  <label class="custom-control-label" for="check_20_3">1.5 Thư mục chứa các bản vẽ in, khắc CNC</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_21_3" name="check_21_3"
+                    [(ngModel)]="modelMechanicalRecord.check_21_3">
+                  <label class="custom-control-label" for="check_21_3">1.6 Thư mục chứa các bản vẽ in tem</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_22_3" name="check_22_3"
+                    [(ngModel)]="modelMechanicalRecord.check_22_3">
+                  <label class="custom-control-label" for="check_22_3">1.7 Thư mục chứa các bản vẽ gia công 3D</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_23_3" name="check_23_3"
+                    [(ngModel)]="modelMechanicalRecord.check_23_3">
+                  <label class="custom-control-label" for="check_23_3">1.8 Thư mục chứa các tài liệu HDLR</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_24_3" name="check_24_3"
+                    [(ngModel)]="modelMechanicalRecord.check_24_3">
+                  <label class="custom-control-label" for="check_24_3">1.9 Thư mục chứa datasheets</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_25_3" name="check_25_3"
+                    [(ngModel)]="modelMechanicalRecord.check_25_3">
+                  <label class="custom-control-label" for="check_25_3">1.10 Thư mục chứa các bản vẽ thủy lực</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_26_3" name="check_26_3"
+                    [(ngModel)]="modelMechanicalRecord.check_26_3">
+                  <label class="custom-control-label" for="check_26_3">1.11 Thư mục chứa các bản vẽ khí nén</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_27_3" name="check_27_3"
+                    [(ngModel)]="modelMechanicalRecord.check_27_3">
+                  <label class="custom-control-label" for="check_27_3">
+                    <span class="form-label">
+                      2. Dữ liệu thiết kế điện
+                    </span>
+                  </label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_28_3" name="check_28_3"
+                    [(ngModel)]="modelMechanicalRecord.check_28_3">
+                  <label class="custom-control-label" for="check_28_3">2.1 Thư mục chứa datasheets</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_29_3" name="check_29_3"
+                    [(ngModel)]="modelMechanicalRecord.check_29_3">
+                  <label class="custom-control-label" for="check_29_3">2.2 Thư mục chứa các bản vẽ thiết kế điện</label>
+                </div>
+
+                <div class="custom-control custom-checkbox margin-top-15">
+                  <input type="checkbox" class="custom-control-input" id="check_30_3" name="check_30_3"
+                    [(ngModel)]="modelMechanicalRecord.check_30_3">
+                  <label class="custom-control-label" for="check_30_3">2.3 File sơ đồ đầu nối điện</label>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <button *appUipermission="['F090202']" class="btn_1 btn-success mt-3"
+                  (click)="craeteMechanicalProfile()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Tạo File hồ sơ cơ khí
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <!-- Tab Danh mục Biểu mẫu điện -->
+        <li [ngbNavItem]="'tab-DMKT'">
+          <a ngbNavLink>Biểu mẫu điện</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3col-xs-3">
+                <div class="form-group">
+                  <label class="form-label_2">Mã module</label>
+                  <span class="text-danger text-strong">&nbsp;*</span>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="ProductCode" [(ngModel)]="modelCheckList.ProductCode">
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-3 col-lg-3">
+                <button *appUipermission="['F090301']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralProgramableDatad()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Lập bảng tín hiệu I/O
+                </button>
+
+                <button *appUipermission="['F090304']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralTestProcess()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Quá trình thử nghiệm
+                </button>
+
+                <button *appUipermission="['F090307']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralCheckPrinciplesElectric()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Kiểm tra nguyên lý
+                </button>
+
+              </div>
+              <div class="col-md-3 col-lg-3">
+                <button *appUipermission="['F090302']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralDrawControlAlgorithmModel()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Vẽ sơ đồ thuật toán điều khiển
+                </button>
+
+                <button *appUipermission="['F090305']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralEquipmentByFunction()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Danh mục thiết bị theo chức năng
+                </button>
+
+                <button *appUipermission="['F090308']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralDesignArticleElectric()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Hạng mục thiết kế
+                </button>
+              </div>
+
+              <div class="col-md-3 col-lg-3">
+                <button *appUipermission="['F090303']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralListFunction()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Danh sách hàm chức năng
+                </button>
+
+                <button *appUipermission="['F090306']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralDataProgramElectric()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Dữ liệu cài đặt
+                </button>
+
+                <button
+                  *appUipermission="['F090301', 'F090302','F090303','F090304','F090305','F090306','F090307','F090308','F090309']"
+                  class="btn btn-success mt-3 " style="width: 100%;" (click)="downLoadAllBMD()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  DownLoad ALL Biểu Mẫu Điện
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <!-- Tab Biểu mẫu điện tử -->
+        <li [ngbNavItem]="1">
+          <a ngbNavLink>Biểu mẫu điện tử</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="form-group">
+                  <label class="form-label_2">Mã mạch</label>
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="ProductCode" [(ngModel)]="model.ProductCode">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Vẽ</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Paint" [(ngModel)]="model.Paint">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Kiểm tra</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Check" [(ngModel)]="model.Check">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Phê duyệt</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Approve" [(ngModel)]="model.Approve">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Mã</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Approve" [(ngModel)]="model.Code">
+                  </div>
+                </div>
+              </div>
+
+              <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                  <label class="form-label">Vẽ</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Paint" [(ngModel)]="model.Paint">
+                  </div>
+                </div>
+              </div> -->
+
+              <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                  <label class="form-label">Kiểm tra</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Check" [(ngModel)]="model.Check">
+                  </div>
+                </div>
+              </div> -->
+
+              <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                  <label class="form-label">Phê duyệt</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Approve" [(ngModel)]="model.Approve">
+                  </div>
+                </div>
+              </div> -->
+
+              <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                <div class="form-group">
+                  <label class="form-label">Mã</label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="Approve" [(ngModel)]="model.Code">
+                  </div>
+                </div>
+              </div> -->
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <button *appUipermission="['F090101']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralPrinciples()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu kiểm tra nguyên lý
+                </button>
+
+                <button *appUipermission="['F090103']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralFunctionDesignOptions()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Danh mục khối chức năng
+                </button>
+
+                <button *appUipermission="['F090105']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralCheckElectronic()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Kiểm tra chất lượng sản phẩm mạch điện tử
+                </button>
+
+                <button *appUipermission="['F090107']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralDesignOptions()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Mô tả chung - Sơ đồ khối
+                </button>
+
+                <button *appUipermission="['F090109']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralElectronic()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu kiểm tra bản vẽ mạch in
+                </button>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <button *appUipermission="['F090102']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralPrinciplesCalculate()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu bản vẽ nguyên lý - Bảng tính toán
+                </button>
+
+                <button *appUipermission="['F090104']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralFunctionDesignMaterial()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Linh kiện chính,thông số mạch
+                </button>
+
+                <button *appUipermission="['F090106']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralElectronicCircuitAssembly()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu hướng dẫn lắp ráp mạch điện tử
+                </button>
+
+                <button *appUipermission="['F090108']" class="btn btn-success mt-3 width-button"
+                  (click)="GeneralMaterial()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu vật tư
+                </button>
+
+                <button
+                  *appUipermission="['F090101','F090102','F090103','F090104','F090105','F090106','F090107','F090108','F090109']"
+                  class="btn btn-success mt-3 width-button" (click)="downLoadAllBMDT()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Download All Biểu Mẫu Điện Tử
+                </button>
+              </div>
+            </div>
+            <!-- <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralPrinciples()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu kiểm tra nguyên lý
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralFunctionDesignOptions()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Danh mục khối chức năng
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralCheckElectronic()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Kiểm tra chất lượng sản phẩm mạch điện tử
+                </button>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralPrinciplesCalculate()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu bản vẽ nguyên lý - Bảng tính toán
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralFunctionDesignMaterial()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Linh kiện chính, thông số mạch
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralElectronicCircuitAssembly()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu hướng dẫn lắp ráp mạch điện tử
+                </button>
+              </div>
+
+              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralDesignOptions()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Phương án thiết kế - Mô tả chung - Sơ đồ khối
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralElectronic()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu kiểm tra bản vẽ mạch in
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="GeneralMaterial()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Biểu mẫu vật tư
+                </button>
+
+                <button class="btn btn-success mt-3 " style="width: 100%;" (click)="downLoadAllBMDT()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Download All Biểu Mẫu Điện Tử
+                </button>
+              </div>
+
+            </div> -->
+
+          </ng-template>
+        </li>
+        <!-- Tab Biểu mẫu cơ khí -->
+        <li [ngbNavItem]="'tab-BMCK'">
+          <a ngbNavLink>Biểu mẫu cơ khí</a>
+          <ng-template ngbNavContent>
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-3col-xs-3">
+                <div class="form-group">
+                  <label class="form-label_2">Mã module</label>
+                  <span class="text-danger text-strong">&nbsp;*</span>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="ProductCode"
+                      [(ngModel)]="modelMechanical.ProductCode">
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label class="form-label">Sơ đồ công nghệ</label>
+                  <div class="controls">
+                    <div class="input-group">
+                      <input type="text" class="form-control" [value]="modelMechanical.TechnologicalScheme" disabled>
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-xs btn-upload" ngbTooltip="Chọn thư mục"
+                          (click)="showChooseFolderWindowTechnological()">
+                          <span class="fa fa-plus" aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group ">
+                  <label class="form-label">Mặt module</label>
+                  <div class="controls">
+                    <div class="input-group">
+                      <input type="text" class="form-control" [value]="modelMechanical.FaceModule" disabled>
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-xs btn-upload" ngbTooltip="Chọn thư mục"
+                          (click)="showChooseFolderWindowFaceModule()">
+                          <span class="fa fa-plus" aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group ">
+                  <label class="form-label">Mối liên hệ giữa các cụm</label>
+                  <div class="controls">
+                    <div class="input-group">
+                      <input type="text" class="form-control" [value]="modelMechanical.RelationshipClusters" disabled>
+                      <div class="input-group-append">
+                        <button type="button" class="btn btn-xs btn-upload" ngbTooltip="Chọn thư mục"
+                          (click)="showChooseFolderWindowRelationshipCluster()">
+                          <span class="fa fa-plus" aria-hidden="true"></span></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-lg-3">
+                <button *appUipermission="['F090401']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralDegignMechanical()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Tạo phác thảo thiết kế
+                </button>
+                <button *appUipermission="['F090402']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="CheckDesignPlan()">
+                  Kiểm tra phương án thiết kê
+                </button>
+                <button *appUipermission="['F090403']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="ChooseMaterial()">
+                  Dự toán sơ bộ
+                </button>
+                <button *appUipermission="['F090404']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="GeneralSetUpSpecification()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Lập thông số kỹ thuật
+                </button>
+                <button *appUipermission="['F090405']" class="btn btn-success mt-3 " style="width: 100%;"
+                  (click)="getDMVT()">
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                  Xác nhân danh mục vật tư điện - điện tử
+                </button>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </form>
+  </div>
+</div>

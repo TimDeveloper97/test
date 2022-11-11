@@ -1,0 +1,11 @@
+<div class="border-ta float-right">
+  <span>Hiển thị {{startRecord}}-{{endRecord}}</span>
+
+  <i class="material-icons pointer {{isNext?'':'none-active'}}" (click)="isNext && nextPage()">
+    keyboard_arrow_right
+  </i>
+  <i class="material-icons pointer {{isPrevious?'':'none-active'}}" (click)="isPrevious && previousPage()">
+    keyboard_arrow_left
+  </i>
+
+</div>

@@ -1,0 +1,11 @@
+app-report-progress-project {
+    .progress {
+      position: relative;
+      border-radius: 50px;
+    }
+    .progress-bar span {
+      position: absolute;
+      padding-left: 10px;
+      color: #000;
+    }
+  }

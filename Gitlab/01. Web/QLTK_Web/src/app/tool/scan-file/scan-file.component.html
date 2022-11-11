@@ -1,0 +1,95 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left">Đổi tên file</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Mã module</label>
+              <span class="text-danger text-strong">&nbsp;*</span>
+              <div class="controls">
+                <input type="text" class="form-control" name="moduleCode" [(ngModel)]="model.ModuleCode" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 text-right">
+            <button *appUipermission="['F091001']" class="btn btn-success btn-success-system" [disabled]="!f.form.valid"
+              (click)="scanFileJPG()">
+              <i class="fas fa-copy"></i> &nbsp;Đổi tên file</button>&nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>&nbsp;
+            <button *appUipermission="['F091001']" class="btn btn-default btn-default-system"
+              (click)="showCreateUpdateConfigScanFile('')">
+              <i class="fas fa-cog"></i> &nbsp;Cấu hình</button>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">Danh sách file Scan</label>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <dx-data-grid id="gridContainer" [dataSource]="listFile" [showBorders]="true"
+                  [(selectedRowKeys)]="gridBoxValue" [showRowLines]="true"
+                  (onSelectionChanged)="onSelectionChanged($event)" [(selectedRowKeys)]="selectedItems">
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxi-column dataField="FileName" caption="Danh sách file"></dxi-column>
+                </dx-data-grid>
+                <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#gridContainer"
+                  (onItemClick)="itemClick($event)">
+                  <div *dxTemplate="let e of 'item'">
+                    <div>
+                      <span [ngClass]="e.icon"></span>
+                      <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                    </div>
+                  </div>
+                </dx-context-menu>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label">File thư mục</label>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <dx-tree-list id="FolderScan" [dataSource]="listFolderScan" keyExpr="ID" parentIdExpr="ParentID"
+                  [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                  (onSelectionChanged)="onSelectionChangedFolder($event)" [(selectedRowKeys)]="selectedFolder">
+                  <dxo-selection mode="single"></dxo-selection>
+                  <dxo-search-panel [visible]="false" placeholder="Nội dung tìm kiếm"></dxo-search-panel>
+                  <dxi-column dataField="FileName" caption="Danh sách file" [minWidth]="200">
+                  </dxi-column>
+                </dx-tree-list>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12" *ngIf="check">
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <div class="form-group">
+                  <label class="form-label"></label>
+                </div>
+              </div>
+              <div class="col-md-12 col-sm-12 col-lg-12" style="width: 100%; height: 500px;">
+                <img [src]="link" width="100%" [height]="height" />
+                <!-- <lib-ngx-image-zoom [thumbImage]="linkZoom" [fullImage]="link" [magnification]="1"
+                  [enableScrollZoom]="true" [enableLens]="true" [lensWidth]="200">
+                </lib-ngx-image-zoom> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

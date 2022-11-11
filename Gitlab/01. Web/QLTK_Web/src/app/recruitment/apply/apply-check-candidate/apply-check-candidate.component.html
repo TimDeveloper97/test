@@ -1,0 +1,112 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">Thông tin ứng viên ứng tuyển</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên ứng viên
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="candidateModel.Name" name="name"
+                            maxlength="200" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Số điện thoại
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="candidateModel.PhoneNumber"
+                            name="PhoneNumber" maxlength="200" required>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group">
+                    <label class="form-label">Email
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <!-- <input type="text" class="form-control" [(ngModel)]="candidateModel.Email" name="Email"
+                            maxlength="200" required> -->
+                        <input placeholder="name@example.com" type="email" class="form-control"
+                            [(ngModel)]="candidateModel.Email" name="email" maxlength="300" email required>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="candidates&&candidates.length>0">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-group ">
+                    <label class="form-label">Ứng viên có thể đã được lập hồ sơ. Bạn hãy chọn ứng viên tương ứng, nếu
+                        không thì bỏ qua.
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:860px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="70px" class="text-center">Chọn</th>
+                                <th width="90px" class="text-center">Ảnh</th>
+                                <th width="100px" class="text-center">Số HS</th>
+                                <th min-width="200px" class="text-center">Tên ứng viên</th>
+                                <th width="100px" class="text-center">Số điện thoại</th>
+                                <th width="100px" class="text-center">Ngày sinh</th>
+                                <th width="150px" class="text-center">Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of candidates; let i = index">
+                                <td class="text-center">{{i+1}}</td>
+                                <td style="text-align: center">
+                                    <button class="btn btn-xs btn-success" (click)="apply(row.Id)" placement="top"
+                                        ngbTooltip="Chọn">
+                                        <span class="fas fa-user-check" aria-hidden="true"></span>
+                                    </button>&nbsp;
+                                </td>
+                                <td>
+                                    <img class="image-thum" *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                        [src]="config.ServerFileApi+row.ImagePath">
+                                </td>
+                                <td>{{row.Code}}</td>
+                                <td>{{row.Name}}</td>
+                                <td class="text-center">{{row.PhoneNumber}}</td>
+                                <td class="text-center">{{row.DateOfBirth|date:'dd/MM/yyyy'}}</td>
+                                <td>{{row.Email}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" *ngIf="!candidates||candidates.length==0" class="btn btn-success" [disabled]="!f.form.valid"
+        (click)="checkCandidate()">
+        <i class="fa fa-save"></i>&nbsp;
+        <span>Tiếp tục</span>
+    </button>
+
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

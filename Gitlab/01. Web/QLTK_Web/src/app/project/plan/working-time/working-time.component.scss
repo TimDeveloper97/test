@@ -1,0 +1,29 @@
+app-working-time {
+    .dayOfWeek {
+        background-color: burlywood;
+    }
+    .warning_time {
+        background-color: rgb(166, 250, 180);
+    }
+
+    .warning_time1 {
+        background-color: rgb(248, 11, 11);
+
+        a{
+            color: #fff;
+        }
+    }
+
+    .warning_time2 {
+        background-color: yellow;
+    }
+
+    .holiday {
+        background-color: rgba(138, 138, 138, 0.445);
+    }
+    .datetime {
+        text-align: center;
+        width: 100px;
+        display: inline-block;
+    }
+}

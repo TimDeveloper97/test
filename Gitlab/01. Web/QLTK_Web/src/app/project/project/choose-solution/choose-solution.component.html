@@ -1,0 +1,375 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn giải pháp</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body ">
+    <div class="row">
+      <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelSearch" name="model"
+          (change)="searchSolution()">
+        </nts-search-bar>
+      </div>
+
+      <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+        <button class="btn btn-success btn-success-system" (click)="searchSolution()">
+          <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+        <button class="btn btn-default btn-default-system" (click)="clear()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 col-sm-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listData.length}}</span> giải pháp chưa chọn</label>
+      </div>
+      <div class="col-md-6 col-sm-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listSelect.length}}</span> giải pháp đã chọn</label>
+      </div>
+    </div>
+    <div class="row">
+
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+  
+        <div class="table-left">
+          <virtual-scroller #scroll [items]="listData" style=" display: block;height: 400px;">
+            <table class="table table-bordered table-fixed table-hover"
+              style="word-wrap: break-word; margin-bottom:0px !important;min-width: 2800px;" #table>
+              <thead #header style="background-color: white">
+                <tr>
+                  <th style="text-align:center;padding-top: 10px;" width="60px">
+                    <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                      style="height:20px; width:20px;" (change)="checkAll(true)">
+                  </th>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="200px" class="text-center">Tên giải pháp</th>
+                  <th width="200px" class="text-center">Mã giải pháp</th>
+                  <th width="200px" class="text-center">Nhóm giải pháp</th>
+                  <th width="200px" class="text-center">Mã dự án</th>
+                  <th width="200px" class="text-center">Tên dự án</th>
+                  <th width="150px" class="text-center">Khách hàng</th>
+                  <th width="150px" class="text-center">Khách hàng cuối</th>
+                  <th width="200px" class="text-center">Người phụ trách kinh doanh</th>
+                  <th width="160px" class="text-center">Người làm giải pháp</th>
+                  <th width="100px" class="text-center">3D giải pháp</th>
+                  <th width="100px" class="text-center">BV tổng 2D</th>
+                  <th width="100px" class="text-center">Bản giải trình</th>
+                  <th width="100px" class="text-center">DMVT</th>
+                  <th width="100px" class="text-center">FCM</th>
+                  <th width="100px" class="text-center">TSKT</th>
+                  <th width="100px" class="text-center">Giá</th>
+                  <th width="130px" class="text-center">Ngày hoàn thành</th>
+                  <th min-width="200px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+
+              <tbody #container>
+                <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                  <td style="text-align:center">
+                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+row.Name+i}}"
+                      style="height:20px; width:20px;">
+                  </td>
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.SolutionGroupName}}</td>
+                  <td>{{row.ProjectCode}}</td>
+                  <td>{{row.ProjectName}}</td>
+                  <td>{{row.CustomerName}}</td>
+                  <td>{{row.EndCustomerName}}</td>
+                  <td>{{row.TPAUName}}</td>
+                  <td>{{row.SolutionMakerName}}</td>
+                  <td>
+                    <div>
+                      <div  class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has3DSolution" type="checkbox" class="custom-control-input" [id]="i" [name]="'Has3DSolution'+i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.Design3DExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.Design3DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div> 
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has2D" type="checkbox" class="custom-control-input" [id]="i" [name]="'Has2D'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.Design2DExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.Design2DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasExplan" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasExplan'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.ExplanExist" class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.ExplanExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasDMVT" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasDMVT'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.DMVTExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.DMVTExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasFCM" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasFCM'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.FCMExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.FCMExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasTSKT" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasTSKT'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+                      <div *ngIf="row.TSTKExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.TSTKExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                  <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </virtual-scroller>
+        </div>
+
+        <div class="table-center">
+          <button id="btnAdd" type="button" ngbTooltip="Chọn tiêu chí" class="btn btn-success" (click)="addRow()">
+            <i class="fa fa-angle-right"></i>
+          </button>
+          <button id="btnRemove" type="button" ngbTooltip="Bỏ chọn tiêu chí" class="btn btn-danger" (click)="removeRow()">
+            <i class="fa fa-angle-left"></i>
+          </button>
+        </div>
+
+        <div class="table-right">
+          <virtual-scroller #chooseScrolll [items]="listSelect" style="height:400px; width:100%;">
+            <table class="table table-bordered" style="min-width:2800px" #tableChoose>
+              <thead #chooseHeader style="background-color: white">
+                <tr>
+                  <th style="text-align:center;padding-top: 10px;" width="60px">
+                    <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                      style="height:20px; width:20px;" (change)="checkAll(false)">
+                  </th>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="200px" class="text-center">Tên giải pháp</th>
+                  <th width="200px" class="text-center">Mã giải pháp</th>
+                  <th width="200px" class="text-center">Nhóm giải pháp</th>
+                  <th width="200px" class="text-center">Mã dự án</th>
+                  <th width="200px" class="text-center">Tên dự án</th>
+                  <th width="150px" class="text-center">Khách hàng</th>
+                  <th width="150px" class="text-center">Khách hàng cuối</th>
+                  <th width="200px" class="text-center">Người phụ trách kinh doanh</th>
+                  <th width="160px" class="text-center">Người làm giải pháp</th>
+                  <th width="100px" class="text-center">3D giải pháp</th>
+                  <th width="100px" class="text-center">BV tổng 2D</th>
+                  <th width="100px" class="text-center">Bản giải trình</th>
+                  <th width="100px" class="text-center">DMVT</th>
+                  <th width="100px" class="text-center">FCM</th>
+                  <th width="100px" class="text-center">TSKT</th>
+                  <th width="100px" class="text-center">Giá</th>
+                  <th width="130px" class="text-center">Ngày hoàn thành</th>
+                  <th min-width="200px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody #chooseContainer>
+                <tr *ngFor="let row of chooseScrolll.viewPortItems; let i = index">
+                  <td style="text-align:center">
+                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+row.Name+i}}"
+                      style="height:20px; width:20px;">
+                  </td>
+                  <td class="text-center">{{i+1}}</td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.SolutionGroupName}}</td>
+                  <td>{{row.ProjectCode}}</td>
+                  <td>{{row.ProjectName}}</td>
+                  <td>{{row.CustomerName}}</td>
+                  <td>{{row.EndCustomerName}}</td>
+                  <td>{{row.TPAUName}}</td>
+                  <td>{{row.SolutionMakerName}}</td>
+                  <td>
+                    <div>
+                      <div  class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has3DSolution" type="checkbox" class="custom-control-input" [id]="i" [name]="i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.Design3DExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.Design3DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div> 
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has2D" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.Design2DExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.Design2DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasExplan" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.ExplanExist" class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.ExplanExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasDMVT" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.DMVTExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.DMVTExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasFCM" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+    
+                      <div *ngIf="row.FCMExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+    
+                      <div *ngIf="!row.FCMExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasTSKT" type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+                      <div *ngIf="row.TSTKExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.TSTKExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                  <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </virtual-scroller>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)=" choose()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Chọn</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

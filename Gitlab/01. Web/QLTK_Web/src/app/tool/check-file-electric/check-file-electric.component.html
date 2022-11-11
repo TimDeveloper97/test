@@ -1,0 +1,40 @@
+<!-- <div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <div class="form-group">
+      <label class="form-label">Điện</label>
+      <div class="controls">
+        <input type="text" class="form-control" name="pathFile" [(ngModel)]="pathFile" readonly>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-6 col-md-6 col-sm-12 margin-top-20 text-right">
+    <button class="btn btn-success btn-success-system" (click)="showChooseFolderWindow()">
+      <i class=""></i> &nbsp;Chọn file</button>&nbsp; &nbsp;
+    <button class="btn btn-success btn-success-system" (click)="checkElectric()">
+      <i class=""></i> &nbsp;Kiểm tra</button>&nbsp; &nbsp;
+  </div>
+</div> -->
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12 col-lg-12 col-xl-12">
+    <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+      <table class="table table-bordered" style="min-width:400px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="120px" class="text-center ">Đường dẫn thư mục</th>
+            <th width="100px" class="text-center">Tên</th>
+            <th width="120px" class="text-center ">Size</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listCheckFile; let i = index">
+            <td>{{i+1}}</td>
+            <td>{{row.PathLocal}}</td>
+            <td>{{row.Name}}</td>
+            <td>{{row.Size}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

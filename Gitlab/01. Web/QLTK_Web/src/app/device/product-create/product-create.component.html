@@ -1,0 +1,365 @@
+<div class="content-wrapper app-product-create">
+    <form name="form" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" (navChange)="changeTab($event)" class="nav-tabs">
+            <li [ngbNavItem]="0">
+                <a ngbNavLink>Thông tin chung</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nhóm thiết bị
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+
+                                        <nts-drop-down-tree [items]="listProductGroup" [columns]="columnName"
+                                            ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                                            ntsAutoClose="true" [(ngModel)]="modelProduct.ProductGroupId"
+                                            (change)="changeGroup()" name="Id" required
+                                            [disUipermission]="['F030402','F030401']">
+                                        </nts-drop-down-tree>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên thiết bị
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F030402','F030401']" name="modelProductName"
+                                                type="text" class="form-control" [(ngModel)]="modelProduct.Name"
+                                                maxlength="300" (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Mã thiết bị
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F030402','F030401']" name="modelProductCode"
+                                                type="text" class="form-control" [(ngModel)]="modelProduct.Code"
+                                                maxlength="50" (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Thời gian sản xuất
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F030402','F030401']"
+                                                name="modelProductProcedureTime" type="number" class="form-control"
+                                                [(ngModel)]="modelProduct.ProcedureTime" maxlength="300" min="0"
+                                                ntsNumberInt disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F030402','F030401']" name="Pricing" type="text"
+                                                class="form-control" [(ngModel)]="modelProduct.Pricing" currencyMask
+                                                maxlength="18" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tình trạng
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select [disUipermission]="['F030402','F030401']" name="listStatus"
+                                                class="form-control" [(ngModel)]="modelProduct.Status"
+                                                (ngModelChange)="check()">
+                                                <option *ngFor="let item of listStatus" [ngValue]="item.Id">
+                                                    {{item.Name}}</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Phiên bản
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F030402','F030401']"
+                                                name="modelProductCurentVersion" type="text" class="form-control"
+                                                [(ngModel)]="modelProduct.CurentVersion" maxlength="50"
+                                                (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Thông tin thay đổi
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <textarea [radUipermission]="['F030402','F030401']"
+                                                    [(ngModel)]="modelProduct.Content" name="modelProductContent"
+                                                    rows="5" class="form-control"></textarea>
+                                                <div class="input-group-append">
+                                                    <button *appUipermission="['F030402','F030401']"
+                                                        [disabled]="!isUpdate" type="button"
+                                                        (click)='showUpdateContent()' class="btn btn-xs btn-warning"
+                                                        placement="top" ngbTooltip="Chỉnh sửa nội dung"
+                                                        container="body">
+                                                        <span class="fa fa-edit" aria-hidden="true"></span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Mô tả
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [radUipermission]="['F030402','F030401']"
+                                                [(ngModel)]="modelProduct.Description" name="modelProductDescription"
+                                                rows="5" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">HD Thực hành
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsManualExist == false" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsManualExist == true" class="badge badge-success"
+                                            style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">Báo giá
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsQuoteExist == false" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsQuoteExist == true" class="badge badge-success"
+                                            style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">Bản vẽ layout
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsLayoutExist == false" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsLayoutExist == true" class="badge badge-success"
+                                            style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">DMVT
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsMaterialExist == false" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsMaterialExist == true" class="badge badge-success"
+                                            style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xl-4">
+                                    <label class="form-label">DM bài thực hành/công đoạn
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsPracticeExist == false" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsPracticeExist == true" class="badge badge-success"
+                                            style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">Tài liệu HD bảo trì
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="modelProduct.IsManualMaintenance == false"
+                                            class="badge badge-danger" style="margin-top: 13px">Chưa có</span>
+                                        <span *ngIf="modelProduct.IsManualMaintenance == true"
+                                            class="badge badge-success" style="margin-top: 13px">Đã có</span>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2">
+                                    <label class="form-label">Catalog
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="!modelProduct.IsCatalog" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa
+                                            có</span>
+                                        <span *ngIf="modelProduct.IsCatalog" class="badge badge-success"
+                                            style="margin-top: 13px">Đã
+                                            có</span>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-4 col-sm-12 col-xl-2" *ngIf="this.modelProduct.Id != ''">
+                                    <label class="form-label">Chuyển thư viện
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <div>
+                                        <span *ngIf="!modelProduct.IsSendSale" class="badge badge-danger"
+                                            style="margin-top: 13px">Chưa
+                                            chuyển</span>
+                                        <span *ngIf="modelProduct.IsSendSale" class="badge badge-success"
+                                            style="margin-top: 13px">Đã
+                                            chuyển</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh thiết bị</label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button *appUipermission="['F030402','F030401']"
+                                            class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="fileDataSheet" style="display: none;" type="file"
+                                            id="fileDataSheet" #fileImage (change)="uploadFileClickImage($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                                </ngx-gallery>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                            <label class="form-label pt-3">Người tạo: {{EmployeeName}} | Phòng ban:
+                                {{DepartmentName}}</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right mt-3">
+                            <ng-container *ngIf="this.modelProduct.Id">
+                                <button *appUipermission="['F030419']" type="button" class="btn btn-success"
+                                    (click)="syncSaleProduct(false)">
+                                    <i class="fas fa-sync-alt"></i>&nbsp;
+                                    <span>Đồng bộ sản phẩm</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container>
+                                <button type="button" class="btn btn-success" (click)="showConfirmUploadVersion()"
+                                    [disabled]="!valid" *appUipermission="['F030402','F030401']">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container *ngIf="this.modelProduct.Id == ''">
+                                <button type="button" class="btn btn-success" (click)="saveAndContinue()"
+                                    [disabled]="!valid" *appUipermission="['F030401']">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu & tiếp tục</span>
+                                </button>&nbsp;
+                            </ng-container>
+                            <ng-container>
+                                <button type="button" class="btn btn-danger" (click)="closeModal()">
+                                    <i class="fa fa-power-off"></i> &nbsp;
+                                    <span>
+                                        Đóng
+                                    </span>
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'tab-product-sketches'"
+                [disabled]="!isUpdate || permissionService.checkPermission(['F030416','F030406'])">
+                <a ngbNavLink>Phác thảo thiết kế</a>
+                <ng-template ngbNavContent>
+                    <app-product-sketches [Id]="modelProduct.Id"></app-product-sketches>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'product-error-tab'" [disabled]="!isUpdate">
+                <a ngbNavLink>Lỗi</a>
+                <ng-template ngbNavContent>
+                    <app-product-error-tab [Id]="modelProduct.Id"></app-product-error-tab>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'tab-product-material'"
+                [disabled]="!isUpdate  || permissionService.checkPermission(['F030411'])">
+                <a ngbNavLink>Module - Vật tư cài đặt</a>
+                <ng-template ngbNavContent>
+                    <app-productmaterials [Id]="modelProduct.Id"></app-productmaterials>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'tab-design-document'"
+                [disabled]="!isUpdate || permissionService.checkPermission(['F030414'])">
+                <a ngbNavLink>Tài liệu thiết kế</a>
+                <ng-template ngbNavContent>
+                    <app-product-tab-design-document [Id]="modelProduct.Id"></app-product-tab-design-document>
+                </ng-template>
+            </li>
+            <!-- <li [ngbNavItem]="'tab-product-accessories'">
+                <a ngbNavLink>Phụ kiện</a>
+                <ng-template ngbNavContent>
+                    <app-product-accessories-tab [Id]="modelProduct.Id"></app-product-accessories-tab>
+                </ng-template>
+            </li> -->
+            <li [ngbNavItem]="'app-product-tab-result-test'"
+                [disabled]="!isUpdate || permissionService.checkPermission(['F030414'])">
+                <a ngbNavLink>Kết quả thử nghiệm</a>
+                <ng-template ngbNavContent>
+                    <app-product-tab-result-test [Id]="modelProduct.Id">
+                    </app-product-tab-result-test>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'app-product-tab-document-attach'"
+                [disabled]="!isUpdate || permissionService.checkPermission(['F030414'])">
+                <a ngbNavLink>Tài liệu đính kèm</a>
+                <ng-template ngbNavContent>
+                    <app-product-tab-document-attach [Id]="modelProduct.Id">
+                    </app-product-tab-document-attach>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

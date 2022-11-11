@@ -1,0 +1,1850 @@
+<div class="modal-body padding-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>TT nhân viên</a>
+        <ng-template ngbNavContent>
+          <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+            <div class="row">
+              <div class="col-md-9 col-lg-9 col-sm-12 col-xl-9">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <label class="form-label font-weight-bold">Thông tin cá nhân
+                    </label>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Tên nhân viên
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input type="text" class="form-control" name="Name" [(ngModel)]="model.Name" maxlength="100"
+                          required autofocus>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Mã nhân viên
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" type="text" class="form-control" name="Code"
+                          [(ngModel)]="model.Code" maxlength="50" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Email công ty
+                        <span class='text-danger text-strong'> * &nbsp;</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" placeholder="name@example.com" type="email"
+                          class="form-control" [(ngModel)]="model.Email" name="email" maxlength="300" email required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Email cá nhân
+                        <!-- <span class='text-danger text-strong'> * &nbsp;</span> -->
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" placeholder="name@example.com" type="PersonalEmail"
+                          class="form-control" [(ngModel)]="model.PersonalEmail" name="PersonalEmail" maxlength="300"
+                          email>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Số CMND/CCCD
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" type="text" class="form-control" name="IdentifyNum"
+                          [(ngModel)]="model.IdentifyNum" maxlength="15" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Ngày cấp
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="input-group">
+                        <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy"
+                          name="CmtndDate" [(ngModel)]="cmtndDate" ngbDatepicker #CmtndDate="ngbDatepicker"
+                          [minDate]="minDateNotificationV" required>
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="CmtndDate.toggle()" name="CmtndDate">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Nơi cấp
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080002']" type="text" class="form-control" name="IdentifyAddress"
+                          [(ngModel)]="model.IdentifyAddress" maxlength="500" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 radio">
+                    <label class="form-label">Giới tính
+                      <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <label class="radio">Nam
+                      <input [disUipermission]="['F080001']" type="radio" name="Gender" [(ngModel)]="model.Gender"
+                        required [value]="1">
+                      <span class="checkround"></span>
+                    </label>
+                    <label class="radio">Nữ
+                      <input [disUipermission]="['F080001']" type="radio" name="Gender" [(ngModel)]="model.Gender"
+                        required [value]="2">
+                      <span class="checkround"></span>
+                    </label>
+
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Ngày sinh
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="input-group">
+                        <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy"
+                          name="DateOfBirth" [(ngModel)]="dateOfBirth" ngbDatepicker #DateOfBirth="ngbDatepicker"
+                          [minDate]="minDateNotificationV" required>
+                        <div class="input-group-append">
+                          <span class="dtp-icon" (click)="DateOfBirth.toggle()" name="DateOfBirth">
+                            <i class="far fa-calendar-alt" style="color: #999;"></i>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Số điện thoại
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" type="text" class="form-control" name="PhoneNumber"
+                          [(ngModel)]="model.PhoneNumber" maxlength="10" ntsNumberInt required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Tình trạng hôn nhân
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <select [disUipermission]="['F080001']" name="maritalStatus" class="form-control"
+                          [(ngModel)]="model.MaritalStatus" required>
+                          <option *ngFor="let item of maritalStatus" [ngValue]="item.Id">{{item.Name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3"></div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Nguyên quán
+                        <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" type="text" class="form-control" name="Address"
+                          [(ngModel)]="model.Address" maxlength="500">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Tỉnh/TP nguyên quán
+                        <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="provinces" [columns]="columnNameAddress"
+                          ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                          [(ngModel)]="model.AddressProvinceId" name="AddressProvinceId"
+                          (change)="getDistricts(model.AddressProvinceId,1)">
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Quận/ Huyện nguyên quán
+                        <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="districts" [columns]="columnNameAddress"
+                          ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                          [(ngModel)]="model.AddressDistrictId" name="AddressDistrictId"
+                          (change)="getWards(model.AddressDistrictId,1)">
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Phường/ Xã nguyên quán
+                        <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="wards" [columns]="columnNameAddress"
+                          ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                          [(ngModel)]="model.AddressWardId" name="AddressWardId">
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6"></div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Địa chỉ thường trú
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <input [disUipermission]="['F080001']" type="text" class="form-control" name="PermanentAddress"
+                          [(ngModel)]="model.PermanentAddress" maxlength="500" required>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Tỉnh/TP thường trú
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="provinces" [columns]="columnNameAddress"
+                          ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                          [(ngModel)]="model.PermanentAddressProvinceId" name="PermanentAddressProvinceId"
+                          (change)="getDistricts(model.PermanentAddressProvinceId, 2)" required>
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Quận/ Huyện thường trú
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="permanentDistricts"
+                          [columns]="columnNameAddress" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                          ntsAutoClose="true" [(ngModel)]="model.PermanentAddressDistrictId"
+                          name="PermanentAddressDistrictId" (change)="getWards(model.PermanentAddressDistrictId,2)"
+                          required>
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                    <div class="form-group ">
+                      <label class="form-label">Phường/ Xã thường trú
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                      </label>
+                      <div class="controls">
+                        <nts-drop-down [disUipermission]="['F080001']" [items]="permanentWards"
+                          [columns]="columnNameAddress" ntsValue="Id" ntsLabel="Name" ntsMode="single"
+                          ntsAutoClose="true" [(ngModel)]="model.PermanentAddressWardId" name="PermanentAddressWardId"
+                          required>
+                        </nts-drop-down>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6"></div>
+                </div>
+
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+                <div class="row">
+                  <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="actions panel_actions">
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                          <label class="form-label font-weight-bold">Ảnh nhân viên
+                          </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 text-right ">
+                          <label class="form-label">Chọn ảnh
+                          </label>
+                          <i class="box_toggle material-icons actions-camera btn-file padding-top-5"
+                            ngbTooltip="Thay ảnh">
+                            photo_camera
+                            <input [disUipermission]="['F080001']" type="file" id="fileInput" #fileInput
+                              accept="image/*" (change)="onFileChange($event)" />
+                          </i>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12 img-avata  padding-0">
+                    <img class="img-thumbnail"
+                    [src]="model.Avatar?model.Avatar: ('/assets/img/noavatar.gif')">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Địa chỉ hiện tại
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="CurrentAddress"
+                      [(ngModel)]="model.CurrentAddress" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Tỉnh/TP hiện tại
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="provinces" [columns]="columnNameAddress"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.CurrentAddressProvinceId" name="CurrentAddressProvinceId"
+                      (change)="getDistricts(model.CurrentAddressProvinceId, 3)">
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Quận/ Huyện hiện tại
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="currentDistricts"
+                      [columns]="columnNameAddress" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.CurrentAddressDistrictId" name="CurrentAddressDistrictId"
+                      (change)="getWards(model.CurrentAddressDistrictId,3)">
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Phường/ Xã hiện tại
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="currentWards" [columns]="columnNameAddress"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.CurrentAddressWardId" name="CurrentAddressWardId">
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">MST TNCN
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="TaxCode"
+                      [(ngModel)]="model.TaxCode" maxlength="10" ntsNumberInt required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Tháng bắt đầu BHXH
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <!-- <input [disUipermission]="['F080001']" type="text" class="form-control" name="StartInsurance"
+                      [(ngModel)]="model.StartInsurance" maxlength="2" ntsNumberInt> -->
+                  
+                      <ejs-datepicker [start]='start' [depth]='depth' [format]='format' locale="vi" [(value)]="startInsurance" name="StartInsurance"></ejs-datepicker>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Số sổ BHXH
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="BookNumberInsurance"
+                      [(ngModel)]="model.BookNumberInsurance" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Số thẻ BHYT
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="CardNumberInsurance"
+                      [(ngModel)]="model.CardNumberInsurance" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Nơi KCB ban đầu
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="Kcb"
+                      [(ngModel)]="model.Kcb" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mức đóng BHXH
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <select [disUipermission]="['F080001']" name="InsuranceLevelId" class="form-control"
+                      [(ngModel)]="model.InsuranceLevelId" (change)="getInsuranceMoney()">
+                      <option *ngFor="let item of insuranceLevels" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mức tiền đóng BHXH
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input type="text" class="form-control" name="MoneyInsurance" [(ngModel)]="insuranceMoney"
+                      maxlength="500" disabled="true" currencyMask>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Năng lực, sở trường
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="forte"
+                      [(ngModel)]="model.Forte" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tài khoản ngân hàng -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Tài khoản ngân hàng
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:720px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th width="200px" class="text-center">Số tài khoản</th>
+                        <th min-width="200px" class="text-center">Ngân hàng</th>
+                        <th width="200px" class="text-center">Mã ngân hàng</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.BankAccounts; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteBankAccount(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.AccountNumber" class="form-control" [name]="'bankAcc' + i"
+                            maxlength="100" ntsNumberInt>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="banks" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.BankAccountId" [name]="'Bank'+i" (change)="getBankCode(row,true)">
+                            </nts-drop-down>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.BankCode" class="form-control" [name]="'BankCode' + i"
+                            maxlength="100">
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateABankAccount()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="acc" [(ngModel)]="bankAccModel.AccountNumber"
+                              maxlength="100" ntsNumberInt>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="banks" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="bankAccModel.BankAccountId" name="bank"
+                              (change)="getBankCode(bankAccModel,false)">
+                            </nts-drop-down>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="BankCode" [(ngModel)]="bankAccModel.BankCode"
+                              maxlength="100">
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Danh sách người thân -->
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <label> Danh sách người thân
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:1300px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th width="250px" class="text-center">Tên</th>
+                        <th width="100px" class="text-center">Ngày sinh</th>
+                        <th width="100px" class="text-center ">Quan hệ</th>
+                        <th width="100px" class="text-center ">Giới tính</th>
+                        <th width="200px" class="text-center">Nghề nghiệp</th>
+                        <th min-width="300px" class="text-center">Nơi làm việc</th>
+                        <th width="100px" class="text-center">Điện thoại</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.ListFamilies; let i = index;">
+                        <td class="text-center" width="50px">{{Index + i}}</td>
+                        <td class="text-center">
+                          <button *appUipermission="['F080001']" type="button" class="btn btn-xs btn-danger"
+                            ngbTooltip="Xóa" (click)="deleteRow(row.Id,i)">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.Name" class="form-control" [name]="'name' + i"
+                            maxlength="100">
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080001']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'Familydob' + i" [(ngModel)]="row.DateOfBirthV"
+                              ngbDatepicker #Familydob="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}" container='body'>
+                            <div class="input-group-append">
+                              <span class="dtp-icon" (click)="Familydob.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <select [disUipermission]="['F080001']" data-size="3" class="form-control"
+                            [(ngModel)]="row.Relationship" [name]="'relationship' + i">
+                            <option style="height: auto;" *ngFor="let item of listRelationship" [ngValue]="item.Id">
+                              {{item.Name}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <select [disUipermission]="['F080001']" class="form-control" [(ngModel)]="row.Gender"
+                            [name]="'gender' + i">
+                            <option value="1">Nam</option>
+                            <option value="2">Nữ</option>
+                            <option value="3">Khác</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input [disUipermission]="['F080002']" type="text" [(ngModel)]="row.Job" class="form-control"
+                            [name]="'job' + i" maxlength="300">
+                        </td>
+                        <td>
+                          <input [disUipermission]="['F080002']" type="text" [(ngModel)]="row.Workplace"
+                            class="form-control" [name]="'Workplace' + i" maxlength="300">
+                        </td>
+                        <td>
+                          <input [disUipermission]="['F080002']" type="text" [(ngModel)]="row.PhoneNumber"
+                            class="form-control" [name]="'PhoneNumber' + i" maxlength="10">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="text-center" width="50px"></td>
+                        <td class="text-center">
+                          <button *appUipermission="['F080001']" type="button" class="btn btn-xs btn-success"
+                            ngbTooltip="Thêm dòng" (click)="addRow()">
+                            <i class="fa fa-plus"></i>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="familyModel.Name" class="form-control" name="name"
+                            maxlength="100">
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy"
+                              name="FamilyDob" [(ngModel)]="familyModel.DateOfBirthV" ngbDatepicker
+                              #FamilyDob="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}" container='body'>
+                            <div class="input-group-append">
+                              <span class="dtp-icon" (click)="FamilyDob.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <select [disUipermission]="['F080001']" class="form-control selectpicker"
+                            [(ngModel)]="familyModel.Relationship" id="relationship" name="relationship">
+                            <option *ngFor="let item of listRelationship" [ngValue]="item.Id">
+                              {{item.Name}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <select [disUipermission]="['F080001']" class="form-control" [(ngModel)]="familyModel.Gender"
+                            name="gender">
+                            <option value="1">Nam</option>
+                            <option value="2">Nữ</option>
+                            <option value="3">Khác</option>
+                          </select>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="familyModel.Job" class="form-control" name="modelFamilyJob"
+                            maxlength="100">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="familyModel.Workplace" class="form-control"
+                            name="modelFamilyAddressCompany" maxlength="500">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="familyModel.PhoneNumber" class="form-control"
+                            name="modelFamilyPhoneNumber" maxlength="100">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Lịch sử công tác -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Lịch sử công tác
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:1520px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th min-width="200px" class="text-center">Tên công ty</th>
+                        <th width="200px" class="text-center">Vị trí</th>
+                        <th width="200px" class="text-center">Vị trí theo TPA</th>
+                        <th width="200px" class="text-center">Thời gian làm việc</th>
+                        <th width="200px" class="text-center">Người liên hệ tham chiếu</th>
+                        <th width="200px" class="text-center">Số điện thoại người tham chiếu</th>
+                        <th width="100px" class="text-center">Số người quản lý</th>
+                        <th width="100px" class="text-center">Mức thu nhập</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.WorkHistories; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteWorkHistoty(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.CompanyName" class="form-control"
+                            [name]="'CompanyName' + i" maxlength="300">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.Position" class="form-control" [name]="'Position' + i"
+                            maxlength="300">
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.WorkTypeId" [name]="'TpaPositionId'+i">
+                            </nts-drop-down>
+
+                            <!-- <select [disUipermission]="['F080001']" [name]="'TpaPositionId'+i" class="form-control"
+                              [(ngModel)]="row.WorkTypeId">
+                              <option *ngFor="let item of listWorkType" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.TotalTime" class="form-control" [name]="'TotalTime' + i"
+                            maxlength="100">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.ReferencePerson" class="form-control"
+                            [name]="'ReferencePerson' + i" maxlength="300">
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.ReferencePersonPhone" class="form-control"
+                            [name]="'ReferencePersonPhone' + i" maxlength="10" ntsNumberInt>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.NumberOfManage" class="form-control"
+                            [name]="'NumberOfManage' + i" maxlength="10" ntsNumberInt>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.Income" class="form-control" [name]="'Income' + i"
+                            maxlength="100" currencyMask>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateWorkHistory()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="CompanyName"
+                              [(ngModel)]="workHistoryModel.CompanyName" maxlength="500">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="Position"
+                              [(ngModel)]="workHistoryModel.Position" maxlength="500">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="workHistoryModel.WorkTypeId" name="TpaPositionId">
+                            </nts-drop-down>
+
+                            <!-- <select [disUipermission]="['F080001']" name="TpaPositionId" class="form-control"
+                              [(ngModel)]="workHistoryModel.WorkTypeId">
+                              <option *ngFor="let item of listWorkType" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="TotalTime"
+                              [(ngModel)]="workHistoryModel.TotalTime" maxlength="500">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="ReferencePerson"
+                              [(ngModel)]="workHistoryModel.ReferencePerson" maxlength="500">
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="ReferencePersonPhone"
+                              [(ngModel)]="workHistoryModel.ReferencePersonPhone" maxlength="10" ntsNumberInt>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="NumberOfManage"
+                              [(ngModel)]="workHistoryModel.NumberOfManage" maxlength="10" ntsNumberInt>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="NumberOfManage"
+                              [(ngModel)]="workHistoryModel.Income" maxlength="100" currencyMask>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+
+              <div class="col-lg-12 col-md-12 col-sm-12 ">
+                <label class="form-label font-weight-bold">Thông tin công ty
+                </label>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">SBU
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="listSBU" [columns]="columnName"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.SBUId"
+                      name="SBUId" (ngModelChange)="GetCbbDepartment()" required>
+                    </nts-drop-down>
+
+                    <!-- <select [disUipermission]="['F080001']" name="SBUId" class="form-control" [(ngModel)]="model.SBUId"
+                      required (change)="getName(model.SBUId)" (ngModelChange)="GetCbbDepartment()">
+                      <option *ngFor="let item of listSBU" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mã SBU
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" readonly
+                      value="{{CodeSBU}}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Phòng ban
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="listDepartment" [columns]="columnName"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.DepartmentId" name="DepartmentId"
+                      (change)="getNameDepartment(model.DepartmentId)" required>
+                    </nts-drop-down>
+                    <!-- <select [disUipermission]="['F080001']" name="DepartmentId" class="form-control"
+                      [(ngModel)]="model.DepartmentId" required (change)="getNameDepartment(model.DepartmentId)">
+                      <option *ngFor="let item of listDepartment" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mã phòng ban
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" readonly
+                      value="{{CodeDepartment}}">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Ngày vào công ty
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="input-group">
+                    <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy"
+                      name="StartWorking" [(ngModel)]="startWorking" ngbDatepicker #StartWorking="ngbDatepicker"
+                      (ngModelChange)="calculateSeniority()">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="StartWorking.toggle()" name="StartWorking">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Thâm niên
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input disabled [disUipermission]="['F080002']" type="text" class="form-control" name="Seniority"
+                      [(ngModel)]="model.Seniority" maxlength="500">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3 radio">
+                <label class="form-label">Đối tượng
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <label class="radio">Chính thức
+                  <input [disUipermission]="['F080001']" type="radio" name="IsOfficial" [(ngModel)]="model.IsOfficial"
+                    [value]="1">
+                  <span class="checkround"></span>
+                </label>
+                <label class="radio">Thử việc
+                  <input [disUipermission]="['F080001']" type="radio" name="IsOfficial" [(ngModel)]="model.IsOfficial"
+                    [value]="0">
+                  <span class="checkround"></span>
+                </label>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Chức vụ
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <select [disUipermission]="['F080001']" name="JobPositionId" class="form-control"
+                      [(ngModel)]="model.JobPositionId" required (change)="getPositionCode()">
+                      <option *ngFor="let item of listJobPosition" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mã chức vụ
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="PositionCode"
+                      [(ngModel)]="positionCode" maxlength="500" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Vị trí công việc
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.WorkType"
+                      name="PositionJob" required (change)="getWorkTypeCode()">
+                    </nts-drop-down>
+
+                    <!-- <select [disUipermission]="['F080001']" name="PositionJob" class="form-control"
+                      [(ngModel)]="model.WorkType" required (ngModelChange)="getWorkTypeCode()">
+                      <option *ngFor="let item of listWorkType" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Mã vị trí
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <input [disUipermission]="['F080001']" type="text" class="form-control" name="WorkCode"
+                      [(ngModel)]="model.WorkCode" maxlength="500" disabled>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Địa điểm làm việc
+                    <span class='text-danger text-strong'>&nbsp;*</span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="workLocations" [columns]="columnNameAddress"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.WorkLocationId" name="WorkType" required>
+                    </nts-drop-down>
+                    <!-- <select [disUipermission]="['F080001']" name="WorkType" class="form-control"
+                      [(ngModel)]="model.WorkLocationId" required>
+                      <option *ngFor="let item of workLocations" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Vị trí khi ứng tuyển
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                      ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.AppliedPositionId" name="AppliedPositionId">
+                    </nts-drop-down>
+
+                    <!-- <select [disUipermission]="['F080001']" name="AppliedPositionId" class="form-control"
+                      [(ngModel)]="model.AppliedPositionId" required>
+                      <option *ngFor="let item of listJobPosition" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Thuộc nhóm nhân viên
+                    <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="employeeGroups"
+                      [columns]="columnNameAddress" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.EmployeeGroupId" name="EmployeeGroupId">
+                    </nts-drop-down>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3 radio">
+                <label class="form-label">Tình trạng làm việc
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <label class="radio">Đang làm việc
+                  <input [disUipermission]="['F080001']" type="radio" name="Status" [(ngModel)]="model.Status"
+                    [value]="1">
+                  <span class="checkround"></span>
+                </label>
+                <label class="radio">Đã nghỉ việc
+                  <input [disUipermission]="['F080001']" type="radio" name="Status" [(ngModel)]="model.Status"
+                    [value]="0">
+                  <span class="checkround"></span>
+                </label>
+              </div>
+
+              <div *ngIf="model.Status==0" class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Ngày nghỉ việc
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                  </label>
+                  <div class="input-group">
+                    <input [disUipermission]="['F080001']" class="form-control" placeholder="dd/mm/yyyy"
+                      name="EndWorking" [(ngModel)]="endWorking" ngbDatepicker #EndWorking="ngbDatepicker">
+                    <div class="input-group-append">
+                      <span class="dtp-icon" (click)="EndWorking.toggle()" name="EndWorking">
+                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="model.Status==0" class="col-lg-3 col-md-3 col-sm-12 col-xs-3">
+                <div class="form-group ">
+                  <label class="form-label">Lý do nghỉ việc
+                    <span class='text-danger text-strong'></span>
+                  </label>
+                  <div class="controls">
+                    <nts-drop-down [disUipermission]="['F080001']" [items]="reasonsEndWorking"
+                      [columns]="columnNameAddress" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                      [(ngModel)]="model.ReasonEndWorkingId" name="ReasonEndWorkingId">
+                    </nts-drop-down>
+                    <!-- <select [disUipermission]="['F080001']" name="ReasonEndWorkingId" class="form-control"
+                      [(ngModel)]="model.ReasonEndWorkingId">
+                      <option *ngFor="let item of reasonsEndWorking" [ngValue]="item.Id">{{item.Name}}
+                      </option>
+                    </select> -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <!-- Lịch sử điều chỉnh thu nhập -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Điều chỉnh thu nhập
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:720px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th width="200px" class="text-center">Thu nhập điều chỉnh</th>
+                        <th width="200px" class="text-center">Ngày điều chỉnh</th>
+                        <th min-width="200px" class="text-center">Lý do điều chỉnh</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.HistoriesIncome; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteIncomeHistoty(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.NewIncome" class="form-control" [name]="'NewIncome' + i"
+                            maxlength="20" currencyMask>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'IncomeDateChange' + i" [(ngModel)]="row.DateChangeV"
+                              ngbDatepicker #IncomeDateChange="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="IncomeDateChange.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" [name]="'incomeModelReasonChangeIncomeId'+i"
+                              class="form-control" [(ngModel)]="row.ReasonChangeIncomeId">
+                              <option *ngFor="let item of reasonsChangeIncome" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateIncomeHistory()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="NewIncome" [(ngModel)]="incomeModel.NewIncome"
+                              maxlength="20" currencyMask>
+                          </div>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="IncomeDateChange" [(ngModel)]="incomeModel.DateChangeV"
+                              ngbDatepicker #IncomeDateChange="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="IncomeDateChange.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" name="incomeModelReasonChangeIncomeId"
+                              class="form-control" [(ngModel)]="incomeModel.ReasonChangeIncomeId">
+                              <option *ngFor="let item of reasonsChangeIncome" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Điều chỉnh mức đóng bảo hiểm -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Điều chỉnh mức đóng bảo hiểm
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:720px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="70px" class="text-center">Xử lý</th>
+                        <th width="200px" class="text-center">Mức điều chỉnh</th>
+                        <th width="200px" class="text-center">Số tiền điều chỉnh</th>
+                        <th width="200px" class="text-center">Ngày điều chỉnh</th>
+                        <th min-width="200px" class="text-center">Lý do điều chỉnh</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.HistoriesInsurance; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteInsuranceHistoty(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" [name]="'insuranceModelInsuranceLevelId'+i"
+                              class="form-control" [(ngModel)]="row.InsuranceLevelId"
+                              (change)="getInsuranceChangeMoney(row,true)">
+                              <option *ngFor="let item of insuranceLevels" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                        <td>
+                          <input type="text" [(ngModel)]="row.InsuranceMoney" class="form-control"
+                            [name]="'InsuranceMoney' + i" maxlength="500" disabled currencyMask>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'InsuranceDateChange' + i" [(ngModel)]="row.DateChangeV"
+                              ngbDatepicker #InsuranceDateChange="ngbDatepicker"
+                              [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="InsuranceDateChange.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" [name]="'insuranceModelReasonChangeInsuranceId'+i"
+                              class="form-control" [(ngModel)]="row.ReasonChangeInsuranceId">
+                              <option *ngFor="let item of reasonsChangeInsurance" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateInsuranceHistory()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" name="insuranceModelInsuranceLevelId"
+                              class="form-control" [(ngModel)]="insuranceModel.InsuranceLevelId"
+                              (change)="getInsuranceChangeMoney(insuranceModel,false)">
+                              <option *ngFor="let item of insuranceLevels" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <input type="text" class="form-control" name="NewInsurance" currencyMask
+                              [(ngModel)]="insuranceModel.InsuranceMoney" maxlength="500" disabled>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="InsuranceDateChange"
+                              [(ngModel)]="insuranceModel.DateChangeV" ngbDatepicker
+                              #InsuranceDateChange="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="InsuranceDateChange.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <select [disUipermission]="['F080001']" name="insuranceModelInsuranceLevelId"
+                              class="form-control" [(ngModel)]="insuranceModel.ReasonChangeInsuranceId">
+                              <option *ngFor="let item of reasonsChangeInsurance" [ngValue]="item.Id">{{item.Name}}
+                              </option>
+                            </select>
+                          </div>
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Hợp đồng lao động -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Quá trình HĐLĐ
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:1050px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Xử lý</th>
+                        <th width="300px" class="text-center">Loại hợp đồng</th>
+                        <th width="200px" class="text-center">Từ ngày</th>
+                        <th width="200px" class="text-center">Đến ngày</th>
+                        <th min-width="200px" class="text-center">Hợp đồng lao động</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.HistoriesLaborContract; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteContractHistoty(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>&nbsp;
+                          <button type="button"  class="btn btn-xs btn-success"  (click)="fileInput.click();"
+                          placement="bottom" ngbTooltip="Upload file" container="body">
+                          <span class="fas fa-arrow-up"  aria-hidden="true"></span>
+                        </button>&nbsp;   
+                          <input name="filepractice" style="display: none;" type="file" id="fileInput" #fileInput
+                            (change)="uploadContract($event, row)" single />
+
+                          <ng-container *ngIf="row.FilePath!=''">
+                            <button type="button" (click)="downloadAFile(row)"
+                              style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                              ngbTooltip="Tải và lưu" container="body">
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>
+                          </ng-container>
+                        </td>
+
+                        <td>
+                          <select [disUipermission]="['F080001']" data-size="3" class="form-control"
+                            [(ngModel)]="row.LaborContractId" [name]="'LaborContractId' + i">
+                            <option style="height: auto;" *ngFor="let item of laborContracts" [ngValue]="item.Id">
+                              {{item.Name}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'ContractDateFrom' + i" [(ngModel)]="row.ContractFromV"
+                              ngbDatepicker #ContractDateFrom="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="ContractDateFrom.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'ContractDateTo' + i" [(ngModel)]="row.ContractToV"
+                              ngbDatepicker #ContractDateTo="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="ContractDateTo.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>{{row.FileName}}</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateContracteHistory()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+
+                        <td>
+                          <select [disUipermission]="['F080001']" data-size="3" class="form-control"
+                            [(ngModel)]="contractModel.LaborContractId" name="LaborContractId">
+                            <option style="height: auto;" *ngFor="let item of laborContracts" [ngValue]="item.Id">
+                              {{item.Name}}
+                            </option>
+                          </select>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="ContractDateFrom" [(ngModel)]="contractModel.ContractFromV"
+                              ngbDatepicker #ContractDateFrom="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="ContractDateFrom.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="ContractDateTo" [(ngModel)]="contractModel.ContractToV"
+                              ngbDatepicker #ContractDateTo="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="ContractDateTo.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Lịch sử điều chuyển công tác -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Điều chuyển
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:1120px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Xử lý</th>
+                        <th width="200px" class="text-center">Ngày điều chuyển</th>
+                        <th width="200px" class="text-center">Vị trí điều chuyển</th>
+                        <th width="400px" class="text-center">Phòng ban</th>
+                        <th min-width="200px" class="text-center">Quyết định điều chuyển</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.HistoryJobTranfer; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteJobTranfer(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>&nbsp;
+                          <button  class="btn btn-xs btn-success btn-upload"
+                            (click)="fileInput.click();"  placement="bottom" ngbTooltip="Upload file" container="body">
+                            <i class="fas fa-arrow-up"></i></button>&nbsp;
+                          <input name="filepractice" style="display: none;" type="file" id="fileInput" #fileInput
+                            (change)="uploadDecisionTranfer($event, row)" single />
+                          <ng-container *ngIf="row.FilePath!=''">
+                            <button  type="button" (click)="downloadAFile(row)"
+                              style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                              ngbTooltip="Tải và lưu" container="body">
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>
+                          </ng-container>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'DateJobTranfer' + i" [(ngModel)]="row.DateJobTranferV"
+                              ngbDatepicker #DateJobTranfer="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="DateJobTranfer.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.WorkTypeId" [name]="'jobTranferModelWorkTypeId'+ i">
+                            </nts-drop-down>
+
+                            <!-- <select [disUipermission]="['F080001']" [name]="'jobTranferModelWorkTypeId'+ i"
+                                            class="form-control" [(ngModel)]="row.WorkTypeId">
+                                            <option *ngFor="let item of listWorkType" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="departments" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.DepartmentId" [name]="'jobTranferModelDepartmentId'+ i">
+                            </nts-drop-down>
+
+                            <!-- <select [disUipermission]="['F080001']" [name]="'jobTranferModelDepartmentId'+ i"
+                                            class="form-control" [(ngModel)]="row.DepartmentId">
+                                            <option *ngFor="let item of departments" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>{{row.FileName}}</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateJobTranfer()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="DateJobTranfer"
+                              [(ngModel)]="jobTranferModel.DateJobTranferV" ngbDatepicker
+                              #DateJobTranfer="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="DateJobTranfer.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listWorkType" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="jobTranferModel.WorkTypeId" name="jobTranferModelWorkTypeId">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" name="jobTranferModelWorkTypeId"
+                                            class="form-control" [(ngModel)]="jobTranferModel.WorkTypeId">
+                                            <option *ngFor="let item of listWorkType" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="departments" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="jobTranferModel.DepartmentId" name="jobTranferModelDepartmentId">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" name="jobTranferModelDepartmentId"
+                                            class="form-control" [(ngModel)]="jobTranferModel.DepartmentId">
+                                            <option *ngFor="let item of departments" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+              <!-- Lịch sử bổ nhiệm -->
+              <div class="col-md-12 col-sm-12 col-lg-12">
+                <label>
+                  Bổ nhiệm
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <perfect-scrollbar [config]="constants.ScrollConfig" style="height:auto; width:100%;overflow: visible;">
+                  <table class="table table-bordered" style="min-width:1120px">
+                    <thead>
+                      <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Xử lý</th>
+                        <th width="200px" class="text-center">Ngày bổ nhiệm</th>
+                        <th width="200px" class="text-center">Chức vụ bổ nhiệm</th>
+                        <th width="400px" class="text-center">Phòng ban</th>
+                        <th min-width="200px" class="text-center">Quyết định bổ nhiệm</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let row of model.HistoryAppoint; let i = index;">
+                        <td class="text-center" width="50px">{{startBankAccountIndex+i}}</td>
+                        <td class="text-center" width="70px">
+                          <button class="btn btn-xs btn-danger" (click)="deleteAppoint(i)" placement="bottom"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                          </button>&nbsp;
+                          <button  class="btn btn-xs btn-success btn-upload"  placement="bottom" ngbTooltip="Upload file" container="body"
+                            (click)="fileInput.click();">
+                            <i class="fas fa-arrow-up"></i></button>&nbsp;
+                          <input name="filepractice" style="display: none;" type="file" id="fileInput" #fileInput
+                            (change)="uploadDecisionAppoint($event, row)" single />
+
+                          <ng-container *ngIf="row.FilePath!=''">
+                            <button  type="button" (click)="downloadAFile(row)"
+                              style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                              ngbTooltip="Tải và lưu" container="body">
+                              <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                            </button>
+                          </ng-container>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" [name]="'DateAppoint' + i" [(ngModel)]="row.DateAppointV"
+                              ngbDatepicker #DateAppoint="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="DateAppoint.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listJobPosition"
+                              [columns]="columnName" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.PositionId" [name]="'PositionId'+i">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" [name]="'PositionId'+i" class="form-control"
+                                            [(ngModel)]="row.PositionId">
+                                            <option *ngFor="let item of listJobPosition" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="departments" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="row.DepartmentId" [name]="'AppointDepartmentId'+i">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" [name]="'AppointDepartmentId'+ i"
+                                            class="form-control" [(ngModel)]="row.DepartmentId">
+                                            <option *ngFor="let item of departments" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>{{row.FileName}}</td>
+                      </tr>
+                    </tbody>
+                    <tfoot>
+                      <tr class="bold">
+                        <td></td>
+                        <td class="text-center">
+                          <button type="button" (click)='validateAppoint()' class="btn btn-xs btn-success"
+                            placement="bottom" ngbTooltip="Thêm mới" container="body">
+                            <span class="fa fa-plus" aria-hidden="true"></span>
+                          </button>
+                        </td>
+
+                        <td>
+                          <div class="input-group">
+                            <input container="body" [disUipermission]="['F080002']" class="form-control"
+                              placeholder="dd/mm/yyyy" name="DateAppoint" [(ngModel)]="appointModel.DateAppointV"
+                              ngbDatepicker #DateAppoint="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                              [maxDate]="{year: 2100, month: 12, day: 31}">
+                            <div class="input-group-append">
+                              <span [disUipermission]="['F080002']" class="dtp-icon"
+                                (click)="DateAppoint.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                              </span>
+                            </div>
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="listJobPosition"
+                              [columns]="columnName" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="appointModel.PositionId" name="appointModelPositionId">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" name="appointModelPositionId" class="form-control"
+                                            [(ngModel)]="appointModel.PositionId">
+                                            <option *ngFor="let item of listJobPosition" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td>
+                          <div class="controls">
+                            <nts-drop-down [disUipermission]="['F080001']" [items]="departments" [columns]="columnName"
+                              ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                              [(ngModel)]="appointModel.DepartmentId" name="AppointDepartmentId">
+                            </nts-drop-down>
+                            <!-- <select [disUipermission]="['F080001']" name="AppointDepartmentId" class="form-control"
+                                            [(ngModel)]="appointModel.DepartmentId">
+                                            <option *ngFor="let item of departments" [ngValue]="item.Id">{{item.Name}}
+                                            </option>
+                                          </select> -->
+                          </div>
+                        </td>
+                        <td></td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+
+            </div>
+          </form>
+          <!-- Footer -->
+          <div class="modal-footer">
+            <ng-container>
+              <button *appUipermission="['F080001']" type="button" class="btn btn-success" (click)="save(false)"
+                [disabled]="!f.form.valid">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu</span>
+              </button>
+            </ng-container>
+            <ng-container>
+              <button *appUipermission="['F080001']" type="button" class="btn btn-success" (click)="saveAndContinue()"
+                [disabled]="!f.form.valid">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu & tiếp tục</span>
+              </button>
+            </ng-container>
+            <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+              <i class="fa fa-power-off"></i> &nbsp;
+              <span>
+                Đóng
+              </span>
+            </button>
+          </div>
+
+        </ng-template>
+      </li>
+
+      <li [ngbNavItem]="'thong-tin-tai-khoan'" [disabled]="permissionService.checkPermission(['F080008'])">
+        <a ngbNavLink>TT Tài Khoản</a>
+        <ng-template ngbNavContent>
+          <app-employee-user-tab [Idemploy]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code">
+          </app-employee-user-tab>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'bangcap'" [disabled]="permissionService.checkPermission(['F080016'])">
+        <a ngbNavLink>Bằng cấp</a>
+        <ng-template ngbNavContent>
+          <app-employeedegrees [Ids]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code">
+          </app-employeedegrees>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'version-tab'" [disabled]="permissionService.checkPermission(['F080019'])">
+        <a ngbNavLink>DS kỹ năng/kiến thức</a>
+        <ng-template ngbNavContent>
+          <app-employee-skill-details [Id]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code"
+            [WorkType]="model.WorkType"></app-employee-skill-details>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'course'" [disabled]="permissionService.checkPermission(['F080015'])">
+        <a ngbNavLink>DS khóa học</a>
+        <ng-template ngbNavContent>
+          <app-employee-course [Id]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code">
+          </app-employee-course>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'regulation'" [disabled]="permissionService.checkPermission(['F080021'])">
+        <a ngbNavLink>Quy định, quy trình</a>
+        <ng-template ngbNavContent>
+          <app-employee-regulation [Id]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code">
+          </app-employee-regulation>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="'work'" [disabled]="permissionService.checkPermission(['F080022'])">
+        <a ngbNavLink>Công việc</a>
+        <ng-template ngbNavContent>
+          <app-employee-work-tab [Id]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code">
+          </app-employee-work-tab>
+        </ng-template>
+      </li>
+      <!-- <li [ngbNavItem]="'employeetraining'">
+        <a ngbNavLink>TT Tài Khoản</a>
+        <ng-template ngbNavContent>
+          <app-employee-training [Id]="model.Id" [EmployeeName]="model.Name" [EmployeeCode]="model.Code"></app-employee-training>
+        </ng-template>
+      </li> -->
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

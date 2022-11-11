@@ -1,0 +1,122 @@
+<div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+            <label class="form-label">Tên nhân viên
+
+            </label>
+            <div class="controls">
+                <input type="text" class="form-control" name="EmployeeName" [(ngModel)]="EmployeeName" maxlength="100"
+                    disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+            <label class="form-label">Mã nhân viên
+
+            </label>
+            <div class="controls">
+                <input type="text" class="form-control" name="EmployeeCode" [(ngModel)]="EmployeeCode" maxlength="100"
+                    disabled>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" #scrollPracticeMaterial>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-left">
+        <label class="form-label" style="line-height:35px;">Danh sách quy định</label>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-right mb-1">
+        <button class="btn btn-default btn-default-system" (click)="getListRegulation()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" style="min-width:1150px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Xử lý </th>
+                        <th width="200px" class="text-center">Mã tài liệu</th>
+                        <th width="200px" class="text-center">Tên tài liệu</th>
+                        <th width="200px" class="text-center">Nhóm tài liệu</th>
+                        <th width="200px" class="text-center">Loại tài liệu</th>
+                        <!-- <th min-width="400px" class="text-center">Công việc</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of listRegulation; let i = index">
+                        <td class="text-center" width="50px">{{i+1}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-xs btn-info" container="body"
+                                (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                container="body">
+                                <span class="fa fa-download" aria-hidden="true"></span>
+                            </button>&nbsp;
+                            <button *appUipermission="['F000906']" type="button" class="btn btn-xs btn-success"
+                                (click)="viewDocument(row)" placement="top" ngbTooltip="Xem tài liệu" container="body">
+                                <span class="far fa-eye" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td>{{row.Code}}</td>
+                        <td>{{row.Name}}</td>
+                        <td>{{row.DocumentGroupName}}</td>
+                        <td>{{row.DocumentTypeName}}</td>
+                        <!-- <td>{{row.TaskName}}</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>
+<br>
+<div class="row" #scrollPracticeMaterial1>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-left">
+        <label class="form-label" style="line-height:35px;">Danh sách quy trình</label>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-right mb-1">
+        <button class="btn btn-default btn-default-system" (click)="getListProcedure()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered table-fixed table-hover" style="min-width:1150px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Xử lý </th>
+                        <th width="200px" class="text-center">Mã tài liệu</th>
+                        <th width="200px" class="text-center">Tên tài liệu</th>
+                        <th width="200px" class="text-center">Nhóm tài liệu</th>
+                        <th width="200px" class="text-center">Loại tài liệu</th>
+                        <!-- <th min-width="400px" class="text-center">Công việc</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of listProcedure; let i = index">
+                        <td class="text-center" width="50px">{{i+1}}</td>
+                        <td class="text-center">
+                            <button class="btn btn-xs btn-info" container="body"
+                                (click)="downAllDocumentProcess(row.ListFile)" ngbTooltip="Tải tài liệu"
+                                container="body">
+                                <span class="fa fa-download" aria-hidden="true"></span>
+                            </button>&nbsp;
+                            <button *appUipermission="['F000906']" type="button" class="btn btn-xs btn-success"
+                                (click)="viewDocument(row)" placement="top" ngbTooltip="Xem tài liệu" container="body">
+                                <span class="far fa-eye" aria-hidden="true"></span>
+                            </button>
+                        </td>
+                        <td>{{row.Code}}</td>
+                        <td>{{row.Name}}</td>
+                        <td>{{row.DocumentGroupName}}</td>
+                        <td>{{row.DocumentTypeName}}</td>
+                        <!-- <td>{{row.TaskName}}</td> -->
+                    </tr>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>

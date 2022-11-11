@@ -1,0 +1,133 @@
+<div class="modal-all">
+  <div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Chọn chuyên môn</h3>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body padding-10">
+    <form name="outerForm" class="tab-form-demo">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelSearch" name="modelslectwork"
+            (change)="searchSpecialize()">
+          </nts-search-bar>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-12 text-right">
+          <button class="btn btn-success btn-success-system" (click)="searchSpecialize()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-sm-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listData.length}}</span> chuyên môn thiết kế chưa chọn</label>
+        </div>
+        <div class="col-md-6 col-sm-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listSelect.length}}</span> chuyên môn đã chọn</label>
+        </div>
+      </div>
+      <div class="row">
+
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+          <div class="table-left">
+            <virtual-scroller #scroll [items]="listData" style=" display: block;height: 400px;">
+              <table class="table table-bordered table-fixed table-hover"
+                style="word-wrap: break-word; margin-bottom:0px !important;min-width: 800px;">
+                <thead #header style="background-color: white">
+                  <tr>
+                    <th style="text-align:center;padding-top: 10px;" width="60px">
+                      <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                        style="height:20px; width:20px;" (change)="checkAll(true)">
+                    </th>
+                    <th width="40px" class="text-center">STT</th>
+                    <th width="150px" class="text-center">Mã chuyên môn</th>
+                    <th width="150px" class="text-center">Tên chuyên môn</th>
+                    <th width="150px" class="text-center">Mô tả</th>
+                  </tr>
+                </thead>
+  
+                <tbody #container>
+                  <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                    <td style="text-align:center" width="60px">
+                      <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.Name+i}}"
+                        style="height:20px; width:20px;">
+                    </td>
+                    <td class="text-center" width="40px">{{i+1}}</td>
+                    <td style="min-width: 150px">{{row.Code}}</td>
+                    <td width="150px">{{row.Name}}</td>
+                    <td width="150px">{{row.Description}}</td>
+  
+                  </tr>
+                </tbody>
+              </table>
+            </virtual-scroller>
+          </div>
+
+          <div class="table-center">
+            <button type="top" ngbTooltip="Chọn chuyên môn" class="btn btn-success" (click)="addRow()" placement="bottom">
+              <i class="fa fa-angle-right"></i>
+            </button>
+            <button type="button" ngbTooltip="Bỏ chọn chuyên môn" class="btn btn-danger" (click)="removeRow()"
+            placement="top">
+            <i class="fa fa-angle-left"></i>
+          </button>
+          </div>
+
+          <div class="table-right">
+            <virtual-scroller #scrolll [items]="listSelect" style="height:400px; width:100%;">
+              <table class="table table-bordered table-fixed table-hover"
+              style="word-wrap: break-word; margin-bottom:0px !important;min-width: 800px;">
+                <thead #header style="background-color: white">
+                  <tr>
+                    <th style="text-align:center;padding-top: 10px;" width="60px">
+                      <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                        style="height:20px; width:20px;" (change)="checkAll(false)">
+                    </th>
+                    <th width="40px" class="text-center">STT</th>
+                    <th width="150px" class="text-center">Mã chuyên môn</th>
+                    <th width="150px" class="text-center">Tên chuyên môn</th>
+                    <th width="150px" class="text-center">Mô tả</th>
+                  </tr>
+                </thead>
+                <tbody #container>
+                  <tr *ngFor="let row of scrolll.viewPortItems; let j = index">
+                    <td style="text-align:center">
+                      <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Choose_Checked_'+row.Name+j}}"
+                        style="height:20px; width:20px;">
+                    </td>
+                    <td class="text-center" width="40px">{{j+1}}</td>
+                    <td style="min-width: 150px">{{row.Code}}</td>
+                    <td width="150px">{{row.Name}}</td>
+                    <td width="150px">{{row.Description}}</td>
+  
+                  </tr>
+                </tbody>
+              </table>
+            </virtual-scroller>
+          </div>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="choose()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

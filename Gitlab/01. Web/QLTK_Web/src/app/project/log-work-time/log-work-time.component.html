@@ -1,0 +1,149 @@
+<div class='content-wrapper' style="background-color: white;">
+    <div style="display: flex; margin-top: 20px;">
+        <div style="width: 60%;">        
+            <h4 class="text-left">Monthly Report ({{model.EmployeeName}})</h4>
+        </div>
+        <div style="display: flex;width: 40%;">
+        <label  style="width: 40%;"><b>Chọn nhân viên : </b></label>
+        <div class="controls" style="width: 60%;">
+          <select name="Status"  class="form-control"
+            [(ngModel)]="model.EmployeeId"
+            (change)="getEmployeeInfor(model.EmployeeId,'')">
+            <option *ngFor="let item of ListEmployee" [ngValue]="item.Id">{{item.Name}}</option>
+          </select>
+        </div>
+    </div>
+    </div>
+    <div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;">
+            <table class="table table-bordered " style="word-wrap: break-word; border-color: white;">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="300px" class="text-center " style=" border-color: gray;color: black; background-color: white;">
+                    <div style="display: flex;">
+                        <div style="width: 10%;">
+                            <a (click)=" leftStep(model.EmployeeId)" ><i class="fas fa-angle-double-left"></i></a>
+                        </div>
+                        <div style="width: 80%;">
+                            <b style="font-size: 120%;">{{model.Monthly.TimeRange}}</b>
+                        </div>
+                        <div style="width: 10%;">
+                            <a (click) ="rightStep(model.EmployeeId)" ><i class="fas fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                  </th>
+                  <ng-container *ngFor="let row of model.Monthly.DataMonthlys, let i = index; " >
+                    <th *ngIf="row.DayOfWeek =='T7' && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightblue;"><a (click) ="choosenDate(row.DateTime,i)">{{row.Date}}</a></th>
+                    <th *ngIf="row.DayOfWeek =='CN'  && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightpink;"><a (click) ="choosenDate(row.DateTime,i)">{{row.Date}}</a></th>
+                    <th *ngIf="row.DayOfWeek !='T7' && row.DayOfWeek !='CN'  && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightgray;"><a (click) ="choosenDate(row.DateTime,i)">{{row.Date}}</a></th>
+                    <th *ngIf="row.IsSelect ==true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: #00FF33;"><a (click) ="choosenDate(row.DateTime,i)">{{row.Date}}</a></th>
+                  </ng-container>
+                </tr>
+                <tr>
+                    <ng-container *ngFor="let row of model.Monthly.DataMonthlys, let i = index;">
+                        <th  *ngIf="row.DayOfWeek =='T7'  && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightblue;">{{row.DayOfWeek}}</th>
+                        <th  *ngIf="row.DayOfWeek =='CN'  && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightpink;">{{row.DayOfWeek}}</th>
+                        <th  *ngIf="row.DayOfWeek !='T7' && row.DayOfWeek !='CN'  && row.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightgray;">{{row.DayOfWeek}}</th>
+                        <th  *ngIf="row.IsSelect ==true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: #00FF33;">{{row.DayOfWeek}}</th>
+
+                    </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of model.ListWorkTime, let i = index;">
+                  <td width="300px" class="text-center" style=" border-color: gray; background-color: white">
+                    {{row.TaskName}}
+                  </td>
+                  <ng-container *ngFor="let row1 of row.TaskWorkTime, let i = index;">
+                    <ng-container *ngIf="row1.LogTime ==0"> 
+                      <th  *ngIf="row1.DayOfWeek =='T7' && row1.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightblue;"></th>
+                      <th  *ngIf="row1.DayOfWeek =='CN' && row1.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightpink;"></th>
+                      <th  *ngIf="row1.DayOfWeek !='T7' && row1.DayOfWeek !='CN' && row1.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightgray;"></th>
+                      <th  *ngIf="row1.IsSelect ==true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: #00FF33;"></th>
+                    </ng-container>
+                    <ng-container *ngIf="row1.LogTime !=0"> 
+                      <th  *ngIf="row1.DayOfWeek =='T7' && row1.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightblue;">{{row1.LogTime}}</th>
+                      <th  *ngIf="row1.DayOfWeek =='CN' && row1.IsSelect !=true"  colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightpink;">{{row1.LogTime}}</th>
+                      <th  *ngIf="row1.DayOfWeek !='T7' && row1.DayOfWeek !='CN' && row1.IsSelect !=true" colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: lightgray;">{{row1.LogTime}}</th>
+                      <th  *ngIf="row1.IsSelect ==true" colspan="1" class="text-center " style=" border-color: gray;color: black; background-color: #00FF33;">{{row1.LogTime}}</th>
+                    </ng-container>
+                </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+    </div>
+    <hr/>
+
+      <form name="form" #f="ngForm" novalidate>
+        <div>
+          <div >
+            <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+              <table class="table table-bordered " style="word-wrap: break-word; border-color: white; min-width: 1050px;">
+                <thead>
+                  <tr>
+                    <th class="text-center" width="300px"  style=" border-color: white;color: white; background-color: black;">
+                      Tên công việc
+                    </th>
+                    <!-- <th class="text-center"  width="100px"  style="  border-color: white;color: white; background-color: black;">
+                      Ngày làm việc
+                    </th> -->
+                    <th  class="text-center" width="100px"  style="  border-color: white;color: white; background-color: black;">
+                      Số giờ
+                    </th>
+                    <th  class="text-center" width="300px"  style=" border-color: white;color: white; background-color: black;">
+                      Giờ bắt đầu/Giờ kết thúc
+                    </th>
+                    <th  class="text-center" min-width="350px"  style="  border-color: white;color: white; background-color: black;">
+                      Ghi chú
+                    </th>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of ModelUpdate, let i = index;">
+                    <!-- <tr> -->
+                      <td  class="text-center" >
+                        {{row.TaskName}}
+                      </td>
+                      <!-- <td class="text-center">
+                        <input container="body" style="border-bottom: none;" class="form-control" placeholder="Chọn ngày" [name]="WorkDate"
+                          [(ngModel)]="row.WorkDate" ngbDatepicker #WorkDate="ngbDatepicker"
+                          [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}"
+                          (click)="WorkDate.toggle();$event.stopPropagation();">
+                      </td> -->
+                      <td class="text-center" >
+                        <input class="form-control" style="border-bottom: none;" [(ngModel)]="row.NumberTime" [name]="'NumberTime'+i" type="number" min="0" required>
+                      </td>
+                      <td  class="text-center" >
+                        <div class=""  style="display: inline-flex;">
+                          <div >
+                            <ngb-timepicker [(ngModel)]="row.TimeStart" [name]="'TimeStart'+i"></ngb-timepicker>
+                          </div> 
+                          &nbsp;&nbsp;
+                          <span>-</span>
+                          &nbsp;&nbsp;
+                          <div >
+                            <ngb-timepicker [(ngModel)]="row.TimeEnd" [name]="'TimeEnd'+i"></ngb-timepicker>
+                          </div>
+                        </div>
+                      </td>
+                      <td  class="text-center" >
+                        <textarea class="form-control" style="border-bottom: none;" [(ngModel)]="row.Note" [name]="'Note'+i" type="text" maxlength="500"></textarea>
+                      </td>
+                    </tr>
+                    <!-- </tr> -->
+                  <!-- </tr> -->
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+          <div  style="display: block; text-align: right;">
+            <button type="button" class="btn btn-success " [disabled]=" selectIndex ==-1 ||UserLogin != model.EmployeeId" (click)="UpdateTime()">
+                <span>
+                    Update
+                </span>
+            </button>
+          </div>
+        </div>
+      </form>
+  <br/>
+</div>

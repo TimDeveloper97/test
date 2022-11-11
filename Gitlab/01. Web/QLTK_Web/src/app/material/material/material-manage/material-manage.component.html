@@ -1,0 +1,369 @@
+<div class="content-wrapper page-content">
+    <section class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+                    <label class="form-label" style="line-height:25px;">Tổng số
+                        <span class="bold text-danger">{{modelMaterialGroup.totalItems}}</span> nhóm vật tư</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 text-right">
+                    <button *appUipermission="['F000101']" type="button" (click)="showCreateUpdate('', false)"
+                        class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm nhóm vật tư"
+                        container="body">
+                        <span class="fa fa-plus" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <dx-tree-list id="employees" [dataSource]="listMaterialGroup" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+                        (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listMaterialGroupId"
+                        noDataText=" ">
+                        <dxo-selection mode="single"></dxo-selection>
+                        <dxo-search-panel [visible]="true" [width]="255" placeholder="Tìm kiếm theo mã"
+                            searchVisibleColumnsOnly="true">
+                        </dxo-search-panel>
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên nhóm vật tư" [minWidth]="200">
+                        </dxi-column>
+                        <dxi-column cellTemplate="cellEditTemplate" caption="Xử lý" width="100px" dataField="Id"
+                            [allowSearch]="false">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <!-- <ng-container [disUipermission]="['F000101']"> -->
+                                <ng-container *appUipermission="['F000101']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-add" ngbTooltip="Thêm nhóm" (click)=" showCreateUpdate(item.value)">
+                                        <i class="fas fa-plus"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F000102']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-update" ngbTooltip="Sửa nhóm"
+                                        (click)=" showCreateUpdate(item.value, true)">
+                                        <i class="fa fa-edit"></i></button>
+                                </ng-container>
+                                <ng-container *appUipermission="['F000103']">
+                                    <button *ngIf="item.value != 0" type="button" placement="top" container="body"
+                                        class="item-delete" ngbTooltip="Xóa nhóm"
+                                        (click)=" showConfirmDeleteMaterialGroup(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+
+                    </dx-tree-list>
+                    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+                        (onItemClick)="itemClick($event)">
+                        <div *dxTemplate="let e of 'item'">
+                            <div>
+                                <span [ngClass]="e.icon"></span>
+                                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+                            </div>
+                        </div>
+                    </dx-context-menu>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="modelMaterial" name="modelMaterial"
+                            (change)="searchMaterial(materialGroupId)">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchMaterial(materialGroupId)">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="content-body">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{modelMaterial.totalItems}}</span> vật tư |</label>&nbsp;
+                    <label class="form-label" style="line-height:35px;">&nbsp;
+                        <span class="bold text-danger">{{modelMaterial.TotalItemExten}}</span> vật tư chưa có giá
+                        |</label>
+                    <label class="form-label" style="line-height:35px;">&nbsp;
+                        <span class="bold text-danger">{{modelMaterial.TotalNoFile}}</span> vật tư chưa đủ tài
+                        liệu</label>
+                    <label class="form-label" style="line-height:35px;">| Ngày đồng bộ gần nhất:
+                        <span class="bold text-danger">{{modelMaterial.Date|date:'dd/MM/yyyy'}}</span></label>
+                </div>
+                <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+                    <button *appUipermission="['F000010']" type="button" class="btn btn-success mt-md-1 mt-xl-0"
+                        (click)='showImportExcel()' container="body">
+                        <i class="fa fa-download"></i>
+                        Download 3D
+                    </button>&nbsp;
+                    <button *appUipermission="['F000001']" type="button" class="btn btn-success mt-md-1 mt-xl-0"
+                        (click)='showCreate()' container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <button *appUipermission="['F000018']" type="button" class="btn btn-success"
+                        (click)='syncSaleMaterial(false)' container="body">
+                        <i class="fas fa-sync-alt"></i>
+                        Đồng bộ sản phẩm
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+
+                            <button *appUipermission="['F000005']" class="btn btn-success btn-upload"
+                                (click)="showImportPopup();">
+                                <i class="fas fa-arrow-up"></i> &nbsp;Import lịch sử mua</button>
+
+                            <button *appUipermission="['F000006']" class="btn btn-success btn-upload"
+                                (click)="showImportMaterialPopup();">
+                                <i class="fas fa-arrow-up"></i> &nbsp;Import Excel</button>
+
+                            <button *appUipermission="['F000007']" class="btn  btn-success" (click)="exportExcel()">
+                                <i class="fas fa-file-excel" aria-hidden="true"></i>
+                                Xuất excel
+                            </button>
+                            <button *appUipermission="['F000018']" class="btn btn-success btn-file"
+                                (click)="showImportSyncSaleMaterial()">
+                                <i class="fas fa-sync-alt"></i> &nbsp;Import đồng bộ sản phẩm kinh doanh</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2250px">
+                            <thead>
+                                <tr>
+                                    <ng-container *appUipermission="['F000018']">
+                                        <th style="text-align:center; padding-top: 10px" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkeds" name="checkeds"
+                                                (change)="selectAllFunction()" style="height:20px; width:20px;">
+                                        </th>
+                                    </ng-container>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="110px" class="text-center">Xử lý</th>
+                                    <th width="150px" class="text-center">Mã vật tư</th>
+                                    <th min-width="200px" class="text-center">Tên vật tư</th>
+                                    <th width="100px" class="text-center">Mã nhóm</th>
+                                    <th width="150px" class="text-center">Mã hãng sản xuất</th>
+                                    <th width="150px" class="text-center">Loại vật tư</th>
+                                    <th width="100px" class="text-center">Hình ảnh</th>
+                                    <th width="100px" class="text-center">Giá (VNĐ)</th>
+                                    <th width="100px" class="text-center">Giá lịch sử (VNĐ)</th>
+                                    <th width="100px" class="text-center">T/G đặt hàng (Ngày)</th>
+                                    <th width="130px" class="text-center">T/G mua gần nhất</th>
+                                    <th width="110px" class="text-center">Tình trạng VT</th>
+                                    <th width="100px" class="text-center">Thừa vật tư của dự án</th>
+                                    <th width="100px" class="text-center">Vật liệu</th>
+                                    <th width="150px" class="text-center">Loại VT cơ khí</th>
+                                    <th width="100px" class="text-center">3D</th>
+                                    <th width="100px" class="text-center">Datasheet</th>
+                                    <th width="100px" class="text-center">Chuyển thư viện</th>
+                                    <th width="100px" class="text-center">Ngày đồng bộ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listMaterial; let i = index">
+                                    <ng-container *appUipermission="['F000018']">
+                                        <td style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;"
+                                                (change)="pushChecker(row)">
+                                        </td>
+                                    </ng-container>
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+
+                                        <a *appUipermission="['F000002','F000004']" type="button"
+                                            [routerLink]="['/vat-tu/quan-ly-vat-tu/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+
+                                        <!-- <button *appUipermission="['F000002','F000004']" type="button" (click)='showUpdate(row.Id)'
+                      class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp; -->
+                                        <button *appUipermission="['F000003']" class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDelete(row.Id)" placement="top" ngbTooltip="Xóa"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button *appUipermission="['F000003']" class="btn btn-xs btn-success"
+                                            (click)="searchGoogle(row)" placement="top" ngbTooltip="Tìm kiếm google"
+                                            container="body">
+                                            <span class="fab fa-google" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.MaterialGroupName}}</td>
+                                    <td>{{row.ManufactureCode}}</td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.MaterialType=='1'">Vật tư tiêu chuẩn</span>
+                                        <span *ngIf="row.MaterialType=='2'">Vật tư phi tiêu chuẩn</span>
+                                    </td>
+                                    <td class="text-center"><img
+                                            *ngIf="row.ThumbnailPath!='' && row.ThumbnailPath!=null"
+                                            [src]="config.ServerFileApi+row.ThumbnailPath" width="100px"></td>
+                                    <td style="text-align: right" width="100px"><a
+                                            (click)="showBuyHistory(row.Id)">{{row.Pricing|number:'1.0-0'}}</a></td>
+                                    <td style="text-align: right" width="100px">{{row.PriceNearest|number:'1.0-0'}}</td>
+                                    <td class="text-center">{{row.DeliveryDays}}</td>
+                                    <td class="text-center">{{row.LastBuyDate|date:"dd/MM/yyyy"}}</td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.Status=='0'" class="badge badge-success">Đang sử dụng</span>
+                                        <span *ngIf="row.Status=='1'" class="badge badge-warning">Tạm dừng</span>
+                                        <span *ngIf="row.Status=='2'" class="badge badge-danger">Ngưng sản xuất</span>
+
+                                    </td>
+                                    <td>
+                                        <div *ngIf="row.IsRedundant==true"
+                                            class="custom-control custom-checkbox  margin-left-25">
+                                            <span style="font-size: 16px; color:forestgreen;"> <i
+                                                class="fas fa-check"></i></span>
+                                        </div>
+                                    </td>
+                                    <td>{{row.RawMaterialName}}</td>
+
+                                    <td>{{row.MechanicalType}}</td>
+                                    <td>
+                                        <div>
+                                            <div *ngIf="row.Is3D==true"
+                                                class="custom-control custom-checkbox  margin-left-25">
+                                                <input checked type="checkbox" class="custom-control-input" [id]="i"
+                                                    [name]="i" disabled>
+                                                <label class="custom-control-label" [for]="i"></label>
+                                            </div>
+
+                                            <div *ngIf="row.Is3D==false || row.Is3D==null"
+                                                class="custom-control custom-checkbox  margin-left-25">
+                                                <input type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                                                    disabled>
+                                                <label class="custom-control-label" [for]="i"></label>
+                                            </div>
+
+                                            <div *ngIf="row.IsDocument3D=='1' " class="custom-control custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="row.IsDocument3D=='0' && row.Is3D==true"
+                                                class="custom-control custom-checkbox">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td width="100px">
+                                        <div>
+                                            <div *ngIf="row.IsDataSheet==true"
+                                                class="custom-control custom-checkbox  margin-left-25">
+                                                <input checked type="checkbox" class="custom-control-input" [id]="i"
+                                                    [name]="i" disabled>
+                                                <label class="custom-control-label" [for]="i"></label>
+                                            </div>
+
+                                            <div *ngIf="row.IsDataSheet==false || row.IsDataSheet==null"
+                                                class="custom-control custom-checkbox  margin-left-25">
+                                                <input type="checkbox" class="custom-control-input" [id]="i" [name]="i"
+                                                    disabled>
+                                                <label class="custom-control-label" [for]="i"></label>
+                                            </div>
+
+                                            <div *ngIf="row.IsDocumentDataSheet=='1' "
+                                                class="custom-control custom-checkbox">
+                                                <span style="font-size: 16px; color:forestgreen;"> <i
+                                                        class="fas fa-check"></i></span>
+                                            </div>
+
+                                            <div *ngIf="row.IsDocumentDataSheet=='0' && row.IsDataSheet==true"
+                                                class="custom-control custom-checkbox  ">
+                                                <span style="font-size: 16px; color:red;"> <i
+                                                        class="fas fa-exclamation-triangle"></i></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge badge-pill badge-success" *ngIf="row.IsSendSale">Đã
+                                            chuyển</span>
+                                        <span class="badge badge-pill badge-danger" *ngIf="!row.IsSendSale">Chưa
+                                            chuyển</span>
+                                    </td>
+                                    <td class="text-center">{{row.SyncDate|date:'dd/MM/yyyy'}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listMaterial.length == 0">
+                                <tr class="bold">
+                                    <td colspan="16" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-4  d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;"
+                            [(ngModel)]="modelMaterial.PageSize" (ngModelChange)="searchMaterial(materialGroupId)"
+                            name="pageSize">
+                            <option *ngFor="let item of lstpageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-md-8  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="modelMaterial.totalItems" [(page)]="modelMaterial.PageNumber"
+                        (pageChange)="searchMaterial(materialGroupId)" [pageSize]="modelMaterial.PageSize" [maxSize]="5"
+                        [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa vật tư</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa vật tư</small>
+
+                    <span style="font-size: 13px; color:grey;"> <i class="fas fa-square"></i></span> &nbsp;
+                    <small class="padding-right-20">Không có tài liệu</small>
+
+                    <span style="font-size: 13px; color:blue;"> <i class="fas fa-check-square"></i></span> &nbsp;
+                    <small class="padding-right-20">Có tài liệu</small>
+
+                    <span style="font-size: 13px; color:forestgreen;"> <i class="fas fa-check"></i></span> &nbsp;
+                    <small class="padding-right-20">Đã có file tài liệu</small>
+
+                    <span style="font-size: 13px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span> &nbsp;
+                    <small class="padding-right-20">Chưa có file tài liệu</small>
+
+                    <button class="btn btn-view btn-success">
+                        <i class="fas fa-plus"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Thêm nhóm vật tư</small>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

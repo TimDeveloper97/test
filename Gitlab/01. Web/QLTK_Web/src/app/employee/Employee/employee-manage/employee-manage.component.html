@@ -1,0 +1,179 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelEmployee"
+              (change)="SearchEmployees()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="SearchEmployees()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> nhân viên; &nbsp; </label>
+          <label class="form-label" style="line-height:35px;">
+            <span class="bold text-danger">{{model.Status1}} </span> Đang làm việc; &nbsp; </label>
+          <label class="form-label" style="line-height:35px;">
+            <span class="bold text-danger">{{model.Status2}}</span> Đã nghỉ</label>
+        </div>
+
+        <div class="col-md-6 text-right">
+          <button *appUipermission="['F080001']" type="button" class="btn btn-success" (click)='showCreateUpdate()' container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+          &nbsp;
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button *appUipermission="['F080005']" class="btn btn-success btn-upload" (click)="importExcel();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import nhân viên</button>
+              <button *appUipermission="['F080006']" class="btn btn-success btn-file" (click)="exportExcel()">
+                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:2310px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="150px" class="text-center">Xử lý</th>
+                  <th width="150px" class="text-center">Tình trạng làm việc</th>
+                  <th width="100px" class="text-center">Ảnh</th>
+                  <th width="200px" class="text-center">Tên nhân viên</th>
+                  <th width="120px" class="text-center">Mã nhân viên</th>
+                  <th width="100px" class="text-center">Ngày vào công ty</th>
+                  <th width="100px" class="text-center">Ngày hết hợp đồng</th>
+                  <th width="100px" class="text-center">MST TNCN</th>
+                  <th width="120px" class="text-center">Tài khoản</th>
+                  <th width="200px" class="text-center">Phòng ban</th>
+                  <th width="200px" class="text-center ">Vị trí công việc</th>
+                  <th width="100px" class="text-center ">Ngày sinh</th>
+                  <th min-width="200px" class="text-center ">Địa chỉ</th>
+                  <th width="150px" class="text-center ">Email</th>
+                  <th width="150px" class="text-center ">Số lượng khóa học</th>
+                  <th width="150px" class="text-center ">Số lượng khóa học chưa hoàn thành</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td style="text-align: center">
+                    <a type="button" [routerLink]="['/nhan-vien/quan-ly-nhan-vien/chinh-sua/'+ row.Id]"
+                      class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </a>&nbsp;
+                    <button *appUipermission="['F080003']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteTestCriteria(row.Id)"
+                      placement="top" ngbTooltip="Xóa">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <ng-container *ngIf="row.IsDisable == 1; else elseTemplate">
+                      <button *appUipermission="['F080018']"   type="button" (click)='LockOpen(row.Id)' class="btn btn-xs btn-success" placement="top"
+                        ngbTooltip="Mở khóa">
+                        <span class="fas fa-lock" aria-hidden="true"></span>
+                      </button>&nbsp;
+                    </ng-container>
+                    <ng-template #elseTemplate>
+                      <button *appUipermission="['F080018']"  type="button" (click)='LockEmployee(row.Id)' class="btn btn-xs btn-success"
+                        placement="top" ngbTooltip="Khóa nhân viên">
+                        <span class="fas fa-lock-open" aria-hidden="true"></span>
+                      </button>&nbsp;
+                    </ng-template>
+                    <button *appUipermission="['F080017']"  type="button" class="btn btn-xs btn-reload" (click)="showConfirmResetPassword(row.Id)"
+                      placement="top" ngbTooltip="Đặt mật khẩu mặc định">
+                      <span class="fas fa-sync-alt" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="row.Status == '0'" class="badge badge-danger">Đã nghỉ việc</span>
+                    <span *ngIf="row.Status == '1'" class="badge badge-success">Đang làm việc</span>
+                  </td>
+                  <td><img *ngIf="row.ImagePath!='' && row.ImagePath!=null" [src]="config.ServerFileApi+row.ImagePath" height="80px"
+                      min-witdh="60px" max-witdh="60px">
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.StartWorking|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.ContractExpirationDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.TaxCode}}</td>
+                  <td>{{row.UserName}}</td>
+                  <td>{{row.DepartmentName}}</td>
+                  <td>{{row.WorkTypeName}}</td>
+                  <td class="text-center ">{{row.DateOfBirth|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.Address| limitTo:500}}</td>
+                  <td>{{row.Email}}</td>
+                  <td class="text-center ">{{row.TotalCourse}}</td>
+                  <td class="text-center ">{{row.CourseNumber}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="12" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="SearchEmployees()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+            (pageChange)="SearchEmployees()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa nhân viên</small>
+
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa nhân viên</small>
+
+          <button class="btn btn-view btn-success">
+            <i class="fas fa-lock-open"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Khóa nhân viên</small>
+
+          <button class="btn btn-view btn-reload">
+            <i class="fas fa-sync-alt"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Đặt mật khẩu mặc định</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

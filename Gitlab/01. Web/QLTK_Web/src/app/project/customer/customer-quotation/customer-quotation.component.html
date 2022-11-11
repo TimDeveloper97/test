@@ -1,0 +1,172 @@
+<div class="row margin-bottom-10">
+    <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{listData.length}}</span> báo giá | Tổng giá trị báo giá <span class="bold text-danger">{{total|number:'1.0-0'}}</span> VNĐ | Tổng giá trị thành công </label>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1090px">
+                <thead>
+                    <tr>
+                        <th width="30px" class="text-center">STT</th>
+                        <th width="100px" class="text-center">Số BG</th>
+                        <th width="90px" class="text-center ">Trạng thái BG</th>
+                        <th width="200px" class="text-center ">Tiến trình BG</th>
+                        <th width="80px" class="text-center">Giá trị BG</th>
+                        <th width="80px" class="text-center">Giá trị dự kiến mua</th>
+                        <th width="100px" class="text-center">Thời gian triển khai</th>
+                        <th width="80px" class="text-center">Tỷ lệ tạm ứng</th>
+                        <th width="80px" class="text-center ">Tỷ lệ thành công</th>
+                        <th width="100px" class="text-center ">Nhân viên BG</th>
+                        <th width="150px" class="text-center ">Phòng ban BG</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let row of listData; let i = index" (click)="selectQuotes(row.QuotationId, i);"
+                        [ngClass]="{'selected':selectIndex == i}">
+                        <td class="text-center" width="30px">{{startIndex+i}}</td>
+                        <td width="100px">
+                            <span><b>{{row.NumberQuotation}}</b></span><br>
+                            <span><small>{{row.QuotationDate|date:'dd/MM/yyyy'}}</small></span>
+                        </td>
+                        <td class="text-center" width="100px">
+                            <span class="badge badge-danger" style="margin-top: 13px"
+                                *ngIf="row.QuotationStatus == 0">Chưa chốt</span>
+                            <span class="badge badge-success" style="margin-top: 13px"
+                                *ngIf="row.QuotationStatus == 1">Đã chốt</span>
+                        </td>
+                        <td class="text-center" width="200px">
+                            <div class="sw sw-arrows sw-sm">
+                                <ul class="nav-step">
+                                    <li [ngbTooltip]="item.Name" container="body" class="nav-item"
+                                        *ngFor="let item of row.ListQuotationStep; let j = index;">
+                                        <a class="nav-link process-text"
+                                            [ngClass]="{'color-data-1':item.Status == 1, 'color-data-2':item.Status == 2, 'color-data-3':item.Status == 3, 'color-data-4':item.Status == 4}">
+                                            <span>{{j+1}}</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <span *ngFor="let item of row.ListStatusQuotationProcess">
+                                    <span class="bold">{{item.TotalWork}}</span> / <span class="bold"
+                                        style="color: #007bff">{{item.WorkInProgress}}</span> / <span
+                                        class="bold text-danger">{{item.WorkLate}}</span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="text-right" width="100px">{{row.QuotationPrice|number:'1.0-0'}}</td>
+                        <td class="text-right" width="100px">{{row.ExpectedPrice|number:'1.0-0'}}</td>
+                        <td class="text-center" width="120px">{{row.ImplementationDate|date:'dd/MM/yyyy'}}</td>
+                        <td class="text-center" width="80px">{{row.AdvanceRate}}%</td>
+                        <td class="text-center" width="80px">{{row.SuccessRate}}%</td>
+                        <td width="100px" class="text-center ">{{row.EmployeeChargeName}}</td>
+                        <td width="150px">{{row.DepartmentName}}</td>
+                    </tr>
+                </tbody>
+                <tfoot *ngIf="listData.length == 0">
+                    <tr class="bold">
+                        <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">
+                            Không có dữ liệu</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+        <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize" name="pageSize">
+                <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+        </div>
+        <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+        <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 paddingcreate text-left">
+        <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Công việc chưa hoàn thành của báo giá
+            <span class="bold text-danger">{{ModalInfo.Title}}</span></label>
+    </div>
+
+    <div class="col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1430px">
+                <thead>
+                    <tr>
+                        <th width="50px" class="text-center"></th>
+                        <th width="250px" class="text-center">Công việc</th>
+                        <th width="200px" class="text-center">Người thực hiện</th>
+                        <th width="100px" class="text-center">Ngày dự kiến hoàn thành</th>
+                        <th Width="100px" class="text-center">Ngày thực tế hoàn thành</th>
+                        <th width="150px" class="text-center">Trạng thái</th>
+                        <th width="250px" class="text-center">Phòng ban</th>
+                        <th width="300px" class="text-center">Ghi chú</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <ng-container *ngFor="let row of listDataPlan; let i = index">
+                        <tr>
+                            <td colspan="8" style="background-color: rgb(165, 205, 255);">
+                                <b>Bước&nbsp;{{startIndexPlan+i}}: &nbsp; {{row.Name}}</b>
+                            </td>
+                        </tr>
+
+                        <tr *ngFor="let item of row.ListchildInProgress; let j= index">
+                            <td class="text-center">
+                            </td>
+                            <td>{{item.QuotationPlanName}}</td>
+                            <td>{{item.EmployeeName}}</td>
+                            <td class="text-right">{{item.PlanDueDate|date:'dd/MM/yyyy'}}</td>
+                            <td class="text-right">{{item.ActualEndDate|date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">
+                                <span class="badge badge-secondary" style="margin-top: 13px" *ngIf="item.Status == 1">Chưa có kế hoạch</span>
+                                <span class="badge badge-warning" style="margin-top: 13px" *ngIf="item.Status == 2">Đang triển khai</span>
+                                <span class="badge badge-success" style="margin-top: 13px" *ngIf="item.Status == 3">Đã xong</span>
+                                <span class="badge badge-danger" style="margin-top: 13px" *ngIf="item.Status == 4">Trễ kế hoạch</span>
+                            </td>
+                            <td>{{DepartmentName}}</td>
+                            <td>
+                                <nts-text-more [ntsLimit]="30" [ntsText]="item.Description"></nts-text-more>
+                            </td>
+                        </tr>
+                    </ng-container>
+                </tbody>
+                <tfoot *ngIf="listDataPlan.length == 0">
+                    <tr class="bold">
+                        <td colspan="16" min-width="300px" class="text-center" style="height: 50px; font-size: 20px;">
+                            Không
+                            có dữ liệu</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </perfect-scrollbar>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="text-left col-xl-6 col-lg-6 col-md-6 col-sm-12" style="padding: 0 33px;">
+        <span style="font-size: 16px; color:#e0e0e0;"> <i class="fas fa-square"></i></span> &nbsp;
+        <small class="padding-right-20">Bỏ qua bước</small>
+        <span style="font-size: 16px; color:#007bff;"> <i class="fas fa-square"></i></span> &nbsp;
+        <small class="padding-right-20">Đang triển khai | Chưa có kế hoạch</small>
+        <span style="font-size: 16px; color:#28a745;"> <i class="fas fa-square"></i></span> &nbsp;
+        <small class="padding-right-20">Đã xong</small>
+        <span style="font-size: 16px; color:#ff0000;"> <i class="fas fa-square"></i></span> &nbsp;
+        <small class="padding-right-20">Trễ kế hoạch</small>
+    </div>
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right" style="padding: 0 30px 10px 0;">
+        <button type="button" class="btn btn-danger" (click)="closeModal()">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

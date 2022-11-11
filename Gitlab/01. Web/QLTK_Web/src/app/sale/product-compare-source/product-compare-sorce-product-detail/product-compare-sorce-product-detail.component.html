@@ -1,0 +1,250 @@
+<div class="modal-header">
+  <h3 class="modal-title text-danger text-uppercase">Chi tiết sai khác - {{modelSaleProduct.Model}} -{{modelSaleProduct.VName}}</h3>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)" >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body padding-10">
+  <table class="table table-bordered table-hover mb-0" style="min-width: 800px;">
+    <thead>
+      <tr>
+        <th witdh="400px">
+          Thông tin
+        </th>
+        <th witdh="400px">
+          Giá trị sản phẩm
+        </th>
+        <th witdh="400px">
+          Giá trị nguồn ({{this.modelType | filterinlist:constants.Source}})
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.EName != modelSource.EName ? 'highlight':''">
+        <td>
+          Tên tiếng Anh
+        </td>
+        <td>
+          {{modelSaleProduct.EName}}
+        </td>
+        <td>
+          {{modelSource.EName}}
+        </td>
+      </tr>
+      <tr [ngClass]="modelSaleProduct.VName != modelSource.VName ? 'highlight':''">
+        <td>
+          Tên tiếng Việt
+        </td>
+        <td>
+          {{modelSaleProduct.VName}}
+        </td>
+        <td>
+          {{modelSource.VName}}
+        </td>
+      </tr>
+      <tr [ngClass]="modelSaleProduct.Model != modelSource.Model ? 'highlight':''">
+        <td>
+          Model
+        </td>
+        <td>
+          {{modelSaleProduct.Model}}
+        </td>
+        <td>
+          {{modelSource.Model}}
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType != 4" [ngClass]="modelSaleProduct.GroupCode != modelSource.GroupCode ? 'highlight':''">
+        <td>
+          Mã nhóm thiết bị
+        </td>
+        <td>
+          {{modelSaleProduct.GroupCode}}
+          
+        </td>
+        <td>
+          {{modelSource.GroupCode}}
+          
+        </td>
+      </tr>
+      <!-- <tr *ngIf="this.modelType != 4" [ngClass]="modelSaleProduct.ChildGroupCode != modelSource.ChildGroupCode ? 'highlight':''">
+        <td>
+          Mã nhóm thiết bị con
+        </td>
+        <td>
+          {{modelSaleProduct.ChildGroupCode}}
+        </td>
+        <td>
+          {{modelSource.ChildGroupCode}}
+        </td>
+      </tr> -->
+      <!-- <tr>
+        <td>
+          Hãng sản xuất
+        </td>
+        <td>
+          {{modelSaleProduct.ChildGroupCode}}
+
+        </td>
+        <td>
+          {{modelSource.ChildGroupCode}}
+
+        </td>
+      </tr> -->
+      <tr *ngIf="this.modelType != 3" [ngClass]="modelSaleProduct.CountryName != modelSource.CountryName ? 'highlight':''">
+        <td>
+          Xuất xứ
+        </td>
+        <td>
+          {{modelSaleProduct.CountryName}}
+        </td>
+        <td>
+          {{modelSource.CountryName}}
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.ProductStandTPATypeName != modelSource.ProductStandTPATypeName ? 'highlight':''">
+        <td>
+          Chủng loại hàng hóa
+        </td>
+        <td>
+          {{modelSaleProduct.ProductStandTPATypeName}}
+          
+        </td>
+        <td>
+          {{modelSource.ProductStandTPATypeName}}
+          
+        </td>
+      </tr>
+      <tr [ngClass]="modelSaleProduct.Specifications != modelSource.Specifications ? 'highlight':''">
+        <td>
+          Thông số kĩ thuật
+        </td>
+        <td>
+          {{modelSaleProduct.Specifications}}
+
+        </td>
+        <td>
+          {{modelSource.Specifications}}
+
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType != 1" [ngClass]="modelSaleProduct.SpecificationDate != modelSource.SpecificationDate ? 'highlight':''">
+        <td>
+          Ngày cập nhật TSKT
+        </td>
+        <td>
+          {{modelSaleProduct.SpecificationDate | date:'dd-MM-yyy HH:mm:ss'}}
+        </td>
+        <td>
+          {{modelSource.SpecificationDate | date:'dd-MM-yyy HH:mm:ss'}}
+
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.VAT != modelSource.VAT ? 'highlight':''">
+        <td>
+          VAT
+        </td>
+        <td>
+          {{modelSaleProduct.VAT|number}}
+        </td>
+        <td>
+          {{modelSource.VAT|number}}
+
+        </td>
+      </tr>
+      <tr [ngClass]="modelSaleProduct.MaterialPrice != modelSource.MaterialPrice ? 'highlight':''">
+        <td>
+          Giá vật tư
+        </td>
+        <td>
+          {{modelSaleProduct.MaterialPrice|number}}
+        </td>
+        <td>
+          {{modelSource.MaterialPrice|number}}
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.EXWTPAPrice != modelSource.EXWTPAPrice ? 'highlight':''">
+        <td>
+          GIÁ BÁN EXW TPA
+        </td>
+        <td>
+          {{modelSaleProduct.EXWTPAPrice|number}}
+        </td>
+        <td>
+          {{modelSource.EXWTPAPrice|number}}
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.EXWTPADate != modelSource.EXWTPADate ? 'highlight':''">
+        <td>
+          Ngày cập nhật giá EXW TPA
+        </td>
+        <td>
+          {{modelSaleProduct.EXWTPADate| date:'dd-MM-yyy HH:mm:ss'}}
+        </td>
+        <td>
+          {{modelSource.EXWTPADate| date:'dd-MM-yyy HH:mm:ss'}}
+        </td>
+      </tr>
+      <tr *ngIf="this.modelType == 4" [ngClass]="modelSaleProduct.DeliveryTime != modelSource.DeliveryTime ? 'highlight':''">
+        <td>
+          THỜI GIAN GIAO HÀNG
+        </td>
+        <td>
+          {{modelSaleProduct.DeliveryTime}}
+        </td>
+        <td>
+          {{modelSource.DeliveryTime}}
+        </td>
+      </tr>
+      <!-- <tr>
+        <td>
+          TỒN KHO
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          NGÀY UPDATE TỒN KHO
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          SL XUẤT GIỮ
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          NGƯỜI XUẤT GIỮ
+        </td>
+        <td>
+        </td>
+        <td>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-footer">
+  <button *appUipermission="['F120301']" type="button" (click)="showComfirmUpdate()" class="btn btn-success">
+    <i class="fa fa-check"></i>&nbsp;
+    <span>Cập nhật</span>
+  </button>
+  <button type="button" (click)="closeModal(false)" class="btn btn-danger">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

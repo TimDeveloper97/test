@@ -1,0 +1,46 @@
+app-material-create {
+  .fa-times-circle{
+    color: red;
+  }
+
+  .custom-control.custom-checkbox.margin-top-15 {
+    display: inline-block;
+    margin: 0 15px 0 0px;
+  }
+
+  .selected {
+    background-color: greenyellow;
+  }
+  .controls .fas.fa-cog,
+  .controls .fas.fa-history {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 7px;
+    border: 1px solid #989898;
+    cursor: pointer;
+  }
+
+  .upload-btn-wrapper {
+    float: right;
+    margin: 0 0 0 7px;
+  }
+
+  .upload-btn-wrapper btn {
+    border: 2px solid gray;
+    color: gray;
+    background-color: white;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .upload-btn-wrapper input[type="file"] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+}

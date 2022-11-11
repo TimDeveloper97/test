@@ -1,0 +1,149 @@
+<form name="searchForm" #f="ngForm">
+  <div class="row">
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+      <div class="form-group">
+        <label class="form-label">Tên vật tư</label>
+        <div class="controls">
+          <input type="text" class="form-control" name="MaterialName" [(ngModel)]="modelModuleMaterial.MaterialName">
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+      <div class="form-group">
+        <label class="form-label">Mã vật tư</label>
+        <div class="controls">
+          <input type="text" class="form-control" name="MaterialCode" [(ngModel)]="modelModuleMaterial.MaterialCode">
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-right">
+      <div class="form-group">
+        <label class="form-label"></label>
+        <div class="controls">
+          <button class="btn btn-success btn-success-system" (click)="searchModuleMaterial()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row margin-bottom-10">
+    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 text-left">
+      <label class="form-label" style="line-height:35px;">Danh sách vật tư theo Module</label>
+    </div>
+    <div class="col-xl-5 col-lg-5 col-md-6 col-sm-12 text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số tiền
+        <span class="bold text-danger">
+          {{totalAmount|number:'1.0-0'}}</span> | </label>&nbsp;
+      <label class="form-label" style="line-height:35px;">Thời gian đặt hàng lớn nhất
+        <span class="bold text-danger">{{MaxDeliveryDay}}</span> ngày
+      </label>
+    </div>
+    <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 text-right">
+      <button class="btn  btn-success" (click)="exportExcel()" *appUipermission="['F020114']">
+        <i class="fas fa-file-excel" aria-hidden="true"></i>
+        Xuất excel
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+      <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+        <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:2300px;">
+          <thead>
+            <tr>
+              <th width="100px" class="text-center">VTTT/VTCĐ</th>
+              <th width="80px" class="text-center">STT</th>
+              <th min-width="250px" class="text-center">Tên vật tư</th>
+              <th width="200px" class="text-center">Thông số</th>
+              <th width="200px" class="text-center">Mã vật tư</th>
+              <th width="200px" class="text-center">Mã vật liệu</th>
+              <th width="80px" class="text-center">Đơn vị</th>
+              <th width="80px" class="text-center">Số lượng</th>
+              <th width="100px" class="text-center">Vật liệu</th>
+              <th width="85px" class="text-center">Khối lượng</th>
+              <th width="150px" class="text-center">Hãng sản xuất</th>
+              <th width="200px" class="text-center">Ghi chú</th>
+              <th width="105px" class="text-center">Số lượng thực</th>
+              <th width="100px" class="text-center">Giá</th>
+              <th width="100px" class="text-center">Thành tiền</th>
+              <th width="130px" class="text-center">Thời gian đặt hàng</th>
+              <th width="140px" class="text-center">Ngày mua gần nhất</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <perfect-scrollbar [config]="constants.ScrollConfig" [style.max-height.px]="height" style="height: auto;">
+        <table class="table table-bordered table-fixed table-hover" style="min-width:2300px; ">
+          <tbody>
+            <tr *ngFor="let row of listData; let i = index"
+              [ngClass]="{'warning_material': row.IsNoPrice, 'selected':selectIndex == i}" (click)="selectRow( i)">
+              <td class="text-center" width="100px">
+                <button *ngIf="row.Check != null " type="button" class="btn btn-xs btn-warning"
+                  (click)="showSimilarMaterialConfig(row.MaterialId)" placement="bottom"
+                  ngbTooltip="Danh sách vật tư tương tự" container="body">
+                  <span class="far fa-clipboard" aria-hidden="true"></span>
+                </button>&nbsp;
+                <ng-container *ngIf="row.IsSetup == true">
+                  <button type="button" ngbTooltip="Vật tư cài đặt"
+                    class="btn btn-xs btn-danger">
+                    <i class="fa fa-cog"></i>
+                  </button>
+                </ng-container>
+              </td>
+              <td class="text-left" width="80px">{{row.Index}}</td>
+              <td min-width="250px">{{row.MaterialName}}
+              </td>
+              <td width="200px">{{row.Specification}}</td>
+              <td width="200px">{{row.MaterialCode}}</td>
+              <td width="200px">{{row.RawMaterialCode}}</td>
+              <td class="text-center" width="80px">{{row.UnitName}}
+              </td>
+              <td class="text-center" width="80px">
+                {{row.Quantity}}</td>
+              <td width="100px">{{row.RawMaterial}}</td>
+              <td class="text-center" width="85px">
+                {{row.Weight}}</td>
+              <td width="150px">{{row.ManufacturerCode}}
+              </td>
+              <td width="200px">{{row.Note}}</td>
+              <td class="text-center" width="105px">{{row.ReadQuantity}}</td>
+              <td [ngClass]="{'Parent-class':row.Parent==true,'Child-class':row.Parent==false}" width="100px">
+                {{row.Pricing|number:'1.0-0'}}</td>
+              <td class="text-right" width="100px">
+                {{row.ReadQuantity*row.Pricing|number:'1.0-0'}}</td>
+              <td class="text-center" width="130px">
+                {{row.DeliveryDays}}</td>
+              <td class="text-center" width="140px">
+                {{row.LastBuyDate|date:'dd/MM/yyyy'}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td class="text-center bold" colspan="14">Tổng tiền</td>
+              <td class="text-right bold text-danger" width="100px">
+                {{totalAmount|number:'1.0-0'}}
+              </td>
+              <td width="130px"></td>
+              <td width="140px"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col-lg-9 col-md-9 col-sm-12 col-xl-12">
+
+      <span style="font-size: 20px;"><i style="font-size:16px;" class="far fa-clipboard" aria-hidden="true"></i></span>
+      &nbsp;
+      <small class="padding-right-20">Danh sách vật tư tương tự</small>
+
+      <span style="font-size: 20px; color:red;"> <i style="font-size:16px;" class="fa fa-arrow-down"></i></span>
+      &nbsp;
+      <small class="padding-right-20">Download tài liệu</small>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+                <virtual-scroller #scroll [items]="listQuotes" style=" display: block; min-height: 200px;">
+                    <table class="table table-bordered table-fixed table-hover"
+                        style="word-wrap: break-word; margin-bottom:0px !important; min-width: 800px;">
+                        <thead #header style="background-color: white">
+                            <tr>
+                                <th style="text-align:center;padding-top: 10px;" width="30px">
+                                    <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                                        style="height:20px; width:20px;" (change)="checkAll(true)">
+                                </th>
+                                <th width="40px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Mã bước</th>
+                                <th width="250px" class="text-center">Tên bước</th>
+                                <th width="100px" class="text-center">% Hoàn thành</th>
+                            </tr>
+                        </thead>
+    
+                        <tbody #container>
+                            <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                <td style="text-align:center" width="30px">
+                                    <input type="checkbox" [(ngModel)]="row.Checked" name="{{'Checked'+row.QuotesName+i}}"
+                                        style="height:20px; width:20px;">
+                                </td>
+                                <td class="text-center" width="40px">{{i+1}}</td>
+                                <td width="40px">{{row.QuotesCode}}</td>
+                                <td width="80px">{{row.QuotesName}}</td>
+                                <td class="text-center" width="100px">
+                                    <select required [name]='"SuccessRatio"+i' class="form-control"
+                                            [(ngModel)]="row.SuccessRatio">
+                                            <option *ngFor="let item of constant.WorkDiary_Done" [ngValue]="item.Id">
+                                                {{item.Name}}
+                                            </option>
+                                    </select>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </virtual-scroller>
+            </div>
+        </div>
+    </form>
+   
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

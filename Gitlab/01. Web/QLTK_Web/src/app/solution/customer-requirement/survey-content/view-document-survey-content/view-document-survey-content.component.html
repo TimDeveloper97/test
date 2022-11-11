@@ -1,0 +1,54 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Xem nội dung tài liệu : {{Name}}</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body padding-15">
+        <div class="page-content">
+            <div class="body-right">
+                <section class="box">
+                    <header>
+                        <label class="title">Nội dung tài liệu</label>
+                    </header>
+                    <div class="content-body">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                <ng-container *ngIf="!isImg">
+                                    <div [style.height.px]="height">
+                                        <ng2-pdfjs-viewer pdfSrc="" #pdfViewerDocument></ng2-pdfjs-viewer>
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="isImg">
+                                    <div [style.height.px]="height">
+                                        <app-image-viewer name="viewimage" [src]="images"></app-image-viewer>
+                                        <!-- <img [src]="images[0]" class="img-fluid rounded" alt="Responsive image"> -->
+                                    </div>
+                                </ng-container>
+
+                                <ng-container *ngIf="isMp4">
+                                    <video muted autoplay id="video1" width="350px" height="195px" class="img" controls>
+                                        <source [src]="config.ServerFileApi+video" type="video/mp4">
+                                        <source [src]="config.ServerFileApi+video" type="video/ogg">
+                                        <source [src]="config.ServerFileApi+video" type="video/webm">
+                                    </video>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

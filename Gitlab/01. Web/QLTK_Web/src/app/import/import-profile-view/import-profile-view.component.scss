@@ -1,0 +1,41 @@
+
+app-import-profile-view {  
+    .warningTest {
+        background-color: red;
+    }
+    .line_tab {
+        flex: 1 0 32px;
+        min-width: 1px;
+        min-height: 1px;
+        //margin: 0 -16px;
+        // background-color: rgba(0, 0, 0, 0.12);
+        z-index: 1;
+        border: 1px solid #e0e0e0;
+    }    
+
+    .nav-tabs .nav-link {
+        color: #7e7e7e;
+
+        &.active {
+            color: #007bff;
+            font-weight: 500;
+        }
+    }
+
+    .step-header {
+        padding-top: 15px;
+        padding-bottom: 15px;
+        padding-left: 15px;
+        font-size: 16px;
+        font-weight: 500;
+
+        border-left: 1px solid #e0e0e0;
+        border-right: 1px solid #e0e0e0;
+    }
+
+    .process-text{
+        align-items: center !important;
+        justify-content: center !important;
+        display: flex !important;
+    }
+}

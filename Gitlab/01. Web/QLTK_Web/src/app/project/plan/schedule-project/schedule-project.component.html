@@ -1,0 +1,314 @@
+<div class="schedule-project">
+  <div class="row mb-1">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+    </div>
+  </div>
+  <ng-container *ngIf="hide ==true">
+    <as-split unit="percent" [direction]="direction" (dragEnd)="dragEnd('percent', $event)" #split="asSplit">
+      <as-split-area size="100" minSize="30" #area1="asSplitArea">
+        <div class="special-tree-list">
+          <div class="style-tree-list">
+            <dx-tree-list #scrollTree class="sp-1" id="projectProduct" [dataSource]="listProjectProduct" keyExpr="Id"
+             [allowColumnResizing]="true"
+             columnResizingMode="widget"
+              parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="false"
+              [expandedRowKeys]="listExplanedId" (onRowExpanded)="onRowExpanded($event)"
+              (onRowCollapsed)="onRowCollapsed($event)" (onSelectionChanged)="onSelectionChanged($event)" noDataText=" "
+              (onContentReady)="onContentReady($event)" [height]="scheduleHeight" (onRowUpdated)="onRowUpdated($event)"
+              (onRowRemoved)="onRowRemoved($event)"
+              (onEditingStart)="onEditingStart($event)"
+              (onRowPrepared)="onRowPrepared($event)"
+              [selectedRowKeys]="[idStageSelect]">
+              <!-- [wordWrapEnabled]="true" [allowDeleting]="true" [allowAdding]="true"-->
+              <dxo-selection mode="single"></dxo-selection>
+              <dxo-editing mode="cell" [allowUpdating]="true">
+              </dxo-editing>
+              <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+              <dxo-paging [enabled]="false"></dxo-paging>
+              <dxi-column dataField="NameView" caption="Sản phẩm" width="200px" [allowSorting]="false"
+                cssClass="employee" cellTemplate="listTemplateCode" [allowEditing]="false">
+              </dxi-column>
+              <dxi-column dataField="RealQuantity" caption="SL" width="50px" [allowSorting]="false"
+                cssClass="plan-header-cell" alignment="center" [allowEditing]="false"></dxi-column>
+              <div *dxTemplate="let item of 'listTemplateCode'">
+                <ng-container *ngIf="item.data.DataType && !item.data.PlanId">
+                  <span *ngIf="IsChange" class="fas fa-plus-circle item-add"
+                    (click)="chooseStage(item.data,item.data.Id)" style="cursor: pointer;"></span>&nbsp;
+                </ng-container>
+                <ng-container *ngIf="item.data.Description">
+                  <i class="fa fa-exclamation-circle icon-danger"></i> 
+                </ng-container>
+                <span class="name"
+                  [ngClass]="{'font-weight-bold':item.data.DataType==0, 'font-weight-bold-sp':item.data.DataType!=0&&!item.data.PlanId}"
+                  style="cursor: pointer; " title="{{item.data.NameView}}">&nbsp;{{item.data.NameView}}</span>
+              </div>
+
+              <dxi-column dataField="Weight" dataType="number" caption="Trọng số" width="50px" [allowSorting]="false"
+                cssClass="plan-header-cell" alignment="center" [allowEditing]="IsChange"></dxi-column>
+
+              <dxi-column dataField="StageName" caption="Công đoạn" width="100px" [allowSorting]="false"
+                cssClass="plan-header-cell" cellTemplate="listTemplateStage" [allowEditing]="false">
+              </dxi-column>
+              <div *dxTemplate="let items of 'listTemplateStage'">
+                <ng-container *ngIf="items.data.StageId && !items.data.IsPlan">
+                  <span >
+                    <input type="checkbox" [(ngModel)]="items.data.Checked" style="height:15px; width:15px;" (change)="setPlanOfStage(items.data.Id)" >
+                  </span>&nbsp;
+                  <span *ngIf="IsChange" aria-hidden="true" class="fas fa-plus item-add" (click)="showCreateUpdatePlan(items.data,1)"
+                    style="cursor: pointer;">
+                  </span>&nbsp;
+                </ng-container>
+                <ng-container *ngIf="items.data.IsPlan">
+                  <span>
+                    <input type="checkbox" [(ngModel)]="items.data.Checked" style="height:15px; width:15px;">
+                  </span>&nbsp;
+                </ng-container>
+                <span style="cursor: pointer;" title="{{items.data.StageName}}">{{items.data.StageName}}</span>
+              </div>
+
+              <dxi-column dataField="PlanName" caption="Công việc" [minWidth]="260" [allowSorting]="false"
+                cssClass="plan-header-cell" cellTemplate="listTemplatePlanName" [allowEditing]="IsChange">
+              </dxi-column>
+              <div *dxTemplate="let items of 'listTemplatePlanName'">
+                <ng-container *ngIf="items.data.IsPlan">
+                  <span *ngIf="IsChange"  aria-hidden="true" class="fas fa-times item-delete"
+                    (click)="showConfirmDeletePlan(items.data.Id, items.data.PlanName)" style="cursor: pointer;">
+                  </span>&nbsp;
+                </ng-container>
+                <span style="cursor: pointer;" title="{{items.data.PlanName}}">{{items.data.PlanName}}</span>
+              </div>
+
+              <dxi-column dataField="Type" caption="Phân loại" width="55px" [allowSorting]="false"
+                cssClass="plan-header-cell" alignment="center" [allowEditing]="IsChange">
+                <dxo-lookup [dataSource]="Type" valueExpr="Id" displayExpr="Code">
+                </dxo-lookup>
+                <dxi-validation-rule type="required"></dxi-validation-rule>
+              </dxi-column>
+
+              <dxi-column dataField="ContractStartDate" dataType="date" caption="Ngày BĐ HĐ" width="80px"
+                [allowSorting]="false" cssClass="plan-header-cell" alignment="center" [allowEditing]="IsChangeDate==true && IsChange ==true" format="dd/MM/yyyy">
+              </dxi-column>
+
+              <dxi-column dataField="ContractDueDate" dataType="date" caption="Ngày KT HĐ" width="80px"
+                [allowSorting]="false" cssClass="plan-header-cell" alignment="center" [allowEditing]="IsChangeDate==true && IsChange ==true" format="dd/MM/yyyy">
+              </dxi-column>
+
+              <dxi-column dataField="PlanStartDate" dataType="date" caption="Ngày bắt đầu triển khai" width="80px"
+                [allowSorting]="false" cssClass="plan-header-cell" alignment="center" format="dd/MM/yyyy" [allowEditing]="IsChangeDate==true || IsChange ==true"></dxi-column>
+
+              <dxi-column dataField="PlanDueDate" dataType="date" caption="Ngày kết thúc triển khai" width="80px"
+                [allowSorting]="false" cssClass="plan-header-cell" alignment="center" format="dd/MM/yyyy" [allowEditing]="IsChangeDate==true || IsChange ==true">
+              </dxi-column>
+
+              <dxi-column dataField="Duration" caption="Số ngày làm việc" width="50px" [allowSorting]="false"
+                cssClass="plan-header-cell" alignment="center" [allowEditing]="false"></dxi-column>
+
+              <dxi-column dataField="EstimateTime" caption="Số giờ làm" width="50px" [allowSorting]="false"
+                cssClass="plan-header-cell" alignment="center" [allowEditing]="IsChange">
+              </dxi-column>
+
+              <dxi-column dataField="SupplierId" caption="Nhà thầu" width="75px" [allowSorting]="false"
+                cssClass="plan-header-cell" [editorOptions]="editorOptions" [allowEditing]="IsChange">
+                <dxo-lookup [dataSource]="suppliers" valueExpr="Id" displayExpr="Alias">
+                </dxo-lookup>
+                <!-- <dxi-validation-rule type="required"></dxi-validation-rule> -->
+              </dxi-column>
+              <div *dxTemplate="let status of 'statusTemplate'">
+                <span class="middle">{{ status.Name }}</span>
+              </div>
+
+              <dxi-column dataField="ResponsiblePersionName" caption="Người phụ trách" width="125px"
+                [allowSorting]="false" [allowEditing]="false" cssClass="plan-header-cell"
+                cellTemplate="listTemplatePlanAssignment">
+              </dxi-column>
+              <div *dxTemplate="let items of 'listTemplatePlanAssignment'">
+                <ng-container *ngIf="items.data.IsPlan">
+                  <span *ngIf="IsChange" aria-hidden="true" class="far fa-plus-square item-add" (click)="showChooseEmployee(items.data)"
+                    style="cursor: pointer;">
+                  </span>&nbsp;
+                </ng-container>
+                <span style="cursor: pointer;"
+                  title="{{items.data.ResponsiblePersionName}}">{{items.data.ResponsiblePersionName}}</span>
+              </div>
+
+              <dxi-column dataField="InternalStatus" caption="Tình trạng công việc (nội bộ)" width="90px"
+                cssClass="plan-header-cell" [allowEditing]="false" [allowSorting]="false">
+              </dxi-column>
+
+              <dxi-column dataField="Status" caption="Tình trạng CV" width="80px" cssClass="plan-header-cell"
+                [allowEditing]="false" [allowSorting]="false" cellTemplate="listStatus">
+              </dxi-column>
+              <div *dxTemplate="let item of 'listStatus'">
+                <ng-container>
+                  <div class="text-center">
+                    <nts-status-badge [value]="item.data.Status" [items]="constant.Plan_Status">
+                    </nts-status-badge>
+                  </div>
+                </ng-container>
+              </div>
+
+              <dxi-column dataField="DoneRatio" caption="% Hoàn thành" [width]="130" cssClass="plan-header-cell"
+                [allowEditing]="false" [allowSorting]="false" cellTemplate="listTemplateDone">
+              </dxi-column>
+              <div *dxTemplate="let items of 'listTemplateDone'">
+                <ng-container>
+                  <span>
+                    <ngb-progressbar type="success" textType="dark" [value]="items.data.DoneRatio" [showValue]="true">
+                    </ngb-progressbar>
+                  </span>
+                </ng-container>
+              </div>
+            </dx-tree-list>
+
+            <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#projectProduct"
+              (onItemClick)="itemClick($event)">
+              <div *dxTemplate="let e of 'item'" [ngClass]="{'disabled': e.disabled===true}">
+                <div>
+                  <span [ngClass]="e.icon"></span>&nbsp; {{e.text}}
+                </div>
+              </div>
+            </dx-context-menu>
+          </div>
+        </div>
+      </as-split-area>
+      <!-- <as-split-area size="0" minSize="0" #area2="asSplitArea">
+        <div #scrollScheduleDate>
+          <div #scrollScheduleDateHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed table-date mb-0" [style.min-width.px]="30*dayOfWeek.length"
+              style="height: 80.5px;">
+              <thead>
+                <tr style="height: 40px;">
+                  <th width="30px" class="text-center dayOfWeek" *ngFor="let row of dayOfWeek; let i = index"
+                    [ngClass]="{'sunday':row==1}">
+                    {{row!=1?'T'+row:'CN'}}
+                  </th>
+                </tr>
+                <tr style="height: 40.5px;">
+                  <th width="30px" class="text-center" *ngFor="let row of daysOfMonth; let i = index">
+                    {{row.DateTime|date:'dd/MM'}}
+                  </th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar #scrollScheduleDateContent [config]="constant.ScrollConfig" style="width:100%"
+            [style.height.px]="scheduleHeight-83">
+            <table class="table table-bordered table-fixed table-date mb-0 grant-chart"
+              [style.min-width.px]="30*dayOfWeek.length">
+              <tbody>
+                <ng-container *ngFor="let row of listProjectProduct; let i = index">
+                  <tr *ngIf="row.IsShow" [ngClass]="{'selected':selectDateId == row.Id}" (click)="onSelectedPlan(row)"
+                    style="height: 34px;vertical-align: middle;">
+                    <ng-container *ngFor="let item of row.ListGrantChart; let j = index">
+                      <td [style.min-width.px]="30*row.Colspan" class="text-center" [attr.colspan]="item.Colspan"
+                        [ngClass]="{ 'project-product-parent' : !row.IsPlan && !row.StageId && !row.ParentId && row.PlanStartDate && row.PlanDueDate && row.PlanStartDate <= item.Day && row.PlanDueDate >= item.Day,
+                        'project-product-child' : !row.IsPlan && !row.StageId && row.ParentId && row.PlanStartDate && row.PlanDueDate && row.PlanStartDate <= item.Day && row.PlanDueDate >= item.Day,
+                        'holiday' : item.IsHoliday,
+                        'date-now' : item.DateNow }">
+                        <span *ngIf="item.IsColspan; else elseBlock">
+                          <ngb-progressbar type="success" textType="dark" [ngStyle]="{'background':row.Color}"
+                            [value]="row.Done" [showValue]="true">
+                          </ngb-progressbar>
+                        </span>
+                        <ng-template #elseBlock>
+                          <ng-container *ngIf="!item.DateNow">&nbsp; &nbsp;</ng-container>
+                          <ng-container *ngIf="item.DateNow">
+                            <div></div>
+                          </ng-container>
+                        </ng-template>
+                      </td>
+                    </ng-container>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </as-split-area> -->
+    </as-split>
+  </ng-container>
+
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 text-left mt-3">
+      <ng-container>
+        <div ngbDropdown class="d-inline-block ">
+          <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>
+            <span><i class="fas fa-file-excel" aria-hidden="true"></i> &nbsp;Xuất excel</span>
+          </button>
+          <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <button type="button" class="btn btn-success" (click)="workingReport()" container="body">
+              Báo cáo công việc
+            </button>
+            <button class="btn btn-success " (click)="exportSummaryExcel()">
+              <i class="fa fa-tachometer" aria-hidden="true"></i>&nbsp;
+              <span>Xuất Excel</span>
+            </button>
+            <button type="button" class="btn btn-success" (click)="exportExcelProjectSchedule()" container="body">
+              <i class="fas fa-file-excel" aria-hidden="true"></i> &nbsp;Bảng tiến độ tổng thể của dự án
+            </button>
+          </div>
+        </div>
+      </ng-container>&nbsp;
+      <ng-container>
+        <button class="btn btn-primary" (click)="history()">
+          <i class="fa fa-history" aria-hidden="true"></i>&nbsp;
+          <span>Lịch sử thay đổi</span>
+        </button>
+      </ng-container>&nbsp;
+      <ng-container>
+        <a type="button" [routerLink]="['/du-an/quan-ly-du-an/gantt-chart/' + modelSearchProject.ProjectId]" class="btn btn-primary" target="_blank">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;
+          <span>Gantt</span>
+        </a>
+      </ng-container>&nbsp;
+      <ng-container>
+        <button class="btn btn-primary" (click)="popupSearch()">
+          <i class="fa fa-filter" aria-hidden="true"></i>&nbsp;
+          <span>Lọc</span>
+        </button>
+      </ng-container>&nbsp;
+      <div class="show-item-search">
+        <ul *ngIf="ItemSearch">
+          <li *ngFor="let item of ItemSearch; let i = index">
+            <span>{{item.Name}}: {{item.Value}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xl-6 text-right mt-3">
+      <button type="button" class="btn btn-warning" (click)="planAdjustment()" container="body">
+        <i class="fa fa-edit"></i>
+        Điều chỉnh kế hoạch
+      </button>&nbsp;
+      <!-- <button type="button" class="btn btn-success" (click)="save()" container="body">
+        <i class="fa fa-save"></i>
+        Lưu
+      </button>&nbsp; -->
+      <button type="button" class="btn btn-danger" (click)="closeModal()" container="body">
+        <i class="fa fa-power-off"></i>
+        Đóng
+      </button>
+    </div>
+  </div>
+  <hr />
+  <div class="row">
+    <div class="col-md-12">
+      <span class="fas fa-plus-circle item-add"></span>&nbsp;
+      <small class="padding-right-20">Thêm công đoạn</small>
+
+      <span class="fas fa-plus item-add"></span>&nbsp;
+      <small class="padding-right-20">Thêm công việc</small>
+
+      <span class="fas fa-times item-delete"></span>&nbsp;&nbsp;
+      <small class="padding-right-20">Xóa công việc</small>
+
+      <span class="far fa-plus-square item-add"></span>&nbsp;
+      <small class="padding-right-20">Thêm người phụ trách</small>
+
+      <i class="fas fa-exclamation-circle icon-danger"></i> &nbsp;
+      <small class="padding-right-20">Có mô tả</small>
+    </div>
+  </div>
+  <!-- </div>
+  </section> -->
+</div>

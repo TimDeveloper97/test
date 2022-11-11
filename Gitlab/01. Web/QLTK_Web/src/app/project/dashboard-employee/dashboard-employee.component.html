@@ -1,0 +1,152 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-8">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="search" (change)="search()">
+            </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="search()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row mb-1">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{totalItems}}</span> công việc thực hiện của cả nhóm</label>
+        </div>
+      </div>
+      <div class="row" #scrollEmployee>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <div #scrollEmployeeHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered mb-0" style="min-width:1160px">
+              <thead>
+                <tr>
+                  <th rowspan="3" min-width="200px" class="text-center">Nhân viên</th>
+                  <th colspan="6" class="text-center">Tổng số công việc hoàn thành</th>
+                  <th colspan="6" class="text-center">Tổng số công việc đang triển khai</th>
+                </tr>
+                <tr>
+                  <th colspan="3" class="text-center">Số lượng mô hình</th>
+                  <th colspan="3" class="text-center">Số lượng module</th>
+                  <th colspan="3" class="text-center">Số lượng mô hình</th>
+                  <th colspan="3" class="text-center">Số lượng mô hình</th>
+                </tr>
+                <tr>
+                  <th width="80px" class="text-center">Thiết kế mới</th>
+                  <th width="80px" class="text-center">Thiết kế sửa đổi</th>
+                  <th width="80px" class="text-center">Thiết kế tận dụng</th>
+                  <th width="80px" class="text-center">Thiết kế mới</th>
+                  <th width="80px" class="text-center">Thiết kế sửa đổi</th>
+                  <th width="80px" class="text-center">Thiết kế tận dụng</th>
+                  <th width="80px" class="text-center">Thiết kế mới</th>
+                  <th width="80px" class="text-center">Thiết kế sửa đổi</th>
+                  <th width="80px" class="text-center">Thiết kế tận dụng</th>
+                  <th width="80px" class="text-center">Thiết kế mới</th>
+                  <th width="80px" class="text-center">Thiết kế sửa đổi</th>
+                  <th width="80px" class="text-center">Thiết kế tận dụng</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+            <table class="table table-bordered" style="min-width:1160px">              
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td min-width="200px" >{{row.Name}}</td>
+                  <td width="80px" class="text-center">{{row.FinishParadigmNewDesign}}</td>
+                  <td  width="80px" class="text-center">{{row.FinishParadigmUpdateDesign}}</td>
+                  <td width="80px" class="text-center">{{row.FinishParadigmUseDesign}}</td>
+                  <td width="80px" class="text-center">{{row.FinishModuleNewDesign}}</td>
+                  <td width="80px" class="text-center">{{row.FinishModuleUpdateDesign}}</td>
+                  <td width="80px" class="text-center">{{row.FinishModuleUseDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeParadigmNewDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeParadigmUpdateDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeParadigmUseDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeModuleNewDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeModuleUpdateDesign}}</td>
+                  <td width="80px" class="text-center">{{row.MakeModuleUseDesign}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <!-- <div class=" col-xl-9 col-md-9 col-lg-9 col-sm-12">
+          <nts-search-bar [options]="searchOptionCV" [(ngModel)]="model" name="searchCV" (change)="searchEmployee()">
+          </nts-search-bar>
+        </div> -->
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+          <div class="form-group ">
+            <label class="form-label">Nhóm module
+            </label>
+            <nts-drop-down-tree [items]="listModuleGroup" [columns]="columnName" ntsParentId="ParentId" ntsValue="Id"
+              ntsLabel="Code" ntsMode="multiple" [(ngModel)]="model.ModuleGroupId" name="Id"
+              (ngModelChange)="treeView_itemSelectionChanged($event)">
+            </nts-drop-down-tree>
+          </div>
+        </div>
+        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+          <div class="form-group ">
+            <label class="form-label">Nhân viên
+            </label>
+            <nts-drop-down-tree [items]="listEmployee" [columns]="columnNameEmployee" ntsParentId="ParentId"
+              ntsValue="Id" ntsLabel="Name" ntsMode="single" [(ngModel)]="model.EmployeeId" name="EmployeeId"
+              ntsAutoClose="true">
+            </nts-drop-down-tree>
+          </div>
+        </div>
+        <div class="col-xl-6 col-md-6 col-lg-6 col-sm-12 text-right">
+          <button class="btn btn-success btn-success-system" (click)="searchEmployee()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>
+        </div>
+      </div>
+      <div class="row pt-1">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" [style.min-width.px]="250+ model.ListModuleGroupId.length*240">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="250px" class="text-center">Công việc</th>
+                  <ng-container *ngIf="listGeneral.length>0">
+                    <ng-container *ngFor="let ite of listGeneral[0].ListTime; let i = indexx ">
+                      <th min-width="240px" colspan="2" class="text-center">{{ite.ModuleGroupCode}}</th>
+                    </ng-container>
+
+                  </ng-container>
+                </tr>
+                <tr>
+                  <ng-container *ngIf="listGeneral.length>0">
+                    <ng-container *ngFor="let ite of listGeneral[0].ListTime; let i = indexx ">
+                      <th width="120px" class="text-center">Trung bình</th>
+                      <th width="120px" class="text-center">Hiện tại</th>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listGeneral; let i = index">
+                  <td>{{row.TaskName}}</td>
+                  <ng-container *ngIf=" row.ListTime.length > 0">
+                    <ng-container *ngFor="let ite of row.ListTime; let i = index ">
+                      <td class="text-center">{{ite.Avg}}</td>
+                      <td class="text-center">{{ite.TimeStandard}}</td>
+                    </ng-container>
+                  </ng-container>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,73 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left">Tạo cấu trúc thư mục</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Đối tượng
+              </label>
+              <div class="controls">
+                <select [disUipermission]="['F090001']" name="ObjectType" class="form-control"
+                  [(ngModel)]="model.ObjectType">
+                  <option (change)="changeObjectType(model.ObjectType)" *ngFor="let item of constant.DesignObjectTypes" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="model.ObjectType == 4" class="col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Loại thiết kế
+              </label>
+              <div class="controls">
+                <select [disUipermission]="['F090001']" class="form-control" [(ngModel)]="model.Type" name="Type">
+                  <option *ngFor="let item of constant.DesignTypesSolution" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div *ngIf="model.ObjectType != 4" class="col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Loại thiết kế
+              </label>
+              <div class="controls">
+                <select [disUipermission]="['F090001']" class="form-control" [(ngModel)]="model.Type" name="Type">
+                  <option *ngFor="let item of constant.DesignTypes" [ngValue]="item.Id">{{item.Name}}
+                  </option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Mã thiết kế</label>
+              <div class="controls">
+                <input [disUipermission]="['F090001']" type="text" class="form-control" name="DesignCode"
+                  [(ngModel)]="model.ObjectCode">
+              </div>
+              <span>VD: TPAD.0101</span>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-3 col-sm-12 text-right margin-top-20">
+            <button *appUipermission="['F090001']" class="btn btn-success btn-success-system"
+              (click)="createDesignStructure()">
+              <i class="fa fa-plus"></i> &nbsp;Tạo</button>&nbsp;
+            <button class="btn btn-default btn-default-system" (click)="showCreateDesignStructure()">
+              <i class="fas fa-hammer"></i> &nbsp;Cấu hình</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </section>
+</div>

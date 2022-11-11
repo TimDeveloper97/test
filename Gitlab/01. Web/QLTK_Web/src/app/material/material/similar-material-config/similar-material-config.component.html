@@ -1,0 +1,105 @@
+<div class="row">
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group form-group-custom">
+      <label class="form-label">Tên vật tư
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.Name}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group form-group-custom">
+      <label class="form-label">Mã vật tư
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.Code}}</label>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4 col-lg-4 col-sm-12">
+    <div class="form-group ">
+      <label class="form-label">Hãng sản xuất
+      </label>
+      <div class="controls">
+        <label type="text" class="form-control">{{modelMaterial.ManufactureName}}</label>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<div class="row">
+  <div class="col-xl-4 col-md-4 col-lg-4 col-sm-12">
+    <dx-tree-list  id="employees" [dataSource]="listSimilarMaterial" keyExpr="Id" parentIdExpr="ParentId"
+      [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+      (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listSimilarMaterialId" noDataText=" ">
+      <dxo-selection mode="single"></dxo-selection>
+      <dxi-column dataField="ParentId" caption="Nhóm vật tư tương tự" [minWidth]="150" cssClass="employee"
+        cellTemplate="listTemplate">
+        <dxo-lookup [dataSource]="listSimilarMaterial" valueExpr="similarMaterialId" displayExpr="Name">
+        </dxo-lookup>
+      </dxi-column>
+      <div *dxTemplate="let item of 'listTemplate'">
+        <span class="name" style="cursor: pointer;">{{item.data.Name}}</span>
+      </div>
+    </dx-tree-list>
+  </div>
+  <div class="col-xl-8 col-md-8 col-lg-8 col-sm-12">
+    <form name="searchForm" #f="ngForm">
+      <div class="row">
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Tên vật tư</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Namesimilarmaterial" [(ngModel)]="model.Name">
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Mã vật tư</label>
+            <div class="controls">
+              <input type="text" class="form-control" name="Codesimilarmaterial" [(ngModel)]="model.Code">
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 text-right">
+          <div class="form-group">
+            <label class="form-label"></label>
+            <div class="controls">
+              <button class="btn btn-success btn-success-system"
+                (click)="searchSimilarMaterialConfig(similarMaterialId)">
+                <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+              <button class="btn btn-default btn-default-system" (click)="clear()">
+                <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:950px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Tên vật tư</th>
+            <th width="200px" class="text-center">Mã vật tư</th>
+            <th width="300px" class="text-center ">Hãng sản xuất</th>
+            <th width="200px" class="text-center">Đơn vị</th>
+            <th width="200px" class="text-center">Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listData; let i = index">
+            <td width="50px" class="text-center">{{i+1}}</td>
+            <td>{{row.Name}}</td>
+            <td>{{row.Code}}</td>
+            <td>{{row.ManufactureName}}</td>
+            <td>{{row.UnitName}}</td>
+            <td>{{row.Note}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

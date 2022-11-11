@@ -1,0 +1,481 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left div-system">Báo cáo dự án</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model" (change)="getListProject()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="getListProject()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row">
+        <div class="col-lg-8 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalProject}}</span> Dự án đang triển khai |
+          </label>&nbsp;
+
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalProjectFinish}}</span> dự án đã hoàn thành |
+          </label>&nbsp;
+
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalProjectOnSchedule}}</span> dự án đúng tiến độ |
+          </label>&nbsp;
+
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalProjectDelayDeadline}}</span> Dự án chậm tiến độ |
+          </label>&nbsp;
+
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalProjectNotPlan}}</span> dự án đang có hạng mục - chưa lập kế
+            hoạch
+          </label>&nbsp;
+        </div>
+      </div>
+      <div class="row" #scrollPracticeMaterial>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered  table-hover" style="margin-bottom:0px !important; min-width: 2600px;">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="150px" class="text-center">Tình trạng tiến độ</th>
+                  <th width="180px" class="text-center">Loại dự án</th>
+                  <th width="190px" class="text-center">Trạng thái dự án</th>
+                  <th width="150px" class="text-center">Mã dự án</th>
+                  <th min-width="200px" class="text-center">Tên dự án</th>
+                  <th width="160px" class="text-center">Tài liệu</th>
+                  <th width="200px" class="text-center">Khách hàng</th>
+                  <th width="200px" class="text-center">SBU phụ trách</th>
+                  <th width="200px" class="text-center">Phong ban phụ trách</th>
+                  <th width="150px" class="text-center">Loại khách hàng</th>
+                  <th width="120px" class="text-center">Ngày bắt đầu</th>
+                  <th width="120px" class="text-center">Ngày kết thúc</th>
+                  <th width="120px" class="text-center">Ngày kickoff</th>
+                  <th width="220px" class="text-center">Lỗi đã giải quyết / tổng số lỗi</th>
+                  <th width="250px" class="text-center">Vấn đề đã giải quyết / tổng số vấn đề</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="400">
+            <table class="table table-bordered table-fixed" style="min-width:2600px">
+              <colgroup>
+                <col width="50px">
+                <col width="150px">
+                <col width="180px">
+                <col width="190px">
+                <col width="150px">
+                <col min-width="200px">
+                <col width="160px">
+                <col width="200px">
+                <col width="200px">
+                <col width="200px">
+                <col width="150px">
+                <col width="120px">
+                <col width="120px">
+                <col width="120px">
+                <col width="220px">
+                <col width="250px">
+              </colgroup>
+              <tbody>
+                <tr *ngFor="let row of projects; let i = index">
+                  <td width="50px" class="text-center">{{i+1}}</td>
+                  <td width="150px" class="text-center">
+                    <span *ngIf="row.Status === 'Dự kiến chậm tiến độ'"
+                      class="badge badge-warning">{{row.Status}}</span>
+                    <span *ngIf="row.Status === 'Đã được hoàn thành'" class="badge badge-success">{{row.Status}}</span>
+                    <span *ngIf="row.Status === 'Đúng tiến độ'" class="badge badge-danger">{{row.Status}}</span>
+                  </td>
+                  <td width="180px" class="text-center"><nts-status-badge [items]="constant.ProjectTypes" [value]="row.Type"></nts-status-badge></td>
+                  <td  width="190px" class="text-center">
+                    <nts-status-badge [items]="constant.ProjectStatus" [value]="row.StatusProject"></nts-status-badge>
+                </td>
+                  <td width="150px">{{row.Code}}</td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="160px " class="text-center">
+                    <nts-status-badge [value]="row.DocumentStatus" [items]="constant.ProjectDocumentStatus"></nts-status-badge>
+                </td>
+                  <td width="200px">{{row.CustomerName}}</td>
+                  <td width="200px">{{row.SBUName}}</td>
+                  <td width="200px">{{row.DepartmentName }}</td>
+                  <td width="150px " [ngbTooltip]="row.CustomerType" container="body">{{row.CustomerType}}
+                  <td class="text-center" width="120px">{{row.DateFrom |date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="120px">{{row.DateTo | date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="120px">{{row.KickOffDate | date:'dd/MM/yyyy' }}</td>
+                  <td class="text-center" width="220px">{{row.ErorrTotalDone}}/{{row.ErorrTotal}} </td>
+                  <td class="text-center" width="250px">{{row.IssueTotalDone}}/{{row.IssueTotal}} </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="box">
+    <div class="content-body padding-15">
+      <ul ngbNav #nav="ngbNav" class="nav-tabs" [destroyOnHide]="false" (navChange)="tabChange($event)">
+        <li [ngbNavItem]="'tab-design'">
+          <a ngbNavLink>Thiết Kế</a>
+          <ng-template ngbNavContent>
+            <div class="row" #scrollPlanDesign>
+              <div class="content-body padding-15">
+                <label class="form-label">Báo cáo tiến độ về mặt thiết kế</label>
+              </div>
+
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDesignHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:1000px">
+                    <thead>
+                      <tr>
+                        <th width="150px" class="text-center">Mã dự án</th>
+                        <th min-width="250px" class="text-center">Tên dự án</th>
+                        <th width="200px" class="text-center">Số lượng thiết kế đang đúng tiền độ</th>
+                        <th width="200px" class="text-center"> Số lượng thiết kế dự kiến chậm</th>
+                        <th width="200px" class="text-center"> Số lượng thiết kế có hạng mục chưa lập kế hoạch</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:1000px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="150px">{{row.ProjectCode}}</td>
+                        <td min-width="250px">{{row.ProjectName}}</td>
+                        <td width="200px" class="text-center">{{row.TotalProjectDesignDoneBeforPlan}}</td>
+                        <td width="200px" class="text-center">{{row.TotalDelayProjectDesign}}</td>
+                        <td width="200px" class="text-center">{{row.TotalProjectDesignNotPlan}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+
+            <div class="row" #scrollPlanDesignProject>
+              <div class="content-body padding-15">
+                <label class="form-label">Các dự án về mặt thiết kế</label>
+              </div>
+
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDesignProjectHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:1970px">
+                    <thead>
+                      <tr>
+                        <th rowspan="3" width="150px" class="text-center">Mã dự án</th>
+                        <th rowspan="3" min-width="300px" class="text-center">Tên dự án</th>
+                        <th colspan="7" width="590px" class="text-center">Tiến độ hoàn thành theo từng dự án</th>
+                        <th colspan="2" width="170px" class="text-center">Số lượng công việc chưa có kế hoạch</th>
+                        <!-- <th colspan="4" width="340px" class="text-center">Tổng số lượng công việc cần làm </th> -->
+                        <!-- <th colspan="2" width="220px" class="text-center">Tổng số lượng công việc bị chậm so với
+                          deadline sản phẩm</th>
+                        <th rowspan="3" width="100px" class="text-center">Công việc đến deadline kickoff nhưng chưa hoàn
+                          thành
+                        </th> -->
+                        <th colspan="2" width="150px" class="text-center">Tổng số lượng công việc có hạn hoàn thành đáp ứng deadline kickoff</th>
+                        <th colspan="2" width="150px" class="text-center">Tổng số lượng công việc bị chậm so với deadline kickoff</th>
+                        <th colspan="3" width="255px" class="text-center">Số công việc chậm so với kickoff</th>
+                        <th rowspan="3" width="100px" class="text-center">Mức độ ưu tiên dự án</th>
+                      </tr>
+                      <tr>
+
+                        <th rowspan="2" width="80px" class="text-center">% hoàn thành dự án</th>
+                        <th colspan="3" width="255px" class="text-center"> Module/Cụm SP</th>
+                        <th colspan="3" width="255px" class="text-center">Mô hình/máy</th>
+                        <th rowspan="2" width="85px" class="text-center">Theo Module</th>
+                        <th rowspan="2" width="85px" class="text-center">Theo mô hình</th>
+                        <th rowspan="2" width="85px" class="text-center">Trong KH</th>
+                        <th rowspan="2" width="85px" class="text-center">Trễ KH</th>
+                        <th rowspan="2" width="85px" class="text-center">Trong KH</th>
+                        <th rowspan="2" width="85px" class="text-center">Trễ KH</th>
+                        <th rowspan="2" width="85px" class="text-center"> <3 ngày </th>
+                        <th rowspan="2" width="85px" class="text-center">3 -7 ngày</th>
+                        <th rowspan="2" width="85px" class="text-center">>7 ngày</th>
+                      </tr>
+                      <tr>
+                        <th width="85px" class="text-center">TK mới</th>
+                        <th width="85px" class="text-center">TK sửa đổi</th>
+                        <th width="85px" class="text-center">TK tận dụng</th>
+                        <th width="85px" class="text-center">TK mới</th>
+                        <th width="85px" class="text-center">TK sửa đổi</th>
+                        <th width="85px" class="text-center">TK tận dụng</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:1970px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="150px">{{row.ProjectCode}}</td>
+                        <td min-width="300px">{{row.ProjectName}}</td>
+                        <td width="80px" class="text-center">{{row.Design}}</td>
+                        <td width="85px" class="text-center">{{row.ModuleDesign}}</td>
+                        <td width="85px" class="text-center">{{row.ModuleUpdateDesign}}</td>
+                        <td width="85px" class="text-center">{{row.ModuleUse}}</td>
+                        <td width="85px" class="text-center">{{row.ParadigmDesign}}</td>
+                        <td width="85px" class="text-center">{{row.ParadigmUpdateDesign}}</td>
+                        <td width="85px" class="text-center">{{row.ParadigmUse}}</td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 1)"
+                            href=" javascript:void(0)">
+                            {{row.ModuleTaskNotPlan}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 2)"
+                            href=" javascript:void(0)">
+                            {{row.ParadigmTaskNotPlan}}</a></td>
+                        <!-- <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 3)"
+                            href=" javascript:void(0)">
+                            {{row.TotalModuleFinish}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 4)"
+                            href=" javascript:void(0)">
+                            {{row.TotalModuleMakeDesign}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 5)"
+                            href=" javascript:void(0)">
+                            {{row.TotalParadigmFinish}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 6)"
+                            href=" javascript:void(0)">
+                            {{row.TotalParadigmMakeDesign}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 7)"
+                            href=" javascript:void(0)">
+                            {{row.TotalModuleDelay}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 8)"
+                            href=" javascript:void(0)">
+                            {{row.TotalParadigmDelay}}</a></td>
+                        <td width="85px" class="text-center"><a (click)="viewDetail(1,row.ProjectId, 9)"
+                            href=" javascript:void(0)">
+                            {{row.Total_Task_Design_Delay}}</a></td> -->
+                        <td width="85px" class="text-center">{{row.TotalTaskInPlanSatisfy}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskOutPlanSatisfy}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskInPlanNotSatisfy}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskOutPlanNotSatisfy}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskOutPlanNotSatisfyLessThanThreeDay}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskOutPlanNotSatisfyThreeToSevenDay}}</td>
+                        <td width="85px" class="text-center">{{row.TotalTaskOutPlanNotSatisfyGreaterThanSevenDay}}</td>
+                        <td width="100px" class="text-center">
+                          <nts-status-badge [items]="constant.ProjectPriority" [value]="row.Priority"></nts-status-badge>
+                        </td>
+                        <!-- <td width="100px" class="text-center">{{row.TotalDelayDay_Design_Max}}</td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="'tab-document'">
+          <a ngbNavLink>Tài liệu</a>
+          <ng-template ngbNavContent>
+            <div class="row" #scrollPlanDocument>
+              <div class="content-body padding-15">
+                <label class="form-label">Báo cáo tiến độ về mặt tài liệu</label>
+              </div>
+
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDocumentHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:1350px">
+                    <thead>
+                      <tr>
+                        <th width="200px" class="text-center">Mã dự án</th>
+                        <th min-width="300px" class="text-center">Tên dự án</th>
+                        <th width="250px" class="text-center">Số lượng tài liệu đang đúng tiền độ</th>
+                        <th width="250px" class="text-center"> Số lượng tài liệu dự kiến chậm</th>
+                        <th width="350px" class="text-center"> Số lượng tài liệu có hạng mục chưa lập kế hoạch</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:1350px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="200px">{{row.ProjectCode}}</td>
+                        <td min-width="300px">{{row.ProjectName}}</td>
+                        <td width="250px" class="text-right">{{row.TotalProjectDocDoneBeforPlan}}</td>
+                        <td width="250px" class="text-right">{{row.TotalDelayProjectDoc}}</td>
+                        <td width="350px" class="text-right">{{row.TotalProjectDocNotPlan}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+
+            <div class="row" #scrollPlanDocumentProject>
+              <div class="content-body padding-15">
+                <label class="form-label">Các dự án về mặt tài liệu</label>
+              </div>
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDocumentProjectHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:2020px">
+                    <thead>
+                      <tr>
+                        <th rowspan="3" width="200px" class="text-center">Mã dự án</th>
+                        <th rowspan="3" width="400px" class="text-center">Tên dự án</th>
+                        <th colspan="4" width="400px" class="text-center">Tiến độ hoàn thành theo từng dự án</th>
+                        <th colspan="2" width="200px" class="text-center">Số lượng công việc chưa có kế hoạch</th>
+                        <th colspan="4" width="400px" class="text-center">Tổng số lượng công việc cần làm </th>
+                        <th colspan="2" width="220px" class="text-center">Tổng số lượng công việc bị chậm so với
+                          deadline sản phẩm</th>
+                        <th rowspan="3" width="100px" class="text-center">công việc đến deadline kickoff nhưng chưa hoàn
+                          thành
+                        </th>
+                        <th rowspan="3" width="100px" class="text-center">Số ngày chậm lớn nhất so với deadline</th>
+                      </tr>
+                      <tr>
+                        <th rowspan="2" width="100px" class="text-center">% hoàn thành dự án</th>
+                        <th colspan="3" width="400px" class="text-center"> Tổng số tài liệu </th>
+                        <th rowspan="2" width="100px" class="text-center">Theo Module</th>
+                        <th rowspan="2" width="100px" class="text-center">Theo mô hình</th>
+                        <th colspan="2" width="100px" class="text-center">Theo Module</th>
+                        <th colspan="2" width="100px" class="text-center">Theo mô hình</th>
+                        <th rowspan="2" width="110px" class="text-center"> Module</th>
+                        <th rowspan="2" width="110px" class="text-center"> Mô hình</th>
+                      </tr>
+                      <tr>
+                        <th width="100px" class="text-center">TL mới</th>
+                        <th width="100px" class="text-center">TL sửa đổi</th>
+                        <th width="100px" class="text-center">TL tận dụng</th>
+                        <th width="100px" class="text-center">Hoàn thành</th>
+                        <th width="100px" class="text-center">Chưa hoàn thành</th>
+                        <th width="100px" class="text-center">Hoàn thành</th>
+                        <th width="100px" class="text-center">Chưa hoàn thành</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:2020px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="200px">{{row.ProjectCode}}</td>
+                        <td min-width="400px">{{row.ProjectName}}</td>
+                        <td width="100px" class="text-center">{{row.PercentDoc}}</td>
+                        <td width="100px" class="text-center">{{row.TotalDocDesign}}</td>
+                        <td width="100px" class="text-center">{{row.TotalDocUpdateDesign}}</td>
+                        <td width="100px" class="text-center">{{row.TotalDocUse}}</td>
+
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 1)"
+                            href=" javascript:void(0)">{{row.TotalModuleTaskNotPlan_Doc}} </a></td>
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 2)"
+                            href=" javascript:void(0)">{{row.TotalParadigmTaskNotPlan_Doc}} </a></td>
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 3)"
+                            href=" javascript:void(0)">{{row.TotalModuleFinish_Doc}} </a></td>
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 4)"
+                            href=" javascript:void(0)">{{row.TotalModuleMakeDesign_Doc}} </a></td>
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 5)"
+                            href=" javascript:void(0)">{{row.TotalParadigmFinish_Doc}} </a></td>
+                        <td width="100px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 6)"
+                            href=" javascript:void(0)">{{row.TotalParadigmMakeDesign_Doc}} </a></td>
+                        <td width="110px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 7)"
+                            href=" javascript:void(0)">{{row.TotalModuleDelay_Doc}} </a></td>
+                        <td width="110px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 8)"
+                            href=" javascript:void(0)">{{row.TotalParadigmDelay_Doc}} </a></td>
+                        <td width="110px" class="text-center"><a (click)="viewDetail(2,row.ProjectId, 9)"
+                            href=" javascript:void(0)">{{row.Total_Task_Doc_Delay}} </a></td>
+
+                        <td width="110px" class="text-center">{{row.TotalDelayDay_Doc_Max}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+        <li [ngbNavItem]="'tab-delivery'">
+          <a ngbNavLink>Chuyển giao</a>
+          <ng-template ngbNavContent>
+            <div class="row" #scrollPlanDelivery>
+              <div class="content-body padding-15">
+                <label class="form-label">Báo cáo tiến độ về mặt chuyển giao</label>
+              </div>
+
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDeliveryHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:1320px">
+                    <thead>
+                      <tr>
+                        <th width="200px" class="text-center">Mã dự án</th>
+                        <th min-width="300px" class="text-center">Tên dự án</th>
+                        <th width="270px" class="text-center">Số lượng chuyển giao đang đúng tiền độ</th>
+                        <th width="250px" class="text-center">Số lượng chuyển giao dự kiến chậm</th>
+                        <th width="350px" class="text-center">Số lượng chuyển giao có hạng mục chưa lập kế hoạch</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:1320px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="200px">{{row.ProjectCode}}</td>
+                        <td min-width="300px">{{row.ProjectName}}</td>
+                        <td width="270px" class="text-right">{{row.TotalProjectTransferDoneBeforPlan}}</td>
+                        <td width="250px" class="text-right">{{row.TotalDelayProjectTransfer}}</td>
+                        <td width="350px" class="text-right">{{row.TotalProjectTransferNotPlan}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+
+            <div class="row" #scrollPlanDeliveryProject>
+              <div class="content-body padding-15">
+                <label class="form-label">Các dự án về mặt chuyển giao</label>
+              </div>
+              <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                <div #scrollPlanDeliveryProjectHeader style="overflow-x: auto;overflow: hidden;">
+                  <table class="table table-bordered mb-0" style="min-width:1300px">
+                    <thead>
+                      <tr>
+                        <th width="200px" class="text-center">Mã dự án</th>
+                        <th min-width="300px" class="text-center">Tên dự án</th>
+                        <th width="150px" class="text-center">% hoàn thành dự án</th>
+                        <th width="250px" class="text-center">Số lượng công việc chưa có kế hoạch</th>
+                        <th width="400px" class="text-center">Công việc đến deadline kickoff nhưng chưa hoàn thành</th>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+                  <table class="table table-bordered" style="min-width:1300px">
+                    <tbody>
+                      <tr *ngFor="let row of listProjectInPlan; let i = index">
+                        <td width="200px">{{row.ProjectCode}}</td>
+                        <td min-width="300px">{{row.ProjectName}}</td>
+                        <td width="150px" class="text-right">{{row.PercentTransfer}}</td>
+                        <td width="250px" class="text-right"><a (click)="viewDetail(3,row.ProjectId, 1)"
+                            href=" javascript:void(0)">{{row.TotalProjectIsNotPlan_Transfer}}</a> </td>
+                        <td width="400px" class="text-right"><a (click)="viewDetail(3,row.ProjectId, 2)"
+                            href=" javascript:void(0)">{{row.Total_Task_Transfer_Delay}}</a></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </perfect-scrollbar>
+              </div>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
+    </div>
+  </section>
+</div>

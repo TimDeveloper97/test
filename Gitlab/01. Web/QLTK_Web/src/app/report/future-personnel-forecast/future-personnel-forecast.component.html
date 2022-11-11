@@ -1,0 +1,127 @@
+<div class="content-wrapper schedule-project">
+  <section class="box">
+    <header class="panel_header panel_header_body">
+      <h2 class="title pull-left div-system">Dự báo nhân sự tương lai</h2>
+      <div class="actions panel_actions pull-right">
+        <i class="box_toggle material-icons">expand_more</i>
+      </div>
+    </header>
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelReport" (change)="search()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+            <button *appUipermission = "['F100001']" class="btn btn-success btn-success-system" (click)="showSelectproject()">
+              <i class="fa fa-plus"></i> &nbsp;Chọn</button>&nbsp;
+            <button class="btn btn-success btn-success-system" (click)="search()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="special-tree-list">
+            <div class="style-tree-list">
+              <dx-tree-list class="sp-1" id="projectProduct" [dataSource]="listProjectProduct" keyExpr="Id"
+                parentIdExpr="ParentId" [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                [expandedRowKeys]="listExplanedId" [columnAutoWidth]="true"
+                (onSelectionChanged)="onSelectionChanged($event)" noDataText=" " [height]="tableHeight">
+                <dxo-selection mode="single"></dxo-selection>
+                <dxo-column-fixing [enabled]="true"></dxo-column-fixing>
+                <dxi-column dataField="NameView" caption="Kế hoạch" width="300px" [allowSorting]="false"
+                  cssClass="employee" fixed="true">
+                </dxi-column>
+                <!-- <div *dxTemplate="let item of 'listTemplateCode'">
+                  <ng-container *ngIf="item.data.DataType && !item.data.PlanId ">
+                    <span aria-hidden="true" class="fas fa-plus item-add" ngbTooltip="Thêm kế hoạch" container="body"
+                      (click)="showCreateUpdate(item.data,item.data.Id)" style="cursor: pointer;"></span>
+                  </ng-container>
+                  <ng-container *ngIf="item.data.PlanId">
+                    <button type="button" class="item-update" ngbTooltip="Cập nhật" container="body"
+                      (click)=" showCreateUpdate(item.data,item.data.PlanId)">
+                      <i class="fa fa-edit"></i></button>
+                    <button type="button" class="item-delete" ngbTooltip="Xóa" container="body"
+                      (click)=" showConfirmDeletePlan(item.data.Id)">
+                      <i class="fas fa-times"></i></button>
+                  </ng-container>
+                  <span class="name "
+                    [ngClass]="{'font-weight-bold':item.data.DataType==0, 'font-weight-bold-sp':item.data.DataType!=0&&!item.data.PlanId}"
+                    style="cursor: pointer; ">{{item.data.NameView}}</span>
+                </div> -->
+                <dxi-column dataField="ResponsiblePersionName" caption="Người phụ trách" width="150px"
+                  [allowSorting]="false" cssClass="plan-header-cell"></dxi-column>
+                <dxi-column dataField="StatusView" caption="Tình trạng công việc" width="110px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="ExecutionTime" caption="Thời gian thực hiện (h)" width="100px"
+                  [allowSorting]="false" cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="StartDateView" caption="Ngày bắt đầu dự kiến" width="100px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="EndDateView" caption="Ngày kết thúc dự kiến" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="RealStartDateView" caption="Ngày bắt đầu thực tế" width="100px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center"></dxi-column>
+                <dxi-column dataField="RealEndDateView" caption="Ngày kết thúc thực tế" width="100px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center"></dxi-column>
+                <dxi-column dataField="ContractName" caption="Tên theo hợp đồng" width="150px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="ContractCode" caption="Mã theo hợp đồng" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="DesignName" caption="Tên theo thiết kế" width="150px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="DesignCode" caption="Mã theo thiết kế" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="DatatypeName" caption="Kiểu dữ liệu" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="IndustryCode" caption="Mã ngành hàng" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="Quantity" caption="Số lượng" width="90px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="PricingModule" caption="Giá tổng hợp TK" width="120px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="ModuleStatusView" caption="Tình trạng module" width="120px"
+                  [allowSorting]="false" cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="DesignStatusView" caption="Tình trạng TK" width="120px" [allowSorting]="false"
+                  cssClass="plan-header-cell">
+                </dxi-column>
+                <dxi-column dataField="KickOffDateView" caption="Ngày kickoff" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="DesignFinishDateView" caption="Ngày hoàn thành TK" width="100px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="MakeFinishDateView" caption="Ngày hoàn thành sản xuất" width="120px"
+                  [allowSorting]="false" cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="DeliveryDateView" caption="Ngày giao hàng" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+                <dxi-column dataField="TransferDateView" caption="Ngày chuyển giao" width="100px" [allowSorting]="false"
+                  cssClass="plan-header-cell" alignment="center">
+                </dxi-column>
+
+              </dx-tree-list>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

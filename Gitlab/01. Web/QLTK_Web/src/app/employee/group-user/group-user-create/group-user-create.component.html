@@ -1,0 +1,138 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group ">
+              <label class="form-label">Tên nhóm
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input [disUipermission]="['F080901','F080902']" type="text" class="form-control"
+                  [(ngModel)]="model.Name" name="GroupUserName" maxlength="200" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">SBU
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <nts-drop-down [disUipermission]="['F080901','F080902','F080906','F080907']" [items]="listSBU"
+                  [columns]="columnNameSBU" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                  [(ngModel)]="model.SBUId" name="SBUId" required (change)="getCbbDepartmentBySBU()">
+                </nts-drop-down>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Phòng ban
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <nts-drop-down [disUipermission]="['F080901','F080902','F080906','F080907']" [items]="listDepartmant"
+                  [columns]="columnNameDepartment" ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                  [(ngModel)]="model.DepartmentId" name="DepartmentId" required>
+                </nts-drop-down>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 radio">
+            <label class="form-label">Tình trạng
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <label class="radio">Còn sử dụng
+              <input [disUipermission]="['F080901','F080902']" type="radio" name="IsDisables"
+                [(ngModel)]="model.IsDisable" value="1">
+              <span class="checkround"></span>
+            </label>
+            <label class="radio">Không sử dụng
+              <input [disUipermission]="['F080901','F080902']" type="radio" name="IsDisables"
+                [(ngModel)]="model.IsDisable" value="0">
+              <span class="checkround"></span>
+            </label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group ">
+              <label class="form-label">Ghi chú
+              </label>
+              <div class="controls">
+                <textarea [radUipermission]="['F080901','F080902']" class="form-control" [(ngModel)]="model.Description"
+                  name="Description" rows="3" maxlength="300"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+        <label class="form-label">Danh sách quyền</label>
+        <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+          <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:350px;">
+            <thead>
+              <tr>
+                <th style="text-align:center; padding-top: 10px" width="50px"><input
+                    [disUipermission]="['F080901','F080902']" type="checkbox" [(ngModel)]="checkeds" name="checkeds"
+                    (change)="selectAllFunction()" style="height:20px; width:20px;">
+                </th>
+                <th min-width="300px" class="text-center">Tên quyền</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height: 500px;">
+          <table class="table table-bordered" style="min-width:350px; ">
+            <tbody>
+              <tr *ngFor="let row of model.ListPermission; let i = index"
+                [ngClass]="{'manage': row.GroupFunctionId ==''}">
+                <td width="50px" class="text-center" style="padding-top: 10px;">
+                  <input [disUipermission]="['F080901','F080902']" type="checkbox" [(ngModel)]="row.Checked"
+                    name="{{'Checked'+i}}" style="height:20px; width:20px;"
+                    (ngModelChange)="checkParent(row.GroupFunctionId,row.Checked,i)">
+                </td>
+                <td min-width="300px">{{row.FunctionName}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F080901','F080902']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F080901']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="model.Id">
+    <button *appUipermission="['F080901','F080902']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndUpdate()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Cập nhật quyền cho nhân viên</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

@@ -1,0 +1,395 @@
+<div class="row">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu về giải pháp
+        </label>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileInput.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileDataSheet" style="display: none;" type="file" id="fileDataSheet" #fileInput
+                (change)="uploadFileSolution($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listFileSolution;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteFileSolution(i)"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu Catalog
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileInputCatalog.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileCatalog" style="display: none;" type="file" id="fileCatalog" #fileInputCatalog
+                (change)="uploadFileCatalog($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listCatalog;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteCatalog(i)" ngbTooltip="Xóa"
+                            container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu đào tạo kỹ thuật
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileTechnicalTraning.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileTechnicalTraning" style="display: none;" type="file" id="fileTechnicalTraning"
+                #fileTechnicalTraning (change)="uploadFileTechnicalTraining($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listTechnicalTraning;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteTechnicalTraining(i)"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu đào tạo Sale
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileSaleTraining.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileSaleTraining" style="display: none;" type="file" id="fileSaleTraining" #fileSaleTraining
+                (change)="uploadFileSaleTraining($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listSaleTraining;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteSaleTraining(i)"
+                            ngbTooltip="Xóa" container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu hướng dẫn sử dụng
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileUserManual.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileUserManual" style="display: none;" type="file" id="fileUserManual" #fileUserManual
+                (change)="uploadFileUserManual($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listUserManual;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteUserManual(i)" ngbTooltip="Xóa"
+                            container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu hướng dẫn sửa lỗi
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileFixError.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileFixError" style="display: none;" type="file" id="fileFixError" #fileFixError
+                (change)="uploadFileFixError($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listFixError;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteFixError(i)" ngbTooltip="Xóa"
+                            container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>
+
+<div class="row mt-3">
+    <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+        <label class="form-label">Tài liệu khác
+        </label>
+    </div>
+
+    <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+        <div style="margin-left: 5px" class="upload-btn-wrapper">
+            <button class="btn btn-success btn-upload" (click)="fileOtherDocument.click();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+            <input name="fileOtherDocument" style="display: none;" type="file" id="fileOtherDocument" #fileOtherDocument
+                (change)="uploadFileOrther($event)" multiple />
+        </div>
+    </div>
+</div>
+<perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+    <table class="table table-bordered" style="min-width:650px">
+        <thead>
+            <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="200px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let row of listOtherDocument;let i=index">
+                <td class="text-center">{{i+1}}</td>
+                <td class="text-center">
+                    <ng-container>
+                        <button class="btn btn-xs btn-danger" (click)="showConfirmOrther(i)" ngbTooltip="Xóa"
+                            container="body">
+                            <span class="fas fa-times" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>&nbsp;
+
+                    <ng-container *ngIf="row.Path">
+                        <button style="background-color: papayawhip" class="btn btn-xs" (click)="downloadFile(row)"
+                            ngbTooltip="Tải" container="body">
+                            <span class="fa fa-download" aria-hidden="true"></span>
+                        </button>
+                    </ng-container>
+                </td>
+                <td>
+                    <span *ngIf="row.Id==null">{{row.name}}</span>
+                    <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                    <span *ngIf="row.Id==null">{{row.size/ (1024*1024)| number: '1.1-3'}} MB</span>
+                    <span *ngIf="row.Id!=null">{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</perfect-scrollbar>

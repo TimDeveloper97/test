@@ -1,0 +1,96 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Ngày làm việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <div class="input-group">
+              <input [disUipermission]="['F080801','F080802']" class="form-control" required placeholder="dd/mm/yyyy"
+                name="StartWorking" [(ngModel)]="startWorking" ngbDatepicker #StartWorking="ngbDatepicker">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="StartWorking.toggle()" name="StartWorking">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Số giờ
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input name="TotalTime" type="number" class="form-control" [(ngModel)]="model.TotalTime" maxlength="9"
+              required>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="form-group ">
+          <label class="form-label">% hoàn thành
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select name="Done" class="form-control" [(ngModel)]="model.Done">
+              <option *ngFor="let item of constants.WorkDiary_Done" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Giờ bắt đầu
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <ngb-timepicker [(ngModel)]="model.StartTime" name="StartTime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Giờ kết thúc
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <ngb-timepicker [(ngModel)]="model.EndTime" name="EndTime"></ngb-timepicker>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Ghi chú
+            <span class='text-danger text-strong'>&nbsp;</span>
+          </label>
+          <div class="controls">
+            <textarea [(ngModel)]="model.Note" name="NoteTime" rows="5" class="form-control"
+              [maxLength]="500"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

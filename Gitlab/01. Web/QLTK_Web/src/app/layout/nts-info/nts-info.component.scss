@@ -1,0 +1,33 @@
+app-nts-info {
+    .nts-info {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        border-top: 1px solid #fff;
+        display: flex;
+
+        img {
+            width: 44px;
+        }
+
+        p {
+            margin: 0;
+            padding-left: 5px;
+            padding-right: 5px;
+            color: #fff;
+            font-size: 11px;
+
+            a {
+                color: #fff;
+            }
+        }
+    }
+
+    .collapseit {
+        .nts-info {
+            p {
+                display: none;
+            }
+        }
+    }
+}

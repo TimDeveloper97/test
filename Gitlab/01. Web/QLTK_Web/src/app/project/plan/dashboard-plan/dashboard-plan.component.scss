@@ -1,0 +1,59 @@
+.dashboard-plan-model .modal-dialog {
+  max-width: 1000px !important;
+  width: 1000px !important;
+}
+.vly {
+  border-left: 1px solid black;
+  height: 20px;
+  margin-top: 10px;
+}
+.hr1 {
+  margin-top: 20px;
+  // height: 10px;
+}
+.divType {
+  position: relative;
+  display: flex;
+  text-align: right;
+}
+.tableColor {
+  background-color: white;
+  color: black;
+}
+.stage {
+  background-color: royalblue;
+  color: white;
+}
+.box {
+  border-top: 20px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 15px solid white;
+  width: 100%;
+}
+.box1 {
+  border-top: 30px solid transparent;
+  border-right: 0px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid royalblue;
+  width: 0;
+}
+.box2 {
+  border-top: 20px solid transparent;
+  border-right: 20px solid transparent;
+  border-bottom: 20px solid transparent;
+  border-left: 20px solid transparent;
+  width: 0;
+}
+
+app-dashboard-plan {
+  .progress {
+    position: relative;
+    border-radius: 50px;
+  }
+  .progress-bar span {
+    position: absolute;
+    padding-left: 10px;
+    color: #000;
+  }
+}

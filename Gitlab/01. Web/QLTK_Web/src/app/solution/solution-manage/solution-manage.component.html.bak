@@ -1,0 +1,375 @@
+<div class='content-wrapper page-content'>
+  <section class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold mt-2">
+          <label class="form-label" style="line-height:25px;">Tổng số
+            <span class="bold text-danger">{{solutionGroupModel.TotalItems}}</span> nhóm giải pháp</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+          <button *appUipermission="['F070001']" type="button" (click)="showCreateUpdate('')"
+            class="btn btn-xs btn-success mt-1" placement="bottom" ngbTooltip="Thêm nhóm giải pháp" container="body">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="employees" [dataSource]="listSolutionGroup" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+            (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listSolutionGroupId" noDataText=" ">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-search-panel [visible]="true" placeholder="Tìm kiếm theo mã nhóm"></dxo-search-panel>
+            <dxi-column dataField="Code" caption="Mã nhóm" [width]="150"></dxi-column>
+            <dxi-column dataField="Name" caption="Tên nhóm giải pháp" [minWidth]="200">
+            </dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="60px">
+              <div *dxTemplate="let item of 'cellEditTemplate'">
+                <ng-container *appUipermission="['F070002']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" container="body" class="item-update"
+                    ngbTooltip="Sửa nhóm" (click)=" showCreateUpdate(item.value)">
+                    <i class="fa fa-edit"></i></button>
+                </ng-container>
+                <ng-container *appUipermission="['F070003']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" container="body" class="item-delete"
+                    ngbTooltip="Xóa nhóm" (click)=" showConfirmDeleteSolutionGroup(item.value)">
+                    <i class="fas fa-times"></i></button>
+                </ng-container>
+
+              </div>
+            </dxi-column>
+          </dx-tree-list>
+          <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+            (onItemClick)="itemClick($event)">
+            <div *dxTemplate="let e of 'item'">
+              <div>
+                <span [ngClass]="e.icon"></span>
+                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+              </div>
+            </div>
+          </dx-context-menu>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="body-right">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Tên giải pháp</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="Namesolution" [(ngModel)]="model.Name"
+                  (change)="searchSolution(solutionGroupId)">
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Mã giải pháp</label>
+              <div class="controls">
+                <input type="text" class="form-control" name="Codesolution" [(ngModel)]="model.Code"
+                  (change)="searchSolution(solutionGroupId)">
+              </div>
+            </div>
+          </div> -->
+
+          <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model"
+              (change)="searchSolution(solutionGroupId)">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-md-12 col-sm-12 col-lg-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchSolution(solutionGroupId)">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear(solutionGroupId)">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-8 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.totalItems}}</span> giải pháp; <span
+              class="bold text-danger">{{model.totalStatus}}</span> giải pháp thành dự án;
+            <span class="bold text-danger">{{model.totalenoughData}}</span> giải pháp đủ dữ liệu; <span
+              class="bold text-danger">{{model.totalisenoughData }}</span> giải pháp không đủ dữ liệu
+          </label>
+        </div>
+        <div class="col-md-4 text-right">
+          <!-- <button class="btn  btn-success" (click)="exportExcel()">
+            <i class="fa fa-file-excel" aria-hidden="true"></i>
+            Xuất excel
+          </button>&nbsp; &nbsp; -->
+          <a *appUipermission="['F070101']" type="button" class="btn btn-success"
+            [routerLink]="['/giai-phap/quan-ly-giai-phap/them-moi-giai-phap']" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </a>
+          &nbsp;
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <!-- <button class="btn btn-success btn-upload" (click)="showImportEmployeePopup();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import nhân viên</button> -->
+              <button *appUipermission="['F070106']" class="btn btn-success btn-file" (click)="exportExcel()">
+                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:3790px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="80px" class="text-center">Xử lý</th>
+                  <th width="200px" class="text-center">Tên giải pháp</th>
+                  <th width="150px" class="text-center">Mã giải pháp</th>
+                  <th width="200px" class="text-center">Nhóm giải pháp</th>
+                  <th width="100px" class="text-center">Mã dự án</th>
+                  <th width="200px" class="text-center">Tên dự án</th>
+                  <th width="120px" class="text-center">Trạng thái</th>
+                  <th width="120px" class="text-center">Số lượng dự án</th>
+                  <th width="200px" class="text-center">Khách hàng</th>
+                  <th width="200px" class="text-center">Khách hàng cuối</th>
+                  <th width="150px" class="text-center">SBU</th>
+                  <th width="150px" class="text-center">Phòng ban</th>
+                  <th width="300px" class="text-center">Người phụ trách kinh doanh</th>
+                  <th width="160px" class="text-center">Người phụ trách chính</th>
+                  <th width="100px" class="text-center">3D giải pháp</th>
+                  <th width="100px" class="text-center">BV tổng 2D</th>
+                  <th width="100px" class="text-center">Bản giải trình</th>
+                  <th width="100px" class="text-center">DMVT</th>
+                  <th width="100px" class="text-center">FCM</th>
+                  <th width="100px" class="text-center">TSKT</th>
+                  <th width="100px" class="text-center">Giá</th>
+                  <th width="100px" class="text-center">Giá bán thực tế chưa VAT</th>
+                  <th width="130px" class="text-center">Ngày bắt đầu</th>
+                  <th width="130px" class="text-center">Ngày hoàn thành</th>
+                  <th min-width="200px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{startIndex+i}}</td>
+                  <td class="text-center">
+                    <!-- <button *appUipermission = "['F070102','F070104']" type="button" (click)='showUpdate(row.Id)' class="btn btn-xs btn-warning" placement="top"
+                      ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp; -->
+                    <a *appUipermission="['F070102','F070104']" type="button"
+                      [routerLink]="['/giai-phap/quan-ly-giai-phap/chinh-sua-giai-phap/'+ row.Id]" class="btn btn-xs btn-warning"
+                      placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </a>&nbsp;
+                    <button *appUipermission="['F070103']" class="btn btn-xs btn-danger"
+                      (click)="showConfirmDeleteSolution(row.Id)" placement="top" ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.SolutionGroupName}}</td>
+                  <td width="300px" colspan="2" style="padding: 0">
+                    <table class="table table-bordered margin-bottom-0" style="min-width:200px"
+                      *ngIf="row.ListProjectSolution.length>0">
+                      <tbody>
+                        <tr *ngFor="let row2 of row.ListProjectSolution; let i = index">
+                          <td width="100px">{{row2.ProjectCode}}</td>
+                          <td width="200px">{{row2.ProjectName}}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </td>
+                  <td>
+                    <span *ngIf="row.Status == 1"> Đang triển khai </span>
+                    <span *ngIf="row.Status == 2"> Tạm dừng</span>
+                    <span *ngIf="row.Status == 3"> Hủy</span>
+                    <span *ngIf="row.Status == 4"> Đã hoàn thành</span>
+                  </td>
+                  <td class="text-center">{{row.ProjectSolution}}</td>
+                  <td>{{row.CustomerName}}</td>
+                  <td>{{row.EndCustomerName}}</td>
+                  <td>{{row.SBUName}}</td>
+                  <td>{{row.DepartmentName}}</td>
+                  <td>{{row.TPAUName}}</td>
+                  <td>{{row.SolutionMakerName}}</td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has3DSolution" type="checkbox" class="custom-control-input" [id]="i"
+                          [name]="'Has3DSolution'+i" disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.Design3DExist" class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.Design3DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.Has2D" type="checkbox" class="custom-control-input" [id]="i" [name]="'Has2D'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.Design2DExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.Design2DExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasExplan" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasExplan'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.ExplanExist" class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.ExplanExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasDMVT" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasDMVT'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.DMVTExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.DMVTExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasFCM" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasFCM'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+
+                      <div *ngIf="row.FCMExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.FCMExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div>
+                      <div class="custom-control custom-checkbox  margin-left-25">
+                        <input [ngModel]="row.HasTSKT" type="checkbox" class="custom-control-input" [id]="i" [name]="'HasTSKT'+i"
+                          disabled>
+                        <label class="custom-control-label" [for]="i"></label>
+                      </div>
+                      <div *ngIf="row.TSTKExist " class="custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+                      </div>
+
+                      <div *ngIf="!row.TSTKExist" class=" custom-control custom-checkbox">
+                        <span style="font-size: 16px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                  <td class="text-right">{{row.SaleNoVat|number:'1.0-0'}}</td>
+                  <td class="text-center">{{row.StartDate|date:'dd/MM/yyyy'}}</td>
+                  <td class="text-center">{{row.FinishDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="11" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchSolution('')" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+            (pageChange)="searchSolution('')" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa dữ liệu</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa dữ liệu</small>
+          <button class="btn btn-view btn-success">
+            <i class="fas fa-plus"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Thêm dữ liệu</small>
+
+          <span style="font-size: 13px; color:grey;"> <i class="fas fa-square"></i></span>
+          &nbsp;
+          <small class="padding-right-20">không cần tài liệu</small>
+
+          <span style="font-size: 13px; color:blue;"> <i class="fas fa-check-square"></i></span>
+          &nbsp;
+          <small class="padding-right-20">Phải có tài liệu</small>
+
+          <span style="font-size: 13px; color:forestgreen;"> <i class="fas fa-check"></i></span>
+          &nbsp;
+          <small class="padding-right-20">Đã có file tài liệu</small>
+
+          <span style="font-size: 13px; color:red;"> <i class="fas fa-exclamation-triangle"></i></span>
+          &nbsp;
+          <small class="padding-right-20">Chưa có file tài liệu</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

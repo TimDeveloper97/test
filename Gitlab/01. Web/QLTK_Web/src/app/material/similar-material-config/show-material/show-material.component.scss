@@ -1,0 +1,13 @@
+.show-material-model .modal-dialog {
+  max-width: 1000px !important;
+  width: 1000px !important;
+}
+
+.controls .fas.fa-cog, .controls .fas.fa-history {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 7px;
+    border: 1px solid #989898;
+    cursor: pointer;
+  }

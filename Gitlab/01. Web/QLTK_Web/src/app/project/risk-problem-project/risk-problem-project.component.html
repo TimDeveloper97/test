@@ -1,0 +1,52 @@
+<div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Báo cáo Tổng thể dự án</h3>
+    <button type="button" class="close" aria-label="Close" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class='content-wrapper'>
+    <section class="box box-head">
+
+        <div class="content-body ">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:500px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th min-width="150px" class="text-center">Hạng mục</th>
+                                    <th width="150px" class="text-center">Rủi ro</th>
+                                    <th width="150px" class="text-center">Giải pháp</th>
+                                    <th width="150px" class="text-center">Kế hoạch thực hiện</th>
+                                    <th width="150px" class="text-center">Tình trạng</th>
+                                   
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of overallProject; let i = index">
+                                    <td width="50px" class="text-center">
+                                        {{i+1}}
+                                    </td>
+                                   
+                                    
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="overallProject.length == 0">
+                                <tr class="bold">
+                                    <td colspan="13" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+</div>

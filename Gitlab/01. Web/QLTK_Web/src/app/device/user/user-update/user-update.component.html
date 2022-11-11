@@ -1,0 +1,12 @@
+<div class="modal-body padding-10">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <ul ngbNav #nav="ngbNav" class="nav-tabs">
+      <li [ngbNavItem]="1">
+        <a ngbNavLink>Thông tin chung</a>
+        <ng-template ngbNavContent>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav"></div>
+  </form>
+</div>

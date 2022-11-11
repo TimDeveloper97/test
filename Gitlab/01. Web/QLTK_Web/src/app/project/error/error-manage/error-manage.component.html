@@ -1,0 +1,204 @@
+<div class='content-wrapper page-content'>
+  <section class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold mt-2">
+          <label class="form-label" style="line-height:25px;">Tổng số
+            <span class="bold text-danger">{{totalItems}}</span> nhóm lỗi</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+          <button type="button" (click)="showCreateUpdateErrorGroup('')" class="btn btn-xs btn-success mt-1"
+            placement="bottom" ngbTooltip="Thêm nhóm lỗi" container="body">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="employees" [dataSource]="listErrorGroup" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+            (onSelectionChanged)="onSelectionChanged($event)" noDataText=" ">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-search-panel [visible]="true" placeholder="Nội dung tìm kiếm"></dxo-search-panel>
+            <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+            <dxi-column dataField="Name" caption="Tên nhóm lỗi" [minWidth]="200">
+            </dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="60px"
+              [allowSearch]="false">
+              <div *dxTemplate="let item of 'cellEditTemplate'">
+                <button *ngIf="item.value != 0" type="button" placement="top" class="item-update" container="body"
+                  ngbTooltip="Sửa nhóm" (click)=" showCreateUpdateErrorGroup(item.value)">
+                  <i class="fa fa-edit"></i></button>
+                <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete" container="body"
+                  ngbTooltip="Xóa nhóm" (click)=" showConfirmDeleteErrorGroup(item.value)">
+                  <i class="fas fa-times"></i></button>
+
+              </div>
+            </dxi-column>
+          </dx-tree-list>
+          <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+            (onItemClick)="itemClick($event)">
+            <div *dxTemplate="let e of 'item'">
+              <div>
+                <span [ngClass]="e.icon"></span>
+                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+              </div>
+            </div>
+          </dx-context-menu>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="body-right">
+    <div class="content-body mb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelExpert"
+              (change)="searchError(errorGroupId)">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchError(errorGroupId)">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear(errorGroupId)">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body mb-0">
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-8 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> lỗi;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+            <span class="bold text-danger">{{model.Status1}}</span> lỗi đang tạo;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+            <span class="bold text-danger">{{model.Status2}}</span> lỗi đang chờ xử lý;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+            <span class="bold text-danger">{{model.Status3}}</span> lỗi đang xử lý;</label>
+          <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+            <span class="bold text-danger">{{model.Status4}}</span> lỗi đã xử lý;</label>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 text-right">
+          <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:2690px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="150px" class="text-center">Xử lý</th>
+                  <th width="120px" class="text-center">Tình trạng</th>
+                  <th width="200px" class="text-center">Nhóm lỗi</th>
+                  <th width="200px" class="text-center">Tên lỗi</th>
+                  <th width="200px" class="text-center">Mã lỗi</th>
+                  <th width="150px" class="text-center">Người phát hiện</th>
+                  <th width="120px" class="text-center">Ngày phát hiện</th>
+                  <th width="200px" class="text-center">Dự án</th>
+                  <th width="200px" class="text-center">Module</th>
+                  <th width="200px" class="text-center">Bộ phận gây lỗi</th>
+                  <th width="150px" class="text-center">Người gây lỗi</th>
+                  <th width="200px" class="text-center">Bộ phận khắc phục</th>
+                  <th width="200px" class="text-center">Công đoạn</th>
+                  <th width="150px" class="text-center">Người khắc phục</th>
+                  <th min-width="200px" class="text-center">Nguyên nhân</th>
+                  <th width="100px" class="text-center">Chi phí</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{startIndex+i}}</td>
+                  <td class="text-center">
+                    <button type="button" class="btn btn-xs btn-warning" (click)="showCreateUpdate(row.Id)"
+                      placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button type="button" class="btn btn-xs btn-info" (click)="showConfirm(row.Status,row.Id)"
+                      placement="top" ngbTooltip="Xác nhận lỗi" container="body">
+                      <span class="far fa-clipboard" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button class="btn btn-xs btn-danger" (click)="showConfirmDeleteError(row.Id,errorGroupId)"
+                      placement="top" ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td class="text-center">
+                    <span *ngIf="row.Status == 1" class="badge badge-info">Đang tạo</span>
+                    <span *ngIf="row.Status == 2" class="badge badge-danger">Đang chờ xử lý</span>
+                    <span *ngIf="row.Status == 3" class="badge badge-warning">Đang xử lý</span>
+                    <span *ngIf="row.Status == 4" class="badge badge-success">Đã xử lý</span>
+                    <span *ngIf="row.Status == 5" class="badge badge-secondary">Đã đóng</span>
+                  </td>
+                  <td>{{row.ErrorGroupCode}}</td>
+                  <td>{{row.Subject}}</td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.AuthorName}}</td>
+                  <td class="text-center">{{row.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.ProjectName}}</td>
+                  <td>{{row.ModuleErrorVisualCode}}</td>
+                  <td>{{row.DepartmentName}}</td>
+                  <td>{{row.ErrorByName}}</td>
+                  <td>{{row.DepartmentProcessName}}</td>
+                  <td>{{row.StageName}}</td>
+                  <td>{{row.FixByName}}</td>
+                  <td>{{row.Note}}</td>
+                  <td class="text-right">{{row.ErrorCost|number:'1.0-0'}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchError('')" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber" (pageChange)="searchError('')"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa lỗi</small>
+          <button class="btn btn-view btn-info">
+            <i class="far fa-clipboard"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xác nhận lỗi</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa lỗi</small>
+          <button class="btn btn-view btn-success">
+            <i class="fas fa-plus"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Thêm nhóm lỗi</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

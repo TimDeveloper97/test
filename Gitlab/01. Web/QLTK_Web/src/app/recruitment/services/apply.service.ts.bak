@@ -1,0 +1,89 @@
+import { Injectable } from '@angular/core';
+import { Configuration } from 'src/app/shared';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApplyService {
+
+  constructor(
+    private http: HttpClient,
+    private config: Configuration,
+  ) { }
+
+  searchApplys(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/search', model, httpOptions);
+    return tr
+  }
+
+  searchApplysByRecruitmentRequestId(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'apply/search-by-recruitment-request-id/'+id, httpOptions);
+    return tr
+  }
+
+  getInterviews(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'apply/get-interviews/' + id, httpOptions);
+    return tr
+  }
+
+  deleteApply(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/delete-apply', model, httpOptions);
+    return tr
+  }
+
+  getApplyById(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'apply/get-apply-by-id/' + id, httpOptions);
+    return tr
+  }
+
+  create(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/create-apply', model, httpOptions);
+    return tr
+  }
+
+  update(id, model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/update-apply/' + id, model, httpOptions);
+    return tr
+  }
+
+  checkCandidate(model: any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/check-candidate', model, httpOptions);
+    return tr
+  }
+
+  getSalaryLevelById(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'apply/get-salarylevel-by-id/' + id, httpOptions);
+    return tr
+  }
+
+  getWorkTypeByRequestId(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'recruitment-request/get-work-type-by-request-id/' + id, httpOptions);
+    return tr
+  }
+
+  createMoreInterviews(model:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/AddMoreInterviews', model, httpOptions);
+    return tr;
+  }
+
+  delete(id:any): Observable<any> {
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/delete/'+ id, httpOptions);
+    return tr
+  }
+
+  updateMoreInterviews(id, model:any): Observable<any>{
+    var tr = this.http.post<any>(this.config.ServerWithApiUrl + 'apply/updateMoreInterviews/' +id, model, httpOptions);
+    return tr;
+  }
+
+  getInforMoreInterviews(id: any): Observable<any> {
+    var tr = this.http.get<any>(this.config.ServerWithApiUrl + 'apply/getInforMoreInterviews/' + id, httpOptions);
+    return tr
+  }
+}

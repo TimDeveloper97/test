@@ -1,0 +1,370 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+    <label class="form-label bold" style="line-height:35px;">BẢNG NHÂN SỰ QUẢN LÝ DỰ ÁN
+    </label>
+  </div>
+  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 paddingcreate text-left">
+    <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+      <span class="bold text-danger">{{listProjectEmployee.length}}</span> nhân sự</label>
+  </div>
+  <div class="col-xl-9 col-md-9 col-sm-9 col-xs-12 text-right mb-1">
+    <button (click)="showClick(Id)" type=" button" class="btn btn-success">
+      <span class="fa fa-plus" aria-hidden="true"></span>
+      Chọn nhân sự
+    </button>
+    &nbsp;
+    <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+      <i class="fa fa-plus"></i>
+      Thêm mới
+    </button>
+    &nbsp;
+    <button (click)="ExportExcel()" type="button" class="btn btn-success" container="body">
+      <i class="fas fa-file-excel" aria-hidden="true"></i> &nbsp;Xuất excel
+    </button>
+  </div>
+</div>
+  <div class="row">
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:2130px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Xử lý</th>
+              <th *ngIf="!permissionService.checkPermission(['F110709'])" width="90px" class="text-center" >Điều chỉnh KH HĐ</th>
+              <th width="70px" class="text-center">Mã NV</th>
+              <th width="100px" class="text-center">Hình ảnh</th>
+              <th width="150px" class="text-center">Tên NV</th>
+              <th width="100px" class="text-center">Số ĐT</th>
+              <th width="220px" class="text-center">Email</th>
+              <th width="200px" class="text-center">Phòng ban</th>
+              <th width="120px" class="text-center">Vị trí trong DA</th>
+              <th width="300px" class="text-center">Mô tả</th>
+              <th width="180px" class="text-center">Thời gian tham gia DA</th>
+              <th width="180px" class="text-center">Phụ cấp</th>
+              <th width="80px" class="text-center">Đánh giá</th>
+              <th width="180px" class="text-center">Trạng thái tham gia DA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listProjectEmployee; let i = index"
+                [ngClass]="{'selected':selectIndex == i}"
+                (click)="loadParam(row.EmployeeId, i);">
+              <td class="text-center">{{StartIndex+i}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-warning"
+                (click)="Update(row, i)" placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button class="btn btn-xs btn-danger"
+                  (click)="showDeleteProjectEmployee(row.Id)" 
+                  placement="top" ngbTooltip="Xóa" container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+              <td *ngIf="!permissionService.checkPermission(['F110709'])" class="text-center"><input type="checkbox" [(ngModel)]="row.Checked" style="height:15px; width:15px;" (change)="setPermissions(row.Id,row.Checked)" ></td>
+              <td class="text-center">{{row.Code}}</td>
+              <td *ngIf="row.ImagePath!=''" class="text-center">
+                <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+               <td *ngIf="row.ImagePath==''" class="text-center">
+                <img src="/assets/img/people.png" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+              <td class="text-center">{{row.EmployeeName}}</td>
+              <td class="text-center">{{row.EmployeePhone}}</td>
+              <td class="text-center">{{row.Email}}</td>
+              <td class="text-center">{{row.DepartmentName}}</td>
+              <td class="text-center">{{row.RoleName}}</td>
+              <td style="display: none;" class="text-center">{{row.RoleId}}</td>
+              <td>
+                <nts-text-more [ntsLimit]="30" [ntsText]="row.JobDescription"></nts-text-more>
+              </td>
+              <td class="text-center">{{row.StartTime|date:'dd/MM/yyyy'}} - {{row.EndTime|date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">
+                <span  class="badge badge-pill badge-success">{{row.Subsidy|number}}</span>
+                <span *ngIf="row.SubsidyEndTime|date:'dd/MM/yyyy' < row.TimeNow|date:'dd/MM/yyyy' && row.TimeNow|date:'dd/MM/yyyy' < row.EndTime|date:'dd/MM/yyyy'"><br></span> 
+                <span class="badge badge-pill badge-warning" *ngIf="row.SubsidyEndTime|date:'dd/MM/yyyy' < row.TimeNow|date:'dd/MM/yyyy' && row.TimeNow|date:'dd/MM/yyyy' < row.EndTime|date:'dd/MM/yyyy'">Cần review</span>
+                <span *ngIf="row.SubsidyStartTime && row.SubsidyEndTime"><br>{{row.SubsidyStartTime|date:'dd/MM/yyyy'}} - {{row.SubsidyEndTime|date:'dd/MM/yyyy'}}</span>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-danger" *ngIf="row.Evaluate=='1'">Xuất sắc</span>
+                <span class="badge badge-pill badge-success" *ngIf="row.Evaluate=='2'">Tốt</span>
+                <span class="badge badge-pill badge-warning" *ngIf="row.Evaluate=='3'">Khá</span>
+                <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='4'">Trung bình</span>
+                <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='5'">Chưa có đánh giá</span>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-success" *ngIf="row.Status == 1">ON</span>
+                <span class="badge badge-pill badge-default" *ngIf="row.Status == 0">OFF</span>
+              </td>
+             
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listProjectEmployee.length == 0">
+            <tr class="bold">
+              <td colspan="5" min-width="300px" class="text-center" style="height: 50px; font-size: 20px;">
+                Không có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+
+    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+        <span class="bold text-danger">{{listProjectExternalEmployee.length}}</span> nhân sự ngoài</label>
+    </div>
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:1660px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="100px" class="text-center">Xử lý</th>
+              <th width="100px" class="text-center">Hình ảnh</th>
+              <th width="150px" class="text-center">Tên NVN</th>
+              <th width="100px" class="text-center">Số ĐT</th>
+              <th width="220px" class="text-center">Email</th>
+              <th width="120px" class="text-center">Vị trí trong DA</th>
+              <th width="300px" class="text-center">Mô tả</th>
+              <th width="180px" class="text-center">Thời gian tham gia DA</th>
+              <th width="180px" class="text-center">Phụ cấp</th>
+              <th width="80px" class="text-center">Đánh giá</th>
+              <th width="180px" class="text-center">Trạng thái tham gia DA</th>
+             
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listProjectExternalEmployee; let i = index"
+                [ngClass]="{'selected':selectIndexEx == i}"
+                (click)="loadParamEx(row.ExternalEmployeeId, i);">
+              <td class="text-center">{{StartIndex+i}}</td>
+              <td class="text-center">
+                <button type="button" class="btn btn-xs btn-warning"
+                (click)="Update(row, i)" placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button class="btn btn-xs btn-danger"
+                (click)="showDeleteProjectEmployee(row.Id)" 
+                placement="top" ngbTooltip="Xóa" container="body">
+                <span class="fas fa-times" aria-hidden="true"></span>
+              </button>
+              </td>
+              <td *ngIf="row.ImagePath!=''"  class="text-center">
+                <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+               <td *ngIf="row.ImagePath==''" class="text-center">
+                <img src="/assets/img/people.png" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+              <td class="text-center">{{row.EmployeeName}}</td>
+              <td class="text-center">{{row.EmployeePhone}}</td>
+              <td class="text-center">{{row.Email}}</td>
+              <td class="text-center">{{row.RoleName}}</td>
+              <td style="display: none;" class="text-center">{{row.RoleId}}</td>
+              <td>
+                <nts-text-more [ntsLimit]="30" [ntsText]="row.JobDescription"></nts-text-more>
+                <!-- {{row.JobDescription}} -->
+              </td>
+              <td class="text-center">{{row.StartTime|date:'dd/MM/yyyy'}} - {{row.EndTime|date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-success">{{row.Subsidy|number}}</span>
+                <span *ngIf="row.SubsidyEndTime < row.TimeNow && row.TimeNow < row.EndTime"><br></span> 
+                <span class="badge badge-pill badge-warning" *ngIf="row.SubsidyEndTime < row.TimeNow && row.TimeNow < row.EndTime">Cần review</span>
+                <span *ngIf="row.SubsidyStartTime && row.SubsidyEndTime"><br>{{row.SubsidyStartTime|date:'dd/MM/yyyy'}} - {{row.SubsidyEndTime|date:'dd/MM/yyyy'}}</span>
+              <td class="text-center">
+                <span class="badge badge-pill badge-danger" *ngIf="row.Evaluate=='1'">Xuất sắc</span>
+                <span class="badge badge-pill badge-success" *ngIf="row.Evaluate=='2'">Tốt</span>
+                <span class="badge badge-pill badge-warning" *ngIf="row.Evaluate=='3'">Khá</span>
+                <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='4'">Trung bình</span>
+                <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='5'">Chưa có đánh giá</span>
+              </td>
+              <td class="text-center">
+                <span class="badge badge-pill badge-success" *ngIf="row.Status == 1">ON</span>
+                <span class="badge badge-pill badge-default" *ngIf="row.Status == 0">OFF</span>
+              </td>
+              
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listProjectExternalEmployee.length == 0">
+            <tr class="bold">
+              <td colspan="5" min-width="100px" class="text-center" style="height: 50px; font-size: 20px;">
+                Không có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+    <br>
+    <div *ngIf="model.Type==''" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">0</span> dự án </label>
+    </div>
+
+    <div *ngIf="model.Type==1" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listProByEmployeeId.length}}</span> dự án - {{EmployeeCode}} - {{EmployeeName}}</label>
+    </div>
+
+    <div *ngIf="model.Type==2" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listProByEmployeeId.length}}</span> dự án - {{ExternalEmployeeName}}</label>
+    </div>
+
+    <div *ngIf="model.Type==3" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listProByEmployeeId.length}}</span> dự án - {{EmployeeCodeImp}} - {{EmployeeNameImp}}</label>
+    </div>
+
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:1520px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="70px" class="text-center">Mã DA</th>
+              <th width="150px" class="text-center">Tên DA</th>
+              <th width="100px" class="text-center">Trạng thái DA</th>
+              <th width="150px" class="text-center">Vị trí trong DA</th>
+              <th width="150px" class="text-center">Trạng thái tham gia DA</th>
+              <th width="300px" class="text-center">Mô tả công việc</th>
+              <th width="180px" class="text-center">Thời gian tham gia DA</th>
+              <th width="80px" class="text-center">Đánh giá</th>
+            </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let row of listProByEmployeeId; let i = index">
+                <td class="text-center">{{StartIndex+i}}</td>
+                <td class="text-center">{{row.Code}}</td>
+                <td class="text-center">{{row.ProjectName}}</td>
+                <td class="text-center">
+                  <nts-status-badge [items]="constants.ProjectStatus" [value]="row.StatusProject"></nts-status-badge>
+                </td>
+                
+                <td class="text-center">{{row.RoleName}}</td>
+                <td class="text-center">
+                  <span class="badge badge-pill badge-success" *ngIf="row.Status == 1">ON</span>
+                  <span class="badge badge-pill badge-default" *ngIf="row.Status == 0">OFF</span>
+                </td>
+                <td>
+                  <nts-text-more [ntsLimit]="30" [ntsText]="row.JobDescription"></nts-text-more>
+                  <!-- {{row.JobDescription}} -->
+                </td>
+                <td class="text-center">{{row.StartTime|date:'dd/MM/yyyy'}} - {{row.EndTime|date:'dd/MM/yyyy'}}</td>
+                <td class="text-center">
+                  <span class="badge badge-pill badge-danger" *ngIf="row.Evaluate=='1'">Xuất sắc</span>
+                  <span class="badge badge-pill badge-success" *ngIf="row.Evaluate=='2'">Tốt</span>
+                  <span class="badge badge-pill badge-warning" *ngIf="row.Evaluate=='3'">Khá</span>
+                  <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='4'">Trung bình</span>
+                  <span class="badge badge-pill badge-primary" *ngIf="row.Evaluate=='5'">Chưa có đánh giá</span>
+                </td>
+              </tr>
+          </tbody>
+        </table>
+      </perfect-scrollbar>
+    </div>
+    <br>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+      <label class="form-label bold" style="line-height:35px;">BẢNG NHÂN SỰ THỰC HIỆN DỰ ÁN</label>
+    </div>
+    <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 paddingcreate text-left">
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;Tổng số
+        <span class="bold text-danger">{{listProjectImplementation.length}}</span> nhân sự thực hiện kế hoạch dự án | <span class="bold text-danger">{{TotalLateEmployee}}</span> Nhân sự đang bị trễ</label>
+    </div>
+    <div class="col-xl-4 col-md-4 col-sm-4 col-xs-12 text-right mb-1">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-lg-12 text-right">
+            <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="module" (change)="SearchEmployee()">
+            </nts-search-bar>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+      <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+        <table class="table table-bordered" style="min-width:1580px">
+          <thead>
+            <tr>
+              <th width="50px" class="text-center">STT</th>
+              <th width="70px" class="text-center">Mã NV</th>
+              <th width="100px" class="text-center">Hình ảnh</th>
+              <th width="150px" class="text-center">Tên NV</th>
+              <th width="100px" class="text-center">Số ĐT</th>
+              <th width="150px" class="text-center">Email</th>
+              <th width="200px" class="text-center">Phòng ban</th>
+              <th width="120px" class="text-center">Vị trí trong DA</th>
+              <th width="200px" class="text-center">Mô tả</th>
+              <th width="60px" class="text-center">SL CV trễ</th>
+              <th width="60px" class="text-center">TG trễ max</th>
+              <th width="60px" class="text-center">SL SP trễ</th>
+              <th width="100px" class="text-center">Tổng chi phí các SP</th>
+              <th width="100px" class="text-center">Số CV đang TH</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of listProjectImplementation; let i = index"
+                [ngClass]="{'selected':selectIndexImp == i}">
+              <td class="text-center">{{StartIndex+i}}</td>
+              <td class="text-center">{{row.EmployeeCode}}</td>
+              <td *ngIf="row.ImagePath!=''" class="text-center">
+                <img [src]="config.ServerFileApi+row.ImagePath" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+               <td *ngIf="row.ImagePath==''" class="text-center">
+                <img src="/assets/img/people.png" style="border-radius: 50%; width: 65px; height: 65px;">
+              </td>
+              <td class="text-center">{{row.EmployeeName}}</td>
+              <td class="text-center">{{row.EmployeePhone}}</td>
+              <td class="text-center">{{row.Email}}</td>
+              <td class="text-center">{{row.DepartmentName}}</td>
+              <td class="text-center">{{row.RoleName}}</td>
+              <td style="display: none;" class="text-center">{{row.RoleId}}</td>
+              <td>
+                <nts-text-more [ntsLimit]="30" [ntsText]="row.JobDescription"></nts-text-more>
+              </td>
+              <td class="text-center">{{row.LatePlan}}</td>
+              <td class="text-center">{{row.MaxLateTime}}</td>
+              <td class="text-center">{{row.LateProduct}}</td>
+              <td class="text-center">{{row.TotalProduct|number:'1.0-0'}}</td>
+              <td class="text-center">{{row.SumInProgressPlan}}</td>
+            </tr>
+          </tbody>
+          <tfoot *ngIf="listProjectImplementation.length == 0">
+            <tr class="bold">
+              <td colspan="5" min-width="300px" class="text-center" style="height: 50px; font-size: 20px;">
+                Không có dữ liệu</td>
+            </tr>
+          </tfoot>
+        </table>
+      </perfect-scrollbar>
+    </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+        <div class="controls ">
+          <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+            (ngModelChange)="SearchEmployee()" name="pageSize">
+            <option *ngFor="let item of constants.ListPageSize" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+        <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+          (pageChange)="SearchEmployee()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+          [boundaryLinks]="true"></ngb-pagination>
+      </div>
+
+     
+  </div> 
+<hr />
+<div class="row">
+  <div class="col-md-12">
+    <button type="button" class="btn btn-view btn-warning">
+      <span class="fa fa-edit" aria-hidden="true"></span>
+    </button>&nbsp;
+    <small class="padding-right-20">Cập nhật nhân sự dự án</small>
+    <button class="btn btn-view btn-danger">
+      <i class="fas fa-times"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Xóa</small>
+  </div>
+</div>

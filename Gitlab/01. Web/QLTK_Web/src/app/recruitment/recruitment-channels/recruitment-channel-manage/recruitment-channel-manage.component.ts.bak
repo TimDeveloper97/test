@@ -1,0 +1,130 @@
+import { Component, OnInit } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppSetting, Constants, MessageService, DateUtils } from 'src/app/shared';
+import { RecruitmentChannelService } from '../../services/recruitment-channel.service';
+import { RecruitmentChannelCreateComponent } from '../recruitment-channel-create/recruitment-channel-create.component';
+
+@Component({
+  selector: 'app-recruitment-channel-manage',
+  templateUrl: './recruitment-channel-manage.component.html',
+  styleUrls: ['./recruitment-channel-manage.component.scss']
+})
+export class RecruitmentChannelManageComponent implements OnInit {
+
+  constructor(
+    public appSetting: AppSetting,
+    private messageService: MessageService,
+    private modalService: NgbModal,
+    private recruitmentChannelService: RecruitmentChannelService,
+    public constant: Constants,
+    public dateUtils: DateUtils,
+  ) { }
+
+  searchOptions: any = {
+    FieldContentName: 'Name',
+    Placeholder: 'Tìm kiếm theo tên',
+    Items: [
+      {
+        Name: 'Tình trạng',
+        FieldName: 'Status',
+        Placeholder: 'Tình trạng ',
+        Type: 'select',
+        Data: this.constant.ChannelStatus,
+        DisplayName: 'Name',
+        ValueName: 'Id'
+      },
+      {
+        Name: 'Thời gian bắt đầu',
+        FieldNameTo: 'DateToV',
+        FieldNameFrom: 'DateFromV',
+        Type: 'date'
+      },
+    ]
+  };
+
+  searchModel: any = {
+    PageSize: 10,
+    TotalItems: 0,
+    PageNumber: 1,
+    OrderBy: 'Name',
+    OrderType: true,
+
+    Name: '',
+    Status: null
+  };
+
+  reasonsEndWorking: any[] = [];
+  startIndex = 0;
+
+  ngOnInit(): void {
+    this.appSetting.PageTitle = "Quản lý kênh tuyển dụng";
+    this.search();
+  }
+
+  search() {
+    if (this.searchModel.DateFromV) {
+      this.searchModel.DateFrom = this.dateUtils.convertObjectToDate(this.searchModel.DateFromV);
+    }
+    if (this.searchModel.DateToV) {
+      this.searchModel.DateTo = this.dateUtils.convertObjectToDate(this.searchModel.DateToV)
+    }
+    this.recruitmentChannelService.search(this.searchModel).subscribe((data: any) => {
+      if (data.ListResult) {
+        this.startIndex = ((this.searchModel.PageNumber - 1) * this.searchModel.PageSize + 1);
+        this.reasonsEndWorking = data.ListResult;
+        this.searchModel.TotalItems = data.TotalItem;
+      }
+    },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  showConfirmDelete(Id: string) {
+    this.messageService.showConfirm("Bạn có chắc muốn xoá Kênh tuyển dụng này không?").then(
+      data => {
+        this.delete(Id);
+      },
+      error => {
+
+      }
+    );
+  }
+
+  delete(Id: string) {
+    this.recruitmentChannelService.delete({ Id: Id }).subscribe(
+      data => {
+        this.search();
+        this.messageService.showSuccess('Xóa Kênh tuyển dụng thành công!');
+      },
+      error => {
+        this.messageService.showError(error);
+      });
+  }
+
+  showCreateUpdate(Id: string) {
+    let activeModal = this.modalService.open(RecruitmentChannelCreateComponent, { container: 'body', windowClass: 'recruitment-channel-create-model', backdrop: 'static' })
+    activeModal.componentInstance.id = Id;
+    activeModal.result.then((result) => {
+      if (result) {
+        this.search();
+      }
+    }, (reason) => {
+    });
+  }
+
+  clear() {
+    this.searchModel = {
+      PageSize: 10,
+      TotalItems: 0,
+      PageNumber: 1,
+      OrderBy: 'Name',
+      OrderType: true,
+
+      Name: '',
+      Status: null,
+    };
+    this.search();
+  }
+
+}

@@ -1,0 +1,122 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Danh sách công việc</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:2310px">
+            <thead>
+              <tr>
+                <th rowspan="2" width="50px" class="text-center">STT</th>
+                <th rowspan="2" width="100px" class="text-center">Mã dự án</th>
+                <th rowspan="2" width="200px" class="text-center">Tên dự án</th>
+                <th rowspan="2" width="100px" class="text-center">Mã module</th>
+                <th rowspan="2" width="200px" class="text-center">Tên module</th>
+                <th rowspan="2" width="100px" class="text-center">Mã thiết bị</th>
+                <th rowspan="2" width="200px" class="text-center">Tên thiết bị</th>
+                <th rowspan="2" width="100px" class="text-center">Mã vấn đề</th>
+                <th rowspan="2" width="250px" class="text-center">Tên vấn đề</th>
+                <th rowspan="2" width="150px" class="text-center">Bộ phận khắc phục</th>
+                <th rowspan="2" width="150px" class="text-center">Người khắc phục</th>
+                <th rowspan="2" width="300px" class="text-center">Giải pháp</th>
+                <th rowspan="2" width="150px" class="text-center">Ngày bắt đầu</th>
+                <th rowspan="2" width="150px" class="text-center">Ngày kết thúc</th>
+                <th rowspan="2" width="100px" class="text-center">Ngày quá hạn</th>
+                <th rowspan="2" width="100px" class="text-center">Số lần điều chỉnh</th>
+                <th colspan="3" class="text-center" *ngFor="let x of listDayChange;" width="450px">{{x.Title}}</th>
+
+                <!-- <th width="270px" colspan="3" class="text-center">Ngày điều chỉnh lần 1</th> -->
+                <!-- <th width="270px" colspan="5" class="text-center" *ngFor="let row of departments;">{{row}}</th> -->
+              </tr>
+              <tr>
+                <ng-container *ngFor="let x of listDayChange;">
+                  <th width="150px" class="text-center">Ngày bắt đầu</th>
+                  <th width="150px" class="text-center">Ngày kết thúc</th>
+                  <th width="150px" class="text-center">Nguyên nhân</th>
+                </ng-container>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of errorWorks; let i = index">
+                <td width="50px" class="text-center">{{statIndex+i}}</td>
+                <td width="100px" class="text-center">{{row.ProjectCode}}</td>
+                <td width="200px" class="text-center">{{row.ProjectName}}</td>
+                <td width="100px" class="text-center">{{row.ModuleCode}}</td>
+                <td width="200px" class="text-center">{{row.ModuleName}}</td>
+                <td width="100px" class="text-center">{{row.ProductCode}}</td>
+                <td width="200px" class="text-center">{{row.ProductName}}</td>
+                <td width="100px" class="text-center">
+                  <a [disUipermission]="['F060402','F060403','F060406']" type="button"
+                    [routerLink]="['/du-an/quan-ly-van-de/xac-nhan-van-de/'+ row.ErrorId]"
+                    target="_blank">{{row.ErrorCode}}</a>
+                </td>
+                <td width="250px" class="text-center">{{row.Subject}}</td>
+                <td width="150px" class="text-center">{{row.DepartmentName}}</td>
+                <td width="150px" class="text-center">{{row.FixByName}}</td>
+                <td width="300px" class="text-center">{{row.Solution}}</td>
+                <td width="150px" class="text-center">{{row.DateFrom|date:'dd/MM/yyyy'}}</td>
+                <td width="150px" class="text-center">{{row.DateTo|date:'dd/MM/yyyy'}}</td>
+                <td width="100px" class="text-center">{{row.Deadline}}</td>
+                <td width="100px" class="text-center">{{row.TotalChange}}</td>
+                <ng-container *ngFor="let i of row.ListChange;">
+                  <td *ngIf="!i.Id" width="150px" class="text-center">
+                    {{i.NewStartDate|date:'dd/MM/yyyy'}}
+                  </td>
+                  <td *ngIf="!i.Id" width="150px" class="text-center">
+                    {{i.NewFinishDate|date:'dd/MM/yyyy'}}
+                  </td>
+                  <td *ngIf="i.Id" width="150px" class="text-center">-</td>
+                  <td *ngIf="i.Id" width="150px" class="text-center">-</td>
+                  <td width="150px" class="text-center">
+                    {{i.Reason}}
+                  </td>
+                </ng-container>
+              </tr>
+            </tbody>
+            <tfoot *ngIf="errorWorks.length == 0">
+              <tr class="bold">
+                <td colspan="12" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                  có dữ liệu</td>
+              </tr>
+            </tfoot>
+          </table>
+        </perfect-scrollbar>
+
+
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+        <div class="controls ">
+          <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+            name="pageSize">
+            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+          </select>
+        </div>
+        <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+        <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+          [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+
+  <div class="col-lg-8 col-md-8 col-sm-12 col-xl-8 text-right">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+
+  </div>
+</div>

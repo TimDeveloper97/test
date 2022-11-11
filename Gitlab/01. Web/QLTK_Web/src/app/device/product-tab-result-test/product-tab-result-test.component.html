@@ -1,0 +1,94 @@
+<div class="body-right">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <p class="text-uppercase" style="white-space: nowrap"><b>Tài liệu kết quả thử nghiệm</b> |&nbsp;
+          <span class="badge badge-pill badge-success" *ngIf="IsTestResult == true">Đã test</span>
+          <span class="badge badge-pill badge-danger" *ngIf="IsTestResult == false">Chưa test </span>
+        </p>
+
+        <!-- <span *ngIf="IsTestResult == else">Chưa cấu hình </span> -->
+      </div>
+      <div class="col-lg-8 col-md-8 col-sm-12 text-right">
+        <ng-container *ngIf="!IsTestResult; else elseTemplate">
+          <button type="button" (click)='Config()' class="btn btn-success" container="body">Đã test
+            <!-- <span class="fas fa-lock" aria-hidden="true"></span> -->
+          </button>&nbsp;
+        </ng-container>
+        <ng-template #elseTemplate>
+          <button type="button" (click)='NotConfig()' class="btn btn-danger" container="body">Hủy đã test
+            <!-- <span class="fas fa-lock-open" aria-hidden="true"></span> -->
+          </button>&nbsp;
+        </ng-template>
+        <button *appUipermission="['F040720']" class="btn btn-success btn-upload" (click)="fileInput.click();">
+          <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>&nbsp;
+        <input name="filepractice" style="display: none;" type="file" id="fileInput" #fileInput
+          (change)="uploadFileTestAttach($event)" multiple />
+        <button class="btn btn-default btn-default-system" (click)="getListFileTestAttachByProductId()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:1050px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="100px" class="text-center">Xử lý</th>
+                <th min-width="250px" class="text-center">Tên file</th>
+                <th width="100px" class="text-center">Dung lượng</th>
+                <th width="150px" class="text-center">Ngày tải</th>
+                <th width="150px" class="text-center">Người tải</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of modelProduct.ListFileTestAttach; let i = index">
+                <td class="text-center">{{1+i}}</td>
+                <td class="text-center">
+                  <button *appUipermission="['F040722']" type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                    (click)="showConfirmDeleteFileTestAttach(i)">
+                    <span class="fas fa-times" aria-hidden="true"></span>
+                  </button>&nbsp;
+                  <ng-container *appUipermission="['F040721']">
+                    <button *ngIf="row.Id!=null && row.Id!=''" type="button" (click)='downloadTestAttach(row)'
+                      class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Tải và lưu" container="body"
+                      style="background-color: papayawhip;">
+                      <span class="fas fa-download" aria-hidden="true" style="color: black"></span>
+                    </button>
+                  </ng-container>
+                </td>
+                <td> <span>{{row.FileName}}</span>
+                </td>
+                <td class="text-center">
+                  <span>{{row.FileSize / (1024*1024)| number: '1.1-3'}} MB</span></td>
+
+                <td width="150px">
+                  <span>{{row.CreateDate |date:'dd/MM/yyyy'}}</span>
+
+                </td>
+                <td>
+                  <span *ngIf="row.Id!=null && row.CreateByName != undefined ">{{row.CreateByName}}</span>
+                  <span *ngIf="row.Id=='' || row.Id == null">{{userName}}</span>
+                  <!--  <span *ngIf="row.Id!=null && row.CreateByName == undefined">{{userName}}</span> -->
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </form>
+  <div class="text-right">
+    <button *appUipermission="['F040720']" type="button" class="btn btn-success" (click)="showConfirmUploadVersion()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu</span>
+    </button>&nbsp;
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

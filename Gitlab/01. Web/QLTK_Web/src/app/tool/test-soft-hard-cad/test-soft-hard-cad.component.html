@@ -1,0 +1,109 @@
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12text-right">
+    <!-- <button class="btn btn-success btn-success-system" (click)="downloadAllCADHard()">
+      <i class=""></i> &nbsp;Download file CAD cứng</button>&nbsp; &nbsp; -->
+    <!-- <button class="btn btn-success btn-success-system" (click)="checkSoftHardCAD()">
+      <i></i> &nbsp;Kiểm tra</button> -->
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <label class="form-label">Nội dung bản mềm
+    </label>
+
+    <div #scrollHeaderOne style="height: auto; width:100%;overflow: hidden">
+      <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:470px;">
+        <thead>
+          <tr>
+            <th width="70px" class="text-center">STT</th>
+            <th min-width="400px" class="text-center ">Tên bản mềm</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <perfect-scrollbar id="SoftCADId" [config]="constant.ScrollConfig" style="height: 500px;">
+      <table class="table table-bordered" style="min-width:470px; ">
+        <!-- <thead> -->
+        <!-- <tr>
+            <th width="70px" class="text-center">STT</th>
+            <th width="400px" class="text-center ">Tên bản mềm</th>
+          </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let row of listSoftCAD; let i = index">
+            <ng-container *ngIf="row.IsExist">
+              <td width="70px" class="text-center">{{i+1}}</td>
+              <td min-width="400px">{{row.FileName}}</td>
+            </ng-container>
+
+            <ng-container *ngIf="!row.IsExist">
+              <td width="70px" class="text-center" style="background-color: yellow;">{{i+1}}</td>
+              <td min-width="400px" style="background-color: yellow;">{{row.FileName}}</td>
+            </ng-container>
+
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#SoftCADId"
+      (onItemClick)="itemClickSoftCAD($event)">
+      <div *dxTemplate="let e of 'item'">
+        <div>
+          <span [ngClass]="e.icon"></span>
+          <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+        </div>
+      </div>
+    </dx-context-menu>
+  </div>
+
+  <div class="col-lg-6 col-md-6 col-sm-12">
+    <label class="form-label">Nội dung bản cứng
+    </label>
+    <div #scrollHeaderTwo style="height: auto; width:100%;overflow: hidden">
+      <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:470px;">
+        <thead>
+          <tr>
+            <th width="70px" class="text-center">STT</th>
+            <th min-width="400px" class="text-center ">Tên bản cứng</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+
+    <perfect-scrollbar id="HardCADId" [config]="constant.ScrollConfig" style="height: 500px;">
+      <table class="table table-bordered" style="min-width:470px; ">
+        <!-- <thead>
+          <tr>
+            <th width="70px" class="text-center">STT</th>
+            <th width="400px" class="text-center ">Tên bản cứng</th>
+          </tr>
+        </thead> -->
+        <tbody>
+          <tr *ngFor="let row of listHardCAD; let i = index">
+            <ng-container *ngIf="row.IsExist">
+              <td width="70px" class="text-center">{{i+1}}</td>
+              <td min-width="400px">{{row.FileName}}</td>
+            </ng-container>
+
+            <ng-container *ngIf="!row.IsExist">
+              <td width="70px" class="text-center" style="background-color: yellow;">{{i+1}}</td>
+              <td min-width="400px" style="background-color: yellow;">{{row.FileName}}</td>
+            </ng-container>
+
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+    <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#HardCADId"
+      (onItemClick)="itemClickHardCAD($event)">
+      <div *dxTemplate="let e of 'item'">
+        <div>
+          <span [ngClass]="e.icon"></span>
+          <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+        </div>
+      </div>
+    </dx-context-menu>
+  </div>
+</div>

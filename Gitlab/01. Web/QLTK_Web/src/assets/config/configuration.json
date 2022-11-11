@@ -1,0 +1,11 @@
+{
+    "ServerApi": "http://localhost:2031/",
+    "ServerWithApiUrl": "http://localhost:2031/api/",
+    "ClientId": "QLTK_Web",
+    "ClientSecret": "5YV7M1r981yoGhELyB84aC+KiYksxZf1OY3++C1CtRM=",
+    "ServerFileApiUrl": "http://localhost:2032/api/",
+    "ServerFileApi": "http://localhost:2032/",
+    "Version": "0.0.0.1",
+    "SVNVersion": "1506",
+    "BuildDate": "23/08/2019"
+}

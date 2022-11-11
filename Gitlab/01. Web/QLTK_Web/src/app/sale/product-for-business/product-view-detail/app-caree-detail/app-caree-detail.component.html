@@ -1,0 +1,72 @@
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-left">
+            <h4>Danh sách ứng dụng</h4>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listApp.length}}</span> ứng dụng</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:360px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="150px" class="text-center">Tên ứng dụng</th>
+                            <th min-width="150px" class="text-center">Mô tả</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of listApp; let i = index">
+                            <td class="text-center" width="50px">{{i+1}}</td>
+                            <td width="150px">{{row.Name}}</td>
+                            <td min-width="150px">{{row.Description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-6 text-left">
+            <h4>Danh sách ngành nghề</h4>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{listCaree.length}}</span> ngành nghề</label>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                <table class="table table-bordered table-fixed table-hover" style="min-width:860px">
+                    <thead>
+                        <tr>
+                            <th width="50px" class="text-center">STT</th>
+                            <th width="150px" class="text-center">Mã ngành nghề</th>
+                            <th min-width="150px" class="text-center">Tên ngành nghề</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let row of listCaree; let i = index">
+                            <td class="text-center" width="50px">{{i+1}}</td>
+                            <td width="150px">{{row.Code}}</td>
+                            <td min-width="150px">{{row.Name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </perfect-scrollbar>
+        </div>
+    </div>
+
+</form>

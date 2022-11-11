@@ -1,0 +1,102 @@
+<div class='content-wrapper page-content'>
+    <section class="body-right">
+        <div class="content-body pb-0">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> Nội dung khảo sát</label>
+                </div>
+                <!-- <div class="col-md-6 text-right">
+                    <button type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                </div> -->
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:800px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="80px" class="text-center">Xử lý</th>
+                                    <th min-width="300px" class="text-center">Nội dung khảo sát</th>
+                                    <th width="300px" class="text-center">kết quả</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listRequest; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button *appUipermission="['F060201','F060202']" type="button"
+                                            (click)='showCreateUpdate(row.Id,i)' class="btn btn-xs btn-warning"
+                                            placement="bottom" ngbTooltip="Cập nhật" container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)"
+                                            placement="top" ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td>{{row.Content}}</td>
+                                    <td>{{row.Result}}</td>
+
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listRequest.length == 0">
+                                <tr class="bold">
+                                    <td colspan="17" min-width="2590px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có
+                                        dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa nội dung khảo sát</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa Nội dung khảo sát</small>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <!-- <section class="search-left">
+        <div class="content-body">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <dx-tree-list id="user" [dataSource]="listUser" keyExpr="Id" parentIdExpr="ParentId"
+                        [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+                        (onSelectionChanged)="onSelectionChanged($event)" noDataText=" ">
+                        <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                        <dxi-column dataField="Name" caption="Tên" [minWidth]="200">
+                        </dxi-column>
+                        <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="60px">
+                            <div *dxTemplate="let item of 'cellEditTemplate'">
+                                <ng-container>
+                                    <button *ngIf="item.value != 0" type="button" class="item-delete"
+                                        ngbTooltip="Xóa nhóm" container="body"
+                                        (click)=" showConfirmDeleteFunctionGroups(item.value)">
+                                        <i class="fas fa-times"></i></button>
+                                </ng-container>
+                            </div>
+                        </dxi-column>
+                    </dx-tree-list>
+                </div>
+            </div>
+        </div>
+    </section> -->
+</div>

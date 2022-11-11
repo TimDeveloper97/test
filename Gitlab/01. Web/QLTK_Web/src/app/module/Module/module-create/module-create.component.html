@@ -1,0 +1,413 @@
+<div class="content-wrapper app-module-create padding-top-10">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin chung</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8 col-xl-8 col-sm-12">
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tên module
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F020101']" name="modelModuleName" type="text"
+                                                class="form-control" [(ngModel)]="modelModule.Name" maxlength="100"
+                                                required (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Mã module
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F020101']" name="modelModuleCode" type="text"
+                                                class="form-control" [(ngModel)]="modelModule.Code" maxlength="20"
+                                                required (ngModelChange)="check()">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nhóm module
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <nts-drop-down-tree [disUipermission]="['F020101']" [items]="ListModuleGroup"
+                                            [columns]="columnName" ntsParentId="ParentId" ntsValue="Id" ntsLabel="Code"
+                                            ntsMode="single" ntsAutoClose="true" [(ngModel)]="modelModule.ModuleGroupId"
+                                            name="Id" required (change)="moduleGroupChange()">
+                                        </nts-drop-down-tree>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Giá
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F020101']" name="modelModulePricing" type="text"
+                                                class="form-control" [(ngModel)]="modelModule.Pricing" maxlength="100"
+                                                disabled>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Tình trạng dữ liệu
+                                        </label>
+                                        <div class="controls">
+                                            <span class="badge badge-danger" style="margin-top: 13px">Chưa đủ</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xl-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tình trạng sử dụng
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <select [disUipermission]="['F020101']" class="form-control"
+                                                [(ngModel)]="modelModule.Status" name="modelModuleStatus"
+                                                (ngModelChange)="check()">
+                                                <option value="1">Chỉ dùng 1 lần</option>
+                                                <option value="2">Module chuẩn</option>
+                                                <option value="3">Module ngừng sử dụng</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 checkbox">
+                                    <label class="form-label">Tài liệu thiết kế
+                                    </label>
+                                    <div class="custom-control custom-checkbox margin-top-15">
+                                        <input [disUipermission]="['F020101']" type="checkbox"
+                                            class="custom-control-input" id="FileMechanics" name="FileMechanics"
+                                            [(ngModel)]="modelModule.FileMechanics">
+                                        <label class="custom-control-label" for="FileMechanics">Cơ khí</label>
+                                    </div>
+
+                                    <div class="custom-control custom-checkbox  margin-top-15">
+                                        <input [disUipermission]="['F020101']" type="checkbox"
+                                            class="custom-control-input" id="FileElectric" name="FileElectric"
+                                            [(ngModel)]="modelModule.FileElectric">
+                                        <label class="custom-control-label" for="FileElectric">Điện</label>
+                                    </div>
+                                    <div class="custom-control custom-checkbox  margin-top-15">
+                                        <input [disUipermission]="['F020101']" type="checkbox"
+                                            class="custom-control-input" id="FileElectronic" name="FileElectronic"
+                                            [(ngModel)]="modelModule.FileElectronic">
+                                        <label class="custom-control-label" for="FileElectronic">Điện tử</label>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                    <label class="form-label">HMI</label>
+                                    <label class="radio">Có
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsHMI"
+                                            [(ngModel)]="modelModule.IsHMI" [value]="true">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Không
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsHMI"
+                                            [(ngModel)]="modelModule.IsHMI" [value]="false">
+                                        <span class="checkround"></span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                    <label class="form-label">PLC</label>
+                                    <label class="radio">Có
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsPLC"
+                                            [(ngModel)]="modelModule.IsPLC" [value]="true">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Không
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsPLC"
+                                            [(ngModel)]="modelModule.IsPLC" [value]="false">
+                                        <span class="checkround"></span>
+                                    </label>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                    <label class="form-label">In Film</label>
+                                    <label class="radio">Có
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsFilm"
+                                            [(ngModel)]="modelModule.IsFilm" [value]="true">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Không
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsFilm"
+                                            [(ngModel)]="modelModule.IsFilm" [value]="false">
+                                        <span class="checkround"></span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                    <label class="form-label">Phần mềm</label>
+                                    <label class="radio">Có
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsSoftware"
+                                            [(ngModel)]="modelModule.IsSoftware" [value]="true">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Không
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsSoftware"
+                                            [(ngModel)]="modelModule.IsSoftware" [value]="false">
+                                        <span class="checkround"></span>
+                                    </label>
+                                </div>
+
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4 radio">
+                                    <label class="form-label">Hướng dẫn sử dụng</label>
+                                    <label class="radio">Có
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsManual"
+                                            [(ngModel)]="modelModule.IsManual" [value]="true">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Không
+                                        <input [disUipermission]="['F020101']" type="radio" name="IsManual"
+                                            [(ngModel)]="modelModule.IsManual" [value]="false">
+                                        <span class="checkround"></span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Phiên bản
+                                        </label>
+                                        <div class="controls">
+                                            <input [disUipermission]="['F020101']" name="modelModuleCurrentVersion"
+                                                class="form-control" [(ngModel)]="modelModule.CurrentVersion"
+                                                maxlength="10" ntsNumberInt min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 col-lg-12 col-sm-12 col-xl-12">
+                                    <div class="form-group form-group-custom">
+                                        <label class="form-label">Nội dung thay đổi
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [disUipermission]="['F020101']" name="modelModuleEditContent"
+                                                type="text" class="form-control" [(ngModel)]="modelModule.EditContent"
+                                                maxlength="300" rows="4"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <label class="form-label" style="line-height:35px;">Ảnh Module</label>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button *appUipermission="['F020101']" class="btn btn-success btn-upload"
+                                            (click)="fileImage.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                        <input name="moduleImageInput" style="display: none;" type="file"
+                                            id="moduleImageInput" #fileImage (change)="uploadFileClickImage($event)"
+                                            multiple accept="image/*" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                                <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                                </ngx-gallery>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+
+                            <div class="form-group">
+                                <label class="form-label">Thông số kỹ thuật
+                                </label>
+                                <div class="controls">
+                                    <textarea [radUipermission]="['F020101']" [(ngModel)]="modelModule.Specification"
+                                        name="modelModuleSpecification" rows="5" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                            <div class="form-group form-group-custom">
+                                <label class="form-label">Mô tả </label>
+                                <div class="controls">
+                                    <textarea [radUipermission]="['F020101']" name="modelModuleDescription" type="text"
+                                        class="form-control" [(ngModel)]="modelModule.Description" maxlength="300"
+                                        rows="5"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                            <div class="row mb-1">
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                                    <label class="form-label">Thời gian sản xuất</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right">
+                                    <button class="btn  btn-success" (click)="showStage()"
+                                        *appUipermission="['F020101']">
+                                        <i class="fa fa-plus" aria-hidden="true"></i>
+                                        Chọn công đoạn
+                                    </button>
+                                </div>
+                            </div>
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered table-hover" style="min-width:480px;">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" style="text-align: center">STT</th>
+                                            <th width="50px">Xử lý</th>
+                                            <th min-with="200px" style="text-align: center">Công đoạn</th>
+                                            <th width="150px" style="text-align: center">Thời gian (ngày)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of ListStage; let i = index;">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <button *appUipermission="['F020101']" type="button"
+                                                    class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                    (click)="confirmDeleteStage(i)">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>{{row.Name}}
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input [disUipermission]="['F020101']" type="number" ntsNumberInt
+                                                        class="form-control" [(ngModel)]="row.Time" maxlength="100"
+                                                        min="0" [name]="'rowExecutionTime'+i">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                            <div class="row mb-1">
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-left">
+                                    <label class="form-label">Tài liệu hướng dẫn sử dụng
+                                    </label>
+                                </div>
+
+                                <div class="col-lg-6 col-md-6 col-sm-6 text-right">
+                                    <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                        <button *appUipermission="['F020101']" type="button" class="btn btn-success"
+                                            (click)='showDocument()' container="body">
+                                            <i class="fa fa-plus"></i>
+                                            Chọn tài liệu
+                                        </button>&nbsp;
+                                        <button *appUipermission="['F020101']" class="btn btn-success btn-upload"
+                                            (click)="fileInputDataSheet.click();">
+                                            <i class="fas fa-arrow-up"></i> &nbsp;Upload</button>
+                                        <input name="fileDataSheet" style="display: none;" type="file"
+                                            id="fileDataSheet" #fileInputDataSheet (change)="uploadFileClick($event)" />
+                                    </div>
+                                </div>
+                            </div>
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:480px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th min-width="200px">Tên file</th>
+                                            <th width="150px">Mô tả</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of ListFileModuleManualDocument;let i=index">
+                                            <td class="text-center">{{i+1}}</td>
+                                            <td class="text-center">
+                                                <ng-container>
+                                                    <button *appUipermission="['F020101']" class="btn btn-xs btn-danger"
+                                                        (click)="showConfirmDeleteFile(i)" ngbTooltip="Xóa"
+                                                        placement="top" container="body">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </ng-container>
+                                            </td>
+                                            <td>
+                                                <span *ngIf="row.Id==null">{{row.name}}</span>
+                                                <span *ngIf="row.Id!=null">{{row.FileName}}</span>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" [(ngModel)]="row.Note"
+                                                        maxlength="100" [name]="'rowNote'+i"
+                                                        [disabled]="row.IsDocument">
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+                            <label class="form-label pt-3">Người tạo: {{EmployeeName}} | Phòng ban:
+                                {{DepartmentName}}</label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right mt-3">
+                            <ng-container>
+                                <button *appUipermission="['F020101']" type="button" class="btn btn-success"
+                                    (click)="save(false)" [disabled]="!Valid">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container>
+                                <button *appUipermission="['F020101']" type="button" class="btn btn-success"
+                                    (click)="saveAndContinue()" [disabled]="!Valid">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>Lưu & tiếp tục</span>
+                                </button>
+                            </ng-container>&nbsp;
+                            <ng-container>
+                                <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                                    <i class="fa fa-power-off"></i> &nbsp;
+                                    <span>
+                                        Đóng
+                                    </span>
+                                </button>
+                            </ng-container>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

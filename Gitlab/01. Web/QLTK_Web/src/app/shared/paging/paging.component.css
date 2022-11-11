@@ -1,0 +1,39 @@
+
+.border-ta{
+    border: 1px solid #595959;
+    width: 190px; 
+    height: 25px; 
+}
+
+.border-ta span{
+    padding-left: 10px;
+    color: #DDDDDD;
+    font-size: 13px;
+    line-height: 25px;
+}
+
+.row .float-right {
+    float: right !important;
+    margin-left: auto !important;
+    margin-right: 15px !important;
+}
+span{
+    vertical-align: super;
+}
+
+.float-right i {
+    margin-right: 3px !important;
+    margin-left: auto !important;
+    float: right;
+}
+
+.next-right{
+    opacity: 0.4;
+}
+.previous-left{
+    opacity: 0.4;
+}
+
+.none-active{
+ color: #b8f1d0;
+}

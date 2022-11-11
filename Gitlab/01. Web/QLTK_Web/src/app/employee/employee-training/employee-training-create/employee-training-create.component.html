@@ -1,0 +1,365 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên chương trình đào tạo
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F080601','F080602']" type="text" class="form-control" name="NameCourse"
+              [(ngModel)]="model.Name" required>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mã chương trình đào tạo
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input [disUipermission]="['F080601','F080602']" type="text" maxlength="50" class="form-control"
+              name="CodeCourse" [(ngModel)]="model.Code" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div class="form-group">
+          <label class="form-label">Tình trạng
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <select [disUipermission]="['F080601','F080602']" class="form-control" name="StatusEmployeeTraining"
+              [(ngModel)]="model.Status" required>
+              <option *ngFor="let item of constant.EmployeeTrainingStatus" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Mô tả
+            <span class='text-danger text-strong'></span>
+          </label>
+          <div class="controls">
+            <div class="input-group">
+              <textarea [radUipermission]="['F080601','F080602']" class="form-control" [(ngModel)]="model.Description"
+                name="Description" maxlength="300"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+        <h4>Danh sách khóa học <span class="bold text-danger">{{model && model.ListCourse?model.ListCourse.length:0}}</span>
+        </h4>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+        <button *appUipermission="['F080601','F080602']" type=" button" class="btn btn-success"
+          (click)="showChooseCourse()">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+          Chọn khóa học
+        </button>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" #scrollCourse>
+        <div #scrollHeaderCourse style="height: auto; width:100%;overflow: hidden">
+          <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:870px;">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="50px" class="text-center">Xử lý</th>
+                <th width="120px" class="text-center">Tình trạng</th>
+                <th width="150px" class="text-center">Mã khóa học</th>
+                <th min-width="200px" class="text-center">Tên khóa học</th>
+                <th width="100px" class="text-center">Ngày bắt đầu</th>
+                <th width="100px" class="text-center">Ngày kết thúc</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto;max-height: 300px; width:100%;">
+          <table class="table table-bordered table-hover" style="word-wrap: break-word ;min-width:870px;">
+            <tbody>
+              <ng-container *ngFor="let row of model.ListCourse; let i = index;">
+                <tr *ngIf="!row.IsDelete" [ngClass]="{'selected':selectIndex == i}" (click)="selectCouserChange(row,i)">
+                  <td class="text-center" width="50px">{{i+1}}</td>
+                  <td class="text-center" width="50px">
+                    <button *appUipermission="['F080601','F080602']" type="button" class="btn btn-xs btn-danger"
+                      ngbTooltip="Xóa" (click)="showConfirmDeleteCourse(i)">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td width="120px" class="text-center">
+                    <span class="badge" [ngClass]="row.Status|filterbadgeclassinlist:constant.CourseStatus">{{row.Status|filterinlist:constant.CourseStatus}}</span>
+                  </td>
+                  <td width="150px">{{row.Code}}</td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="100px" class="text-center">
+                    <div class="input-group">
+                      <input container="body" class="form-control" placeholder="dd/mm/yyyy" [name]="'nameStartDate' + i"
+                        [(ngModel)]="row.StartDateV" ngbDatepicker #DateFrom="ngbDatepicker">
+                      <div class="input-group-append">
+                        <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();">
+                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                  <td width="100px" class="text-center">
+                    <div class="input-group">
+                      <input container="body" class="form-control" placeholder="dd/mm/yyyy" [name]="'nameEndDate' + i"
+                        [(ngModel)]="row.EndDateV" ngbDatepicker #DateTo="ngbDatepicker">
+                      <div class="input-group-append">
+                        <span class="dtp-icon" (click)="DateTo.toggle();$event.stopPropagation();">
+                          <i class="far fa-calendar-alt" style="color: #999;"></i>
+                        </span>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+        <h4>Danh sách nhân viên <span class="bold text-danger">{{totalEmployee}}</span></h4>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+        <button *appUipermission="['F080601','F080602']" type=" button" class="btn btn-success"
+          (click)="showEmployeeSkill()">
+          <span class="fa fa-plus" aria-hidden="true"></span>
+          Chọn nhân viên
+        </button>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" #scrollEmployee>
+        <div #scrollHeaderEmployee style="height: auto; width:100%;overflow: hidden">
+          <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:840px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th width="50px" class="text-center">Xử lý </th>
+                <th width="120px" class="text-center">Tình trạng</th>
+                <th width="120px" class="text-center">Mã nhân viên</th>
+                <th min-width="150px" class="text-center">Tên nhân viên</th>
+                <th width="200px" class="text-center">SBU</th>
+                <th width="200px" class="text-center">Phòng ban</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; max-height:300px; width:100%;">
+          <table class="table table-bordered table-hover " style="word-wrap: break-word ;min-width:840px">
+            <tbody>
+              <ng-container *ngIf="selectIndex >=0">
+                <tr *ngFor="let row of model.ListCourse[selectIndex].ListEmployees; let j = index"
+                  [ngClass]="{'selected':selectIndexSkill == j}" (click)="selectEmployeeChange(row,j)">
+                  <ng-container *ngIf="row.IsDelete ==false">
+                    <td width="50px" class="text-center">{{j+1}}</td>
+                    <td width="50px" class="text-center">
+                      <button *appUipermission="['F080601','F080602']" type="button" class="btn btn-xs btn-danger"
+                        ngbTooltip="Xóa" (click)="showConfirmDeleteEmployee(j,row.Id)">
+                        <span class="fas fa-times" aria-hidden="true"></span>
+                      </button>
+                    </td>
+                    <td width="120px" class="text-center">
+                      <span class="badge" [ngClass]="row.Status|filterbadgeclassinlist:constant.CourseEmployeeStatus">{{row.Status|filterinlist:constant.CourseEmployeeStatus}}</span>
+                    </td>
+                    <td width="120px">{{row.Code}}</td>
+                    <td min-width="150px">{{row.Name}}</td>
+                    <td width="200px">{{row.SBUName}}</td>
+                    <td width="200px">{{row.DepartmentName}}</td>
+                  </ng-container>
+                </tr>
+              </ng-container>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+        <h4>Danh sách kỹ năng <span class="bold text-danger">{{workSkills?workSkills.length:0}}</span>
+        </h4>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+        <ng-container *appUipermission="['F080601','F080602']">
+          <button *ngIf="model.Id && selectIndex>=0&&model.ListCourse[selectIndex].Id&&selectIndexSkill>=0&&model.ListCourse[selectIndex].ListEmployees[selectIndexSkill].Id" type=" button"
+            class="btn btn-success" (click)="updatePointEmployee(false)">
+            <span class="fas fa-marker" aria-hidden="true"></span>
+            Chấm điểm
+          </button>
+        </ng-container>
+      </div>
+      <!-- <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered table-fixed table-hover" style="min-width:590px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên kỹ năng</th>
+                <th width="120px" class="text-center">Điểm đầu ra</th>
+                <th width="120px" class="text-center">Điểm khóa trước</th>
+                <th width="100px" class="text-center">Điểm hiện tại</th>
+                <th width="120px" class="text-center">Điểm đạt được</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of workSkills; let x = index">
+                <td class="text-center">{{x+1}}</td>
+                <td>{{row.Name}}</td>
+                <td class="text-center">{{row.Score|number}}</td>
+                <td class="text-center">{{row.OldMark|number}}</td>
+                <td class="text-center">{{row.Grade|number}}</td>
+                <td class="text-right">
+                  <input *ngIf="model.Id ==null || model.Id ==''" class="form-control" [(ngModel)]="row.Mark"
+                    currencyMask [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="'Mark'+x" maxlength="5" min="0.00" max="10.00">
+
+                  <input *ngIf="model.Id !=null && model.Id !=''" class="form-control" [(ngModel)]="row.Mark"
+                    currencyMask [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                    [name]="'Mark'+x" maxlength="5" min="0.00" max="10.00">
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div> -->
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" #scrollSkill>
+        <div #scrollHeaderSkill style="height: auto; width:100%;overflow: hidden">
+          <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:590px">
+            <thead>
+              <tr>
+                <th width="50px" class="text-center">STT</th>
+                <th min-width="200px" class="text-center">Tên kỹ năng</th>
+                <th width="120px" class="text-center">Điểm đầu ra</th>
+                <th width="120px" class="text-center">Điểm khóa trước</th>
+                <th width="100px" class="text-center">Điểm hiện tại</th>
+                <th width="120px" class="text-center">Điểm đạt được</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; max-height:300px; width:100%;">
+          <table class="table table-bordered table-hover " style="word-wrap: break-word ;min-width:590px">
+            <tbody>
+                <tr *ngFor="let row of workSkills; let x = index">
+                  <td width="50px" class="text-center">{{x+1}}</td>
+                  <td min-width="200px">{{row.Name}}</td>
+                  <td width="120px" class="text-center">{{row.Score|number}}</td>
+                  <td width="120px" class="text-center">{{row.OldMark|number}}</td>
+                  <td width="100px" class="text-center">{{row.Grade|number}}</td>
+                  <td width="120px" class="text-right">
+                    <input *ngIf="model.Id ==null || model.Id ==''" class="form-control" [(ngModel)]="row.Mark"
+                      currencyMask [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                      [name]="'Mark'+x" maxlength="5" min="0.00" max="10.00">
+  
+                    <input *ngIf="model.Id !=null && model.Id !=''" class="form-control" [(ngModel)]="row.Mark"
+                      currencyMask [options]="{align:'right', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                      [name]="'Mark'+x" maxlength="5" min="0.00" max="10.00">
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+      
+    </div>
+    <div class="row mt-3">
+      <div class="col-lg-6 col-md-6 col-sm-6">
+          <h4>Danh sách file đính <span class="bold text-danger">{{Attachs?Attachs.length:0}}</span>
+          </h4>
+      </div>
+      <div  class="col-lg-6 col-md-6 col-sm-12 text-right">
+          <button type="button" class="btn btn-success btn-upload"
+              (click)="fileAttachMeetingContent.click()">
+              <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+          <input name="file" style="display: none;" type="file" id="fileAttachMeetingContent"
+              #fileAttachMeetingContent (change)="uploadFile($event)" />
+      </div>
+      <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+              <table class="table table-bordered" style="min-width:780px">
+                  <thead>
+                      <tr>
+                          <th width="50px" class="text-center">STT</th>
+                          <th width="80px" class="text-center">Xử lý</th>
+                          <th width="300px" class="text-center">Tên file</th>
+                          <th width="100px" class="text-center">Dung lượng</th>
+                          <th width="100px" class="text-center">Ngày tải</th>
+                          <th width="150px" class="text-center">Người tải</th>
+
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <ng-container *ngFor="let row of Attachs; let i = index">
+                          <tr *ngIf="!row.IsDelete">
+                              <td class="text-center">{{i+1}}</td>
+                              <td class="text-center">
+                                  <ng-container *ngIf="row.FilePath">
+                                      <button type="button" (click)="downloadAFile(row)"
+                                          style="background-color: papayawhip" class="btn btn-xs"
+                                          placement="top" ngbTooltip="Download" container="body">
+                                          <span class="fas fa-download" aria-hidden="true"
+                                              style="color: black"></span>
+                                      </button>&nbsp;
+                                  </ng-container>
+                                  <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                      (click)="showConfirmDeleteFile(row,i)">
+                                      <span class="fas fa-times" aria-hidden="true"></span>
+                                  </button>
+                              </td>
+                              <td>
+                                  {{row.FileName}}
+                              </td>
+                              <td class="text-center">
+                                  {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                              </td>
+                              <td class="text-center">
+                                  {{row.CreateDate |date:'dd/MM/yyyy'}}
+                              </td>
+                              <td class="text-center">
+                                  {{row.CreateName}}
+                              </td>
+                          </tr>
+                      </ng-container>
+                  </tbody>
+              </table>
+          </perfect-scrollbar>
+      </div>
+  </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F080601','F080602']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{modalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button *appUipermission="['F080601']" type="button" class="btn btn-success" [disabled]="!f.form.valid"
+      (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

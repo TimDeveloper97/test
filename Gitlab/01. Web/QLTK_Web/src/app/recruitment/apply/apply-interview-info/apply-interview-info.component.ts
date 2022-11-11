@@ -1,0 +1,223 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { forkJoin } from 'rxjs';
+import { AppSetting, ComboboxService, Configuration, Constants, DateUtils, FileProcess, MessageService } from 'src/app/shared';
+import { InterviewService } from '../../services/interview.service';
+
+@Component({
+  selector: 'app-apply-interview-info',
+  templateUrl: './apply-interview-info.component.html',
+  styleUrls: ['./apply-interview-info.component.scss']
+})
+export class ApplyInterviewInfoComponent implements OnInit {
+
+  constructor(
+    public appSetting: AppSetting,
+    private messageService: MessageService,
+    private router: Router,
+    public fileProcess: FileProcess,
+    public constant: Constants,
+    private comboboxService: ComboboxService,
+    public dateUtils: DateUtils,
+    private routeA: ActivatedRoute,
+    private interviewService: InterviewService,
+    public config: Configuration,
+    private modalService: NgbModal,
+  ) { }
+
+  id: any;
+  user: any;
+  districts: any[] = [];
+  wards: any[] = [];
+  provinces: any[] = [];
+  countries: any[] = [];
+  qualifications: any[] = [];
+  channels: any[] = [];
+  departments: any[] = [];
+  sbus: any[] = [];
+  workTypes: any[] = [];
+  classifications: any[] = [];
+
+  applyDate: any = null;
+  interviewDate: any = null;
+  dateOfBirth: any = null;
+  identifyDate: any = null;
+  selectIndex = 0;
+  totalItems = 0;
+
+  interviewModel: any = {
+    ListUser: [],
+    Candidate : {
+      Code : '',
+    },
+    Apply :{
+      WorkTypeName :'',
+    }
+  };
+
+  minDateNotificationV: NgbDateStruct;
+  dateOfApply: any;
+  startDegreesIndex: number = 1;
+  startExperienceIndex: number = 1;
+  totalYearExperience: number = 0;
+  dateStartOfCertificate: any;
+  dateEndOfCertificate: any;
+  dateOfCall: any;
+  employees: any;
+
+  columnNameAddress: any[] = [{ Name: 'Name', Title: 'Tên' }];
+  columnNameWorkType: any[] = [{ Name: 'Name', Title: 'Tên vị trí' }];
+  columnName: any[] = [{ Name: 'Code', Title: 'Mã' }, { Name: 'Name', Title: 'Tên' }];
+  employeeColumnName: any[] = [{ Name: 'Code', Title: 'Mã nhân viên' }, { Name: 'Name', Title: 'Tên nhân viên' }];
+
+  ngOnInit(): void {
+    this.appSetting.PageTitle = "Thông tin phỏng vấn";
+    this.user = JSON.parse(localStorage.getItem('qltkcurrentUser'));
+
+    this.id = this.routeA.snapshot.paramMap.get('id');
+    this.getInterviewInfo();
+    this.getCbbData();
+    this.getEmployees();
+  }
+
+  getCbbData() {
+    let cbbCountry = this.comboboxService.getCbbCountry();
+    let cbbProvinces = this.comboboxService.getCbbProvince();
+    let cbbQualifications = this.comboboxService.getCBBQualification();
+    let cbbClassIfications = this.comboboxService.getCbbClassIfication();
+    let cbbRecruitmentChannels = this.comboboxService.getCbbRecruitmentChannels();
+    let cbbSBU = this.comboboxService.getCbbSBU();
+    let cbbWorkType = this.comboboxService.getListWorkType();
+
+    let cbbDepartments = this.comboboxService.getCbbDepartmentBySBU(this.user.sbuId);
+
+    forkJoin([cbbProvinces, cbbCountry, cbbQualifications, cbbClassIfications, cbbRecruitmentChannels, cbbSBU, cbbWorkType, cbbDepartments]).subscribe(results => {
+      this.provinces = results[0];
+      this.countries = results[1];
+      this.qualifications = results[2];
+      this.classifications = results[3];
+      this.channels = results[4];
+      this.sbus = results[5];
+      this.workTypes = results[6];
+      this.departments = results[7];
+    });
+  }
+
+  getDistricts() {
+    this.comboboxService.getCbbDistrict(this.interviewModel.Candidate.ProvinceId).subscribe(
+      data => {
+        this.districts = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+  getWards() {
+    this.comboboxService.getCbbWard(this.interviewModel.Candidate.DistrictId).subscribe(
+      data => {
+        this.wards = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+  getDepartments() {
+    this.comboboxService.getCbbDepartmentBySBU(this.user.sbuId).subscribe(
+      data => {
+        this.departments = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+  getInterviewInfo() {
+    this.interviewService.getIntervewById(this.id).subscribe(
+      data => {
+        this.interviewModel = data;
+        
+        let score = 0;
+        let totalOK = 0;
+        this.interviewModel.Questions.forEach(element => {
+          if (element.QuestionType == 1 && element.Status==1) {
+            score += parseInt(element.Score);
+            totalOK++;
+          }
+          else{
+            if(element.Score != ''){
+              score += parseInt(element.Score);
+            }
+          }
+        });
+
+        this.interviewModel.Score = score;
+        this.interviewModel.CorrectAnswer = totalOK;
+
+        if (this.interviewModel.Candidate.DateOfBirth) {
+          this.dateOfBirth = this.dateUtils.convertDateToObject(this.interviewModel.Candidate.DateOfBirth);
+        }
+
+        if (this.interviewModel.Candidate.IdentifyDate) {
+          this.identifyDate = this.dateUtils.convertDateToObject(this.interviewModel.Candidate.IdentifyDate);
+        }
+
+        if (this.interviewModel.Apply.ApplyDate) {
+          this.applyDate = this.dateUtils.convertDateToObject(this.interviewModel.Apply.ApplyDate);
+        }
+
+        if (this.interviewModel.Apply.InterviewDate) {
+          this.interviewDate = this.dateUtils.convertDateToObject(this.interviewModel.Apply.InterviewDate);
+        }
+        this.totalItems =this.interviewModel.Questions.length;
+        this.interviewModel.Questions.forEach(element => {
+          if(element.QuestionType ==1){
+            element.Answer = element.Status;
+          }
+        });
+        this.interviewModel.Candidate.WorkHistories.forEach(element => {
+          this.totalYearExperience = this.totalYearExperience + element.TotalTime;
+        });
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+  selectQuestion(index) {
+    if (this.selectIndex != index) {
+      this.selectIndex = index;
+    }
+  }
+
+  closeModal() {
+    this.router.navigate(['tuyen-dung/phong-van']);
+  }
+  getEmployees() {
+    this.comboboxService.getCbbEmployee().subscribe(
+      data => {
+        this.employees = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+  getEmployee(){
+    this.interviewService.getEmployee(this.id).subscribe(
+      data => {
+        this.interviewModel.ListUser = data;
+      },
+      error => {
+        this.messageService.showError(error);
+      }
+    );
+  }
+
+}

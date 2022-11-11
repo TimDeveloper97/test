@@ -1,0 +1,226 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Thông tin vật tư</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Nhóm vật tư theo chức năng
+              </label>
+              <div class="controls">
+                <input name="MaterialGroupName" type="text" class="form-control"
+                  [(ngModel)]="materialmodel.MaterialGroupName">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Nhóm vật tư theo TPA (SAP)
+              </label>
+              <div class="controls">
+                <input name="MaterialGroupTPAId" type="text" class="form-control"
+                  [(ngModel)]="materialmodel.MaterialGroupTPAId">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Tên vật tư
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input name="Name" type="text" class="form-control" [(ngModel)]="materialmodel.Name"
+                  maxlength="50" required>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Mã vật tư
+              </label>
+              <div class="controls">
+                <input name="Code" type="text" class="form-control" [(ngModel)]="materialmodel.Code">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Hãng sản xuất
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input name="ManufactureId" type="text" class="form-control" [(ngModel)]="materialmodel.ManufactureId">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Loại vật tư</label>
+              <div class="controls">
+                <input name="MaterialType" type="text" class="form-control" [(ngModel)]="materialmodel.MaterialType">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Giá
+              </label>
+              <div class="controls">
+                <input name="Pricing" type="text" class="form-control" [(ngModel)]="materialmodel.Pricing"
+                  ntsCurrencyFormatter maxlength="18" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Phân loại vật tư cơ khí
+              </label>
+              <div class="controls">
+                <input name="MechanicalType" type="text" class="form-control"
+                  [(ngModel)]="materialmodel.MechanicalType">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="row col-md-12">
+              <div class="custom-control custom-checkbox margin-top-15 col-md-6">
+                <input type="checkbox" class="custom-control-input" id="3D" name="3D" [(ngModel)]="materialmodel.Is3D">
+                <label class="custom-control-label" for="3D">3D</label>
+              </div>
+              <div class="custom-control custom-checkbox  margin-top-15 col-md-6">
+                <input type="checkbox" class="custom-control-input" id="DataSheet" name="DataSheet"
+                  [(ngModel)]="materialmodel.IsDataSheet">
+                <label class="custom-control-label" for="DataSheet">DataSheet</label>
+              </div>
+            </div>
+            <div class="row col-md-12">
+              <div class="custom-control custom-checkbox  margin-top-15 col-md-6">
+                <input type="checkbox" class="custom-control-input" id="Setup" name="Setup"
+                  [(ngModel)]="materialmodel.IsSetup">
+                <label class="custom-control-label" for="Setup">Cài đặt</label>
+              </div>
+              <div class="custom-control custom-checkbox  margin-top-15 col-md-6">
+                <input type="checkbox" class="custom-control-input" id="UsuallyUse" name="UsuallyUse"
+                  [(ngModel)]="materialmodel.IsUsuallyUse">
+                <label class="custom-control-label" for="UsuallyUse">Thường dùng</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Thời gian đặt hàng
+              </label>
+              <div class="controls">
+                <input ntsNumberInt name="thoigiangiaohang" type="text" ntsNumber class="form-control"
+                  [(ngModel)]="materialmodel.DeliveryDays" maxlength="3">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Trọng lượng
+              </label>
+              <div class="controls">
+                <input ntsNumberInt name="Weight" type="text" ntsNumber class="form-control"
+                  [(ngModel)]="materialmodel.Weight" maxlength="50">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Nhóm vật liệu gốc
+              </label>
+
+              <div class="controls">
+                <input name="RawMaterialId" type="text" class="form-control" [(ngModel)]="materialmodel.RawMaterialId"
+                  maxlength="100" disabled>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group form-group-custom">
+              <label class="form-label">Vật liệu
+              </label>
+              <div class="controls">
+                <input name="RawMaterial" type="text" class="form-control" [(ngModel)]="materialmodel.RawMaterial"
+                  [ngModelOptions]="{standalone: true}" maxlength="100" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Đơn vị tính
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input name="UnitId" type="text" class="form-control" [(ngModel)]="materialmodel.UnitId">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-sm-12">
+            <div class="form-group ">
+              <label class="form-label">Tình trạng vật tư
+              </label>
+              <div class="controls">
+                <input name="Status" type="text" class="form-control" [(ngModel)]="materialmodel.Status">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="form-group">
+              <label class="form-label">Ghi chú
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <textarea [(ngModel)]="materialmodel.Note" name="Note" rows="2" class="form-control"
+                  [maxLength]="300"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-lg-4 col-sm-12">
+        <div *ngIf="galleryOptions?.length && galleryImages?.length">
+          <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages"></ngx-gallery>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

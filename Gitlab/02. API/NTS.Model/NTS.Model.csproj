@@ -1,0 +1,2405 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76B3E731-5736-4D6F-996B-989CF02F38A4}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NTS.Model</RootNamespace>
+    <AssemblyName>NTS.Model</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="BankAccount\BankAccountModel.cs" />
+    <Compile Include="BankAccount\BankAccountSearchModel.cs" />
+    <Compile Include="BankAccount\BankAccountSearchResultModel.cs" />
+    <Compile Include="Bank\BankModel.cs" />
+    <Compile Include="Bank\BankResultModel.cs" />
+    <Compile Include="Bank\BankSearchModel.cs" />
+    <Compile Include="Base\BaseModel.cs" />
+    <Compile Include="BOMDesignTwoAttach\BOMDesignTwoAttachModel.cs" />
+    <Compile Include="BOMDesignTwoDetials\BOMDesignTwoDetialsModel.cs" />
+    <Compile Include="BOMDesignTwo\BOMDesignTwoModel.cs" />
+    <Compile Include="Bussiness\Application\ApplicationModel.cs" />
+    <Compile Include="Bussiness\Application\ApplicationSearchModel.cs" />
+    <Compile Include="CacheModel\LoginCacheModel.cs" />
+    <Compile Include="Categories\DeleteQuoteStepModel.cs" />
+    <Compile Include="Categories\QuoteStepModel.cs" />
+    <Compile Include="Categories\ResultSearchQuoteStepModel.cs" />
+    <Compile Include="Categories\ResultSearchTechnologySolutionModel.cs" />
+    <Compile Include="Categories\SearchQuoteStepModel.cs" />
+    <Compile Include="Categories\SearchTechnologySolutionModel.cs" />
+    <Compile Include="Categories\TechnologySolutionModel.cs" />
+    <Compile Include="Combobox\AttachmentModel.cs" />
+    <Compile Include="CustomerRequirementEmployee\CustomerRequirementUserInfoModel.cs" />
+    <Compile Include="CustomerRequirementEmployee\SurveyUserModel.cs" />
+    <Compile Include="CustomerRequirementMaterial\CustomerRequirementMaterialInfoModel.cs" />
+    <Compile Include="CustomerRequirementMaterial\SurveyToolsModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementAttachModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementCodeModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementContentCUModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementContentModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementCreateModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementInfoModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementSearchModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementSearchResultModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementSolutionStatusModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementSolutionCreateModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementSolutionModel.cs" />
+    <Compile Include="CustomerRequirement\CustomerRequirementUpdateModel.cs" />
+    <Compile Include="CustomerRequirement\ProductNeedPriceModel.cs" />
+    <Compile Include="CustomerRequirement\ProductNeedSolutionModel.cs" />
+    <Compile Include="CustomerRequirement\ProtectSolutionModel.cs" />
+    <Compile Include="CustomerRequirement\SolutionAnalysisProductModel.cs" />
+    <Compile Include="CustomerRequirement\SolutionAnalysisProductSearchModel.cs" />
+    <Compile Include="CustomerRequirement\SolutionAnalysisRiskModel.cs" />
+    <Compile Include="Customers\CustomerMeetingSearchResultModel.cs" />
+    <Compile Include="Customers\CustomerOfCustomerModel.cs" />
+    <Compile Include="Documents\Document\DocumentTagModel.cs" />
+    <Compile Include="Download\DownloadModel.cs" />
+    <Compile Include="Employees\EmployeeTraining\EmployeeTrainingFileAttachModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeExportModel.cs" />
+    <Compile Include="Errors\ErrorChangePlan\ErrorChangePlanModel.cs" />
+    <Compile Include="Errors\ErrorChangePlan\ErrorHistoryChangePlanModel.cs" />
+    <Compile Include="Error\ErrorExportModel.cs" />
+    <Compile Include="Error\ErrorFixAttachModel.cs" />
+    <Compile Include="Error\ErrorFixExportModel.cs" />
+    <Compile Include="Error\ErrorFixResultModel.cs" />
+    <Compile Include="Error\ErrorFixModel.cs" />
+    <Compile Include="Error\ErrorResultModel.cs" />
+    <Compile Include="Error\ErrorStatistic.cs" />
+    <Compile Include="ExternalEmployee\ProjectExternalEmployeeModel.cs" />
+    <Compile Include="GanttChart\GanttChartModel.cs" />
+    <Compile Include="GroupJob\GroupJobResultModel.cs" />
+    <Compile Include="GroupManufacture\GroupManufactureResultModel.cs" />
+    <Compile Include="GroupSupplier\GroupSupplierResultModel.cs" />
+    <Compile Include="Guideline\GuidelineModel.cs" />
+    <Compile Include="HistoryVersion\RecruitmentChannelHistoryModel.cs" />
+    <Compile Include="HistoryVersion\SalaryTypeHistoryModel.cs" />
+    <Compile Include="HistoryVersion\SalaryGroupHistoryModel.cs" />
+    <Compile Include="Holiday\HolidayGanttModel.cs" />
+    <Compile Include="Holiday\HolidayInfoModel.cs" />
+    <Compile Include="Materials\FileErrorModel.cs" />
+    <Compile Include="Materials\MaterialChangeDataModel.cs" />
+    <Compile Include="Materials\MaterialChangeModel.cs" />
+    <Compile Include="Materials\MaterialDocumentDownloadModel.cs" />
+    <Compile Include="Materials\MaterialFolderModel.cs" />
+    <Compile Include="Materials\MaterialImportBOMDraftModel.cs" />
+    <Compile Include="MeetingAttach\MeetingAttachModel.cs" />
+    <Compile Include="MeetingAttach\MeetingContentAttachModel.cs" />
+    <Compile Include="MeetingContent\MeetingContentModel.cs" />
+    <Compile Include="MeetingCustomerContact\MeetingCustomerContactInfoModel.cs" />
+    <Compile Include="MeetingCustomerContact\MeetingCustomerContactModel.cs" />
+    <Compile Include="MeetingEmployee\MeetingUserInfoModel.cs" />
+    <Compile Include="MeetingEmployee\MeetingUserModel.cs" />
+    <Compile Include="MeetingType\MeetingTypeModel.cs" />
+    <Compile Include="Meeting\MeetingCancelModel.cs" />
+    <Compile Include="Meeting\MeetingCodeCharModel.cs" />
+    <Compile Include="Meeting\MeetingCodeModel.cs" />
+    <Compile Include="Meeting\MeetingCreateModel.cs" />
+    <Compile Include="Meeting\MeetingCustomerContactGetInfoModel.cs" />
+    <Compile Include="Meeting\MeetingInfoEntity.cs" />
+    <Compile Include="Meeting\MeetingInfoModel.cs" />
+    <Compile Include="Meeting\MeetingPerformingEntity.cs" />
+    <Compile Include="Meeting\MeetingPlanEntity.cs" />
+    <Compile Include="Meeting\MeetingRequirementEntity.cs" />
+    <Compile Include="Meeting\MeetingSearchModel.cs" />
+    <Compile Include="Meeting\MeetingSearchResultModel.cs" />
+    <Compile Include="Meeting\MeetingStatisticEntity.cs" />
+    <Compile Include="Mobile\ErrorSearchResult.cs" />
+    <Compile Include="Mobile\Error\ErrorSearchCondition.cs" />
+    <Compile Include="Payment\PaymentModel.cs" />
+    <Compile Include="PlanHistory\PlanHistoryInfoModel.cs" />
+    <Compile Include="PlanHistory\PlanHistoryViewModel.cs" />
+    <Compile Include="Plans\DoneRatioProject.cs" />
+    <Compile Include="Plans\OverallProjectModel.cs" />
+    <Compile Include="Plans\PlanAdjustmentCreateModel.cs" />
+    <Compile Include="Plans\PlanErrorFixByEmployeeModel.cs" />
+    <Compile Include="Plans\PlanErrorFixResultModel.cs" />
+    <Compile Include="Plans\PlanImplementReality.cs" />
+    <Compile Include="Plans\PlanInfoModel.cs" />
+    <Compile Include="Plans\PlanWorkModel.cs" />
+    <Compile Include="Plans\ProduceStageModel.cs" />
+    <Compile Include="Plans\ProjectProblem.cs" />
+    <Compile Include="Plans\ProjectStatusWork.cs" />
+    <Compile Include="Plans\ScheduleEntity.cs" />
+    <Compile Include="Plans\ScheduleUpdateModel.cs" />
+    <Compile Include="Plans\WorkingReportModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardImageModel.cs" />
+    <Compile Include="ProjectPhase\ProjectPhaseModel.cs" />
+    <Compile Include="ProjectPhase\ProjectPhaseResultModel.cs" />
+    <Compile Include="ProjectPhase\ProjectPhaseSearchModel.cs" />
+    <Compile Include="ProjectRole\ExportExcelModel\ExportExcelRoleResultModel.cs" />
+    <Compile Include="ProjectRole\ExportExcelModel\PlanFunctionExportExcelResultModel.cs" />
+    <Compile Include="ProjectRole\PlanFunctionResultModel.cs" />
+    <Compile Include="ProjectRole\ProjectRoleModel.cs" />
+    <Compile Include="ProjectRole\ProjectSearchRoleModel.cs" />
+    <Compile Include="ProjectRole\SearchRoleModel.cs" />
+    <Compile Include="ProjectRole\SearchRoleResultModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchTabTypeModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchUserModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\EmployeeModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\EmployeeSearchModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\ProjectEmployeeGroupModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\ProjectEmployeeModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\ProjectEmployeeSearchModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\ProjectProductToEmployeeModel.cs" />
+    <Compile Include="Projects\ProjectEmloyee\SubsidyHistoryModel.cs" />
+    <Compile Include="Projects\ProjectProducts\CheckedPublications.cs" />
+    <Compile Include="Projects\ProjectProducts\CopyQCCheckListModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProductsItemModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProductStandardGroupModel.cs" />
+    <Compile Include="Projects\Project\AttachmentModel.cs" />
+    <Compile Include="Projects\Project\MoneyCollectionProjectReportResultModel.cs" />
+    <Compile Include="Projects\Project\MoneyCollectionProjectReportSearchModel.cs" />
+    <Compile Include="Projects\Project\PlanAdjustmentModel.cs" />
+    <Compile Include="Projects\Project\PlanHistoryAttachModel.cs" />
+    <Compile Include="Projects\Project\QCCheckListModel.cs" />
+    <Compile Include="Projects\Project\QCResultCreatModel.cs" />
+    <Compile Include="Projects\Project\QCResultModel.cs" />
+    <Compile Include="Projects\Project\ReportProjectSearchModel.cs" />
+    <Compile Include="Projects\Project\SearchProjectErrorResultModel.cs" />
+    <Compile Include="Projects\Project\SearchResultReportProjectModel.cs" />
+    <Compile Include="Quotation\QuotationModel.cs" />
+    <Compile Include="Quotation\QuotationPlanModel.cs" />
+    <Compile Include="Quotation\QuotationProductModel.cs" />
+    <Compile Include="Quotation\QuotationSearchModel.cs" />
+    <Compile Include="Quotation\QuotationStepByPlanModel.cs" />
+    <Compile Include="Quotation\QuotationStepModel.cs" />
+    <Compile Include="Quotation\QuoteDocumentModel.cs" />
+    <Compile Include="Quotation\QuoteStepModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestAttachModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestCodeModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestCreateModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestExportModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestInfoModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestSalaryModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestSearchModel.cs" />
+    <Compile Include="RecruitmentRequest\RecruitmentRequestSearchResultModel.cs" />
+    <Compile Include="Recruitments\Applys\ApplyInterviewModel.cs" />
+    <Compile Include="Recruitments\Applys\InterviewExportModel.cs" />
+    <Compile Include="Recruitments\Applys\MoreInterviewsModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateCodeModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewGetInfoModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewCandidateEducationModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewCandidateModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewApplyModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewCandidateWorkHistoryModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewCandidateWorkTypeFitModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewQuestionCreateModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewSearchModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewSearchResultsModel.cs" />
+    <Compile Include="Recruitments\Applys\ApplyCreateModel.cs" />
+    <Compile Include="Recruitments\Applys\ApplySearchModel.cs" />
+    <Compile Include="Recruitments\Applys\ApplySearchResultsModel.cs" />
+    <Compile Include="Recruitments\Applys\ApplyCheckCandidateModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateAttachModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateApplyModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateCreateModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateEducationModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateFollowModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateLanguageModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateSearchResultsModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateWorkHistoryModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateWorkTypeFitModel.cs" />
+    <Compile Include="Recruitments\Candidates\CandidateSearchModel.cs" />
+    <Compile Include="Classification\ClassIficationSearchModel.cs" />
+    <Compile Include="Classification\ClassIficationModel.cs" />
+    <Compile Include="Classification\ClassIficationResultModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomAttachment\ClassRoomAttachModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomDesignDocument\UploadFolderClassRoomDesignDocumentModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomMaterial\ClassRoomMaterialResultModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomMaterial\ClassRoomMaterialSearch.cs" />
+    <Compile Include="ClassRooms\ClassRoomMaterial\PriceMaterialModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomModule\PriceModuleModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomPractice\PricePracticeModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomProduct\ClassRoomProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomProduct\PriceProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolPracticeAndProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolPracticeAndSkillModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolPracticeModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\ClassRoomToolSkillModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\PracticeAndProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomTool\PracticeAndSkillModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\ClassRoomDesignDocumentModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\ClassRoomModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomModule\ClassRoomModuleModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomModule\ClassRoomModuleResultModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomModule\ClassRoomModuleSearchModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomPractice\ClassRoomPracticeModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomPractice\ClassRoomPracticeResultModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomPractice\ClassRoomPracticeSearchModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomProduct\ClassRoomProductSearchModel.cs" />
+    <Compile Include="ClassRooms\ClassRoomProduct\ClassRoomResultProductModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\ClassRoomResultModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\ClassRoomSearchModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\ClassRoomSkillModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\UploadClassRoomDataModel.cs" />
+    <Compile Include="ClassRooms\ClassRoom\UploadClassRoomModel.cs" />
+    <Compile Include="ClassRooms\ClassSkill\ClassSkillModel.cs" />
+    <Compile Include="CodeRule\CodeRuleData.cs" />
+    <Compile Include="CodeRule\CodeRuleModel.cs" />
+    <Compile Include="CoefficientEmployee\CoefficientEmployeeCreateModel.cs" />
+    <Compile Include="CoefficientEmployee\CoefficientEmployeeModel.cs" />
+    <Compile Include="CoefficientEmployee\CoefficientEmployeeResultModel.cs" />
+    <Compile Include="Combobox\ComboboxEmployee.cs" />
+    <Compile Include="Combobox\ComboboxIndexResult.cs" />
+    <Compile Include="Combobox\ComboboxResult.cs" />
+    <Compile Include="Combobox\ComboboxWorkType.cs" />
+    <Compile Include="Combobox\DateTimeUtils.cs" />
+    <Compile Include="Common\SearchCommonModel.cs" />
+    <Compile Include="Common\SearchResultProjectModel.cs" />
+    <Compile Include="Common\SearchResultModel.cs" />
+    <Compile Include="Common\CbbColorsModel.cs" />
+    <Compile Include="Common\CbbCustomerModel.cs" />
+    <Compile Include="Common\CbbManuafacturerModel.cs" />
+    <Compile Include="Common\CbbModelDeviceModel.cs" />
+    <Compile Include="Common\CbbBuildingModel.cs" />
+    <Compile Include="Common\CbbConfigResults.cs" />
+    <Compile Include="Common\CbbFunctionModel.cs" />
+    <Compile Include="Common\CbbGroupModel.cs" />
+    <Compile Include="Common\CbbOriginModel.cs" />
+    <Compile Include="Common\CbbPositionModel.cs" />
+    <Compile Include="Common\CbbProvinceModel.cs" />
+    <Compile Include="Common\CbbReaderModel.cs" />
+    <Compile Include="Common\CbbProductModel.cs" />
+    <Compile Include="Common\CbbTypeFeedback.cs" />
+    <Compile Include="Common\CbbWarningTypeModel.cs" />
+    <Compile Include="Common\CommonModel.cs" />
+    <Compile Include="Common\CbbDeviceTypeModel.cs" />
+    <Compile Include="Common\CbbDistrictModel.cs" />
+    <Compile Include="Common\ConfigModel.cs" />
+    <Compile Include="Common\ConfigSpeedModel.cs" />
+    <Compile Include="Common\ConfigUserModel.cs" />
+    <Compile Include="Common\DistrictModel.cs" />
+    <Compile Include="Common\CbbPriceModel.cs" />
+    <Compile Include="Common\EmailModel.cs" />
+    <Compile Include="Common\GroupFunctionsModel.cs" />
+    <Compile Include="Common\FunctionInfoModel.cs" />
+    <Compile Include="Common\ImageResultModel.cs" />
+    <Compile Include="Common\ProvinceModel.cs" />
+    <Compile Include="Common\SearchResultTaskModel.cs" />
+    <Compile Include="Common\TreeNode.cs" />
+    <Compile Include="Common\UploadModel.cs" />
+    <Compile Include="Common\UserEventLogSearchCondition.cs" />
+    <Compile Include="Common\UserEventLogSearchResult.cs" />
+    <Compile Include="ConfigScanFile\ConfigScanFileModel.cs" />
+    <Compile Include="ConfigScanFile\ConfigScanFileSearchModel.cs" />
+    <Compile Include="Config\ConfigModel.cs" />
+    <Compile Include="Config\ConfigResultModel.cs" />
+    <Compile Include="ConverUnit\ConverUnitModel.cs" />
+    <Compile Include="CostWarning\CostWarningModel.cs" />
+    <Compile Include="Cost\CostModel.cs" />
+    <Compile Include="CourseAttach\CourseAttachModel.cs" />
+    <Compile Include="CourseSkill\CourseSkillModel.cs" />
+    <Compile Include="CourseTraining\CourseTrainingModel.cs" />
+    <Compile Include="Course\CourseInfoModel.cs" />
+    <Compile Include="Course\CourseModel.cs" />
+    <Compile Include="Course\CourseResultModel.cs" />
+    <Compile Include="Course\CourseSearchModel.cs" />
+    <Compile Include="CurrentCostWarning\CurrentCostWarningSearchModel.cs" />
+    <Compile Include="CustomerContact\CustomerContactModel.cs" />
+    <Compile Include="CustomerContact\CustomerContactResultModel.cs" />
+    <Compile Include="CustomerContact\CustomerContactSearchModel.cs" />
+    <Compile Include="DashBroadProject\DashBoardProjecProductModel.cs" />
+    <Compile Include="DashBroadProject\DashBoardProjectPlanModel.cs" />
+    <Compile Include="DashBroadProject\DashBroadProjectResultModel.cs" />
+    <Compile Include="DashBroadProject\DashBroadProjectSearchModel.cs" />
+    <Compile Include="Documents\DocumentGroups\DocumentGroupModel.cs" />
+    <Compile Include="Documents\DocumentGroups\DocumentGroupSearchModel.cs" />
+    <Compile Include="Documents\DocumentGroups\DocumentGroupSearchResultModel.cs" />
+    <Compile Include="Documents\DocumentMeeting\DocumentMeetingModel.cs" />
+    <Compile Include="Documents\DocumentMeeting\DocumentMeetingSearchModel.cs" />
+    <Compile Include="Documents\DocumentMeeting\ReportMeetingModel.cs" />
+    <Compile Include="Documents\DocumentProblem\DocumentProblemModel.cs" />
+    <Compile Include="Documents\DocumentProblem\DocumentProblemSearchModel.cs" />
+    <Compile Include="Documents\DocumentProblem\DocumentProblemSearchResultModel.cs" />
+    <Compile Include="Documents\DocumentPromulgate\DocumentPromulgateFileModel.cs" />
+    <Compile Include="Documents\DocumentPromulgate\DocumentPromulgateModel.cs" />
+    <Compile Include="Documents\DocumentPromulgate\DocumentPromulgateSearchModel.cs" />
+    <Compile Include="Documents\DocumentPromulgate\DocumentPromulgateSearchResultModel.cs" />
+    <Compile Include="Documents\DocumentType\DocumentTypeModel.cs" />
+    <Compile Include="Documents\DocumentType\DocumentTypeSearchModel.cs" />
+    <Compile Include="Documents\DocumentType\DocumentTypeSearchResultModel.cs" />
+    <Compile Include="Documents\Document\DocumentFileModel.cs" />
+    <Compile Include="Documents\Document\DocumentObjectModel.cs" />
+    <Compile Include="Documents\Document\DocumentReferenceModel.cs" />
+    <Compile Include="Documents\Document\DocumentSearchModel.cs" />
+    <Compile Include="Documents\Document\DocumentSearchResultModel.cs" />
+    <Compile Include="Documents\Document\DocumentModel.cs" />
+    <Compile Include="Documents\Document\DocumentUploadModel.cs" />
+    <Compile Include="DownloadProjectProduct\ExportMaterialNoDatasheetModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeBankAccountModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeHistoryAppointModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeHistoryIncomeModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeHistoryInsuranceModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeHistoryLaborContractModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeJobTranferModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeWorkHistoryModel.cs" />
+    <Compile Include="Error\ErrorCodeModel.cs" />
+    <Compile Include="ExportAndKeep\CustomerCreateModel.cs" />
+    <Compile Include="ExportAndKeep\CustomerResultModel.cs" />
+    <Compile Include="ExportAndKeep\CustomerTypeModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepCodeModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepCreateModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepViewModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepResultModel.cs" />
+    <Compile Include="ExportAndKeep\ExportAndKeepSearchModel.cs" />
+    <Compile Include="ExportAndKeep\ExportDetailSaleProductModel.cs" />
+    <Compile Include="ExportAndKeep\SaleProductModel.cs" />
+    <Compile Include="ExportAndKeep\SaleProductExportDetailModel.cs" />
+    <Compile Include="ExportAndKeep\SaleProductExportModel.cs" />
+    <Compile Include="ExportAndKeep\SaleProductSearchModel.cs" />
+    <Compile Include="FlowStage\FlowStageModel.cs" />
+    <Compile Include="FlowStage\FlowStageSearchModel.cs" />
+    <Compile Include="FlowStage\FlowStageSearchResultModel.cs" />
+    <Compile Include="FlowStage\OutputChooseModel.cs" />
+    <Compile Include="HistoryVersion\BankAccountHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DocumentGroupHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DocumentHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DocumentTypeHistoryModel.cs" />
+    <Compile Include="HistoryVersion\FlowStageHistoryModel.cs" />
+    <Compile Include="HistoryVersion\InsuranceLevelHistoryModel.cs" />
+    <Compile Include="HistoryVersion\LaborContractHistoryModel.cs" />
+    <Compile Include="HistoryVersion\OutputResultHistoryModel.cs" />
+    <Compile Include="HistoryVersion\QuestionGroupHistoryModel.cs" />
+    <Compile Include="HistoryVersion\QuestionHistoryModel.cs" />
+    <Compile Include="HistoryVersion\ReasonChangeIncomeHistoryModel.cs" />
+    <Compile Include="HistoryVersion\ReasonChangeInsuranceHistoryModel.cs" />
+    <Compile Include="HistoryVersion\ReasonHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DataDistributionFileHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DataDistributionHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DesignStructureFileHistoryModel.cs" />
+    <Compile Include="HistoryVersion\DesignStructureHistoryModel.cs" />
+    <Compile Include="HistoryVersion\FileDefinitionHistoryModel.cs" />
+    <Compile Include="HistoryVersion\FolderDefinitionHistoryModel.cs" />
+    <Compile Include="HistoryVersion\SalaryLevelHistoryModel.cs" />
+    <Compile Include="HistoryVersion\ScanFileHistoryModel.cs" />
+    <Compile Include="HistoryVersion\TaskFlowStageHistoryModel.cs" />
+    <Compile Include="HistoryVersion\WorkLocationHistoryModel.cs" />
+    <Compile Include="HistoryVersion\WorkTimeHistoryModel.cs" />
+    <Compile Include="HistoryVersion\WorkTypeInterviewHistoryModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileKanbanReusltModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileReportSummaryModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileReportOngoingModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileReportReusltModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileSearchModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileReusltModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileDocumentConfigModel.cs" />
+    <Compile Include="ImportProfileDocumentConfigs\ImportProfileDocumentConfigUpdateModel.cs" />
+    <Compile Include="ImportProfileProblemExist\ImportProfileProblemExistCreateModel.cs" />
+    <Compile Include="ImportProfileProblemExist\ImportProfileProblemExistModel.cs" />
+    <Compile Include="ImportProfileProblemExist\ImportProfileProblemExistSearchModel.cs" />
+    <Compile Include="ImportProfileProblemExist\ImportProfileProblemSearchModel.cs" />
+    <Compile Include="ImportProfileTransportSupplier\ImportProfileTransportSupplierModel.cs" />
+    <Compile Include="ImportProfile\ChangeStepModel.cs" />
+    <Compile Include="ImportProfile\ExportListFileModel.cs" />
+    <Compile Include="ImportProfile\ImportCodeModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileCreateModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileDocumentModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileDocumentOtherModel.cs" />
+    <Compile Include="ImportProfile\ImportProfilePaymentModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileQuoteModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileSearchResultModel.cs" />
+    <Compile Include="ImportProfile\ImportProfileUpdateModel.cs" />
+    <Compile Include="ImportProfile\ListFileConfigModel.cs" />
+    <Compile Include="ImportProfile\ListFileModel.cs" />
+    <Compile Include="ImportProfile\StepImportProfileDocumentModel.cs" />
+    <Compile Include="ImportPR\ImportPRModel.cs" />
+    <Compile Include="ImportPR\ImportPRSearchModel.cs" />
+    <Compile Include="ImportPR\ImportPRUpdateModel.cs" />
+    <Compile Include="IncurredMaterial\IncurredMaterialResultModel.cs" />
+    <Compile Include="IncurredMaterial\IncurredMaterialSearchModel.cs" />
+    <Compile Include="InsuranceLevel\InsuranceLevelModel.cs" />
+    <Compile Include="InsuranceLevel\InsuranceLevelSearchModel.cs" />
+    <Compile Include="InsuranceLevel\InsuranceLevelSearchResultModel.cs" />
+    <Compile Include="LaborContract\LaborContractModel.cs" />
+    <Compile Include="LaborContract\LaborContractSearchModel.cs" />
+    <Compile Include="LaborContract\LaborContractSearchResultModel.cs" />
+    <Compile Include="Materials\SearchResultMaterialPriceModel.cs" />
+    <Compile Include="ModuleDesignDocument\ModuleDesignDocumentDownloadModel.cs" />
+    <Compile Include="ModuleMaterialFinishDesign\ModuleMaterialFinishDesignModel.cs" />
+    <Compile Include="Module\ModuleContenModel.cs" />
+    <Compile Include="Module\ModuleDocumentSearchModel.cs" />
+    <Compile Include="Module\SearchPlanResultModel.cs" />
+    <Compile Include="Notify\MessageNotify.cs" />
+    <Compile Include="Notify\NotifyEmailModel.cs" />
+    <Compile Include="Notify\NotifyEmailOutlookModel.cs" />
+    <Compile Include="OutputResult\OutputResultModel.cs" />
+    <Compile Include="OutputResult\OutputResultSearchModel.cs" />
+    <Compile Include="Plans\PlanEndDateModel.cs" />
+    <Compile Include="Practices\Practice\PracticeContentModel.cs" />
+    <Compile Include="Products\ProductAccessories\ProductAccessoriesExcelModel.cs" />
+    <Compile Include="Products\ProductCompareSource\ProductCompareSourceSearchModel.cs" />
+    <Compile Include="Products\ProductCompareSource\ProductCompareSourcModel.cs" />
+    <Compile Include="Products\ProductCompareSource\UpdateSaleProductModel.cs" />
+    <Compile Include="Products\ProductDocumentAttach\ProductDocumentAttachModel.cs" />
+    <Compile Include="Products\ProductDocumentAttach\UpdateProductDocumentModel.cs" />
+    <Compile Include="Products\ProductStandardTPAFile\ProductStandardTPAFileCreateModel.cs" />
+    <Compile Include="Products\ProductStandardTPAFile\ProductStandardTPAFileModel.cs" />
+    <Compile Include="Products\ProductStandardTPAImage\ProductStandardTPAImageModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\ListModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\ProductStandardTPAModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\ProductStandardTPASearchModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\ProductStandardTPATypeModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\ProductStandardTPATypeSearchModel.cs" />
+    <Compile Include="Products\ProductStandardTPAs\SupplierModel.cs" />
+    <Compile Include="Products\ProductCompareSource\ProductCompareSourceResultModel.cs" />
+    <Compile Include="Products\Product\ProductContentModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchInfoModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchResultModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesignMaterials\ProjectGeneralDesignMaterialSearchModel.cs" />
+    <Compile Include="QuestionGroup\QuestionGroupModel.cs" />
+    <Compile Include="QuestionGroup\QuestionGroupSearchModel.cs" />
+    <Compile Include="QuestionGroup\QuestionGroupSearchResultModel.cs" />
+    <Compile Include="Question\QuestionFileModel.cs" />
+    <Compile Include="Question\QuestionModel.cs" />
+    <Compile Include="Question\QuestionSearchModel.cs" />
+    <Compile Include="Question\QuestionSearchResultModel.cs" />
+    <Compile Include="ReasonChangeIncome\ReasonChangeIncomeModel.cs" />
+    <Compile Include="ReasonChangeIncome\ReasonChangeIncomeSearchModel.cs" />
+    <Compile Include="ReasonChangeIncome\ReasonChangeIncomeSearchResultModel.cs" />
+    <Compile Include="ReasonChangeInsurance\ReasonChangeInsuranceModel.cs" />
+    <Compile Include="ReasonChangeInsurance\ReasonChangeInsuranceSearchModel.cs" />
+    <Compile Include="ReasonChangeInsurance\ReasonChangeInsuranceSearchResultModel.cs" />
+    <Compile Include="ReasonEndWorking\ReasonModel.cs" />
+    <Compile Include="ReasonEndWorking\ReasonSearchModel.cs" />
+    <Compile Include="ReasonEndWorking\ReasonSearchResultModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewQuestionModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewUserInfoModel.cs" />
+    <Compile Include="Recruitments\Interviews\InterviewUserModel.cs" />
+    <Compile Include="Recruitments\RecruitmentChannels\RecruitmentChannelModel.cs" />
+    <Compile Include="Recruitments\RecruitmentChannels\RecruitmentChannelSearchModel.cs" />
+    <Compile Include="Recruitments\RecruitmentChannels\RecruitmentChannelSearchResultModel.cs" />
+    <Compile Include="Reports\ReportErrorProgress\ReportErrorProgressResultModel.cs" />
+    <Compile Include="Reports\ReportErrorProgress\ReportErrorProgressSearchModel.cs" />
+    <Compile Include="Reports\ReportErrorProgress\ReportErrorProgressSearchModelWorkChangePlanModel.cs" />
+    <Compile Include="Reports\ReportErrorProgress\StatisticErrorChangePlanedModel.cs" />
+    <Compile Include="Reports\ReportError\ReportErorrWorkChangePlanModel.cs" />
+    <Compile Include="Reports\ReportProblemExistDocument\ReportProblemExistDocumentCreateModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistCreateModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistExcelModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistHistoryModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistResultModel.cs" />
+    <Compile Include="Reports\ReportProblemExist\ReportProblemExistSearchModel.cs" />
+    <Compile Include="Reports\ReportProgressProjetct\ReportProgressProjectModel.cs" />
+    <Compile Include="Reports\ReportStatusMaterial\ReportStatusMaterialModel.cs" />
+    <Compile Include="Reports\ReportStatusMaterial\ReportStatusMaterialModuleModel.cs" />
+    <Compile Include="Reports\ReportStatusMaterial\ReportStatusMaterialModuleMaterialModel.cs" />
+    <Compile Include="Reports\ReportStatusMaterial\ReportStatusMaterialSearchResultModel.cs" />
+    <Compile Include="Reports\ReportStatusProduct\ReportStatusProductModel.cs" />
+    <Compile Include="Reports\ReportStatusMaterial\ReportStatusMaterialSearchModel.cs" />
+    <Compile Include="Reports\ReportStatusProduct\ReportStatusProductSearchModel.cs" />
+    <Compile Include="Reports\ReportError\ReportErrorWorkModel.cs" />
+    <Compile Include="Reports\ReportError\ReportErrorResultModel.cs" />
+    <Compile Include="Reports\ReportError\ReportErrorSearchModel.cs" />
+    <Compile Include="Reports\ReportError\ReportErrorInfoModel.cs" />
+    <Compile Include="Repositories\ActivityLog.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Application.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ApplicationClient.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Attachment.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Bank.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\BankAccount.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\BOMDesignTwo.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\BOMDesignTwoAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\BOMDesignTwoDetial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Candidate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateApply.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateEducation.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateFollow.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateLanguage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateWorkHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CandidateWorkTypeFit.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Classification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoom.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomDesignDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomModule.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomPractice.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomTool.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomToolPractice.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomToolProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassRoomToolSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ClassSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CodeRule.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CoefficientEmployee.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Component.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Config.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ConfigScanFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ConfigUserNotification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ConverUnit.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Cost.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Country.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Course.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CourseAttachFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CourseSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CourseTraining.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CourseTrainingSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Customer.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerContact.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerDomain.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerOfCustomer.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirement.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementContent.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementEstimate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementEstimateAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementProductSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerRequirementSolutionContent.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\CustomerType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DataDistribution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DataDistributionFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DataDistributionFileLink.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DataSheet.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Degree.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Department.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DepartmentSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Design3D.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DesignStructure.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DesignStructureFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\District.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Document.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentMeeting.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentObject.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentProblem.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentPromulgate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentPromulgateFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentReference.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentTag.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentTemplate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\DocumentType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Education.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EducationProgram.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EducationProgramAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EducationProgramJob.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmailTemplate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Employee.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeBankAccount.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeChangeIncome.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeChangeInsurance.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeContract.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeCourseTraining.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeDegree.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeEducation.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeHistoryAppoint.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeHistoryJobTranfer.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeSkillDetail.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeTrainingAttachFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeTraning.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\EmployeeWorkHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Error.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorAffect.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorChangedPlan.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorFix.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorFixAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ErrorImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Expert.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ExpertWorkplace.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ExternalEmployee.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Family.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Feature.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FileDefinition.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FlowStage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FlowStageOutputResult.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FolderDefinition.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FTPServer.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Function.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\FunctionGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\GroupFunction.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\GroupPermission.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\GroupUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Guideline.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Holiday.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportInventory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileDocumentConfig.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileDocumentOther.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfilePayment.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileProblemExist.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileQuote.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ImportProfileTransportSupplier.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\IncurredMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Industry.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InsuranceLevel.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Interview.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InterviewQuestion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\InterviewUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Job.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\JobAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\JobGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\JobPosition.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\JobSubject.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\LaborContract.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Language.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Manufacture.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ManufactureAvailable.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ManufactureGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ManufactureInGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Material.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialBuyHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialDataSheet.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialDesign3D.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialGroupTPA.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialImportBOMDraft.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialModuleGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialParameter.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialParameterValue.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MaterialPart.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Meeting.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingContent.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingContentAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingCustomerContact.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MeetingUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\MisMatch.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Module.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleChangeType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleDesignDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleDesignDocumentOld.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleDesigner.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleErrorImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleErrorVideo.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleGroupProductStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleGroupStage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleGroupTestCriteria.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleGroupTimeStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleInPractice.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleInProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleManualDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleMaterialAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleMaterialFinishDesign.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleOldVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModulePart.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleProductionTime.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleProductStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ModuleTestCriteria.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Notification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterialGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterialGroupAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterialParameter.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterialParameterValue.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NSMaterialType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\NTSUpdateVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\OutputRessult.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\OutputRessultDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Payment.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PaymentPlan.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Permission.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Plan.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanAssignment.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanFunction.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanHistoryAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PlanPermission.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Practice.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeExpert.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeMaterialConsumable.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeOldVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticeSubMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PracticInProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Product.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductAccessory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductCatalog.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductDesignDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductItem.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductMaterialAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductModule.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductModuleMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductModuleUpdate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductNeedPrice.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductNeedSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardTPA.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardTPAFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardTPAImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductStandardTPAType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductTestResultAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProductVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Project.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectAttachTabType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectAttachUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectDocumentGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectEmployee.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectError.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectGeneralDesign.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectGeneralDesignMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectGeneralDesignModule.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectPhase.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectProductTestCriteria.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectSolutionProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectTransferAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProjectTransferProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ProtectSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Province.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PurchaseRequest.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\PurchaseRequestProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QCCheckList.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QCResult.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QLTKEntities.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLTKEntities.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QLTKEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QLTKEntities.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QLTKEntities.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Qualification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Question.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionFile.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuestionGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Quotation.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuotationPlan.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuotationProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\QuotationStep.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RawMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ReasonChangeIncome.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ReasonChangeInsurance.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\ReasonEndWorking.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RecruitmentChannel.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RecruitmentRequest.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RecruitmentRequestAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Responsibility.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Role.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\RoomType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SalaryGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SalaryLevel.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SalaryType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleGroupProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleGroupUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductAccessory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductApplication.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductExport.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductExportDetail.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductJob.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductMedia.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleProductType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SaleTargetment.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SBU.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SimilarMaterial.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SimilarMaterialConfig.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketchAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketchAttachHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketcheHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketchFunction.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketchMaterialElectronic.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SketchMaterialMechanical.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Skill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SkillAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SkillGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Solution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionAnalysisEstimate.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionAnalysisProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionAnalysisRisk.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionAnalysisSupplier.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionDesignDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionDesignDocumentOld.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionFeature.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionImage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionOldVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SolutionTechnology.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Specialize.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SpecializeExpert.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SpecializeGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SpecializeInPracticeGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Specification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Stage.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\StepInQuotation.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Subject.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SubjectsAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SubjectsClassRoom.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SubjectSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SubsidyHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Supplier.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SupplierContact.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SupplierContract.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SupplierGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SupplierInGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SupplierManufacture.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Survey.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SurveyContent.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SurveyContentAttach.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SurveyContentUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SurveyTool.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SurveyUser.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SyncSaleProduct.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\sysdiagram.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\SystemParam.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Task.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskInputRessult.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskMateril.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskModuleGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskModuleGroupTimeStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskOutputRessult.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskTimeStandard.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TaskWorkType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TechInSolution.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TechnologyManufacture.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TechnologySupplier.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TestCriteria.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\TestCriteriaGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Unit.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\User.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserGuide.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserGuideVersion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserHistory.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserNotification.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\UserPermission.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Ward.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkDiary.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkLocation.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\Workplace.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkSkillGroup.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkTime.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkType.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkTypeDocument.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkTypeInterview.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkTypeInterviewQuestion.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Repositories\WorkTypeSkill.cs">
+      <DependentUpon>QLTKEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role\RoleModel.cs" />
+    <Compile Include="SalaryLevel\SalaryLevelResultModel.cs" />
+    <Compile Include="SalaryLevel\SalaryTypeModel.cs" />
+    <Compile Include="SalaryLevel\SalaryGroupModel.cs" />
+    <Compile Include="SalaryLevel\SalaryTypeSearchModel.cs" />
+    <Compile Include="SalaryLevel\SalaryLevelModel.cs" />
+    <Compile Include="SalaryLevel\SalaryGroupSearchModel.cs" />
+    <Compile Include="SalaryLevel\SalaryLevelSearchModel.cs" />
+    <Compile Include="SaleGroup\EmployeeModel.cs" />
+    <Compile Include="SaleGroup\EmployeeSearchModel.cs" />
+    <Compile Include="SaleGroup\ProductSearchModel.cs" />
+    <Compile Include="SaleGroup\SaleGroupCreateModel.cs" />
+    <Compile Include="SaleGroup\SaleGroupModel.cs" />
+    <Compile Include="SaleGroup\SaleGroupProductModel.cs" />
+    <Compile Include="SaleGroup\SaleProductModel.cs" />
+    <Compile Include="SaleGroup\SaleGroupResultModel.cs" />
+    <Compile Include="SaleGroup\SaleGroupUserModel.cs" />
+    <Compile Include="SaleGroup\SearchSaleGroupModel.cs" />
+    <Compile Include="Sale\ProductCompareSource\ModuleCompareSourceModel.cs" />
+    <Compile Include="Sale\SaleProduct\ApplicationInfoModel.cs" />
+    <Compile Include="Sale\SaleProduct\GroupProductInfoModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductTypeModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleGroupResultModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductCreateModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductDetailModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductSearchModel.cs" />
+    <Compile Include="Sale\SaleProduct\SaleProductSendEmailModel.cs" />
+    <Compile Include="Sale\SaleProduct\SearchSaleGroupModel.cs" />
+    <Compile Include="Sale\SaleTartgetment\SaleTartgetmentModel.cs" />
+    <Compile Include="ScheduleProject\ComboboxSupplierModel.cs" />
+    <Compile Include="ScheduleProject\EmployeePlanModel.cs" />
+    <Compile Include="ScheduleProject\ExportScheduleProjectModel.cs" />
+    <Compile Include="ScheduleProject\GrantChartModel.cs" />
+    <Compile Include="ScheduleProject\OTPlanModel.cs" />
+    <Compile Include="ScheduleProject\PlanCopyCreateModel.cs" />
+    <Compile Include="ScheduleProject\PlanCopyModel.cs" />
+    <Compile Include="Skills\SkillResultModel.cs" />
+    <Compile Include="SolutionAnalysisEstimate\SolutionAnalysisEstimateModel.cs" />
+    <Compile Include="SolutionAnalysisSupplier\SolutionAnalysisSupplierModel.cs" />
+    <Compile Include="Solution\CustomerRequireEstimateAttachModel.cs" />
+    <Compile Include="Solution\CustomerRequirementModel.cs" />
+    <Compile Include="Solution\CustomerRequirementSolutionContentModel.cs" />
+    <Compile Include="Solution\ProtectSolutionContentModel.cs" />
+    <Compile Include="Solution\SolutionsSupplier\SolutionsSupplierModel.cs" />
+    <Compile Include="Solution\SolutionsSupplier\SolutionSupplierSearchModel.cs" />
+    <Compile Include="Solution\TechSolutionModel.cs" />
+    <Compile Include="Solution\UploadFileSolutionDesignDocumentModel.cs" />
+    <Compile Include="SubsidyHistory\SubsidyHistoryModel.cs" />
+    <Compile Include="Supplier\SupplierContractModel.cs" />
+    <Compile Include="SurveyContent\SurveyContentAttachModel.cs" />
+    <Compile Include="SurveyContent\SurveyContentCreateModel.cs" />
+    <Compile Include="SurveyContent\SurveyContentSearchModel.cs" />
+    <Compile Include="SurveyMaterial\SurveyMaterialCreateModel.cs" />
+    <Compile Include="SurveyMaterial\SurveyMaterialSearchModel.cs" />
+    <Compile Include="Survey\SurveyCreateModel.cs" />
+    <Compile Include="Survey\SurveyInfoModel.cs" />
+    <Compile Include="Survey\SurveySearchModel.cs" />
+    <Compile Include="Survey\SurveySearchResultModel.cs" />
+    <Compile Include="TaskFlowStage\RASCIEntity.cs" />
+    <Compile Include="TaskFlowStage\TaskFlowStageModel.cs" />
+    <Compile Include="TaskFlowStage\TaskFlowStageSearchModel.cs" />
+    <Compile Include="TaskFlowStage\TaskFlowStageSearchResultModel.cs" />
+    <Compile Include="Task\TaskWorkTypeModel.cs" />
+    <Compile Include="UserHistoryManage\UserHistoryModel.cs" />
+    <Compile Include="UserHistoryManage\UserHistorySearchModel.cs" />
+    <Compile Include="UserHistory\CandidateApplyHistoryModel.cs" />
+    <Compile Include="UserHistory\CustomerHistoryModel.cs" />
+    <Compile Include="Customers\CustomerContactExport.cs" />
+    <Compile Include="Customers\CustomersModel.cs" />
+    <Compile Include="Customers\CustomersResultModel.cs" />
+    <Compile Include="Customers\CustomersSearchModel.cs" />
+    <Compile Include="UserHistory\CustomerTypeHistoryModel.cs" />
+    <Compile Include="CustomerType\CustomerTypeModel.cs" />
+    <Compile Include="CustomerType\CustomerTypeSearchModel.cs" />
+    <Compile Include="DashboardEmployee\DashboardEmployeeModel.cs" />
+    <Compile Include="DashboardEmployee\DashboardEmployeeSearchModel.cs" />
+    <Compile Include="DashboardEmployee\ObjectEmployeeModel.cs" />
+    <Compile Include="DashBroadProject\DashBroadProjectModel.cs" />
+    <Compile Include="DataCheckModuleUpload\DataCheckModuleUploadModel.cs" />
+    <Compile Include="DataDistributionFile\DataDistributionFileModel.cs" />
+    <Compile Include="DataDistribution\DataDistributionModel.cs" />
+    <Compile Include="DataDistribution\DataDistributionFileSearchModel.cs" />
+    <Compile Include="Datasheet\DatasheetModel.cs" />
+    <Compile Include="Datasheet\DatasheetResultModel.cs" />
+    <Compile Include="Datasheet\DatasheetSearchModel.cs" />
+    <Compile Include="UserHistory\DegreeHistoryModel.cs" />
+    <Compile Include="Degree\DegreeModel.cs" />
+    <Compile Include="Degree\DegreeResultModel.cs" />
+    <Compile Include="Degree\DegreeSearchModel.cs" />
+    <Compile Include="DesignDocuments\FileUploadModel.cs" />
+    <Compile Include="DesignDocuments\FolderUploadModel.cs" />
+    <Compile Include="Designer\DesignerModel.cs" />
+    <Compile Include="Designer\DesignerResultModel.cs" />
+    <Compile Include="Designer\DesignerSearchModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureCreateModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureFileModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureResultModel.cs" />
+    <Compile Include="DesignStructure\DesignStructureSearchModel.cs" />
+    <Compile Include="Device\InfoSendMail.cs" />
+    <Compile Include="Device\DeviceCommans.cs" />
+    <Compile Include="Device\Messager.cs" />
+    <Compile Include="DMVTImportSAP\DesignMaterialExportModel.cs" />
+    <Compile Include="DMVTImportSAP\DesignMaterialModel.cs" />
+    <Compile Include="DMVTImportSAP\DesignModuleInfoModel.cs" />
+    <Compile Include="DMVTImportSAP\DesignModuleModel.cs" />
+    <Compile Include="DownloadListModules\DownloadMarterialDesignModel.cs" />
+    <Compile Include="DownloadListModules\DownloadMarterialModel.cs" />
+    <Compile Include="DownloadListModules\DownloadModuleDesignDataModel.cs" />
+    <Compile Include="DownloadListModules\DownloadModuleDesignModel.cs" />
+    <Compile Include="DownloadListModules\DownloadModuleDesignInfoModel.cs" />
+    <Compile Include="DownloadMaterialDesign\DownloadMaterialDesignInfoModel.cs" />
+    <Compile Include="DownloadMaterialDesign\DownloadMaterialDesignModel.cs" />
+    <Compile Include="DownloadMaterialDesign\DownloadMaterialDesignDataModel.cs" />
+    <Compile Include="DownloadModule\DownloadModuleSearchModel.cs" />
+    <Compile Include="DownloadModule\DownloadModuleSearchResultModel.cs" />
+    <Compile Include="DownloadModule\ImportListModuleModel.cs" />
+    <Compile Include="EducationProgramAttach\EducationProgramAttach.cs" />
+    <Compile Include="EducationProgram\EducationProgramModel.cs" />
+    <Compile Include="EducationProgram\EducationProgramResultModel.cs" />
+    <Compile Include="EducationProgram\EducationProgramSearchModel.cs" />
+    <Compile Include="Education\EducationModel.cs" />
+    <Compile Include="Employees\EmployeeCourseTraining\EmployeeCourseTrainingModel.cs" />
+    <Compile Include="Employees\EmployeeCourse\EmployeeCourseModel.cs" />
+    <Compile Include="Employees\EmployeeDegree\EmployeeDegreeModel.cs" />
+    <Compile Include="Employees\EmployeeDegree\EmployeeDegreeResultModel.cs" />
+    <Compile Include="Employees\EmployeeDegree\EmployeeDegreeSearchModel.cs" />
+    <Compile Include="Employees\EmployeeEducation\EmployeeEducationModel.cs" />
+    <Compile Include="Employees\EmployeeGroups\EmployeeGroupModel.cs" />
+    <Compile Include="Employees\EmployeeGroups\EmployeeGroupResultModel.cs" />
+    <Compile Include="Employees\EmployeeGroups\EmployeeGroupSearchModel.cs" />
+    <Compile Include="Employees\EmployeeSkillDetails\EmployeeSkillDetailsModel.cs" />
+    <Compile Include="Employees\EmployeeSkillDetails\EmployeeSkillDetailsResultModel.cs" />
+    <Compile Include="Employees\EmployeeSkillDetails\EmployeeSkillDetailsSeaechModel.cs" />
+    <Compile Include="Employees\EmployeeSkills\WorkSkillModel.cs" />
+    <Compile Include="Employees\EmployeeSkills\EmployeeSkillsModel.cs" />
+    <Compile Include="Employees\EmployeeSkills\EmployeeSkillsResultModel.cs" />
+    <Compile Include="Employees\EmployeeSkills\EmployeeSkillsSearchModel.cs" />
+    <Compile Include="Employees\EmployeeTraining\EmployeeByCouserId.cs" />
+    <Compile Include="Employees\EmployeeTraining\EmployeeTrainingModel.cs" />
+    <Compile Include="Employees\EmployeeTraining\EmployeeTrainingSearchModel.cs" />
+    <Compile Include="Employees\Employee\DegreeModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1000.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1000SearchEmployee.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1100EmployeeModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1100FunctionModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1100GroupFunctionsModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP1100UserPermissionModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP2000FunctionModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP2000GroupModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP2000GroupPermissionModel.cs" />
+    <Compile Include="Employees\EMSEP\EMSEP2000GroupSearchModel.cs" />
+    <Compile Include="EMSST\EMSST1200UserInfoModel.cs" />
+    <Compile Include="Entities\Client.cs" />
+    <Compile Include="Entities\EnumsEntitty.cs" />
+    <Compile Include="Entities\LoginEntity.cs" />
+    <Compile Include="Entities\RefreshToken.cs" />
+    <Compile Include="Entities\UserEntity.cs" />
+    <Compile Include="Errors\ErrorAttach\ErrorAttachModel.cs" />
+    <Compile Include="Errors\ErrorGroup\ErrorGroupModel.cs" />
+    <Compile Include="Errors\ErrorHistory\ErrorHistoryModel.cs" />
+    <Compile Include="Errors\ErrorHistory\ErrorHistorySearchModel.cs" />
+    <Compile Include="Errors\ErrorImage\ErrorImageModel.cs" />
+    <Compile Include="UserHistory\ErrorLogHistoryModel.cs" />
+    <Compile Include="Error\ErrorModel.cs" />
+    <Compile Include="Error\ErrorSearchModel.cs" />
+    <Compile Include="Error\ErrorStatusModel.cs" />
+    <Compile Include="Error\SearchResultErrorModel.cs" />
+    <Compile Include="UserHistory\ExpertHistoryModel.cs" />
+    <Compile Include="Expert\ExpertExcelModel.cs" />
+    <Compile Include="Expert\ExpertModel.cs" />
+    <Compile Include="Expert\ExpertResultModel.cs" />
+    <Compile Include="Expert\ExpertSearchModel.cs" />
+    <Compile Include="ForecastProject\ForecastProjectModel.cs" />
+    <Compile Include="UserHistory\FunctionHistoryModel.cs" />
+    <Compile Include="FuturePersonnelForecast\EmployeePlan.cs" />
+    <Compile Include="FuturePersonnelForecast\FuturePersonnelForecastModel.cs" />
+    <Compile Include="FuturePersonnelForecast\FuturePersonnelForecastSearchModel.cs" />
+    <Compile Include="FuturePersonnelForecast\ModuleGroupModel.cs" />
+    <Compile Include="FuturePersonnelForecast\ModuleInProduct.cs" />
+    <Compile Include="FuturePersonnelForecast\SelectProjectModel.cs" />
+    <Compile Include="GeneralInfomationProject\GeneralInfomationProjectSearchModel.cs" />
+    <Compile Include="GeneralTemplate\ConfirmElectronicRecordModel.cs" />
+    <Compile Include="GeneralTemplate\DataProgramElectricModel.cs" />
+    <Compile Include="GeneralTemplate\DesignArticleModel.cs" />
+    <Compile Include="GeneralTemplate\DesignRecordModel.cs" />
+    <Compile Include="GeneralTemplate\DrawControlAlgorithmModel.cs" />
+    <Compile Include="GeneralTemplate\ElectronicRecordsModel.cs" />
+    <Compile Include="GeneralTemplate\EquipmentByFunctionModel.cs" />
+    <Compile Include="GeneralTemplate\ExportGeneralDesignModel.cs" />
+    <Compile Include="GeneralTemplate\GenealProductStandModel.cs" />
+    <Compile Include="GeneralTemplate\GeneralCheckListModel.cs" />
+    <Compile Include="GeneralTemplate\GeneralElectronicModel.cs" />
+    <Compile Include="Families\FamiliesModel.cs" />
+    <Compile Include="FileDefinition\FileDefinitionModel.cs" />
+    <Compile Include="FolderDefinition\FolderDefinitionModel.cs" />
+    <Compile Include="FunctionGroup\FunctionGroupModel.cs" />
+    <Compile Include="FunctionGroup\FunctionGroupResultModel.cs" />
+    <Compile Include="FunctionGroup\FunctionGroupSearchModel.cs" />
+    <Compile Include="Function\FunctionModel.cs" />
+    <Compile Include="Function\FunctionResultModel.cs" />
+    <Compile Include="Function\FunctionSearchModel.cs" />
+    <Compile Include="GeneralTemplate\GeneralMechanicalModel.cs" />
+    <Compile Include="GeneralTemplate\ListFunctionModel.cs" />
+    <Compile Include="GeneralTemplate\MechanicalRecordsModel.cs" />
+    <Compile Include="GeneralTemplate\ProductStandModel.cs" />
+    <Compile Include="GeneralTemplate\ProfileElectronicDesignModel.cs" />
+    <Compile Include="GeneralTemplate\ProgrammableDataModel.cs" />
+    <Compile Include="GeneralTemplate\SetUpSpecificationModel.cs" />
+    <Compile Include="GeneralTemplate\TableCheckPrinciplesElectricModel.cs" />
+    <Compile Include="GeneralTemplate\TestProcessModel.cs" />
+    <Compile Include="GroupFunction\GroupFunctionModel.cs" />
+    <Compile Include="GroupModule\GroupModuleStageModel.cs" />
+    <Compile Include="GroupModule\ModuleGroupTestCriteiaModel.cs" />
+    <Compile Include="GroupModule\TestCriteriModel.cs" />
+    <Compile Include="HistoryVersion\ClassRoomHistoryModel.cs" />
+    <Compile Include="HistoryVersion\EducationHistoryModel.cs" />
+    <Compile Include="HistoryVersion\EmployeeTrainingHistoryModel.cs" />
+    <Compile Include="HistoryVersion\GroupUserHistoryModel.cs" />
+    <Compile Include="HistoryVersion\HistoryVersionModel.cs" />
+    <Compile Include="HistoryVersion\HolidayHistoryModel.cs" />
+    <Compile Include="UserHistory\JobHistoryModel.cs" />
+    <Compile Include="HistoryVersion\ManufactureHistoryModel.cs" />
+    <Compile Include="HistoryVersion\NSMaterialGroupModel.cs" />
+    <Compile Include="HistoryVersion\PlanHistoryModel.cs" />
+    <Compile Include="HistoryVersion\SolutionHistoryModel.cs" />
+    <Compile Include="UserHistory\NSMaterialGroupHistoryModel.cs" />
+    <Compile Include="UserHistory\SaleProductExportHistory.cs" />
+    <Compile Include="UserHistory\SaleProductTypeHistoryModel.cs" />
+    <Compile Include="UserHistory\SubjectHistoryModel.cs" />
+    <Compile Include="HistoryVersion\WorkDiaryHistoryModel.cs" />
+    <Compile Include="Holiday\HolidayModel.cs" />
+    <Compile Include="UserHistory\IndustryHistoryModel.cs" />
+    <Compile Include="Industry\IndustryModel.cs" />
+    <Compile Include="Industry\IndustryResultModel.cs" />
+    <Compile Include="Industry\IndustrySearchModel.cs" />
+    <Compile Include="InitData\StaticGroupFuncfion.cs" />
+    <Compile Include="JobAttach\JobAttachModel.cs" />
+    <Compile Include="JobGroup\JobGroupModel.cs" />
+    <Compile Include="JobGroup\JobGroupResultModel.cs" />
+    <Compile Include="JobGroup\JobGroupSearchModel.cs" />
+    <Compile Include="GroupUser\PermissionModel.cs" />
+    <Compile Include="JobPosition\JobPositionModel.cs" />
+    <Compile Include="JobPosition\JobPositionResultModel.cs" />
+    <Compile Include="JobPosition\JobPositionSearchModel.cs" />
+    <Compile Include="JobSupjects\JobSubjectsModel.cs" />
+    <Compile Include="Job\JobModel.cs" />
+    <Compile Include="Job\JobResultModel.cs" />
+    <Compile Include="Job\JobSearchModel.cs" />
+    <Compile Include="LLADGS\LLADGS1000Model.cs" />
+    <Compile Include="LLADGS\LLADGS1000SearchModel.cs" />
+    <Compile Include="GroupUser\GroupUserModel.cs" />
+    <Compile Include="GroupUser\GroupUserResultModel.cs" />
+    <Compile Include="GroupUser\GroupUserSearchModel.cs" />
+    <Compile Include="ManufactureGroup\ManufactureGroupModel.cs" />
+    <Compile Include="Manufacture\ManufactureModel.cs" />
+    <Compile Include="Manufacture\ManufactureResultModel.cs" />
+    <Compile Include="Manufacture\ManufactureSearchModel.cs" />
+    <Compile Include="MasterEmployeeLevel\MasterEmployeeLevelModel.cs" />
+    <Compile Include="MasterEmployee\MasterEmployeeModel.cs" />
+    <Compile Include="MasterLibrary\MasterLibraryModel.cs" />
+    <Compile Include="MaterialBuyHistory\MaterialBuyHistoryModel.cs" />
+    <Compile Include="MaterialBuyHistory\MaterialBuyHistoryResultModel.cs" />
+    <Compile Include="MaterialBuyHistory\MaterialBuyHistorySearchModel.cs" />
+    <Compile Include="HistoryVersion\MarterialGroupTPAHistoryModel.cs" />
+    <Compile Include="MaterialGroupTPA\MaterialGroupTPAModel.cs" />
+    <Compile Include="MaterialGroupTPA\MaterialGroupTPAResultModel.cs" />
+    <Compile Include="MaterialGroupTPA\MaterialGroupTPASearchModel.cs" />
+    <Compile Include="MaterialGroup\MaterialGroupFromDBModel.cs" />
+    <Compile Include="HistoryVersion\MaterialGroupHistoryModel.cs" />
+    <Compile Include="MaterialGroup\MaterialGroupModel.cs" />
+    <Compile Include="MaterialParameterValue\MaterialParameterValueModel.cs" />
+    <Compile Include="MaterialParameter\MaterialParameterModel.cs" />
+    <Compile Include="Materials\DataSheetModel.cs" />
+    <Compile Include="Materials\Design3DModel.cs" />
+    <Compile Include="Materials\ListMaterialResult.cs" />
+    <Compile Include="Materials\MaterialCheckPriceModel.cs" />
+    <Compile Include="Materials\MaterialExportModel.cs" />
+    <Compile Include="Materials\MaterialFromDBModel.cs" />
+    <Compile Include="HistoryVersion\MaterialHistoryModel.cs" />
+    <Compile Include="Materials\MaterialImageModel.cs" />
+    <Compile Include="Materials\MaterialModel.cs" />
+    <Compile Include="Materials\MaterialPartModel.cs" />
+    <Compile Include="Materials\MaterialResultModel.cs" />
+    <Compile Include="Materials\MaterialSearchModel.cs" />
+    <Compile Include="Materials\SearchResultMaterial.cs" />
+    <Compile Include="Mobile\ResultModel.cs" />
+    <Compile Include="ModuleDesignDocument\ModuleDesignDocumentModel.cs" />
+    <Compile Include="ModuleDesignDocument\ModuleDesignerModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorImageModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorVideoModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorTypeModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorResultModel.cs" />
+    <Compile Include="ModuleError\ModuleErrorSearchModel.cs" />
+    <Compile Include="ModuleGroupProductStandard\ModuleGroupProductStandardModel.cs" />
+    <Compile Include="ModuleGroupProductStandard\ModuleGroupProductStandardSearchModel.cs" />
+    <Compile Include="ModuleGroupTimeStandards\ModuleGroupTimeStandardsModel.cs" />
+    <Compile Include="UserHistory\ModuleHistoryModel.cs" />
+    <Compile Include="ModuleManualDocument\ModuleManualDocumentModel.cs" />
+    <Compile Include="ModuleMaterials\ModuleMaterialExcelModel.cs" />
+    <Compile Include="ModuleMaterials\ModuleMaterialModel.cs" />
+    <Compile Include="ModuleMaterials\ModuleMaterialResultModel.cs" />
+    <Compile Include="ModuleMaterials\ModuleMaterialSearchModel.cs" />
+    <Compile Include="ModuleMaterials\ModuleMaterialUploadFileModel.cs" />
+    <Compile Include="ModuleMaterials\ModulePriceInfoModel.cs" />
+    <Compile Include="ModuleMaterials\SearchModuleMaterialResultModel.cs" />
+    <Compile Include="ModuleOldVersion\ModuleOldVersionModel.cs" />
+    <Compile Include="ModulePart\ModulePartModel.cs" />
+    <Compile Include="ModulePart\ModulePartResultModel.cs" />
+    <Compile Include="ModulePart\ModulePartSearchModel.cs" />
+    <Compile Include="ModuleProductionTime\ModuleProductionTimeModel.cs" />
+    <Compile Include="ModuleProductStandard\ModuleProductStandardModel.cs" />
+    <Compile Include="Module\ListPlanDesginModel.cs" />
+    <Compile Include="Module\StageModel.cs" />
+    <Compile Include="Notify\NotifyModel.cs" />
+    <Compile Include="Notify\NotifySearchModel.cs" />
+    <Compile Include="Notify\WebNotifyQueueModel.cs" />
+    <Compile Include="Permission\PermissionsModel.cs" />
+    <Compile Include="Plans\PlanModel.cs" />
+    <Compile Include="Plans\PlanResultModel.cs" />
+    <Compile Include="Plans\WorkingTimeSearchModel.cs" />
+    <Compile Include="Plans\PlanSearchModel.cs" />
+    <Compile Include="Plans\WorkTimeModel.cs" />
+    <Compile Include="Practices\PracticeExperts\PracticeExpertsModel.cs" />
+    <Compile Include="Practices\PracticeExperts\PracticeExpertsSearchModel.cs" />
+    <Compile Include="Practices\PracticeFile\PracticeFileModel.cs" />
+    <Compile Include="UserHistory\PracticeHistoryModel.cs" />
+    <Compile Include="Practices\PracticeMaterialConsumable\PracticeMaterialConsumableModel.cs" />
+    <Compile Include="Practices\PracticeMaterialConsumable\PracticeMaterialConsumableSearchModel.cs" />
+    <Compile Include="Practices\PracticeMaterial\PracticeMaterialModel.cs" />
+    <Compile Include="Practices\PracticeMaterial\PracticeMaterialSearchModel.cs" />
+    <Compile Include="Practices\PracticeMaterial\PracticeMaterialSearchResultModel.cs" />
+    <Compile Include="Practices\PracticeOldVersion\PracticeOldVersionModel.cs" />
+    <Compile Include="Practices\PracticeProduct\PracticeProductModel.cs" />
+    <Compile Include="Practices\PracticeProduct\PracticeProductSearchModel.cs" />
+    <Compile Include="Practices\PracticeProduct\PracticeProductSearchResultModel.cs" />
+    <Compile Include="UserHistory\PracticeSkillHistoryModel.cs" />
+    <Compile Include="Practices\PracticeSkill\PracticeSkillModel.cs" />
+    <Compile Include="Practices\PracticeSupMaterial\PracticeSupMaterialSearchModel.cs" />
+    <Compile Include="Practices\PracticeSupMaterial\PracticeSupMaterialModel.cs" />
+    <Compile Include="Practices\Practice\PracticeModel.cs" />
+    <Compile Include="Practices\Practice\PracticeSearchModel.cs" />
+    <Compile Include="Products\ProductAccessories\ProductAccessoriesModel.cs" />
+    <Compile Include="Products\ProductAccessories\ProductAccessoriesSearchModel.cs" />
+    <Compile Include="Products\ProductCatalog\ProductCatalogModel.cs" />
+    <Compile Include="Products\ProductDesignDocuments\UploadFolderProductDesignDocumentModel.cs" />
+    <Compile Include="Products\ProductDocument\ProductDocumentModel.cs" />
+    <Compile Include="Products\ProductGroup\ProductGroupModel.cs" />
+    <Compile Include="Products\ProductGroup\ProductGroupResultModel.cs" />
+    <Compile Include="Products\ProductGroup\ProductGroupSearchModel.cs" />
+    <Compile Include="Products\ProductMaterials\fileDatasheetModel.cs" />
+    <Compile Include="Products\ProductMaterials\fileSetupModel.cs" />
+    <Compile Include="Products\ProductMaterials\ProductMaterialSearchModel.cs" />
+    <Compile Include="Products\ProductMaterials\ProductMaterialsModel.cs" />
+    <Compile Include="Products\ProductModuleUpdate\ProductModuleUpdateModel.cs" />
+    <Compile Include="UserHistory\ProductStandardLogHistoryModel.cs" />
+    <Compile Include="Products\Product\ModuleInProductModel.cs" />
+    <Compile Include="Products\Product\ProductDesignDocumentModel.cs" />
+    <Compile Include="Products\Product\ProductErrorModel.cs" />
+    <Compile Include="Products\Product\ProductModel.cs" />
+    <Compile Include="Products\Product\ProductResultModel.cs" />
+    <Compile Include="Products\Product\ProductSearchModel.cs" />
+    <Compile Include="Products\Product\SearchErrorProductModel.cs" />
+    <Compile Include="Products\Product\UploadFolderProductResultModel.cs" />
+    <Compile Include="Products\Product\UploadProductDataModel.cs" />
+    <Compile Include="Products\Product\UploadProductModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchSearchResultModel.cs" />
+    <Compile Include="Projects\ProjectAttch\ProjectAttchSearchModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesignMaterials\ProjectGeneralDesignMaterialsModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesignModule\ProjectGeneralDesignModuleModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesignModule\ProjectGeneralDesignModuleResultModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesign\ProjectGaneralDesignApproveStatusModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesign\ProjectGeneralDesignModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesign\ProjectGeneralDesignResultModel.cs" />
+    <Compile Include="Projects\ProjectGeneralDesign\ProjectGeneralDesignSearchModel.cs" />
+    <Compile Include="UserHistory\ProjectHistoryModel.cs" />
+    <Compile Include="Projects\ProjectProductDocument\DownloadProjectProductModel.cs" />
+    <Compile Include="Projects\ProjectProductDocument\ProjectProductFolderModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProjectProductResultModel.cs" />
+    <Compile Include="Projects\ProjectSolution\ProjectProductToSolutionModel.cs" />
+    <Compile Include="Projects\ProjectSolution\ProjectSolutionModel.cs" />
+    <Compile Include="Projects\ProjectSolution\ProjectSolutionProductModel.cs" />
+    <Compile Include="Projects\ProjectTransferAttach\ProjectTransferAttachModel.cs" />
+    <Compile Include="Projects\Project\ProjectProductToTranferModel.cs" />
+    <Compile Include="UserHistory\RawMaterialHistoryModel.cs" />
+    <Compile Include="Reports\ReportApplicationPresent\ReportApplicationPresentModel.cs" />
+    <Compile Include="Reports\ReportApplicationPresent\ReportApplicationPresentSearchModel.cs" />
+    <Compile Include="Reports\ReportEmployeesPresent\ReportEmployeesPresentResultModel.cs" />
+    <Compile Include="Reports\ReportEmployeesPresent\ReportEmployeesPresentSearchModel.cs" />
+    <Compile Include="Reports\ReportEmployeesPresent\ReportEmployeesPresentModel.cs" />
+    <Compile Include="Reports\ReportQualityPresent\ReportQualityPresentModel.cs" />
+    <Compile Include="Reports\ReportQualityPresent\ReportQualityPresentSearchModel.cs" />
+    <Compile Include="Reports\ReportStatusModule\ReportStatusModuleModel.cs" />
+    <Compile Include="Reports\ReportStatusModule\ReportStatusModuleSearchModel.cs" />
+    <Compile Include="Report\ReportModel.cs" />
+    <Compile Include="RoomType\ModuleRoomTypeModel.cs" />
+    <Compile Include="RoomType\ModuleRoomTypeResultModel.cs" />
+    <Compile Include="RoomType\ModuleRoomTypeSearchModel.cs" />
+    <Compile Include="ModuleTestCriteria\ModuleTestCriteriaModule.cs" />
+    <Compile Include="Module\ModuleImageModel.cs" />
+    <Compile Include="NSMaterialGroupAttach\NSMaterialGroupAttachModel.cs" />
+    <Compile Include="NSMaterialGroup\NSMaterialGroupModel.cs" />
+    <Compile Include="NSMaterialGroup\NSMaterialGroupResultModel.cs" />
+    <Compile Include="NSMaterialGroup\NSMaterialGroupSearchModel.cs" />
+    <Compile Include="NSMaterialParameterValue\NSMaterialParameterValueModel.cs" />
+    <Compile Include="NSMaterialParameter\NSMaterialParameterModel.cs" />
+    <Compile Include="NTSDepartment\NTSDepartmentModel.cs" />
+    <Compile Include="NTSDepartment\NTSDepartmentResultModel.cs" />
+    <Compile Include="NTSDepartment\NTSDepartmentSearchModel.cs" />
+    <Compile Include="Practices\PracticeGroup\PracticeGroupModel.cs" />
+    <Compile Include="Practices\PracticeGroup\PracticeGroupResultModel.cs" />
+    <Compile Include="Practices\PracticeGroup\PracticeGroupSearchModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeResultModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeModel.cs" />
+    <Compile Include="Employees\Employee\EmployeeSearchModel.cs" />
+    <Compile Include="Products\ProductStandardGroup\ProductStandardGroupModel.cs" />
+    <Compile Include="Products\ProductStandardGroup\ProductStandardGroupResultModel.cs" />
+    <Compile Include="Products\ProductStandardGroup\ProductStandardGroupSearchModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardAttachModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardHistoryModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardHistorySearchModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardsModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardsResultModel.cs" />
+    <Compile Include="Products\ProductStandards\ProductStandardsSearchModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProjectProductsModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProjectProductsResuldModel.cs" />
+    <Compile Include="Projects\ProjectProducts\ProjectProductsSearchModel.cs" />
+    <Compile Include="Projects\ProjectProductTestCriteria\ProjectProductTestCriteriaModel.cs" />
+    <Compile Include="Projects\ProjectProductTestCriteria\ProjectProductTestCriteriaResuldModel.cs" />
+    <Compile Include="Projects\ProjectProductTestCriteria\ProjectProductTestCriteriaSearchModel.cs" />
+    <Compile Include="Projects\Project\ProjectModel.cs" />
+    <Compile Include="Projects\Project\ProjectResultModel.cs" />
+    <Compile Include="Projects\Project\ProjectSearchModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="GroupModule\GroupModuleSearchModel.cs" />
+    <Compile Include="GroupModule\GroupModuleModel.cs" />
+    <Compile Include="GroupModule\GroupModuleResultModel.cs" />
+    <Compile Include="QLTKEP\QLTKEPModel.cs" />
+    <Compile Include="QLTKEP\QLTKEPResultModel.cs" />
+    <Compile Include="QLTKEP\QLTKEPSearchModel.cs" />
+    <Compile Include="QLTKMG\QLTKMGModel.cs" />
+    <Compile Include="QLTKMG\QLTKMGResultModel.cs" />
+    <Compile Include="QLTKMG\QLTKMGSearchModel.cs" />
+    <Compile Include="Module\ModuleModel.cs" />
+    <Compile Include="Module\ModuleResultModel.cs" />
+    <Compile Include="Module\ModuleSearchModel.cs" />
+    <Compile Include="QLTKMP\QLTKMPModel.cs" />
+    <Compile Include="QLTKMP\QLTKMPResultModel.cs" />
+    <Compile Include="QLTKMP\QLTKMPSearchModel.cs" />
+    <Compile Include="RawMaterial\RawMaterialModel.cs" />
+    <Compile Include="RawMaterial\RawMaterialResultModel.cs" />
+    <Compile Include="RawMaterial\RawMaterialSearchModel.cs" />
+    <Compile Include="SBU\SBUModel.cs" />
+    <Compile Include="SBU\SBUResultModel.cs" />
+    <Compile Include="SBU\SBUSearchModel.cs" />
+    <Compile Include="ScheduleProject\DateTimeModel.cs" />
+    <Compile Include="ScheduleProject\ScheduleProjectResultModel.cs" />
+    <Compile Include="ScheduleProject\ScheduleProjectSearchModel.cs" />
+    <Compile Include="ScheduleProject\StatisticalProjectModel.cs" />
+    <Compile Include="SimilarMaterialConfig\SimilarMaterialConfigModel.cs" />
+    <Compile Include="SimilarMaterialConfig\SimilarMaterialConfigSearchModel.cs" />
+    <Compile Include="UserHistory\SimilarMaterialHistoryModel.cs" />
+    <Compile Include="SimilarMaterial\SimilarMaterialModel.cs" />
+    <Compile Include="SimilarMaterial\SimilarMaterialSearchModel.cs" />
+    <Compile Include="SketchAttach\SketchAttachModel.cs" />
+    <Compile Include="Sketches\SketchesModel.cs" />
+    <Compile Include="SketchMaterialElectronic\SketchMaterialElectronicModel.cs" />
+    <Compile Include="SketchMaterialElectronic\SketchMaterialElectronicResultModel.cs" />
+    <Compile Include="SketchMaterialMechanical\SketchMaterialMechanicalModel.cs" />
+    <Compile Include="SkillEmployee\SkillEmployeeModel.cs" />
+    <Compile Include="SkillEmployee\SkillEmployeeSearchModel.cs" />
+    <Compile Include="SolutionAttach\SolutionAttachModel.cs" />
+    <Compile Include="SolutionDesignDocuments\UploadFolderSolutionDesignDocumentModel.cs" />
+    <Compile Include="SolutionGroup\SolutionGroupModel.cs" />
+    <Compile Include="SolutionOldVersion\SolutionOldVersionModel.cs" />
+    <Compile Include="SolutionProducts\SolutionProductModel.cs" />
+    <Compile Include="SolutionProducts\SolutionProductSearchModel.cs" />
+    <Compile Include="SolutionProducts\SolutionProductSearchResultsModel.cs" />
+    <Compile Include="Solution\ChooseProjectSolutionModel.cs" />
+    <Compile Include="Solution\SolutionDesignDocumentModel.cs" />
+    <Compile Include="Solution\SolutionModel.cs" />
+    <Compile Include="Solution\SolutionSearchModel.cs" />
+    <Compile Include="Solution\UploadFolderSolutionResultModel.cs" />
+    <Compile Include="Solution\UploadSolutionDataModel.cs" />
+    <Compile Include="Solution\UploadSolutionModel.cs" />
+    <Compile Include="UserHistory\SpecializeHistoryModel.cs" />
+    <Compile Include="Stage\StageModel.cs" />
+    <Compile Include="Stage\StageResultModel.cs" />
+    <Compile Include="Stage\StageSearchModel.cs" />
+    <Compile Include="UserHistory\SupplierHistoryModel.cs" />
+    <Compile Include="Supplier\SkillAttach\SkillAttachModel.cs" />
+    <Compile Include="SkillGroup\SkillGroupModel.cs" />
+    <Compile Include="SkillGroup\SkillGroupResultModel.cs" />
+    <Compile Include="SkillGroup\SkillGroupSearchModel.cs" />
+    <Compile Include="Skills\SkillsModel.cs" />
+    <Compile Include="Skills\SkillsResultModel.cs" />
+    <Compile Include="Skills\SkillsSearchModel.cs" />
+    <Compile Include="Specialize\SpecializeModel.cs" />
+    <Compile Include="Specialize\SpecializeResultModel.cs" />
+    <Compile Include="Specialize\SpecializeSearchModel.cs" />
+    <Compile Include="SQLHelpper.cs" />
+    <Compile Include="SubjectsAttach\SubjectsAttachModel.cs" />
+    <Compile Include="Subjects\SubjectsModel.cs" />
+    <Compile Include="Subjects\SubjectsResultModel.cs" />
+    <Compile Include="Subjects\SubjectsSearchModel.cs" />
+    <Compile Include="SupplierGroup\SupplierGroupModel.cs" />
+    <Compile Include="Supplier\SupplierModel.cs" />
+    <Compile Include="Supplier\SupplierResultModel.cs" />
+    <Compile Include="Supplier\SupplierSearchModel.cs" />
+    <Compile Include="UserHistory\TaskModuleGroupHistoryModel.cs" />
+    <Compile Include="TaskModuleGroup\TaskModuleGroupModel.cs" />
+    <Compile Include="TaskModuleGroup\TaskModuleGroupResultModel.cs" />
+    <Compile Include="TaskModuleGroup\TaskModuleGroupSearchModel.cs" />
+    <Compile Include="TaskTimeStandardModel\CalculateAverageTaskTimeStandardModel.cs" />
+    <Compile Include="TaskTimeStandardModel\CalculateAverageTaskTimeStandardResultModel.cs" />
+    <Compile Include="TaskTimeStandardModel\TaskStandardTypeModel.cs" />
+    <Compile Include="TaskTimeStandardModel\TaskTimeStandardModel.cs" />
+    <Compile Include="TaskTimeStandardModel\TaskTimeStandardResultModel.cs" />
+    <Compile Include="TaskTimeStandardModel\TaskTimeStandardSearchModel.cs" />
+    <Compile Include="Task\TasksModel.cs" />
+    <Compile Include="Task\TasksResultModel.cs" />
+    <Compile Include="Task\TasksSearchModel.cs" />
+    <Compile Include="TestCriteriaGroup\TestCriteriaGroupModel.cs" />
+    <Compile Include="TestCriteriaGroup\TestCriteriaGroupResultModel.cs" />
+    <Compile Include="TestCriteriaGroup\TestCriteriaGroupSearchModel.cs" />
+    <Compile Include="UserHistory\TestCriteriasHistoryModel.cs" />
+    <Compile Include="TestCriteria\TestCriteriaModel.cs" />
+    <Compile Include="TestCriteria\TestCriteriaResultModel.cs" />
+    <Compile Include="TestCriteria\TestCriterSearchModel.cs" />
+    <Compile Include="TestDesign\HardDesignModel.cs" />
+    <Compile Include="TestDesign\ReportDMVTModel.cs" />
+    <Compile Include="TestDesign\ReportTestDesignModel.cs" />
+    <Compile Include="TestDesign\SoftDesignModel.cs" />
+    <Compile Include="UserHistory\ProductStandardTPATypeHistoryModel.cs" />
+    <Compile Include="UserHistory\UnitHistoryModel.cs" />
+    <Compile Include="Unit\UnitModel.cs" />
+    <Compile Include="Unit\UnitResultModel.cs" />
+    <Compile Include="Unit\UnitSearchModel.cs" />
+    <Compile Include="UserHistory\CourseHistoryModel.cs" />
+    <Compile Include="UserHistory\DepartmentHistoryModel.cs" />
+    <Compile Include="UserHistory\EmployeeGroupHistoryModel.cs" />
+    <Compile Include="UserHistory\EmployeeHistoryModel.cs" />
+    <Compile Include="UserHistory\JobPositionHistoryModel.cs" />
+    <Compile Include="UserHistory\SBUHistoryModel.cs" />
+    <Compile Include="UserHistory\WorkSkilHistoryModel.cs" />
+    <Compile Include="UserHistory\CandidateHistoryModel.cs" />
+    <Compile Include="UserHistory\WorkTypeHistoryModel.cs" />
+    <Compile Include="UserPermission\UserPermissionModel.cs" />
+    <Compile Include="User\UserModel.cs" />
+    <Compile Include="User\UserResultModel.cs" />
+    <Compile Include="User\UserSearchModel.cs" />
+    <Compile Include="VMSEP\VMSEP1200EmployeeModel.cs" />
+    <Compile Include="VMSEP\VMSEP1200SearchEmployeeModel.cs" />
+    <Compile Include="VMSEP\VMSEP2000GroupModel.cs" />
+    <Compile Include="VMSEP\VMSEP2000SearchGroupModel.cs" />
+    <Compile Include="VMSEP\VMSEP2100FunctionModel.cs" />
+    <Compile Include="VMSEP\VMSEP2100GroupModel.cs" />
+    <Compile Include="VMSEP\VMSEP3000SearchGroupModel.cs" />
+    <Compile Include="VMSMF\VMSMF1000ManuafacturerModel.cs" />
+    <Compile Include="VMSMF\VMSMF1000ManuafacturerSearchModel.cs" />
+    <Compile Include="WebService\CADModel.cs" />
+    <Compile Include="WebService\ConverUnitModel.cs" />
+    <Compile Include="WebService\DataCheckDMVTModel.cs" />
+    <Compile Include="WebService\Design3DFileModel.cs" />
+    <Compile Include="WebService\Design3DModel.cs" />
+    <Compile Include="WebService\DesignStructureFileModel.cs" />
+    <Compile Include="WebService\DesignStructureModel.cs" />
+    <Compile Include="WebService\ErrorDesignStructureModel.cs" />
+    <Compile Include="WebService\ErrorModel.cs" />
+    <Compile Include="WebService\FileModel.cs" />
+    <Compile Include="WebService\IGSFileResultModel.cs" />
+    <Compile Include="WebService\IGSModel.cs" />
+    <Compile Include="WebService\MaterialModel.cs" />
+    <Compile Include="WebService\MATFileResultModel.cs" />
+    <Compile Include="WebService\MATModel.cs" />
+    <Compile Include="WebService\ModuleModel.cs" />
+    <Compile Include="WebService\NtsUpdateVersionModel.cs" />
+    <Compile Include="WebService\ProductModuleModel.cs" />
+    <Compile Include="WebService\RawMaterialModel.cs" />
+    <Compile Include="WebService\ResultApiModel.cs" />
+    <Compile Include="WebService\TestDesignStructureModel.cs" />
+    <Compile Include="WorkDiary\DayOfMonthModel.cs" />
+    <Compile Include="WorkDiary\EmployessWordDiaryModel.cs" />
+    <Compile Include="WorkDiary\ListWorkTimeModel.cs" />
+    <Compile Include="WorkDiary\ProjectWordDiaryModel.cs" />
+    <Compile Include="WorkDiary\ProjectWorkTimeModel.cs" />
+    <Compile Include="WorkDiary\SearchWorkDiaryModel.cs" />
+    <Compile Include="WorkDiary\WorkDiaryModel.cs" />
+    <Compile Include="WorkDiary\WorkDiaryResultModel.cs" />
+    <Compile Include="WorkDiary\WorkDiarySearchModel.cs" />
+    <Compile Include="WorkDiary\WorkDiaryTimeModel.cs" />
+    <Compile Include="UserHistory\WorkPlaceHistoryModel.cs" />
+    <Compile Include="WorkLocation\WorkLocationModel.cs" />
+    <Compile Include="WorkLocation\WorkLocationSearchModel.cs" />
+    <Compile Include="WorkLocation\WorkLocationSearchResultModel.cs" />
+    <Compile Include="WorkPlace\WorkPlaceModel.cs" />
+    <Compile Include="WorkPlace\WorkPlaceResultModel.cs" />
+    <Compile Include="WorkPlace\WorkPlaceSearchModel.cs" />
+    <Compile Include="WorkSkill\WordSkillTranningModel.cs" />
+    <Compile Include="WorkSkill\WorkSkillGroupModel.cs" />
+    <Compile Include="WorkSkill\WorkSkillModel.cs" />
+    <Compile Include="WorkSkill\WorkSkillResultModel.cs" />
+    <Compile Include="WorkSkill\WorkSkillSearchModel.cs" />
+    <Compile Include="WorkTIme\WorkTimeModel.cs" />
+    <Compile Include="WorkTIme\WorkTimeResultModel.cs" />
+    <Compile Include="WorkTIme\WorkTimeSearchModel.cs" />
+    <Compile Include="WorkTypeInterview\WorkTypeInterviewModel.cs" />
+    <Compile Include="WorkTypeInterview\WorkTypeInterviewSearchModel.cs" />
+    <Compile Include="WorkTypeInterview\WorkTypeInterviewSearchResultModel.cs" />
+    <Compile Include="WorkTypeSkill\WorkTypeSkillModel.cs" />
+    <Compile Include="WorkType\WorkTypeDocumentModel.cs" />
+    <Compile Include="WorkType\WorkTypeSalaryModel.cs" />
+    <Compile Include="WorkType\WorkTypeSearchResultModel.cs" />
+    <Compile Include="WorkType\WorkTypeModel.cs" />
+    <Compile Include="WorkType\WorkTypeSearchModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+    <EntityDeploy Include="Repositories\QLTKEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QLTKEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Repositories\QLTKEntities.edmx.diagram">
+      <DependentUpon>QLTKEntities.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Repositories\QLTKEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLTKEntities.edmx</DependentUpon>
+      <LastGenOutput>QLTKEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Repositories\QLTKEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QLTKEntities.edmx</DependentUpon>
+      <LastGenOutput>QLTKEntities.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

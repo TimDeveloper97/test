@@ -1,0 +1,226 @@
+<div class="modal-all">
+    <div class="modal-header">
+        <h3 class="modal-title text-danger text-uppercase">Chọn phụ kiện kinh doanh</h3>
+        <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="modal-body padding-10">
+        <form name="outerForm" class="tab-form-demo">
+            <div class="row">
+                <div class="col-lg-8">
+                    <nts-search-bar [options]="searchOptions" [(ngModel)]="modelProduct" name="modelSearch"
+                        (change)="searchAccessory()">
+                    </nts-search-bar>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-4 text-right">
+                    <button class="btn btn-success btn-success-system" (click)="searchAccessory()">
+                        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                    <button class="btn btn-default btn-default-system" (click)="clear()">
+                        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listAccessory.length}}</span> phụ kiện chưa chọn</label>
+                </div>
+                <div class="col-md-6 col-sm-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{listAccessorySelect.length}}</span> phụ kiện đã chọn</label>
+                </div>
+            </div>
+            <div class="row">
+
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 table-choose">
+
+                    <div class="table-left">
+                        <virtual-scroller #scroll [items]="listAccessory" style=" display: block;height: 400px;">
+                            <table class="table table-bordered table-fixed table-hover"
+                                style="word-wrap: break-word; margin-bottom:0px !important;min-width: 3230px;">
+                                <thead #header style="background-color: white">
+                                    <tr>
+                                        <th style="text-align:center;padding-top: 10px;" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkedTop" name="{{'checkedTop'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll(true)">
+                                        </th>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="150px" class="text-center">Ảnh</th>
+                                        <th min-width="150px" class="text-center">Tên tiếng Anh</th>
+                                        <th width="150px" class="text-center">Tên tiếng Việt</th>
+                                        <th width="120px" class="text-center">MODEL</th>
+                                        <th width="150px" class="text-center">Mã nhóm thiết bị</th>
+                                        <th width="150px" class="text-center">Mã nhóm thiết bị con</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                        <th width="150px" class="text-center">Xuất xứ</th>
+                                        <th width="150px" class="text-center">Chủng loại hàng hóa</th>
+                                        <th width="200px" class="text-center">Thông số kỹ thuật</th>
+                                        <th width="200px" class="text-center">Thông số cho khách hàng</th>
+                                        <th width="100px" class="text-center">Ngày cập nhập TSKT</th>
+                                        <th width="100px" class="text-center">VAT</th>
+                                        <th width="100px" class="text-center">Giá vật tư</th>
+                                        <th width="100px" class="text-center">Giá bán EXW TPA</th>
+                                        <th width="200px" class="text-center">Ngày cập nhập giá EXW TPA</th>
+                                        <th width="100px" class="text-center">Giá public lên web</th>
+                                        <th width="100px" class="text-center">Hiệu lực của giá từ ngày</th>
+                                        <th width="100px" class="text-center">Hiệu lực của giá đến ngày</th>
+                                        <th width="100px" class="text-center">Thời gian giao hàng</th>
+                                        <th width="100px" class="text-center">Tồn kho</th>
+                                        <th width="100px" class="text-center">SL xuất giữ</th>
+                                        <th width="100px" class="text-center">SL khả dụng</th>
+                                        <th width="100px" class="text-center">Ngày update tồn kho</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody #container>
+                                    <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                        <td style="text-align:center" width="60px">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Checked'+row.Name+i}}" style="height:20px; width:20px;">
+                                        </td>
+                                        <td class="text-center">{{row.Index}}</td>
+                                        <td class="text-center"><img *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                                [src]="config.ServerFileApi+row.ImagePath" height="80px"
+                                                min-witdh="60px" max-witdh="60px">
+                                        </td>
+                                        <td>{{row.EName}}</td>
+                                        <td>{{row.VName}}</td>
+                                        <td>{{row.Model}}</td>
+                                        <td>{{row.GroupCode}}</td>
+                                        <td>{{row.ChildGroupCode}}</td>
+                                        <td>{{row.ManufactureName}}</td>
+                                        <td>{{row.CountryName}}</td>
+                                        <td>{{row.ProductTypeName}}</td>
+                                        <td placement="bottom" [ngbTooltip]="row.Specifications" container="body">
+                                            {{row.Specifications| limitTo:100}}</td>
+                                        <td placement="bottom" [ngbTooltip]="row.CustomerSpecifications"
+                                            container="body">{{row.CustomerSpecifications| limitTo:100}}</td>
+                                        <td>{{row.SpecificationDate|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.VAT|number}}</td>
+                                        <td class="text-center">{{row.MaterialPrice|number}}</td>
+                                        <td class="text-center">{{row.EXWTPAPrice|number}}</td>
+                                        <td class="text-center">{{row.EXWTPADate|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.PublicPrice|number}}</td>
+                                        <td class="text-center">{{row.ExpireDateFrom|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.ExpireDateTo|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.DeliveryTime}}</td>
+                                        <td class="text-center">{{row.Inventory}}</td>
+                                        <td class="text-center">{{row.ExportQuantity}}</td>
+                                        <td class="text-center">{{row.ExportQuantity}}</td>
+                                        <td class="text-center">{{row.InventoryDate|date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </virtual-scroller>
+                    </div>
+
+                    <div class="table-center">
+                        <button type="button" ngbTooltip="Chọn nhân viên" class="btn btn-success" (click)="addRow()">
+                            <i class="fa fa-angle-right"></i>
+                        </button>
+                        <button type="button" ngbTooltip="Bỏ chọn nhân viên" class="btn btn-danger"
+                            (click)="removeRow()">
+                            <i class="fa fa-angle-left"></i>
+                        </button>
+                    </div>
+
+                    <div class="table-right">
+                        <virtual-scroller #scrolll [items]="listAccessorySelect" style="height:400px; width:100%;">
+                            <table class="table table-bordered table-fixed"
+                                style="word-wrap: break-word; min-width:3230px">
+                                <thead #header style="background-color: white">
+                                    <tr>
+                                        <th style="text-align:center;padding-top: 10px;" width="60px">
+                                            <input type="checkbox" [(ngModel)]="checkedBot" name="{{'checkedBot'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll(false)">
+                                        </th>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="150px" class="text-center">Ảnh</th>
+                                        <th min-width="150px" class="text-center">Tên tiếng Anh</th>
+                                        <th width="150px" class="text-center">Tên tiếng Việt</th>
+                                        <th width="120px" class="text-center">MODEL</th>
+                                        <th width="150px" class="text-center">Mã nhóm thiết bị</th>
+                                        <th width="150px" class="text-center">Mã nhóm thiết bị con</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                        <th width="150px" class="text-center">Xuất xứ</th>
+                                        <th width="150px" class="text-center">Chủng loại hàng hóa</th>
+                                        <th width="200px" class="text-center">Thông số kỹ thuật</th>
+                                        <th width="200px" class="text-center">Thông số cho khách hàng</th>
+                                        <th width="100px" class="text-center">Ngày cập nhập TSKT</th>
+                                        <th width="100px" class="text-center">VAT</th>
+                                        <th width="100px" class="text-center">Giá vật tư</th>
+                                        <th width="100px" class="text-center">Giá bán EXW TPA</th>
+                                        <th width="200px" class="text-center">Ngày cập nhập giá EXW TPA</th>
+                                        <th width="100px" class="text-center">Giá public lên web</th>
+                                        <th width="100px" class="text-center">Hiệu lực của giá từ ngày</th>
+                                        <th width="100px" class="text-center">Hiệu lực của giá đến ngày</th>
+                                        <th width="100px" class="text-center">Thời gian giao hàng</th>
+                                        <th width="100px" class="text-center">Tồn kho</th>
+                                        <th width="100px" class="text-center">SL xuất giữ</th>
+                                        <th width="100px" class="text-center">SL khả dụng</th>
+                                        <th width="100px" class="text-center">Ngày update tồn kho</th>
+                                    </tr>
+                                </thead>
+                                <tbody #container>
+                                    <tr *ngFor="let row of scrolll.viewPortItems; let j = index">
+                                        <td style="text-align:center">
+                                            <input type="checkbox" [(ngModel)]="row.Checked"
+                                                name="{{'Choose_Checked_'+row.Name+j}}"
+                                                style="height:20px; width:20px;">
+                                        </td>
+                                        <td class="text-center" width="40px">{{j+1}}</td>
+                                        <td class="text-center"><img *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                                [src]="config.ServerFileApi+row.ImagePath" height="80px"
+                                                min-witdh="60px" max-witdh="60px">
+                                        </td>
+                                        <td>{{row.EName}}</td>
+                                        <td>{{row.VName}}</td>
+                                        <td>{{row.Model}}</td>
+                                        <td>{{row.GroupCode}}</td>
+                                        <td>{{row.ChildGroupCode}}</td>
+                                        <td>{{row.ManufactureName}}</td>
+                                        <td>{{row.CountryName}}</td>
+                                        <td>{{row.ProductTypeName}}</td>
+                                        <td>{{row.Specifications}}</td>
+                                        <td placement="bottom" [ngbTooltip]="row.Specifications" container="body">{{row.Specifications| limitTo:100}}</td>
+                                        <td placement="bottom" [ngbTooltip]="row.CustomerSpecifications" container="body">{{row.CustomerSpecifications| limitTo:100}}</td>
+                                        <td class="text-center">{{row.VAT|number}}</td>
+                                        <td class="text-center">{{row.MaterialPrice|number}}</td>
+                                        <td class="text-center">{{row.EXWTPAPrice|number}}</td>
+                                        <td class="text-center">{{row.EXWTPADate|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.PublicPrice|number}}</td>
+                                        <td class="text-center">{{row.ExpireDateFrom|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.ExpireDateTo|date:'dd/MM/yyyy'}}</td>
+                                        <td class="text-center">{{row.DeliveryTime}}</td>
+                                        <td class="text-center">{{row.Inventory}}</td>
+                                        <td class="text-center">{{row.ExportQuantity}}</td>
+                                        <td class="text-center">{{row.ExportQuantity}} </td>
+                                        <td class="text-center">{{row.InventoryDate|date:'dd/MM/yyyy'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </virtual-scroller>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </form>
+    </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="choose()">
+            <i class="fa fa-check"></i>&nbsp;
+            <span>chọn</span>
+        </button>
+        <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+                Đóng
+            </span>
+        </button>
+    </div>
+</div>

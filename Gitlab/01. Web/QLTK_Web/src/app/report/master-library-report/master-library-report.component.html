@@ -1,0 +1,95 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body padding-15">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-12 col-md-12 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelReportLibrary"
+              (change)="searchReportLibrary()">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchReportLibrary()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body padding-15">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> bản ghi </label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button class="btn  btn-success" (click)="ExportExcel()">
+            <i class="fa fa-file-excel" aria-hidden="true"></i>
+            Xuất excel
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1010px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Mã môn</th>
+                  <th width="100px" class="text-center">Tên môn</th>
+                  <th width="100px" class="text-center">Mã kĩ năng BTH</th>
+                  <th width="120px" class="text-center">Tên kĩ năng BTH</th>
+                  <th width="120px" class="text-center">Mã bài thực hành/công đoạn </th>
+                  <th width="120px" class="text-center">Tên bài thực hành/công đoạn</th>
+                  <th width="150px" class="text-center">Mã module</th>
+                  <th width="150px" class="text-center">Tên module</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td> {{row.SubjectsCode}}</td>
+                  <td> {{row.SubjectsName}}</td>
+                  <td> {{row.SkillCode}}</td>
+                  <td> {{row.SkillName}}</td>
+                  <td> {{row.PracticeCode}}</td>
+                  <td> {{row.PracticeName}}</td>
+                  <td> {{row.ModuleCode}}</td>
+                  <td> {{row.ModuleName}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="16" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có
+                    dữ
+                    liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchReportLibrary()" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+            (pageChange)="searchReportLibrary()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+    </div>
+
+    
+  </section>
+</div>

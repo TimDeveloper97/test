@@ -1,0 +1,229 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Cập nhật tình trạng nhân sự </h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <div class="row">
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Vị trí công việc</h5>
+        </label>
+        <div class="controls">
+          <select (change)="changeRole(SubsidyModel.RoleId)" class="form-control" name="Role" [(ngModel)]="SubsidyModel.RoleId">
+            <option *ngFor="let item of listRole" [ngValue]="item.Id">{{item.Name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Đánh giá</h5>
+        </label>
+        <div class="controls">
+          <select class="form-control" name="Evaluate" [(ngModel)]="SubsidyModel.Evaluate">
+            <option *ngFor="let item of constants.PeEvaluate" [ngValue]="item.Id">{{item.Name}}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Mô tả</h5>
+        </label>
+        <div class="input-group">
+          <textarea
+              [(ngModel)]="SubsidyModel.JobDescription" name="JobDescription"
+              rows="7" class="form-control" [value] = "DescriptionRole">
+            </textarea>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Thời gian tham gia dự án :</h5>
+        </label>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Từ ngày</h5>
+          <!-- <span class='text-danger text-strong'>&nbsp;</span> -->
+        </label>
+        <div class="controls">
+          <div class="input-group ">
+            <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="startTime"
+              [(ngModel)]="startTime" ngbDatepicker #StartTime="ngbDatepicker" required>
+            <div class="input-group-append">
+              <span class="dtp-icon" (click)="StartTime.toggle();$event.stopPropagation();">
+                <i class="far fa-calendar-alt" style="color: #999;"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Đến ngày</h5>
+          <!-- <span class='text-danger text-strong'>&nbsp;</span> -->
+        </label>
+        <div class="controls">
+          <div class="input-group ">
+            <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="endTime"
+              [(ngModel)]="endTime" ngbDatepicker #EndTime="ngbDatepicker" required>
+            <div class="input-group-append">
+              <span class="dtp-icon" (click)="EndTime.toggle();$event.stopPropagation();">
+                <i class="far fa-calendar-alt" style="color: #999;"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Trạng thái tham gia dự án</h5>
+        </label>
+        &nbsp; &nbsp; &nbsp;
+        <label class="radio">ON
+          <input type="radio" [(ngModel)]="SubsidyModel.Status" name="Status" [value]="true">
+          <span class="checkround"></span>
+        </label>
+        &nbsp; &nbsp;
+        <label class="radio ml-1">OFF
+          <input type="radio" [(ngModel)]="SubsidyModel.Status" name="Status" [value]="false">
+          <span class="checkround"></span>
+        </label>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+      <div class="form-group ">
+        <label class="form-label">
+          <h5>Mức phụ cấp</h5>
+        </label>
+        <div class="controls">
+          <input name="Subsidy" [(ngModel)]="SubsidyModel.Subsidy" currencyMask
+            [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }" type="text"
+            class="form-control" maxlength="18" required>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+      <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row" style="padding: 0px 30px;">
+          <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+            <div class="form-group ">
+              <label class="form-label">
+                <h5>Ngày bắt đầu</h5>
+                <!-- <span class='text-danger text-strong'>&nbsp;</span> -->
+              </label>
+              <div class="controls">
+                <div class="input-group ">
+                  <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="subsidyStartTime"
+                    [(ngModel)]="subsidyStartTime" ngbDatepicker #SubsidyStartTime="ngbDatepicker" required>
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="SubsidyStartTime.toggle();$event.stopPropagation();">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+            <div class="form-group ">
+              <label class="form-label">
+                <h5>Ngày kết thúc</h5>
+                <!-- <span class='text-danger text-strong'>&nbsp;</span> -->
+              </label>
+              <div class="controls">
+                <div class="input-group ">
+                  <input type="text" class="form-control" placeholder="dd/mm/yyyy" name="subsidyEndTime"
+                    [(ngModel)]="subsidyEndTime" ngbDatepicker #SubsidyEndTime="ngbDatepicker" required>
+                  <div class="input-group-append">
+                    <span class="dtp-icon" (click)="SubsidyEndTime.toggle();$event.stopPropagation();">
+                      <i class="far fa-calendar-alt" style="color: #999;"></i>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-sm-12 col-xl-4">
+            <br>
+            <ng-container>
+              <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+                <i class="fa fa-save"></i>&nbsp;
+                <span>Lưu lịch sử</span>
+              </button>
+            </ng-container>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <br> <br>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="row" #scrollModule>
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 text-left">
+          <h4>Lịch sử phụ cấp</h4>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
+            <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+              <table class="table table-bordered" style="min-width:690px">
+                <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="200px" class="text-center">Ngày bắt đầu</th>
+                    <th width="200px" class="text-center">Ngày kết thúc</th>
+                    <th width="240px" class="text-center">Mức phụ cấp</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let row of listSubsidyHistory; let i = index">
+                    <td class="text-center">{{StartIndex+i}}</td>
+                    <td class="text-center">{{row.SubsidyStartTime|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{row.SubsidyEndTime|date:'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{row.Subsidy|number}}</td>
+                  </tr>
+                </tbody>
+                <tfoot *ngIf="listSubsidyHistory.length == 0">
+                  <tr class="bold">
+                    <td colspan="4" min-width="300px" class="text-center" style="height: 70px; font-size: 20px;">
+                      Không có dữ liệu</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+<div class="modal-footer">
+  <button (click)="update()" type="button" class="btn btn-success">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Cập nhật</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>Đóng</span>
+  </button>
+</div>

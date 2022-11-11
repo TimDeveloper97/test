@@ -1,0 +1,205 @@
+<div class='content-wrapper page-content'>
+  <section class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9 bold">
+          <label class="form-label" style="line-height:25px;">Tổng số
+            <span class="bold text-danger">{{total}}</span> nhóm vật tư</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 bold text-right">
+          <button *appUipermission="['F000101']" type="button" (click)="showCreateUpdateGroup('','')"
+            class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm nhóm vật tư" container="body">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="employees" [dataSource]="listManufactureGroup" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+            (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="listManufactureGroupId" noDataText=" ">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-search-panel [visible]="true" [width]="240" placeholder="Tìm kiếm theo mã"
+              [searchVisibleColumnsOnly]="true"></dxo-search-panel>
+            <dxi-column dataField="Code" caption="Mã nhóm vật tư"></dxi-column>
+            <dxi-column dataField="Name" caption="Tên nhóm vật tư" [minWidth]="200">
+            </dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+              <div *dxTemplate="let item of 'cellEditTemplate'">
+                <ng-container *appUipermission="['F000101']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" class="item-add" ngbTooltip="Thêm nhóm"
+                    container="body" (click)=" showCreateUpdateGroup(item.value)">
+                    <i class="fas fa-plus"></i></button>
+                </ng-container>
+                <ng-container *appUipermission="['F000102']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" class="item-update"
+                    ngbTooltip="Sửa nhóm" container="body" (click)=" showCreateUpdateGroup(item.value, true)">
+                    <i class="fa fa-edit"></i></button>
+                </ng-container>
+                <ng-container *appUipermission="['F000103']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" class="item-delete"
+                    ngbTooltip="Xóa nhóm" container="body" (click)=" showConfirmDeleteManufactureGroup(item.value)">
+                    <i class="fas fa-times"></i></button>
+                </ng-container>
+              </div>
+            </dxi-column>
+          </dx-tree-list>
+          <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#employees"
+            (onItemClick)="itemClick($event)">
+            <div *dxTemplate="let e of 'item'">
+              <div>
+                <span [ngClass]="e.icon"></span>
+                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+              </div>
+            </div>
+          </dx-context-menu>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="body-right">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelManufacturer"
+              (change)="searchManufacturer(manufactureGroupId)">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12" *ngIf="checkSearch==true">
+            <br>
+          </div>
+          <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchManufacturer(manufactureGroupId)">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button> &nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+
+
+        </div>
+
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.totalItems}}</span> hãng sản xuất</label>
+        </div>
+        <div class="col-md-6 text-right">
+
+          <button *appUipermission="['F000501']" type="button" class="btn btn-success" (click)="showCreateUpdate('')"
+            container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>&nbsp;&nbsp;
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+
+              <button *appUipermission="['F000505']" class="btn btn-success btn-upload" (click)="showImportPopup();">
+                <i class="fas fa-arrow-up"></i> &nbsp;Import Excel</button>
+
+              <button *appUipermission="['F000506']" class="btn  btn-success" (click)="exportExcel()">
+                <i class="fa fa-file-excel" aria-hidden="true"></i>
+                Xuất excel
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1450px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="200px" class="text-center">Mã hãng</th>
+                  <th width="250px" class="text-center ">Tên hãng</th>
+                  <th width="200px" class="text-center ">Loại vật tư</th>
+                  <th width="200px" class="text-center ">Trạng thái</th>
+                  <th width="250px" class="text-center ">Xuất xứ</th>
+                  <th min-width="200px" class="text-center ">Website</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listDA; let i = index">
+                  <td class="text-center">{{startIndex+i}}</td>
+                  <td class="text-center">
+                    <button *appUipermission="['F000502','F000504']" type="button" (click)='showCreateUpdate(row.Id)'
+                      class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+
+                    <button *appUipermission="['F000503']" class="btn btn-xs btn-danger"
+                      (click)="showConfirmDeleteManufacturer(row.Id)" placement="top" ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.Name}}</td>
+                  <td>
+                    <span *ngIf="row.MaterialType==='1'">Vật tư tiêu chuẩn</span>
+                    <span *ngIf="row.MaterialType==='2'">Vật tư phi tiêu chuẩn</span>
+                  </td>
+                  <td>
+                    <span *ngIf="row.Status==='0'">Còn sử dụng</span>
+                    <span *ngIf="row.Status==='1'">Không sử dụng</span>
+                  </td>
+                  <td>{{row.Origination}}</td>
+                  <td>
+                    <a href="{{row.Website}}" target="_blank">
+                      {{row.Website}}</a>
+                  </td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listDA.length == 0">
+                <tr class="bold">
+                  <td colspan="8" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có
+                    dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4  d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchManufacturer(manufactureGroupId)" name="pageSize">
+              <option *ngFor="let item of lstpageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-md-8  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.page" (pageChange)="loadPage($event)"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa hãng sản xuất</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa hãng sản xuất</small>
+
+          <button class="btn btn-view btn-success">
+            <i class="fas fa-plus"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Thêm mới nhóm vật tư</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,107 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="content-wrapper padding-top-10">
+    <div class="row" #scrollPlanDesignProject>
+        <div class="content-body padding-15">
+          <label class="form-label">Các dự án về mặt tài liệu</label>
+        </div>
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <div #scrollPlanDesignProjectHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered mb-0" style="min-width:1330px">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="100px" class="text-center">Mã Module</th>
+                  <th colspan="5" width="410px" class="text-center">Vật tư đã được đẩy</th>
+                  <th colspan="5" width="410px" class="text-center">VTC có mà THTK không có</th>
+                  <th colspan="5" width="410px" class="text-center">THTK có mà VTC không có</th>
+                </tr>
+                <tr>
+                  <th rowspan="1" width="50px" class="text-center">STT</th>
+                  <th rowspan="1" width="150px" class="text-center">Mã vật tư</th>
+                  <th rowspan="1" width="80px" class="text-center">Đơn vị</th>
+                  <th rowspan="1" width="50px" class="text-center">Số lượng</th>
+                  <th rowspan="1" width="80px" class="text-center">Hãng sản xuất</th>
+                  <th rowspan="1" width="50px" class="text-center">STT</th>
+                  <th rowspan="1" width="150px" class="text-center">Mã vật tư</th>
+                  <th rowspan="1" width="80px" class="text-center">Đơn vị</th>
+                  <th rowspan="1" width="50px" class="text-center">Số lượng</th>
+                  <th rowspan="1" width="80px" class="text-center">Hãng sản xuất</th>
+                  <th rowspan="1" width="50px" class="text-center">STT</th>
+                  <th rowspan="1" width="150px" class="text-center">Mã vật tư</th>
+                  <th rowspan="1" width="80px" class="text-center">Đơn vị</th>
+                  <th rowspan="1" width="50px" class="text-center">Số lượng</th>
+                  <th rowspan="1" width="80px" class="text-center">Hãng sản xuất</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="height:400px; width:100%;">
+            <table class="table table-bordered" style="min-width:1330px">
+              <tbody>
+                <tr *ngFor="let row of ModuleMaterials; let i = index"
+                [ngClass]="{'warning_material': row.ModuleCode}">
+                  <td width="100px">{{row.ModuleCode}}</td>
+                  <td width="50px" class="">{{row.stt1}}</td>
+                  <td width="150px" class="text-center">{{row.ma1}}</td>
+                  <td width="80px" class="text-center">{{row.dv1}}</td>
+                  <td width="50px" class="text-center">{{row.sl1}}</td>
+                  <td width="80px" class="text-center">{{row.hang1}}</td>
+                  
+                  <td *ngIf="!row.ModuleCode" width="50px" style="background-color: aqua;">{{row.stt2}}</td>
+                  <td *ngIf="!row.ModuleCode" width="150px" style="background-color: aqua;" class="text-center">{{row.ma2}}</td>
+                  <td *ngIf="!row.ModuleCode" width="80px" style="background-color: aqua;" class="text-center">{{row.dv2}}</td>
+                  <td *ngIf="!row.ModuleCode" width="50px" style="background-color: aqua;"class="text-center">{{row.sl2}}</td>
+                  <td *ngIf="!row.ModuleCode" width="80px" style="background-color: aqua;" class="text-center">{{row.hang2}}</td>
+                  <td *ngIf="row.ModuleCode" width="50px" >{{row.stt2}}</td>
+                  <td *ngIf="row.ModuleCode" width="150px"  class="text-center">{{row.ma2}}</td>
+                  <td *ngIf="row.ModuleCode" width="80px"  class="text-center">{{row.dv2}}</td>
+                  <td *ngIf="row.ModuleCode" width="50px" class="text-center">{{row.sl2}}</td>
+                  <td *ngIf="row.ModuleCode" width="80px" class="text-center">{{row.hang2}}</td>
+
+                  <td *ngIf="!row.ModuleCode" width="50px" style="background-color: lightgreen;">{{row.stt3}}</td>
+                  <td *ngIf="!row.ModuleCode" width="150px" style="background-color: lightgreen;" class="text-center">{{row.ma3}}</td>
+                  <td *ngIf="!row.ModuleCode" width="80px" style="background-color: lightgreen;" class="text-center">{{row.dv3}}</td>
+                  <td *ngIf="!row.ModuleCode" width="50px" style="background-color: lightgreen;" class="text-center">{{row.sl3}}</td>
+                  <td *ngIf="!row.ModuleCode" width="80px" style="background-color: lightgreen;" class="text-center">{{row.hang3}}</td>
+                  <td *ngIf="row.ModuleCode" width="50px" >{{row.stt3}}</td>
+                  <td *ngIf="row.ModuleCode" width="150px"  class="text-center">{{row.ma3}}</td>
+                  <td *ngIf="row.ModuleCode" width="80px" class="text-center">{{row.dv3}}</td>
+                  <td *ngIf="row.ModuleCode" width="50px"  class="text-center">{{row.sl3}}</td>
+                  <td *ngIf="row.ModuleCode" width="80px" class="text-center">{{row.hang3}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    <!-- <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-view btn-warning">
+            </button>&nbsp;
+            <small class="padding-right-20">Trùng mã vật tư</small>
+            <button class="btn btn-view btn-danger">
+            </button>&nbsp;
+            <small class="padding-right-20">Trùng số thứ tự</small>
+        </div>
+    </div>
+    <br> -->
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-success" (click)="save()">
+        <i class="fa fa-save"></i> &nbsp;
+        <span>
+            Xác nhận
+        </span>
+    </button>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

@@ -1,0 +1,104 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelmaterialgrouptpa"
+              (change)="searchMaterialGroupTPA()">
+            </nts-search-bar>
+          </div>
+          <div class="col-lg-4 col-md-4 col-sm-12 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchMaterialGroupTPA()">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.totalItems}}</span> nhóm vật tư</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button *appUipermission = "['F000201']" type="button" class="btn btn-success" (click)="ShowCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:950px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center" >STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th width="200px" class="text-center">Mã nhóm vật tư</th>
+                  <th width="200px" class="text-center">Tên nhóm vật tư</th>
+                  <th min-width="400px" class="text-center ">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listDA; let i = index">
+                  <td width="50px" class="text-center">{{startIndex+i}}</td>
+                  <td width="100px" style="text-align: center">
+                    <button *appUipermission = "['F000202','F000204']" type="button" (click)='ShowCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                      placement="top" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button *appUipermission = "['F000203']" class="btn btn-xs btn-danger" (click)="showConfirmDeleteMaterialGroupTPA(row.Id)"
+                    ngbTooltip="Xóa" placement="top"  container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td width="200px">{{row.Code}}</td>
+                  <td width="200px">{{row.Name}}</td>
+                  <td min-width="400px">{{row.Description}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf= "listDA.length == 0">
+                <tr class="bold">
+                    <td colspan="5" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                </tr>
+            </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4  d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchMaterialGroupTPA()" name="pageSize">
+              <option *ngFor="let item of lstpageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding: 4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-md-8  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.page" (pageChange)="loadPage($event)"
+            [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa nhóm vật tư tpa</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa nhóm vật tư tpa</small>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

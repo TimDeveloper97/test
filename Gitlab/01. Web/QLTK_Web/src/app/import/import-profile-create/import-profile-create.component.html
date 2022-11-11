@@ -1,0 +1,389 @@
+<div class="content-wrapper padding-top-10">
+    <form name="form" #f="ngForm" novalidate>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Thông tin hồ sơ</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body ">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Tên hồ sơ
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" maxlength="300" [(ngModel)]="profileModel.Name" name="profileName" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã hồ sơ
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" maxlength="50" [(ngModel)]="profileModel.Code" name="profileCode" required disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Due Date PR
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy" name="DueDate"
+                                    [(ngModel)]="profileModel.DueDatePRV" ngbDatepicker #DueDate="ngbDatepicker" required disabled>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="DueDate.toggle()" name="DueDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Hãng sản xuất
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="manufactureName" [(ngModel)]="profileModel.ManufactureCode" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã dự Án
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="projectCode" [(ngModel)]="profileModel.ProjectCode" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Tên dự án
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="projectName" [(ngModel)]="profileModel.ProjectName" disabled>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Mã PR
+                                <span class='text-danger text-strong'></span>
+                            </label>
+                            <div class="controls">
+                                <input type="text" class="form-control" name="prCode" [(ngModel)]="profileModel.PRCode" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Danh sách Vật Tư</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body ">
+                <div class="row margin-bottom-10">
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                        <label class="form-label" style="line-height:35px;">Tổng số
+                            <span class="bold text-danger">{{listData.length}}</span> vật tư</label>
+                    </div>
+                    <div class="col-xl-5 col-lg-5 col-md-5 col-sm-12 text-right">
+                        <button type="button" class="btn btn-success" container="body" name="chooseMaterial" (click)="chooseMaterialImportPR()">
+                            <i class="fa fa-plus"></i>
+                            Chọn vật tư
+                        </button>&nbsp;
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                            <table class="table table-bordered" style="min-width:1470px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th width="50px" class="text-center">Xử lý</th>
+                                        <th width="120px" class="text-center">Mã</th>
+                                        <th min-width="200px" class="text-center">Tên</th>
+                                        <th width="150px" class="text-center">Mã cha</th>
+                                        <th width="100px" class="text-center">Đơn vị</th>
+                                        <th width="150px" class="text-center">Hãng sản xuất</th>
+                                        <th width="100px" class="text-center">Số lượng yêu cầu</th>
+                                        <th width="100px" class="text-center">PR Due Date</th>
+                                        <th width="150px" class="text-center">Nhân viên mua hàng</th>
+                                        <th width="100px" class="text-center">Dự án</th>
+                                        <th width="100px" class="text-center">Mã PR</th>
+                                        <th width="100px" class="text-center">Giá định mức</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of listData; let i = index">
+                                        <td class="text-center">{{startIndex+i}}</td>
+                                        <td class="text-center">
+                                            <button class="btn btn-xs btn-danger" container="body"
+                                                (click)="showConfirmDelete(i)" ngbTooltip="Xóa" container="body">
+                                                <span class="fas fa-times" aria-hidden="true"></span>
+                                            </button>
+                                        </td>
+                                        <td>{{row.Code}}</td>
+                                        <td>{{row.Name}}</td>
+                                        <td>{{row.ParentCode}}</td>
+                                        <td class="text-center">{{row.UnitName}}</td>
+                                        <td>{{row.ManufactureCode}}</td>
+                                        <td class="text-center">{{row.Quantity| number}}</td>
+                                        <td class="text-center">{{row.RequireDate| date:'dd/MM/yyyy'}}</td>
+                                        <td>{{row.SalesName}}</td>
+                                        <td>{{row.ProjectCode}}</td>
+                                        <td>{{row.PurchaseRequestCode}}</td>
+                                        <td>{{row.QuotaPrice|number}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot *ngIf="listData.length == 0">
+                                    <tr class="bold">
+                                        <td colspan="32" min-width="300px" class="text-center"
+                                            style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Danh sách Chứng Từ</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body ">
+                <div class="row margin-bottom-10">
+                    <div class="col-xl-7 col-lg-7 col-md-7 col-sm-12">
+                        <label class="form-label" style="line-height:35px;">Tổng số
+                            <span class="bold text-danger">{{listFile.length}}</span> chứng từ</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                        <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+                            <table class="table table-bordered" style="min-width:310px">
+                                <thead>
+                                    <tr>
+                                        <th width="50px" class="text-center">STT</th>
+                                        <th style="text-align:center;padding-top: 10px;" width="60px">
+                                            <input [(ngModel)]="checkedTop" type="checkbox" name="{{'checkedTop'}}"
+                                                style="height:20px; width:20px;" (change)="checkAll()">
+                                        </th>
+                                        <th min-width="200px" class="text-center">Tên chứng từ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of listFile; let i = index">
+                                        <td class="text-center">{{startIndex+i}}</td>
+                                        <td style="text-align:center" width="60px">
+                                            <input (change)="checkItem(row, i)" [(ngModel)]="row.Checked" type="checkbox"
+                                                name="{{'Checked'+row.ItemCode+i}}" style="height:20px; width:20px;">
+                                        </td>
+                                        <td>{{row.Name}}</td>
+                                    </tr>
+                                </tbody>
+                                <tfoot *ngIf="listFile.length == 0">
+                                    <tr class="bold">
+                                        <td colspan="32" min-width="300px" class="text-center"
+                                            style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </perfect-scrollbar>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <header class="panel_header">
+                <h2 class="title pull-left text-header">Ngày hoàn thành dự kiến</h2>
+                <div class="actions panel_actions pull-right">
+                    <i class="box_toggle material-icons">expand_more</i>
+                </div>
+            </header>
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Xác định nhà cung cấp
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="supplierExpectedDate" ngbDatepicker
+                                    #supplierExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.SupplierExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon"
+                                        (click)="supplierExpectedDate.toggle()"
+                                        name="supplierExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Làm hợp đồng
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="contractExpectedDate" ngbDatepicker
+                                    #contractExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.ContractExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon"
+                                        (click)="contractExpectedDate.toggle()"
+                                        name="contractExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Thanh toán
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="payExpectedDate" ngbDatepicker
+                                    #payExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.PayExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="payExpectedDate.toggle()"
+                                        name="payExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Theo dõi tiến độ sản xuất
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="productionExpectedDate" ngbDatepicker
+                                    #productionExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.ProductionExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon"
+                                        (click)="productionExpectedDate.toggle()"
+                                        name="productionExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Lựa chọn nhà vận chuyển
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="transportExpectedDate" ngbDatepicker
+                                    #transportExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.TransportExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon"
+                                        (click)="transportExpectedDate.toggle()"
+                                        name="transportExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Thủ tục thông quan
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="customExpectedDate" ngbDatepicker
+                                    #customExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.CustomExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon" (click)="customExpectedDate.toggle()"
+                                        name="customExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-4">
+                        <div class="form-group ">
+                            <label class="form-label">Nhập kho
+                                <span class='text-danger text-strong'>*</span>
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control" placeholder="dd/mm/yyyy"
+                                    name="warehouseExpectedDate" ngbDatepicker
+                                    #warehouseExpectedDate="ngbDatepicker"
+                                    [(ngModel)]="profileModel.WarehouseExpectedDateV" required>
+                                <div class="input-group-append">
+                                    <span class="dtp-icon"
+                                        (click)="warehouseExpectedDate.toggle()"
+                                        name="warehouseExpectedDate">
+                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="box">
+            <div class="content-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+                        <button type="button" class="btn btn-success" (click) = "save()" [disabled]="!f.form.valid"  *appUipermission="['F120801']">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>Lưu</span>
+                        </button>&nbsp;
+                        <!-- <button type="button" class="btn btn-success">
+                            <i class="fa fa-save"></i>&nbsp;
+                            <span>Lưu & tiếp tục</span>
+                        </button>&nbsp; -->
+                        <button type="button" class="btn btn-danger" (click)="close()">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </form>
+</div>

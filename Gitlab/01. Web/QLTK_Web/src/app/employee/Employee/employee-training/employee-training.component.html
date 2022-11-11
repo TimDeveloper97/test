@@ -1,0 +1,51 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="form-group ">
+      <label class="form-label">Tên nhân viên
+
+      </label>
+      <div class="controls">
+        <input type="text" class="form-control" name="EmployeeName" [(ngModel)]="EmployeeName" maxlength="100"
+          disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="form-group ">
+      <label class="form-label">Mã nhân viên
+
+      </label>
+      <div class="controls">
+        <input type="text" class="form-control" name="EmployeeCode" [(ngModel)]="EmployeeCode" maxlength="100"
+          disabled>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row">
+  <div class="col-md-12 text-left">
+    <label class="form-label" style="line-height:35px;">Tổng số<span class="bold text-danger">{{listData.length}}</span> chương trình đào tạo</label>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:650px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="300px" class="text-center">Tên chương trình đào tạo</th>
+            <th min-width="300px" class="text-center">Mô tả</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listData; let i = index">
+            <td class="text-center">{{StartIndex+i}}</td>
+            <td>{{row.Name}}</td>
+            <td>{{row.Description}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

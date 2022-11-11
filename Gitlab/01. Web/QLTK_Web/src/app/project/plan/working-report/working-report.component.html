@@ -1,0 +1,140 @@
+<div class="modal-header">
+    <h3 class="modal-title text-danger text-uppercase">Báo cáo công việc</h3>
+    <button type="button" class="close" aria-label="Close" (click)="CloseModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class='content-wrapper'>
+    <section class="box box-head">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="dateFromActualStartDate"
+                                        [(ngModel)]="searchModel.DateFromActualStartDateV" ngbDatepicker
+                                        #dateFromActualStartDate="ngbDatepicker" placeholder="Từ ngày bắt đầu triển khai"
+                                        (click)="dateFromActualStartDate.toggle();$event.stopPropagation();">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="dateToActualStartDate"
+                                        [(ngModel)]="searchModel.DateToActualStartDateV" ngbDatepicker
+                                        #dateToActualStartDate="ngbDatepicker" placeholder="Đến ngày bắt đầu triển khai"
+                                        (click)="dateToActualStartDate.toggle();$event.stopPropagation();">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="dateFromActualEndDate"
+                                        [(ngModel)]="searchModel.DateFromActualEndDateV" ngbDatepicker
+                                        #dateFromActualEndDate="ngbDatepicker" placeholder="Từ ngày kết thúc triển khai"
+                                        (click)="dateFromActualEndDate.toggle();$event.stopPropagation();">
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-12 col-lg-6">
+                                <div class="form-group">
+                                    <input class="form-control" name="dateToActualEndDate"
+                                        [(ngModel)]="searchModel.DateToActualEndDateV" ngbDatepicker
+                                        #dateToActualEndDate="ngbDatepicker" placeholder="Đến ngày kết thúc triển khai"
+                                        (click)="dateToActualEndDate.toggle();$event.stopPropagation();">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchWorkingReport()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp;&nbsp;
+                        <button type="button" class="btn btn-success" (click)="exportExcel()" container="body">
+                            <i class="fas fa-file-excel" aria-hidden="true"></i> &nbsp;Xuất exel
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+
+
+        <div class="content-body ">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2120px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Hạng mục</th>
+                                    <th width="150px" class="text-center">Công đoạn</th>
+                                    <th width="150px" class="text-center">Công việc chi tiết</th>
+                                    <th width="120px" class="text-center">Loại công việc</th>
+                                    <th width="150px" class="text-center">Thời gian bắt đầu theo hợp đồng</th>
+                                    <th width="150px" class="text-center">Thời gian kết thúc theo hợp đồng</th>
+                                    <th width="150px" class="text-center">Thời gian bắt đầu triển khai</th>
+                                    <th width="150px" class="text-center">Thời gian kết thúc triển khai</th>
+                                    <th width="100px" class="text-center">Số ngày thực hiện theo dự kiến</th>
+                                    <th width="200px" class="text-center">Nhà thầu thực hiện</th>
+                                    <th width="200px" class="text-center">Người phụ trách</th>
+                                    <th width="120px" class="text-center">Tình trạng</th>
+                                    <th width="150px" class="text-center">% hoàn thành</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of workingReport; let i = index">
+                                    <td width="50px" class="text-center">
+                                        {{i+1}}
+                                    </td>
+                                    <td class="text-center">{{row.ContractName}}</td>
+                                    <td>{{row.StageName}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.PlanType"
+                                            [value]="row.Type">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td class="text-center">{{row.ContractStartDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.ContractDueDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.PlanDueDate|date:'dd/MM/yyyy'}}</td>
+                                    <td>{{row.NumberDate}}</td>
+                                    <td>{{row.ContractorName}}</td>
+                                    <td>{{row.PlanUser}}</td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.PlanStatus"
+                                            [value]="row.Status">
+                                        </nts-status-badge>
+                                    </td>
+                                    <td class="text-right td-progressbar" width="70px">
+                                        <p>
+                                            <ngb-progressbar type="success" textType="dark" [value]="row.DoneRatio"
+                                                [showValue]="true">
+                                            </ngb-progressbar>
+                                        </p>
+                                    </td>
+                                    
+
+
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="workingReport.length == 0">
+                                <tr class="bold">
+                                    <td colspan="13" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không
+                                        có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+        </div>
+
+
+    </section>
+</div>

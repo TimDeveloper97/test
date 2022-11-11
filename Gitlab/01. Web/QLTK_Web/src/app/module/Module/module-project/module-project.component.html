@@ -1,0 +1,62 @@
+<div class="row ">
+  <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+    <form name="searchForm" #f="ngForm">
+      <div class="row margin-bottom-10">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelModuleProject"
+            (change)="searchProjectModel()">
+          </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+          <button class="btn btn-success btn-success-system" (click)="searchProjectModel()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+          <button class="btn btn-default btn-default-system" (click)="clear()">
+            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+        </div>
+      </div>
+    </form>
+    <div class="text-left">
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{totalModule}}</span> module;</label>&nbsp;
+      <label class="form-label" style="line-height:35px;">Tổng số
+        <span class="bold text-danger">{{totalProject}}</span> dự án;</label>&nbsp;
+    </div>
+    <perfect-scrollbar [config]="scrollConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1070px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="200px" class="text-center">Tên dự án</th>
+            <th width="200px" class="text-center">Mã dự án</th>
+            <th width="120px" class="text-center">Trạng thái dự án</th>
+            <th min-width="200px" class="text-center">Mô tả</th>
+            <th width="100px" class="text-center">Từ ngày</th>
+            <th width="100px" class="text-center ">Đến ngày</th>
+            <th width="100px" class="text-center ">Số lượng</th>
+            <!-- <th width="150px" class="text-center ">Tình trạng tiêu chí</th> -->
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listDA; let i = index">
+            <td class="text-center">{{i+1}}</td>
+            <td>{{row.Name}}</td>
+            <td>{{row.Code}}</td>
+            <td class="text-center">
+              <nts-status-badge [items]="constant.ProjectStatus" [value]="row.Status"></nts-status-badge>
+            </td>
+            <td class="text-center">{{row.Note}}</td>
+            <td class="text-center">{{row.DateFrom  | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center ">{{row.DateTo  | date: 'dd/MM/yyyy'}}</td>
+            <td class="text-center ">{{row.CountModule}}</td>
+            <!-- <td class="text-center ">
+              <a><u *ngIf="row.StatusTestCriteria == '0'" (click)="showCreateUpdate(row.ProjectProductId)"
+                  style="color: blue;">Không đạt</u></a>
+              <a><u *ngIf="row.StatusTestCriteria == '1'" (click)="showCreateUpdate(row.ProjectProductId)"
+                  style="color: blue;">Đạt</u></a>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

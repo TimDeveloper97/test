@@ -1,0 +1,80 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Nhóm module </label>
+          <span class='text-danger text-strong'>&nbsp;*</span>
+          <div class="controls">
+            <div class="input-group">
+              <dx-drop-down-box #d1 [(value)]="treeBoxValue" valueExpr="Id" displayExpr="Code"
+                placeholder="Chọn nhóm module" [dataSource]="ListModuleGroup" (onValueChanged)="syncTreeViewSelection('')"
+                [(opened)]="isDropDownBoxOpened">
+
+                <div *dxTemplate="let data of 'content'">
+                  <dx-tree-list id="Id" [dataSource]="ListModuleGroup" keyExpr="Id" parentIdExpr="ParentId"
+                    [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[1]"
+                    [(selectedRowKeys)]="selectedRowKeys" (onSelectionChanged)="treeView_itemSelectionChanged($event)"
+                    (onFocusedRowChanged)="onFocusedRowChanged($event)" (onRowDblClick)="onRowDblClick()">
+                    <!-- <dxo-selection mode="single"></dxo-selection> -->
+                    <dxo-search-panel [visible]="true"></dxo-search-panel>
+                    <dxo-selection mode="multiple" [recursive]="falses">
+                    </dxo-selection>
+                    <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+                    <dxi-column dataField="Name" caption="Tên nhóm"></dxi-column>
+                  </dx-tree-list>
+                  <button type="button" (click)="closeDropDownBox()">
+                    Đóng
+                  </button>
+                </div>
+              </dx-drop-down-box>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Công việc
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="form-group">
+            <select name="TaskId" required class="form-control" [(ngModel)]="model.TaskId">
+              <option *ngFor="let item of ListTask" [ngValue]="item.Id" class="text-center">{{item.Name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <ng-container *ngIf="Id===''">
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="saveAndContinue()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>Lưu & Tiếp tục</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+    <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="model"
+      (change)="searchModuleInPractice()">
+    </nts-search-bar>
+  </div>
+
+  <div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 text-right">
+    <button class="btn btn-success btn-success-system" (click)="searchModuleInPractice()">
+      <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+    <button class="btn btn-default btn-default-system" (click)="clear()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+</div>
+<div class="row">
+  <div class="col-lg-12 text-left">
+    <label class="form-label" style="line-height:35px;">Tổng số
+      <span class="bold text-danger">{{listData.length}}</span> Module |
+    </label>&nbsp;
+    <label class="form-label" style="line-height:35px;">Tổng số tiền
+      <span class="bold text-danger">{{totalAmount|number:'1.0-0'}}</span> |
+    </label>&nbsp;
+    <label class="form-label" style="line-height:35px;">Giá vật tư lớn nhất
+      <span class="bold text-danger">{{MaxPricing|number:'1.0-0'}}</span> |
+    </label>&nbsp;
+    <label class="form-label" style="line-height:35px;">Thời gian đặt hàng lớn nhất
+      <span class="bold text-danger">{{MaxDeliveryDay}}</span> Ngày
+    </label>
+  </div>
+</div>
+<div class="row" #scrollPracticeMaterial>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+      <table class="table table-bordered table-fixed mb-0" style="min-width:1150px">
+        <thead>
+          <tr>
+            <th class="text-center" width="50px">STT</th>
+            <th class="text-center" min-width="150px">Tên vật tư</th>
+            <th class="text-center" width="150px">Mã vật tư</th>
+            <th class="text-center" width="100px">Nhóm vật tư</th>
+            <th class="text-center" width="100px">Đơn vị</th>
+            <th class="text-center" width="100px">Giá(VND)</th>
+            <th class="text-center" width="80px">Số lượng</th>
+            <th class="text-center" width="120px">Thành tiền(VND)</th>
+            <th class="text-center" width="150px">Hãng sản xuất</th>
+            <th class="text-center" width="150px">Thời gian giao hàng</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="height">
+      <table class="table table-bordered table-fixed" style="min-width:1150px">
+        <colgroup>
+          <col width="50px">
+          <col min-width="150px">
+          <col width="150px">
+          <col width="100px">
+          <col width="100px">
+          <col width="100px">
+          <col width="80px">
+          <col width="120px">
+          <col width="150px">
+          <col width="150px">
+        </colgroup>
+        <tbody>
+          <ng-container *ngFor="let ite of listData; let i = index">
+            <tr>
+              <td width="50px" class="bold text-right">
+                {{ite.Index}}
+              </td>
+              <td class="bold" colspan="4"> {{ ite.ModuleCode}} - {{ite.ModuleName }}</td>
+              <td class="bold text-right" width="100px"> {{ ite.Pricing|number:'1.0-0'}}</td>
+              <td class="bold text-center" width="80px"> {{ ite.Qty|number}}</td>
+              <td class="bold text-right" width="120px"> {{ (ite.Qty*ite.Pricing)|number:'1.0-0'}}</td>
+              <td class="bold" colspan="2"></td>
+            </tr>
+            <tr *ngFor="let row of ite.ListMaterial; let i = index">
+              <td class="text-right" width="50px">{{row.Index}}</td>
+              <td min-width="150px">{{row.MaterialName}}</td>
+              <td width="150px">{{row.MaterialCode}}</td>
+              <td width="100px">{{row.MaterialGroupCode}}</td>
+              <td width="100px">{{row.UnitName}}</td>
+              <td width="100px" class="text-right">{{row.Pricing|number:'1.0-0'}}</td>
+              <td width="80px" class="text-center">{{row.Quantity}}</td>
+              <td width="120px" class="text-right">{{row.Pricing * row.Quantity |number:'1.0-0'}}</td>
+              <td width="150px">{{row.ManufactureName}}</td>
+              <td width="150px" class="text-center">{{row.DeliveryDays}} ngày</td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-lg-12 col-md-12 col-sm-12 text-right">
+    <button *appUipermission = "['F040708']" class="btn btn-success btn-file" (click)="exportExcel()">
+      <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>&nbsp;
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+      <i class="fa fa-power-off"></i> &nbsp;
+      <span>
+        Đóng
+      </span>
+    </button>
+  </div>
+</div>

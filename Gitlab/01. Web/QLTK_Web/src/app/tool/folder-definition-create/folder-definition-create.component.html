@@ -1,0 +1,97 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{infoModal.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-2 col-lg-2 col-md-2 col-sm-2">
+        <div class="form-group">
+          <label class="form-label name">Tên:</label>
+        </div>
+      </div>
+      <div class="col-xl-10 col-lg-10 col-md-10 col-sm-10">
+        <div class="row">
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+            <input [disUipermission]="['F090601']" type="text" class="form-control" name="FolderDefinitionFirst"
+              [(ngModel)]="folderDefinitionModel.FolderDefinitionFirst" maxlength="100">
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+            <select [disUipermission]="['F090601']" name="FolderDefinitionBetween" class="form-control"
+              [(ngModel)]="folderDefinitionModel.FolderDefinitionBetween">
+              <option *ngFor="let item of constant.FolderDefinitionBetween" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+            <select [disUipermission]="['F090601']" name="FolderDefinitionBetweenIndex" class="form-control"
+              [(ngModel)]="folderDefinitionModel.FolderDefinitionBetweenIndex">
+              <option *ngFor="let item of constant.FolderDefinitionBetweenIndex" [ngValue]="item.Id">{{item.Name}}
+              </option>
+            </select>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3">
+            <input [disUipermission]="['F090601']" type="text" class="form-control" name="FolderDefinitionLast"
+              [(ngModel)]="folderDefinitionModel.FolderDefinitionLast" maxlength="100">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12">
+            <div class="custom-control custom-checkbox">
+              <input [disUipermission]="['F090601']" type="checkbox" class="custom-control-input" id="statusCheckFile" name="statusCheckFile"
+                [(ngModel)]="statusCheckFile">
+              <label class="custom-control-label" for="statusCheckFile">Không kiểm tra tài liệu</label>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12">
+            <div class="custom-control custom-checkbox">
+              <input [disUipermission]="['F090601']" type="checkbox" class="custom-control-input" id="StatusCheckFolder" name="StatusCheckFolder"
+                [(ngModel)]="statusCheckFolder">
+              <label class="custom-control-label" for="StatusCheckFolder">Không kiểm tra thư mục</label>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12">
+            <div class="cbb-inline">
+              <label class="form-label">Loại</label>
+              <select [disUipermission]="['F090601']" name="folderType" class="form-control" [(ngModel)]="folderDefinitionModel.FolderType">
+                <option value="0"></option>
+                <option *ngFor="let item of constant.FolderTypes" [ngValue]="item.Id">{{item.Name}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12">
+            <div class="custom-control custom-checkbox">
+              <input [disUipermission]="['F090601']" type="checkbox" class="custom-control-input" id="checkExtensionFile" name="checkExtensionFile"
+                [(ngModel)]="folderDefinitionModel.CheckExtensionFile">
+              <label class="custom-control-label" for="checkExtensionFile">Không kiểm tra định dạng</label>
+            </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-3 col-sm-12">
+            <input [disUipermission]="['F090601']" type="text" class="form-control" name="ExtensionFile" placeholder="Định hạng file trong thư mục"
+              [disabled]="folderDefinitionModel.CheckExtensionFile" [(ngModel)]="folderDefinitionModel.ExtensionFile"
+              maxlength="100">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <ng-container>
+    <button *appUipermission="['F090601']" type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{infoModal.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

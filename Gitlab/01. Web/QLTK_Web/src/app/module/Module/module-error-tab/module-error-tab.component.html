@@ -1,0 +1,86 @@
+<form name="form" #f="ngForm" novalidate>
+  <div class="row">
+    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+      <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelModuleProject"
+        (change)="searchModuleErrors()">
+      </nts-search-bar>
+    </div>
+    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+      <button class="btn btn-success btn-success-system" (click)="searchModuleErrors()">
+        <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+      <button class="btn btn-default btn-default-system" (click)="clear()">
+        <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+    </div>
+  </div>
+</form>
+<div class="row">
+  <div class="col-md-12 text-left">
+    <label class="form-label" style="line-height:35px;">Tổng số
+      <span class="bold text-danger">{{model.TotalItems}}</span> lỗi;</label>
+      <label class="form-label" style="line-height:35px;">&nbsp;&nbsp;
+        <span class="bold text-danger">{{model.Status4}}</span> đang xử lý;</label>
+        <label class="form-label" style="line-height:35px;">&nbsp;
+          <span class="bold text-danger">{{model.Status6}}</span> đang QC;</label>
+        <label class="form-label" style="line-height:35px;">&nbsp;
+          <span class="bold text-danger">{{model.Status7}}</span> QC đạt;</label>
+        <label class="form-label" style="line-height:35px;">&nbsp;
+          <span class="bold text-danger">{{model.Status8}}</span> QC không đạt;</label>
+        <label class="form-label" style="line-height:35px;">&nbsp;
+          <span class="bold text-danger">{{model.Status9}}</span> đã đóng</label>
+  </div>
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    <perfect-scrollbar [config]="constants.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered table-fixed" style="word-wrap: break-word; min-width:2640px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="120px" class="text-center">Tình trạng</th>
+            <th width="100px" class="text-center">Hình ảnh</th>
+            <th width="200px" class="text-center">Nhóm lỗi</th>
+            <th width="200px" class="text-center">Mã lỗi</th>
+            <th width="200px" class="text-center">Tên lỗi</th>
+            <th width="150px" class="text-center">Người phát hiện</th>
+            <th width="120px" class="text-center">Ngày phát hiện</th>
+            <th width="200px" class="text-center">Dự án</th>
+            <th width="200px" class="text-center">Module</th>
+            <th width="200px" class="text-center">Bộ phận gây lỗi</th>
+            <th width="150px" class="text-center">Người gây lỗi</th>
+            <th width="200px" class="text-center">Bộ phận khắc phục</th>
+            <th width="200px" class="text-center">Công đoạn</th>
+            <th width="150px" class="text-center">Người khắc phục</th>
+            <th min-width="200px" class="text-center">Nguyên nhân</th>
+            <th width="100px" class="text-center">Chi phí</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let row of listData; let j = index">
+            <td class="text-center">{{startIndex+j}}</td>
+            <td class="text-center"> 
+              <span class="badge" [ngClass]="row.Status|filterbadgeclassinlist:constants.ListError">{{row.Status|filterinlist:constants.ListError}}</span>
+            </td>
+            <td class="text-center">
+              <button *ngIf="row.Image == true " type="button" class="btn btn-xs btn-warning"
+                (click)="showImage(row.Id)" placement="bottom" ngbTooltip="Ảnh lỗi" container="body">
+                <span class="far fa-eye" aria-hidden="true"></span>
+              </button>
+            </td>
+            <td>{{row.ErrorGroupName}}</td>
+            <td><a (click)="showError(row.Id)" style="color: blue"><u>{{row.Code}}</u></a></td>
+            <td><a (click)="showError(row.Id)" style="color: blue"><u>{{row.Subject}}</u></a></td>
+            <td>{{row.AuthorName}}</td>
+            <td class="text-center">{{row.PlanStartDate|date:'dd/MM/yyyy'}}</td>
+            <td>{{row.ProjectName}}</td>
+            <td>{{row.ModuleErrorVisualName}}</td>
+            <td>{{row.DepartmentName}}</td>
+            <td>{{row.ErrorByName}}</td>
+            <td>{{row.DepartmentProcessName}}</td>
+            <td>{{row.StageName}}</td>
+            <td>{{row.FixByName}}</td>
+            <td>{{row.Description}}</td>
+            <td class="text-right">{{row.ErrorCost|number:'1.0-0'}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

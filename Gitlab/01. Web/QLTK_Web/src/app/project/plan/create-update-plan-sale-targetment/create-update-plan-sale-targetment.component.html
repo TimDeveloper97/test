@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="form-group ">
+            <label class="form-label">Tiến độ thu tiền</label>
+            <div class="controls">
+                <nts-drop-down #p [items]="listPayment" [columns]="Payments" ntsValue="Id" ntsLabel="Name"
+                    name="DomainId" ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.PaymentId"
+                    required>
+                </nts-drop-down>
+            </div>
+        </div>
+        
+    </form>
+</div>
+
+<div class="modal-footer">
+    <ng-container>
+        <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save()">
+            <i class="fa fa-save"></i>&nbsp;
+            <span>{{ModalInfo.SaveText}}</span>
+        </button>
+    </ng-container>
+    <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

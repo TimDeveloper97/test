@@ -1,0 +1,359 @@
+.schedule-project {
+  .my-class {
+    text-align: center;
+  }
+
+  .plan {
+    background-color: rgba(105, 255, 75, 0.445);
+  }
+
+  .holiday {
+    background-color: rgba(138, 138, 138, 0.445) !important;
+  }
+
+  .selected {
+    background-color: #e6e6e6 !important;
+  }
+
+  tr:hover {
+    cursor: pointer;
+  }
+
+  .dx-date-box-input {
+    text-align: center;
+    color: red;
+  }
+
+  .dayOfWeek {
+    background-color: rgb(175, 137, 87);
+  }
+
+  .sunday {
+    background-color: rgb(184, 53, 53);
+  }
+
+  .item-update {
+    border: none;
+    text-align: center;
+    color: rgb(255, 145, 0);
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+  .datetime {
+    text-align: center;
+    width: 100px;
+    display: inline-block;
+  }
+
+  .special-tree-list {
+    tr.dx-row.dx-column-lines.dx-header-row {
+      height: 67px;
+    }
+  }
+
+  tr.dx-row.dx-column-lines.dx-header-row td {
+    vertical-align: middle !important;
+    text-align: center !important;
+  }
+
+  .item-delete {
+    border: none;
+    text-align: center;
+    color: red;
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    font-size: 13.5px;
+  }
+
+  .item-add {
+    border: none;
+    text-align: center;
+    color: green;
+    background: none;
+    padding-bottom: 0px;
+    padding-top: 0px;
+  }
+
+
+  span.date-inline {
+    bottom: 0px !important;
+  }
+
+  .style-tree-list {
+    margin-top: 0px !important;
+  }
+
+  .as-split-gutter {
+    margin-top: 0px;
+    height: auto !important;
+  }
+
+  .as-split-area {
+    overflow-y: hidden !important;
+  }
+
+  .searchCondition {
+    margin-top: 39px;
+  }
+
+  .cell-highlight {
+    .dx-datagrid .dx-row-alt>td {
+      background-color: #23c6c8;
+    }
+  }
+
+  // .dx-treelist-headers.dx-treelist-nowrap {
+  //   height: 80.5px;
+  // }
+
+  // .dx-treelist-scroll-container[role="presentation"] {
+  //   height: 80.5px !important;
+  // }
+
+  .dx-header-row {
+    .plan-header-cell {
+      .dx-treelist-text-content {
+        white-space: normal !important;
+        text-align: center;
+      }
+    }
+
+    .plan-design {
+      background-color: #e26c69 !important;
+    }
+
+    .diary-plan {
+      background-color: #f37f20 !important;
+    }
+  }
+
+  .font-weight-bold-sp {
+    font-weight: 600;
+  }
+
+  .dx-treelist-table {
+    tr {
+      height: 34px !important;
+    }
+  }
+
+  .table-date {
+    font-size: 10px;
+  }
+
+  .table-date>thead>tr>th,
+  .table-date>tbody>tr>th,
+  .table-date>tfoot>tr>th {
+    padding: 3px 3px;
+  }
+
+  .plan-design {
+
+    // background-color: #E6B8B7 !important;
+    .dx-treelist-text-content {
+      white-space: normal !important;
+      text-align: center;
+    }
+  }
+
+  .diary-plan {
+
+    // background-color: #FABF8F !important;
+    .dx-treelist-text-content {
+      white-space: normal !important;
+      text-align: center;
+    }
+  }
+
+  .plan-date {
+    width: 100px;
+    margin-right: 10px;
+  }
+
+  .dx-treelist .dx-row>td {
+    padding: 6px !important;
+  }
+
+  .vly {
+    border-left: 1px solid black;
+    height: 20px;
+    margin-top: 10px;
+  }
+
+  .hr1 {
+    margin-top: 20px;
+    // height: 10px;
+  }
+
+  .divType {
+    position: relative;
+    display: flex;
+    text-align: right;
+  }
+
+  .tableColor {
+    background-color: white;
+    color: black;
+  }
+
+  .stage {
+    background-color: royalblue;
+    color: white;
+  }
+
+  .box {
+    border-top: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid white;
+    width: 100%;
+  }
+
+  .box1 {
+    border-top: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 30px solid royalblue;
+    width: 0;
+  }
+
+  .box2 {
+    border-top: 30px solid transparent;
+    border-right: 30px solid transparent;
+    border-bottom: 30px solid transparent;
+    border-left: 30px solid transparent;
+    width: 0;
+  }
+
+  .progress {
+    position: relative;
+    border-radius: 50px;
+  }
+
+  .progress-bar {
+    span {
+      position: absolute;
+      padding-left: 10px;
+      color: #000;
+    }
+  }
+
+  .grant-chart {
+
+    // td {
+    //   border: none !important;
+    // }
+
+    // td {
+    //   border-top: none !important;
+    // }
+
+    tr .progress {
+      margin-top: 0px !important;
+      margin-bottom: 0px !important;
+      height: 26px;
+    }
+  }
+
+  .dx-row {
+    height: 34px !important;
+  }
+
+  .project-product-parent {
+    background-color: #A5CDFF;
+  }
+
+  .project-product-child {
+    background-color: #FEFFDC;
+  }
+}
+
+.dx-popup-wrapper>.dx-overlay-content {
+  width: auto !important;
+  max-width: auto !important;
+}
+
+.show-item-search ul li {
+  list-style: none;
+  display: inline-block;
+  padding: 3px 5px;
+  background: #efefef;
+  margin: 5px 5px 0px 0px;
+  border-radius: 5px;
+  font-size: 11px;
+  line-height: 14px;
+}
+
+.show-item-search ul {
+  margin: 0;
+  padding: 0;
+}
+
+.show-item-search ul li i.fas.fa-times {
+  color: #565656;
+  margin: 0 0 0 4px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.show-item-search ul li i.fas.fa-times:hover {
+  color: red;
+}
+
+.date-now {
+  padding: 0px !important;
+
+  div {
+    border-left: 1px solid black;
+    height: 33px;
+    margin-left: 50%;
+  }
+}
+
+::ng-deep .field-customization {
+  min-height: 32px;
+}
+
+::ng-deep .dx-lookup.field-customization .dx-lookup-field {
+  padding: 0 5px;
+}
+
+::ng-deep .custom-field > img {
+  vertical-align: middle;
+  height: 30px;
+  width: 21px;
+}
+
+::ng-deep .custom-field > div {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 30px;
+  font-size: 14px;
+  margin-left: 5px;
+}
+
+::ng-deep .custom-item > img {
+  height: 48px;
+  width: 38px;
+  margin-right: 10px;
+}
+
+::ng-deep .custom-item > div {
+  display: inline-block;
+  vertical-align: top;
+  line-height: 48px;
+  font-size: 15px;
+}
+
+::ng-deep .dx-viewport:not(.dx-theme-ios7) .dx-fieldset {
+  width: 40%;
+  float: left;
+}
+
+::ng-deep .dx-field > .dx-lookup {
+  flex: 1;
+}

@@ -1,0 +1,187 @@
+<div class='content-wrapper page-content'>
+  <div class="search-left">
+    <div class="content-body">
+      <div class="row">
+        <div class="col-xl-9 col-lg-9 col-md-9 col-sm-9">
+          <label class="form-label" style="line-height:25px;">Tổng số
+            <span class="bold text-danger">{{WorkSkillGroupSearchModel.TotalItems}}</span> nhóm kỹ năng/kiến thức</label>
+        </div>
+        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-3 text-right">
+          <button *appUipermission="['F080301']" type="button" (click)="showCreateUpdateWordKillGroup('', false)"
+            class="btn btn-xs btn-success" placement="bottom" ngbTooltip="Thêm nhóm kỹ năng/kiến thức" container="body">
+            <span class="fa fa-plus" aria-hidden="true"></span>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <dx-tree-list id="workskillgroup" [dataSource]="ListWorkSkillGroup" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [height]="height"
+            (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="ListWordSkillGroupId"
+            noDataText=" ">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxo-search-panel [visible]="true" placeholder="Nội dung tìm kiếm"></dxo-search-panel>
+            <dxi-column dataField="Code" caption="Mã nhóm"></dxi-column>
+            <dxi-column dataField="Name" caption="Tên nhóm" [minWidth]="200">
+            </dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px"
+              [allowSearch]="false">
+              <div *dxTemplate="let item of 'cellEditTemplate'">
+                <ng-container *appUipermission="['F080301']">
+                  <button *ngIf="item.value != 0" type="button" placement="top" class="item-add" ngbTooltip="Thêm nhóm"
+                    container="body" (click)=" showCreateUpdateWordKillGroup(item.value, false)">
+                    <i class="fas fa-plus"></i></button>
+                </ng-container>
+
+                <ng-container *appUipermission="['F080302']">
+                  <button *ngIf="item.value != 0" container="body" type="button" placement="top" class="item-update"
+                    ngbTooltip="Sửa nhóm" (click)=" showCreateUpdateWordKillGroup(item.value, true)">
+                    <i class="fa fa-edit"></i></button>
+                </ng-container>
+
+                <ng-container *appUipermission="['F080303']">
+                  <button *ngIf="item.value != 0" container="body" type="button" placement="top" class="item-delete"
+                    ngbTooltip="Xóa nhóm" (click)=" showConfirmDeleteWorkSkillGroup(item.value)">
+                    <i class="fas fa-times"></i></button>
+                </ng-container>
+              </div>
+            </dxi-column>
+          </dx-tree-list>
+          <dx-context-menu [dataSource]="items" keyExpr="Id" [width]="200" target="#workskillgroup"
+            (onItemClick)="itemClick($event)">
+            <div *dxTemplate="let e of 'item'">
+              <div>
+                <span [ngClass]="e.icon"></span>
+                <span *ngIf="e.items" class="dx-icon-spinright"></span> {{e.text}}
+              </div>
+            </div>
+          </dx-context-menu>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="body-right">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="searchWorkSkill"
+              (change)="searchWorkSkill(workSkillGroupId)">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button class="btn btn-success btn-success-system" (click)="searchWorkSkill(workSkillGroupId)">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button class="btn btn-default btn-default-system" (click)="clear()">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="content-body">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> kỹ năng/kiến thức</label>
+        </div>
+        <div class="col-md-6 text-right">
+          <button *appUipermission="['F080401']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+            <i class="fa fa-plus"></i>
+            Thêm mới
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:650px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="100px" class="text-center">Xử lý</th>
+                  <th min-width="150px" class="text-center">Tên kỹ năng/kiến thức</th>
+                  <th width="200px" class="text-center">Tên nhóm kỹ năng/kiến thức</th>
+                  <th width="80px" class="text-center">Điểm sàn</th>
+                  <th width="150px" class="text-center">Mô tả</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{StartIndex+i}}</td>
+                  <td class="text-center">
+                    <button *appUipermission="['F080402','F080404']" type="button" (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                      placement="bottom" ngbTooltip="Cập nhật" container="body">
+                      <span class="fa fa-edit" aria-hidden="true"></span>
+                    </button>&nbsp;
+                    <button *appUipermission="['F080403']" class="btn btn-xs btn-danger" (click)="showConfirmDelete(row.Id)" placement="bottom"
+                      ngbTooltip="Xóa" container="body">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>
+                  </td>
+                  <td>{{row.Name}}</td>
+                  <td>{{row.WorkSkillGroupName}}</td>
+                  <td class="text-center">{{row.Score|number}}</td>
+                  <td>{{row.Description}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+
+          <!-- <dx-tree-list id="workSkill" [dataSource]="listData" keyExpr="Id" parentIdExpr="ParentId"
+            [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true" [expandedRowKeys]="[0]" noDataText=" "
+            (onSelectionChanged)="onSelectionChanged($event)">
+            <dxo-selection mode="single"></dxo-selection>
+            <dxi-column dataField="Name" caption="Tên kĩ năng"></dxi-column>
+            <dxi-column dataField="Description" caption="Mô tả"></dxi-column>
+            <dxi-column dataField="Id" cellTemplate="cellEditTemplate" caption="Xử lý" width="100px">
+              <div *dxTemplate="let cell of 'cellEditTemplate'">
+                <button type="button" (click)='showCreateUpdate(cell.value)' class="btn btn-xs btn-warning"
+                  placement="top" ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button> &nbsp;
+                <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(cell.value)" ngbTooltip="Xóa"
+                  container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </div>
+            </dxi-column>
+          </dx-tree-list> -->
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+              (ngModelChange)="searchWorkSkill(workSkillGroupId)" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+            (pageChange)="searchWorkSkill(workSkillGroupId)" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-warning">
+            <i class="fa fa-edit"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Sửa kỹ năng/kiến thức</small>
+          <button class="btn btn-view btn-danger">
+            <i class="fas fa-times"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xóa kỹ năng/kiến thức</small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

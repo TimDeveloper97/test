@@ -1,0 +1,82 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Tên cấu hình
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Name" name="NameConfig" maxlength="300" disabled
+              required>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Giá trị
+            <span class='text-danger text-strong'>&nbsp;*</span>
+          </label>
+          <div class="controls">
+            <ng-container *ngIf="model.ValueType==1">
+              <input type="text" class="form-control" [(ngModel)]="value1" name="NameValue1" maxlength="1000" required>
+            </ng-container>
+            <ng-container *ngIf="model.ValueType==2">
+              <input type="text" class="form-control" [(ngModel)]="value2" name="NameValue2" maxlength="1000"
+                ntsNumberInt>
+            </ng-container>
+            <ng-container *ngIf="model.ValueType==3">
+              <div class="input-group">
+                <input class="form-control" placeholder="dd/mm/yyyy" name="DateFrom" [(ngModel)]="dateFrom"
+                  ngbDatepicker #DateFrom="ngbDatepicker">
+                <div class="input-group-append">
+                  <span class="dtp-icon" (click)="DateFrom.toggle();$event.stopPropagation();">
+                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                  </span>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="model.ValueType==4">
+              <div class="input-group">
+                <ngb-timepicker [(ngModel)]="startTimeV" name="startTime">
+                </ngb-timepicker>
+                <hr>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="form-group ">
+          <label class="form-label">Đơn vị
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" [(ngModel)]="model.Unit" name="UnitConfig" maxlength="50">
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <ng-container>
+    <button type="button" class="btn btn-success" [disabled]="!f.form.valid" (click)="save(false)"
+      *appUipermission="['F020401','F020402']">
+      <i class="fa fa-save"></i>&nbsp;
+      <span>{{ModalInfo.SaveText}}</span>
+    </button>
+  </ng-container>
+  <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

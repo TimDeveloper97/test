@@ -1,0 +1,79 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Thông tin vấn đề</h4>
+  <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15">
+  <form name="form" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Nhóm vấn đề: {{model.ErrorGroupName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Tên vấn đề: {{model.Subject}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Mã vấn đề: {{model.Code}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Ngày phát hiện: {{model.PlanStartDate|date:'dd/MM/yyyy'}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Dự án: {{model.ProjectName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Module: {{model.ModuleName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Nhên viên phát hiện: {{model.AuthorName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Bộ phận chịu trách nhiệm: {{model.DepartmentName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Loại vấn đề: {{model.TypeName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Người trịu trách nhiệm: {{model.ErrorByName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Bộ phận khắc phục: {{model.DepartmentProcessName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Người khắc phục: {{model.FixByName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Công đoạn xảy ra vấn đề: {{model.StageName}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Ngày khắc phục: {{model.ActualStartDate|date:'dd/MM/yyyy'}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Chi phí: {{model.ErrorCost}}</label>
+      </div>
+      <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <label class="form-label">Ngày QC: {{model.ErrorCost}}</label>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-6 col-xl-12">
+        <label class="form-label">
+          <span>Tình trạng:</span>
+          <span *ngIf="model.Status == 1" class="badge badge-info">Đang tạo</span>
+          <span *ngIf="model.Status == 2" class="badge badge-danger">Đang chờ xử lý</span>
+          <span *ngIf="model.Status == 3" class="badge badge-warning">Đang xử lý</span>
+          <span *ngIf="model.Status == 4" class="badge badge-success">Đã xử lý</span>
+          <span *ngIf="model.Status == 5" class="badge badge-secondary">Đã đóng</span>
+        </label>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <label class="form-label">Mô tả: {{model.Description}}</label>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <label class="form-label">Nguyên nhân: {{model.Note}}</label>
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <label class="form-label">Giải pháp: {{model.Solution}}</label>
+      </div>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,84 @@
+<div class='content-wrapper'>
+  <section class="box ">
+    <div class="content-body padding-15">
+      <div class="row ">
+        <div class="col-xl-8 col-lg-12 col-md-8 col-sm-12">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="searchModel"
+            (change)="searchWorkingTime()">
+          </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-md-4 col-sm-12 col-lg-4 text-right">
+          <div class="datetime">
+            <div class="input-group">
+              <input class="form-control" [(ngModel)]="dateStartV" ngbDatepicker #dateFrom="ngbDatepicker"
+                name="option.FieldNameFrom" placeholder="Từ ngày" (click)="dateFrom.toggle();$event.stopPropagation();"
+                (ngModelChange)="changeDate()">
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="dateFrom.toggle()" name="DateOfBirth">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+          &nbsp;
+          &nbsp;
+          <div class="datetime">
+            <div class="input-group">
+              <input class="form-control" name="option.FieldNameTo" [(ngModel)]="dateEndV" ngbDatepicker
+                #dateTo="ngbDatepicker" placeholder="Đến ngày" (click)="dateTo.toggle();$event.stopPropagation();"
+                disabled>
+              <div class="input-group-append">
+                <span class="dtp-icon" (click)="dateTo.toggle()" name="DateOfBirth">
+                  <i class="far fa-calendar-alt" style="color: #999;"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-3" #scrollWorkingTime>
+
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+          <div #scrollWorkingTimeHeader style="overflow-x: auto;overflow: hidden;">
+            <table class="table table-bordered table-fixed mb-0" style="min-width:1690px">
+              <thead>
+                <tr>
+                  <th rowspan="2" width="50px" class="text-center">STT</th>
+                  <th rowspan="2" width="100px" class="text-center">Mã nhân viên</th>
+                  <th rowspan="2" width="150px" class="text-center">Tên nhân viên</th>
+                  <th rowspan="2" width="150px" class="text-center">Vị trí công việc</th>
+
+                  <th min-width="30px" class="text-center ListTem" *ngFor="let row of listTem; let i = index">
+                    {{row!=1?'T'+row:'CN'}}
+                  </th>
+                </tr>
+                <tr>
+                  <th min-width="30px" class="text-center" *ngFor="let item of listDays; let j=index">
+                    {{item.DateTime | date:'dd'}}</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <perfect-scrollbar [config]="constant.ScrollConfig" style="width:100%;" [style.height.px]="height">
+            <table class="table table-bordered table-fixed table-hover" style="min-width:1690px">
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center" width="50px">{{i+1}}</td>
+                  <td width="100px">{{row.EmployeeCode}}</td>
+                  <td width="150px">{{row.EmployeeName}}</td>
+                  <td width="150px">{{row.WorkType}}</td>
+                  <td min-width="30px" class="text-center text-nowrap" *ngFor="let item of row.ListWorkingTime; let  j=index"
+                    [ngClass]="{'warning_time': item.EstimateTime ==8,'warning_time1': item.EstimateTime > 8,'holiday':item.IsHoliday,'warning_time2':item.EstimateTime>0 && item.EstimateTime < 8 }" >
+                      <a (click)="loadParam(item, row.EmployeeCode)"
+                      href=" javascript:void(0)" *ngIf="item.EstimateTime!=0"> {{item.EstimateTime}}</a>
+                  </td>
+
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

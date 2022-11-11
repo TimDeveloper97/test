@@ -1,0 +1,249 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgbActiveModal, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { VirtualScrollerModule } from 'ngx-virtual-scroller'; import {
+  DevExtremeModule, DxTreeListModule, DxTreeViewModule, DxDropDownBoxModule, DxContextMenuModule,
+  DxDateBoxModule,
+  DxDataGridModule
+} from 'devextreme-angular';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { DatePickerModule } from '@syncfusion/ej2-angular-calendars';
+
+import { SharedModule } from '../shared/shared.module';
+import { EmployeeRoutingModule } from './employee-routing.module';
+
+import { DepartmentManageComponent } from './department/department-manage/department-manage.component';
+import { DepartmentCreateComponent } from './department/department-create/department-create.component';
+
+import { JobPositionManageComponent } from './JobPosition/job-position-manage/job-position-manage.component';
+import { JobPositionCreateComponent } from './JobPosition/job-position-create/job-position-create.component';
+import { EmployeeManageComponent } from './Employee/employee-manage/employee-manage.component';
+import { EmployeeCreateComponent } from './Employee/employee-create/employee-create.component';
+import { SBUManageComponent } from './sbu/sbumanage/sbumanage.component';
+import { SBUCreateComponent } from './sbu/sbucreate/sbucreate.component';
+import { EmployeeUpdateComponent } from './Employee/employee-update/employee-update.component';
+import { EmployeeSkillDetailsComponent } from './Employee/employee-skill-details-tab/employee-skill-details.component';
+import { EmployeedegreesComponent } from './Employee/employeedegrees/employeedegrees.component';
+import { EmployeeDegreesCreateComponent } from './Employee/employeedegrees/employee-degrees-create/employee-degrees-create.component';
+import { EmployeeUserTabComponent } from './Employee/employee-user-tab/employee-user-tab.component';
+import { EmployeeGroupManageComponent } from './employee-group/employee-group-manage/employee-group-manage.component';
+import { EmployeeGroupCreateComponent } from './employee-group/employee-group-create/employee-group-create.component';
+import { ImportEmployeeComponent } from './Employee/import-employee/import-employee.component';
+import { EmployeeCourseComponent } from './Employee/employee-course/employee-course.component';
+import { EmployeeTrainingComponent } from './Employee/employee-training/employee-training.component';
+import { ShowSelectSkillEmployeeComponents } from './Employee/show-select-skill-employee/show-select-skill-employee.component';
+
+import { WorkSkillManageComponent } from './workskill/work-skill-manage/work-skill-manage.component';
+import { WorkTypeManageComponent } from './worktype/work-type-manage/work-type-manage.component';
+
+
+import { CourseManageComponent } from './course/course-manage/course-manage.component';
+import { CourseCreateComponent } from './course/course-create/course-create.component';
+import { ChooseCourseSkillComponent } from './course/choose-course-skill/choose-course-skill.component';
+import { ChooseCourseEmployeeComponent } from './course/choose-course-employee/choose-course-employee.component';
+import { WorkSkillCreateComponent } from './workskill/work-skill-create/work-skill-create.component';
+import { WorkTypeCreateComponent } from './worktype/work-type-create/work-type-create.component';
+import { ShowSelectSkillEmployeeComponent } from './worktype/show-select-skill-employee/show-select-skill-employee.component';
+import { EmployeeTrainingManagerComponent } from './employee-training/employee-training-manager/employee-training-manager.component';
+import { EmployeeTrainingCreateComponent } from './employee-training/employee-training-create/employee-training-create.component';
+import { ChooseCourseComponent } from './employee-training/choose-course/choose-course.component';
+import { ChooseEmployeeComponent } from './employee-training/choose-employee/choose-employee.component';
+import { WorkDiaryManageComponent } from './work-diary/work-diary-manage/work-diary-manage.component';
+import { WorkDiaryCreateComponent } from './work-diary/work-diary-create/work-diary-create.component';
+import { WorkDiaryViewComponent } from './work-diary/work-diary-view/work-diary-view.component';
+import { WorkTimeManageComponent } from './work-time/work-time-manage/work-time-manage.component';
+import { WorkTimeCreateComponent } from './work-time/work-time-create/work-time-create.component';
+import { GroupUserManageComponent } from './group-user/group-user-manage/group-user-manage.component';
+import { GroupUserCreateComponent } from './group-user/group-user-create/group-user-create.component';
+import { TotalTimePerformComponent } from './total-time-perform/total-time-perform.component';
+import { ClassIficationManageComponent } from './class-ification/class-ification-manage/class-ification-manage.component';
+import { ClassIficationCreateComponent } from './class-ification/class-ification-create/class-ification-create.component';
+import { CoefficientEmployeesComponent } from './coefficient-employees/coefficient-employees.component';
+import { UserHistoryManagaComponent } from './UserHistory/user-history-managa/user-history-managa.component';
+import { ReasonEndwordkingManageComponent } from './Employee/reason-endworking/reason-endwordking-manage/reason-endwordking-manage.component';
+import { ReasonEndworkingCreateComponent } from './Employee/reason-endworking/reason-endworking-create/reason-endworking-create.component';
+import { BankAccountManageComponent } from './Employee/bank-account/bank-account-manage/bank-account-manage.component';
+import { BankAccountCreateComponent } from './Employee/bank-account/bank-account-create/bank-account-create.component';
+import { InsuranceLevelManageComponent } from './Employee/insurance-level/insurance-level-manage/insurance-level-manage.component';
+import { InsuranceLevelCreateComponent } from './Employee/insurance-level/insurance-level-create/insurance-level-create.component';
+import { ReasonChangeIncomeManageComponent } from './Employee/reason-change-income/reason-change-income-manage/reason-change-income-manage.component';
+import { ReasonChangeIncomeCreateComponent } from './Employee/reason-change-income/reason-change-income-create/reason-change-income-create.component';
+import { ReasonChangeInsuranceManageComponent } from './Employee/reason-change-insurance/reason-change-insurance-manage/reason-change-insurance-manage.component';
+import { ReasonChangeInsuranceCreateComponent } from './Employee/reason-change-insurance/reason-change-insurance-create/reason-change-insurance-create.component';
+import { WorkLocationManageComponent } from './Employee/work-location/work-location-manage/work-location-manage.component';
+import { WorkLocationCreateComponent } from './Employee/work-location/work-location-create/work-location-create.component';
+import { LaborContractManageComponent } from './Employee/labor-contract/labor-contract-manage/labor-contract-manage.component';
+import { LaborContractCreateComponent } from './Employee/labor-contract/labor-contract-create/labor-contract-create.component';
+import { QuestionManageComponent } from './question/question-manage/question-manage.component';
+import { QuestionCreateComponent } from './question/question-create/question-create.component';
+import { QuestionGroupCreateComponent } from './question/question-group-create/question-group-create.component';
+import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
+import { TaskManageComponent } from './task/task-manage/task-manage.component';
+import { FlowStageCreateComponent } from './task/flow-stage-create/flow-stage-create.component';
+import { TaskFlowStageCreateComponent } from './task/task-flow-stage-create/task-flow-stage-create.component';
+import { ChooseOutputResultComponent } from './task/choose-output-result/choose-output-result.component';
+import { OutputResultManageComponent } from './output-result/output-result-manage/output-result-manage.component';
+import { OutputResultCreateComponent } from './output-result/output-result-create/output-result-create.component';
+import { ChooseFlowStageComponent } from './output-result/choose-flow-stage/choose-flow-stage.component';
+import { ChooseDocumentComponent } from './output-result/choose-document/choose-document.component';
+import { SalaryLevelManageComponent } from './salary-level/salary-level-manage/salary-level-manage.component';
+import { SalaryLevelCreateComponent } from './salary-level/salary-level-create/salary-level-create.component';
+import { WorktypeInterviewManageComponent } from './worktype-interview/worktype-interview-manage/worktype-interview-manage.component';
+import { WorktypeInterviewCreateComponent } from './worktype-interview/worktype-interview-create/worktype-interview-create.component';
+import { ChooseQuestionComponent } from './worktype-interview/choose-question/choose-question.component';
+import { SalaryTypeCreateComponent } from './salary-type/salary-type-create/salary-type-create.component';
+import { SalaryTypeManageComponent } from './salary-type/salary-type-manage/salary-type-manage.component';
+import { SalaryGroupCreateComponent } from './salary-group/salary-group-create/salary-group-create.component';
+import { SalaryGroupManageComponent } from './salary-group/salary-group-manage/salary-group-manage.component';
+import { ShowSelectWorkSkillComponent } from './show-select-work-skill/show-select-work-skill.component';
+import { WorkSkillGroupCreateComponent } from './workskill/work-skill-group-create/work-skill-group-create.component';
+import { ShowAccountComponent } from './show-account/show-account.component';
+import { ShowEmployeedegreesComponent } from './show-account/show-employeedegrees/show-employeedegrees.component';
+import { ShowEmployeeSkillDetailsComponent } from './show-account/show-employee-skill-details/show-employee-skill-details.component';
+import { EmployeeRegulationComponent } from './Employee/employee-regulation/employee-regulation.component';
+import { EmployeeWorkTabComponent } from './Employee/employee-work-tab/employee-work-tab.component';
+
+@NgModule({
+  declarations: [
+    DepartmentManageComponent,
+    JobPositionManageComponent,
+    EmployeeManageComponent,
+    SBUManageComponent,
+    EmployeeUpdateComponent,
+    EmployeeSkillDetailsComponent,
+    EmployeedegreesComponent,
+    EmployeeGroupManageComponent,
+    EmployeeCourseComponent,
+    EmployeeTrainingComponent,
+    DepartmentCreateComponent,
+    JobPositionCreateComponent,
+    SBUCreateComponent,
+    EmployeeDegreesCreateComponent,
+    EmployeeCreateComponent,
+    EmployeeUserTabComponent,
+    EmployeeGroupCreateComponent,
+    ImportEmployeeComponent,
+    ShowSelectSkillEmployeeComponents,
+    WorkSkillManageComponent,
+    WorkTypeManageComponent,
+    TotalTimePerformComponent,
+    UserHistoryManagaComponent,
+    WorkDiaryManageComponent,
+    WorkDiaryViewComponent,
+    WorkTimeManageComponent,
+    CourseManageComponent,
+    CourseCreateComponent,
+    ChooseCourseSkillComponent,
+    ChooseCourseEmployeeComponent,
+    WorkSkillCreateComponent,
+    WorkTypeCreateComponent,
+    ShowSelectSkillEmployeeComponent,
+    EmployeeTrainingManagerComponent,
+    EmployeeTrainingCreateComponent,
+    ChooseCourseComponent,
+    ChooseEmployeeComponent,
+    WorkDiaryCreateComponent,
+    WorkTimeCreateComponent,
+    GroupUserManageComponent,
+    GroupUserCreateComponent,
+    WorkSkillGroupCreateComponent,
+    ClassIficationManageComponent,
+    ClassIficationCreateComponent,
+    CoefficientEmployeesComponent,
+    ReasonEndwordkingManageComponent,
+    ReasonEndworkingCreateComponent,
+    BankAccountManageComponent,
+    BankAccountCreateComponent,
+    InsuranceLevelManageComponent,
+    InsuranceLevelCreateComponent,
+    ReasonChangeIncomeManageComponent,
+    ReasonChangeIncomeCreateComponent,
+    ReasonChangeInsuranceManageComponent,
+    ReasonChangeInsuranceCreateComponent,
+    WorkLocationManageComponent,
+    WorkLocationCreateComponent,
+    LaborContractManageComponent,
+    LaborContractCreateComponent,
+    QuestionManageComponent,
+    QuestionCreateComponent,
+    QuestionGroupCreateComponent,  
+    TaskManageComponent,
+    FlowStageCreateComponent,
+    TaskFlowStageCreateComponent,
+    ChooseOutputResultComponent,
+    OutputResultManageComponent,
+    OutputResultCreateComponent,
+    ChooseFlowStageComponent,
+    ChooseDocumentComponent,
+    SalaryLevelManageComponent,
+    SalaryLevelCreateComponent,
+    WorktypeInterviewManageComponent,
+    WorktypeInterviewCreateComponent,
+    ChooseQuestionComponent,
+    SalaryTypeCreateComponent,
+    SalaryTypeManageComponent,
+    SalaryGroupCreateComponent,
+    SalaryGroupManageComponent,
+    ShowSelectWorkSkillComponent,
+    ShowAccountComponent,
+    ShowEmployeedegreesComponent,
+    ShowEmployeeSkillDetailsComponent,
+    EmployeeRegulationComponent,
+    EmployeeWorkTabComponent
+  ],
+  imports: [
+    CommonModule,
+    EmployeeRoutingModule,
+    FormsModule,
+    SharedModule,
+    PerfectScrollbarModule,
+    NgbModule,
+    VirtualScrollerModule,
+    DevExtremeModule,
+    DxTreeListModule,
+    DxTreeViewModule,
+    DxDropDownBoxModule,
+    DxContextMenuModule,
+    DxDateBoxModule,
+    DxDataGridModule,
+    CurrencyMaskModule,
+    NgxGalleryModule,
+    PdfJsViewerModule,
+    DatePickerModule
+  ],
+  entryComponents:[    
+    DepartmentCreateComponent,
+    JobPositionCreateComponent,
+    SBUCreateComponent,
+    EmployeeDegreesCreateComponent,
+    EmployeeCreateComponent,
+    EmployeeUserTabComponent,
+    EmployeeGroupCreateComponent,
+    ImportEmployeeComponent,
+    CourseCreateComponent,
+    ChooseCourseSkillComponent,
+    ChooseCourseEmployeeComponent,
+    WorkSkillCreateComponent,
+    WorkTypeCreateComponent,
+    ShowSelectSkillEmployeeComponent,
+    EmployeeTrainingCreateComponent,
+    ChooseCourseComponent,
+    ChooseEmployeeComponent,
+    ShowSelectSkillEmployeeComponents,
+    WorkTimeCreateComponent,
+    GroupUserCreateComponent,
+    WorkSkillGroupCreateComponent,
+    ClassIficationCreateComponent,
+    WorkDiaryCreateComponent,
+    ShowSelectWorkSkillComponent
+
+  ],
+  providers:[
+    NgbActiveModal 
+  ]
+})
+export class EmployeeModule { }

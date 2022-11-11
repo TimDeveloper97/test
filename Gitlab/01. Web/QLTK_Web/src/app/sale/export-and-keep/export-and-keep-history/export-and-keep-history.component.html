@@ -1,0 +1,110 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body pb-0">
+      <form name="searchForm" #f="ngForm">
+        <div class="row">
+          <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+            <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" (change)="searchExportAndKeep()"
+              name="modelEmployee">
+            </nts-search-bar>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+            <button (click)="searchExportAndKeep()" class="btn btn-success btn-success-system">
+              <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+            <button (click)="clear()" class="btn btn-default btn-default-system">
+              <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="content-body ">
+      <div class="row margin-bottom-10">
+        <div class="col-md-6 text-left">
+          <label class="form-label" style="line-height:35px;">Tổng số
+            <span class="bold text-danger">{{model.TotalItems}}</span> xuất giữ &nbsp; </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:950px">
+              <thead>
+                <tr>
+                  <th width="50px" class="text-center">STT</th>
+                  <th width="80px" class="text-center">Xử lý</th>
+                  <th width="100px" class="text-center">Trạng thái</th>
+                  <th width="160px" class="text-center">Tình trạng thanh toán</th>
+                  <th width="150px" class="text-center">Mã xuất giữ</th>
+                  <th width="150px" class="text-center">Người tạo</th>
+                  <th min-width="180px" class="text-center">Khách hàng</th>
+                  <th width="140px" class="text-center">Số lượng sản phẩm</th>
+                  <th width="100px" class="text-center">Ngày tạo</th>
+                  <th width="100px" class="text-center ">Hạn xuất giữ</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of listData; let i = index">
+                  <td class="text-center">{{startIndex+i}}</td>
+                  <td style="text-align: center">
+                    <a *appUipermission="['F120201']" type="button" (click)="showExportAndKeep(row.Id)"
+                      class="btn btn-xs btn-success" placement="top" ngbTooltip="Xem" container="body">
+                      <span class="fa fa-eye" aria-hidden="true"></span>
+                    </a>&nbsp;
+                  </td>
+                  <td class="text-center">
+                    <span class="badge"
+                      [ngClass]="row.Status|filterbadgeclassinlist:constant.exportandkeepstatus">{{row.Status|filterinlist:constant.exportandkeepstatus}}</span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge"
+                      [ngClass]="row.PayStatus|filterbadgeclassinlist:constant.KeepAndExportPayStatus">{{row.PayStatus|filterinlist:constant.KeepAndExportPayStatus}}</span>
+                  </td>
+                  <td>{{row.Code}}</td>
+                  <td>{{row.CreateByName}}</td>
+                  <td>{{row.CustomerName}}</td>
+                  <td>{{row.Quantity}}</td>
+                  <td>{{row.CreateDate|date:'dd/MM/yyyy'}}</td>
+                  <td>{{row.ExpiredDate|date:'dd/MM/yyyy'}}</td>
+                </tr>
+              </tbody>
+              <tfoot *ngIf="listData.length == 0">
+                <tr class="bold">
+                  <td colspan="12" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không
+                    có dữ liệu</td>
+                </tr>
+              </tfoot>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+          <div class="controls ">
+            <select (ngModelChange)="searchExportAndKeep()" class="form-control" style="border: 1px solid #ddd;"
+              [(ngModel)]="model.PageSize" name="pageSize">
+              <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+            </select>
+          </div>
+          <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+        </div>
+        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+          <ngb-pagination (pageChange)="searchExportAndKeep()" [collectionSize]="model.TotalItems"
+            [(page)]="model.PageNumber" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+            [boundaryLinks]="true"></ngb-pagination>
+        </div>
+      </div>
+      <hr />
+
+      <div class="row">
+        <div class="col-md-12">
+          <button class="btn btn-view btn-success">
+            <i class="fa fa-eye"></i>
+          </button>&nbsp;
+          <small class="padding-right-20">Xem chi tiết xuất giữ</small>
+
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

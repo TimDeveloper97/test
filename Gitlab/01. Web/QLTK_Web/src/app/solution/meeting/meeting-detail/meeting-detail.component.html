@@ -1,0 +1,421 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{modalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã meeting
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <div class="input-group" *ngIf="!this.Id">
+                            <select class="form-control" [(ngModel)]="model.CodeChar" name="CodeChar"
+                                (change)="generateCode()">
+                                <option *ngFor="let row of chars" [value]="row">{{row}}</option>
+                            </select>
+                            <div class="input-group-append" style="width:85%; border-bottom: none;">
+                                <input type="text" class="form-control" [(ngModel)]="model.Code" name="MeetingCode"
+                                    maxlength="100" required>
+                            </div>
+                        </div>
+                        <input *ngIf="this.Id" type="text" class="form-control" [(ngModel)]="model.Code"
+                            name="MeetingCode1" maxlength="100" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên meeting
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Name" name="MeetingName"
+                            maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Loại meeting
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <select class="form-control" [(ngModel)]="model.Type" name="Type" disabled>
+                            <option *ngFor="let row of constant.MeetingType" [value]="row.Id">{{row.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Chủng loại cuộc họp
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <nts-drop-down-tree [items]="listMeetingType" [columns]="columnNameMeetingType" ntsParentId="Exten"
+                        ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.MeetingTypeId" name="Id" disabled>
+                    </nts-drop-down-tree>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Mã Khách hàng
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <nts-drop-down [items]="listCustomer" [columns]="columnName" ntsValue="Id" ntsLabel="Code"
+                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="model.CustomerId" name="CustomerId"
+                        (change)="getCustomerContactByCustomerId()" disabled>
+                    </nts-drop-down>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Tên khách hàng
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.CustomerName" name="CustomerName"
+                            maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Người liên hệ
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <nts-drop-down [items]="listCustomerContactByCustomer" [columns]="columnNameCustomerContact"
+                        ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                        [(ngModel)]="model.CustomerContactId" name="CustomerContactId" disabled>
+                    </nts-drop-down>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Số điện thoại
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.PhoneNumber" name="PhoneNumber"
+                            maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Email
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Email" name="Email" maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Địa điểm meeting
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Address" name="Address"
+                            maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Ngày meeting
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div class="input-group">
+                        <input container="body" class="form-control" placeholder="dd/mm/yyyy" [name]="meetingDate"
+                            [(ngModel)]="model.MeetingDate" ngbDatepicker #meetingDate="ngbDatepicker"
+                            [minDate]="{year: 1900, month: 1, day: 1}" [maxDate]="{year: 2100, month: 12, day: 31}"
+                            disabled>
+                        <div class="input-group-append">
+                            <span class="dtp-icon" (click)="meetingDate.toggle();$event.stopPropagation();">
+                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời lượng cuộc họp (phút)
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div class="controls">
+                        <input type="text" class="form-control" [(ngModel)]="model.Time" name="Time" maxlength="300" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian bắt đầu dự kiến
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.StartTime" name="StartTime" [spinners]="false" disabled></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian kết thúc dự kiến
+                        <span class='text-danger text-strong'>&nbsp;*</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.EndTime" name="EndTime" [spinners]="false" disabled></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian bắt đầu thực tế
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.RealStartTime" [spinners]="false" name="RealStartTime" disabled></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                <div class="form-group ">
+                    <label class="form-label">Thời gian kết thúc thực tế
+                        <span class='text-danger text-strong'>&nbsp;</span>
+                    </label>
+                    <div>
+                        <ngb-timepicker [(ngModel)]="model.RealEndTime" [spinners]="false" name="RealEndTime" disabled></ngb-timepicker>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngIf="Id">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                    <div class="form-group ">
+                        <label class="form-label">Trạng thái
+                            <span class='text-danger text-strong'>&nbsp;</span>
+                        </label>
+                        <div class="controls">
+                            <select class="form-control" [(ngModel)]="model.Status" name="Status" disabled>
+                                <option *ngFor="let row of constant.MeetingStatus" [value]="row.Id">{{row.Name}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <label>
+                    Danh sách khách hàng tham dự
+                </label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <virtual-scroller #scroll [items]="model.ListCustomerContact" style=" display: block;height: 200px;">
+                    <table class="table table-bordered table-fixed table-hover"
+                        style="word-wrap: break-word; margin-bottom:0px !important;min-width: 980px;">
+                        <thead #header style="background-color: white">
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="150px" class="text-center">Tên nhân viên</th>
+                                <th width="150px" class="text-center">Chức vụ</th>
+                                <th width="150px" class="text-center">Email</th>
+                                <th width="100px" class="text-center">Số điện thoại</th>
+                                <th min-width="150px" class="text-center">Công ty</th>
+                            </tr>
+                        </thead>
+                        <tbody #container>
+                            <tr *ngFor="let row of scroll.viewPortItems; let i = index">
+                                <td class="text-center" width="50px">{{i+1}}</td>
+                                <td width="150px">{{row.Name}}</td>
+                                <td width="150px">{{row.Position}}</td>
+                                <td width="150px">{{row.Email}}</td>
+                                <td width="100px">{{row.PhoneNumber}}</td>
+                                <td min-width="150px">{{row.CustomerName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </virtual-scroller>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <label>
+                    Danh sách nhân viên tham dự
+                </label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <virtual-scroller #scrollEmployee [items]="model.ListUser" style=" display: block;height: 200px;">
+                    <table class="table table-bordered table-fixed table-hover"
+                        style="word-wrap: break-word; margin-bottom:0px !important;min-width: 980px;">
+                        <thead #header style="background-color: white">
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="150px">Tình trạng làm việc</th>
+                                <th width="80px" class="text-center">Ảnh</th>
+                                <th width="150px" class="text-center">Tên nhân viên</th>
+                                <th width="150px" class="text-center">Mã nhân viên</th>
+                                <th width="150px" class="text-center">Email</th>
+                                <th width="100px" class="text-center">Số điện thoại</th>
+                                <th min-width="150px" class="text-center">Phòng ban</th>
+                            </tr>
+                        </thead>
+                        <tbody #container>
+                            <tr *ngFor="let row of scrollEmployee.viewPortItems; let i = index">
+                                <td class="text-center" width="50px">{{i+1}}</td>
+                                <td class="text-center" width="150px">
+                                    <span class="badge"
+                                        [ngClass]="row.Status|filterbadgeclassinlist:constant.EmployeeStatus">{{row.Status|filterinlist:constant.EmployeeStatus}}</span>
+                                </td>
+                                <td width="80px"><img *ngIf="row.ImagePath!='' && row.ImagePath!=null"
+                                        [src]="config.ServerFileApi+row.ImagePath" height="80px" min-witdh="60px"
+                                        max-witdh="60px"></td>
+                                <td width="150px">{{row.Name}}</td>
+                                <td width="150px">{{row.Code}}</td>
+                                <td width="150px">{{row.Email}}</td>
+                                <td width="100px">{{row.PhoneNumber}}</td>
+                                <td min-width="150px">{{row.DepartmentName}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </virtual-scroller>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <label>
+                    Danh sách file đính kèm
+                    <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+            </div>
+            <div class="col-md-12 col-sm-12 col-lg-12">
+                <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                    <table class="table table-bordered" style="min-width:670px">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="80px" class="text-center">Xử lý</th>
+                                <th width="100px" class="text-center">Tên</th>
+                                <th width="200px" class="text-center">Tên file</th>
+                                <th width="100px" class="text-center">Dung lượng</th>
+                                <th width="100px" class="text-center">Ngày tải</th>
+                                <th width="150px" class="text-center">Người tải</th>
+                                <th width="200px" class="text-center">Ghi chú</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <ng-container *ngFor="let row of model.ListAttach; let i = index">
+                                <tr *ngIf="!row.IsDelete">
+                                    <td class="text-center">{{i+1}}</td>
+                                    <td class="text-center">
+                                        <ng-container *ngIf="row.FilePath">
+                                            <button type="button" (click)="downloadAFile(row)"
+                                                style="background-color: papayawhip" class="btn btn-xs" placement="top"
+                                                ngbTooltip="Download" container="body">
+                                                <span class="fas fa-download" aria-hidden="true"
+                                                    style="color: black"></span>
+                                            </button>&nbsp;
+                                        </ng-container>
+                                    </td>
+                                    <td>
+                                        <input type="text" [(ngModel)]="row.Name" class="form-control"
+                                            [name]="'name' + i" disabled>
+                                    </td>
+                                    <td>
+                                        {{row.FileName}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                    </td>
+                                    <td class="text-center">
+                                        {{row.CreateName}}
+                                    </td>
+                                    <td>
+                                        <textarea [(ngModel)]="row.Note" class="form-control"
+                                            [name]="'note' + i" disabled></textarea>
+                                    </td>
+                                </tr>
+                            </ng-container>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <label>
+                    Danh sách yêu cầu cần xử lý
+                </label>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                <perfect-scrollbar [config]="constant.ScrollConfig" style="height:auto; width:100%;">
+                    <table class="table table-bordered " style="word-wrap: break-word ;min-width:800px;">
+                        <thead>
+                            <tr>
+                                <th width="50px" class="text-center">STT</th>
+                                <th width="150px" class="text-center">Yêu cầu cần xử lý</th>
+                                <th width="150px" class="text-center">Phương án xử lý</th>
+                                <th width="150px" class="text-center">Thời điểm hoàn thành</th>
+                                <th min-width="150px" class="text-center">Ghi chú</th>
+                                <th width="150px" class="text-center">Người yêu cầu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let row of model.ListContent; let i = index;">
+                                <td class="text-center" width="50px">{{i+1}}</td>
+                                <td>
+                                    <input type="text" [(ngModel)]="row.Request" class="form-control"
+                                        [name]="'request' + i" disabled>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="row.Solution" class="form-control"
+                                        [name]="'solution' + i" disabled>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input container="body" class="form-control" placeholder="dd/mm/yyyy"
+                                            [name]="'finishDateV' + i" [(ngModel)]="row.FinishDate" ngbDatepicker
+                                            #finishDateV="ngbDatepicker" [minDate]="{year: 1900, month: 1, day: 1}"
+                                            [maxDate]="{year: 2100, month: 12, day: 31}" disabled>
+                                        <div class="input-group-append">
+                                            <span class="dtp-icon"
+                                                (click)="finishDateV.toggle();$event.stopPropagation();">
+                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <input type="text" [(ngModel)]="row.Note" class="form-control" [name]="'note' + i" disabled>
+                                </td>
+                                <td>
+                                    {{row.CreateByName}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </perfect-scrollbar>
+            </div>
+
+        </div>
+    </form>
+</div>
+
+<div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="closeModal()">
+        <i class="fa fa-power-off"></i> &nbsp;
+        <span>
+            Đóng
+        </span>
+    </button>
+</div>

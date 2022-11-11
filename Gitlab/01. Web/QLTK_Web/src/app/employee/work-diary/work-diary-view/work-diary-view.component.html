@@ -1,0 +1,179 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body padding-15">
+      <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <div class="row">
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">Dự án
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input name="ProjectName" type="text" class="form-control" required
+                [(ngModel)]="model.ProjectName" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">Tên công việc
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input name="Name" type="text" class="form-control" required
+                  [(ngModel)]="model.Name" readonly>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-3 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">Ngày làm việc
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input required readonly name="startWorking" type="text" class="form-control" value="{{model.WorkDate|date:'dd/MM/yyyy'}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Thời gian thực hiện (giờ)
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input name="TotalTime" type="text" class="form-control"
+                    required [(ngModel)]="model.TotalTime" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Giờ bắt đầu
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <input required readonly name="StartTime" type="text" class="form-control" value="{{model.StartTime}}">
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
+            <div class="form-group">
+              <label class="form-label">Giờ kết thúc
+                <span class='text-danger text-strong'>&nbsp;</span>
+              </label>
+              <div class="controls">
+                <input required readonly name="StartTime" type="text" class="form-control" value="{{model.EndTime}}">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">% hoàn thành công việc
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input required readonly name="Address" type="text" class="form-control" value="{{model.Done+ ' %'}}">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">Địa điểm
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <input required readonly name="Address" type="text" class="form-control" [(ngModel)]="model.Address">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+            <div class="form-group ">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Ghi chú
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <textarea readonly cols="3" name="Note" type="text" class="form-control" [(ngModel)]="model.Note">
+                    </textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Tên nhân viên
+                  <span class='text-danger text-strong'>&nbsp;</span>
+                </label>
+                <div class="controls">
+                  <input name="nameEmployee" type="text" class="form-control" value="{{model.EmployeeName}}" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <label class="form-label">Mã nhân viên
+                <span class='text-danger text-strong'>&nbsp;*</span>
+              </label>
+              <div class="controls">
+                <div class="input-group">
+                  <input name="codeEmployee" type="text" class="form-control" value="{{model.EmployeeCode}}" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <div class="form-group form-group-custom">
+                <label class="form-label">Phòng ban
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input name="nameDepartment" type="text" class="form-control" value="{{model.DepartmentName}}"
+                    readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-6 col-sm-12 col-xs-6">
+            <div class="form-group ">
+              <div class="form-group form-group-custom">
+                <label class="form-label">SBU
+                  <span class='text-danger text-strong'>&nbsp;*</span>
+                </label>
+                <div class="controls">
+                  <input name="nameDepartment" type="text" class="form-control" value="{{model.SBUName}}" readonly>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <hr>
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right">
+          <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+            <i class="fa fa-power-off"></i> &nbsp;
+            <span>
+              Đóng
+            </span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>

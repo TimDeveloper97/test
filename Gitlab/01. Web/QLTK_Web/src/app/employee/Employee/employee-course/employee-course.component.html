@@ -1,0 +1,93 @@
+<div class="row">
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="form-group ">
+      <label class="form-label">Tên nhân viên
+
+      </label>
+      <div class="controls">
+        <input type="text" class="form-control" name="EmployeeName" [(ngModel)]="EmployeeName" maxlength="100" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+    <div class="form-group ">
+      <label class="form-label">Mã nhân viên
+
+      </label>
+      <div class="controls">
+        <input type="text" class="form-control" name="EmployeeCode" [(ngModel)]="EmployeeCode" maxlength="100" disabled>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="row" #scrollPracticeMaterial>
+  <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-left">
+    <label class="form-label" style="line-height:35px;">Danh sách khóa học</label>
+  </div>
+  <div class="col-lg-6 col-md-12 col-sm-12 col-xl-6 text-right mb-1">
+    <button class="btn btn-default btn-default-system" (click)="getListCourse()">
+      <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+  </div>
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+      <table class="table table-bordered table-fixed mb-0" style="min-width:1400px">
+        <thead>
+          <tr>
+            <th width="50px" class="text-center">STT</th>
+            <th width="100px" class="text-center">Tình trạng</th>
+            <th width="150px" class="text-center">Mã khóa học</th>
+            <th width="200px" class="text-center">Tên khóa học</th>
+            <th width="150px" class="text-center">Mã chương trình</th>
+            <th width="200px" class="text-center">Tên chương trình</th>
+            <th width="200px" class="text-center">Thời gian đào tạo(phút)</th>
+            <th width="100px" class="text-center">Ngày bắt đầu</th>
+            <th width="100px" class="text-center">Ngày kết thúc</th>
+            <th min-width="200px" class="text-center">Mô tả</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="500">
+      <table class="table table-bordered table-fixed" style="min-width:1400px">
+        <colgroup>
+          <col width="50px">
+          <col width="100px">
+          <col width="150px">
+          <col width="200px">
+          <col width="150px">
+          <col width="200px">
+          <col width="200px">
+          <col width="100px">
+          <col width="100px">
+          <col min-width="200px">
+        </colgroup>
+        <tbody>
+          <tr *ngFor="let row of listData; let i = index">
+            <td width="50px" class="text-center">{{StartIndex+i}}</td>
+            <td width="100px" class="text-center">
+              <span *ngIf="row.Status == 0" class="badge badge-danger">Chưa đào tạo</span>
+              <span *ngIf="row.Status == 1" class="badge badge-success">Đã đào tạo</span>
+            </td>
+            <td width="150px">{{row.Code}}</td>
+            <td [disUipermission]="['F080202','F080204']" width="200px"><a [routerLink]=""
+                (click)="viewCourse(row.Id,true)">{{row.Name}}</a></td>
+            <td width="150px">{{row.EmployeeTraningCode}}</td>
+            <td width="200px">{{row.EmployeeTraningName}}</td>
+            <td width="200px" class="text-right">{{row.StudyTime }}</td>
+            <td width="100px" class="text-center">{{row.StartDate|date:'dd/MM/yyyy'}}</td>
+            <td width="100px" class="text-center">{{row.EndDate|date:'dd/MM/yyyy'}}</td>
+            <td min-width="200px">{{row.Description}}</td>
+          </tr>
+        </tbody>
+        <tfoot *ngIf="listData.length == 0">
+          <tr class="bold">
+            <td colspan="9" min-width="300px" class="text-center" style="height: 300px; font-size: 20px;">Không có dữ
+              liệu</td>
+          </tr>
+        </tfoot>
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>

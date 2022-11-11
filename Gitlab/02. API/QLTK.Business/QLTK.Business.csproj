@@ -1,0 +1,412 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EA8B165F-E3E0-43F7-86C0-22528B9F8827}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QLTK.Business</RootNamespace>
+    <AssemblyName>QLTK.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\packages\AutoMapper.7.0.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DotNetZip, Version=1.13.8.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.13.8\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EPPlus">
+      <HintPath>..\DLL\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net40\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Office.Interop.Outlook.15.0.4797.1003\lib\net20\Microsoft.Office.Interop.Outlook.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.4000-beta3b\lib\net20\PdfSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.50.4000.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.50.4000-beta3b\lib\net20\PdfSharp.Charting.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.1.2\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\DLL\RestSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Spire.XLS">
+      <HintPath>..\DLL\Spire.XLS.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>..\DLL\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocIO.Base">
+      <HintPath>..\DLL\Syncfusion.DocIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.DocToPdfConverter.Base">
+      <HintPath>..\DLL\Syncfusion.DocToPdfConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelChartToImageConverter.WPF">
+      <HintPath>..\DLL\Syncfusion.ExcelChartToImageConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.ExcelToPDFConverter.Base">
+      <HintPath>..\DLL\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChart.Base">
+      <HintPath>..\DLL\Syncfusion.OfficeChart.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.OfficeChartToImageConverter.Wpf">
+      <HintPath>..\DLL\Syncfusion.OfficeChartToImageConverter.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>..\DLL\Syncfusion.Pdf.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>..\DLL\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base">
+      <HintPath>..\DLL\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AutoMappers\AutoMapperConfig.cs" />
+    <Compile Include="Categories\QuoteStepBussiness.cs" />
+    <Compile Include="Categories\TechnologySolutionBussiness.cs" />
+    <Compile Include="Combobox\AttachmentBusiness.cs" />
+    <Compile Include="Employees\BankAccountBussiness.cs" />
+    <Compile Include="Guidelines\GuidelineBusiness.cs" />
+    <Compile Include="Practices\BankBussiness.cs" />
+    <Compile Include="Projects\BOMDesignTwoBusiness.cs" />
+    <Compile Include="Projects\CustomerContactBussiness.cs" />
+    <Compile Include="Projects\NaturalSortOrder.cs" />
+    <Compile Include="Projects\PaymentBussiness.cs" />
+    <Compile Include="Projects\ProductNeedPublicationsBusiness.cs" />
+    <Compile Include="Projects\ProjectEmployeeBusiness.cs" />
+    <Compile Include="Projects\ProjectProductQcBusiness.cs" />
+    <Compile Include="Projects\ProjectRoleBusiness.cs" />
+    <Compile Include="Projects\OverallProjectBusiness.cs" />
+    <Compile Include="Recruitments\RecruitmentRequestBussiness.cs" />
+    <Compile Include="Reports\ReportErrorAffectBussiness.cs" />
+    <Compile Include="Reports\ReportErrorProgressBussiness.cs" />
+    <Compile Include="Reports\ReportProgressProjectBusssiness.cs" />
+    <Compile Include="Reports\ReportSaleBussiness.cs" />
+    <Compile Include="Sales\ApplicationService.cs" />
+    <Compile Include="Employees\ClassIficationService.cs" />
+    <Compile Include="Sales\SaleTartgetmentBussiness.cs" />
+    <Compile Include="Solutions\CustomerRequirementBussiness.cs" />
+    <Compile Include="Solutions\ProjectPhaseBusiness.cs" />
+    <Compile Include="Solutions\MeetingBussiness.cs" />
+    <Compile Include="Solutions\MeetingTypeBussiness.cs" />
+    <Compile Include="Solutions\ProjectPhaseBusiness.cs" />
+    <Compile Include="Solutions\SolutionSupplierBussiness.cs" />
+    <Compile Include="Solutions\SolutionAnalysisProductBussiness.cs" />
+    <Compile Include="Solutions\SummaryQuotesBussiness.cs" />
+    <Compile Include="Solutions\SurveyBussiness.cs" />
+    <Compile Include="Solutions\SurveyContentBussiness.cs" />
+    <Compile Include="Solutions\SurveyMaterialBussiness.cs" />
+    <Compile Include="Tivis\TiviReportTKBussiness.cs" />
+    <Compile Include="Tivis\TiviReportErrorBussiness.cs" />
+    <Compile Include="Tools\ClassRoomToolBussiness.cs" />
+    <Compile Include="Tools\ConfigScanFileBussiness.cs" />
+    <Compile Include="Tools\ConfigBussiness.cs" />
+    <Compile Include="Reports\CostWarningBussiness.cs" />
+    <Compile Include="Employees\CourseBussiness.cs" />
+    <Compile Include="Reports\CurrentCostWarningBusiness.cs" />
+    <Compile Include="Projects\DashboardEmployeeBussiness.cs" />
+    <Compile Include="Projects\DashBroadProjectBussiness.cs" />
+    <Compile Include="Tools\DataDistributionBusiness.cs" />
+    <Compile Include="Tools\DMVTImportSAPBussiness.cs" />
+    <Compile Include="Documents\DocumentGroupBussiness.cs" />
+    <Compile Include="Documents\DocumentMeetingBussiness.cs" />
+    <Compile Include="Documents\DocumentProblemBussiness.cs" />
+    <Compile Include="Documents\DocumentTypeBussiness.cs" />
+    <Compile Include="Documents\DocumentBussiness.cs" />
+    <Compile Include="Modules\DowloadFileModuleBussiness.cs" />
+    <Compile Include="Tools\DownloadListModuleBussiness.cs" />
+    <Compile Include="Employees\EmployeeTrainingBusiness.cs" />
+    <Compile Include="Employees\FlowStageBussiness.cs" />
+    <Compile Include="ImportProfiles\ImportProfileProblemExistBusiness.cs" />
+    <Compile Include="Employees\InsuranceLevelBussiness.cs" />
+    <Compile Include="Employees\LaborContractBussiness.cs" />
+    <Compile Include="Employees\OutputResultBussiness.cs" />
+    <Compile Include="Recruitments\QuestionGroupBussiness.cs" />
+    <Compile Include="Recruitments\QuestionBussiness.cs" />
+    <Compile Include="Employees\ReasonChangeIncomeBussiness.cs" />
+    <Compile Include="Employees\ReasonChangeInsuranceBussiness.cs" />
+    <Compile Include="Employees\ReasonEndWorkingBussiness.cs" />
+    <Compile Include="Recruitments\InterviewBusiness.cs" />
+    <Compile Include="Recruitments\ApplyBusiness.cs" />
+    <Compile Include="Recruitments\CandidateBusiness.cs" />
+    <Compile Include="Recruitments\RecruitmentChannelBussiness.cs" />
+    <Compile Include="Reports\ReportProblemExistBusiness.cs" />
+    <Compile Include="Reports\ReportErrorBussiness.cs" />
+    <Compile Include="Employees\SalaryTypeBussiness.cs" />
+    <Compile Include="Employees\SalaryGroupBussiness.cs" />
+    <Compile Include="Employees\SalaryLevelBussiness.cs" />
+    <Compile Include="Sales\ExportAndKeepBussiness.cs" />
+    <Compile Include="Reports\ForecastProjectBussiness.cs" />
+    <Compile Include="Reports\FuturePersonnelForecastBussiness.cs" />
+    <Compile Include="Tools\GeneralFormElectric\DataProgramElectricBussiness.cs" />
+    <Compile Include="Tools\GeneralFormElectric\DesignArticleBussiness.cs" />
+    <Compile Include="Tools\GeneralFormElectric\TableCheckPrinciplesElectricBussiness.cs" />
+    <Compile Include="Projects\GeneralInformationProjectBussiness.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\CheckDesignPlanBusiness.cs" />
+    <Compile Include="ClassRooms\ClassRoomBusiness.cs" />
+    <Compile Include="Materials\CodeRuleBusiness.cs" />
+    <Compile Include="Combobox\ComboboxBusiness.cs" />
+    <Compile Include="Common\EventLogBusiness.cs" />
+    <Compile Include="Common\AuthenBussiness.cs" />
+    <Compile Include="Common\GenerateBussiness.cs" />
+    <Compile Include="Common\LogBusiness.cs" />
+    <Compile Include="Materials\ConverUnitBusiness.cs" />
+    <Compile Include="Projects\CustomersBussiness.cs" />
+    <Compile Include="Projects\CustomerTypeBussiness.cs" />
+    <Compile Include="Practices\DegreeBussiness.cs" />
+    <Compile Include="Tools\DesignStructureBusiness.cs" />
+    <Compile Include="ClassRooms\EducationProgramBussiness.cs" />
+    <Compile Include="Employees\EmployeeDegreeBusiness.cs" />
+    <Compile Include="Employees\EmployeeGroupBusiness.cs" />
+    <Compile Include="Employees\EmployeeSkillDetailsBusiness.cs" />
+    <Compile Include="Errors\ErrorGroupBusiness.cs" />
+    <Compile Include="Errors\ErrorBusiness.cs" />
+    <Compile Include="Practices\ExpertBussiness.cs" />
+    <Compile Include="Tools\FileDefinitionBusiness.cs" />
+    <Compile Include="Tools\FolderDefinitionBusiness.cs" />
+    <Compile Include="Employees\FunctionGroupsBussiness.cs" />
+    <Compile Include="Employees\FunctionBussiness.cs" />
+    <Compile Include="Tools\GeneralCheckList.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralConfirmElectronicRecord.cs" />
+    <Compile Include="Tools\GeneralDesignRecord\GeneralDesignRecord.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralDrawControlAlgorithm.cs" />
+    <Compile Include="Tools\GeneralDesignRecord\GeneralElectronicRecord.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralEquipmentByFunction.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralListFunction.cs" />
+    <Compile Include="Tools\GeneralDesignRecord\GeneralMechanicalRecord.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralProgramableData.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\GeneralSetUpSpecification.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\GeneralDesignBussiness.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\GeneralPreliminaryEstimate.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\GeneralTempalteMechanical.cs" />
+    <Compile Include="Tools\GeneralTempalteMechanical\GetMaterialBussiness.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralCheckElectronic.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralDesignOptions.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralElectronic.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralElectronicCircuitAssembly.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralFunctionDesignMaterial.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralFunctionDesignOptions.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralMaterial.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralPrinciples.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralPrinciplesCalculate.cs" />
+    <Compile Include="Tools\GeneralFormElectric\GeneralTestProcess.cs" />
+    <Compile Include="Tools\GeneralTemplateElectronic\GeneralProfileElectronicDesign.cs" />
+    <Compile Include="HistoryVersion\HistoryVersionBussiness.cs" />
+    <Compile Include="Projects\HolidayBussiness.cs" />
+    <Compile Include="ImportProfiles\ImportProfileReportBussiness.cs" />
+    <Compile Include="ImportProfiles\ImportProfileBussiness.cs" />
+    <Compile Include="ImportProfiles\ImportProfileDocumentConfigBussiness.cs" />
+    <Compile Include="ImportProfiles\ImportPRBussiness.cs" />
+    <Compile Include="Modules\IndustryBusiness.cs" />
+    <Compile Include="InitData\InitPermission.cs" />
+    <Compile Include="ClassRooms\JobGroupBusiness.cs" />
+    <Compile Include="Employees\JobPositionBusiness.cs" />
+    <Compile Include="ClassRooms\JobBusiness.cs" />
+    <Compile Include="Materials\ManufactureGroupBusiness.cs" />
+    <Compile Include="Reports\MasterEmployeeLevelBussiness.cs" />
+    <Compile Include="Reports\MasterEmployeeBussiness.cs" />
+    <Compile Include="Reports\MasterLibraryBussiness.cs" />
+    <Compile Include="Materials\MaterialGroupBusiness.cs" />
+    <Compile Include="Materials\MaterialGroupTPABusiness.cs" />
+    <Compile Include="Materials\ConfigMaterialBusiness.cs" />
+    <Compile Include="Materials\MaterialBusiness.cs" />
+    <Compile Include="Materials\MaterialParameterBusiness.cs" />
+    <Compile Include="Materials\MaterialParameterValueBusiness.cs" />
+    <Compile Include="Modules\ModuleErrorTypeBusiness.cs" />
+    <Compile Include="Modules\ModuleErrorBusiness.cs" />
+    <Compile Include="Employees\EmployeeBusiness.cs" />
+    <Compile Include="Materials\ManufactureBusiness.cs" />
+    <Compile Include="Projects\ModuleGroupTimeStandardBussiness.cs" />
+    <Compile Include="Modules\ModuleMaterialBusiness.cs" />
+    <Compile Include="Modules\ModulePartBussiness.cs" />
+    <Compile Include="Notify\MobileNotifyBussiness.cs" />
+    <Compile Include="Notify\NotifyBussiness.cs" />
+    <Compile Include="Materials\NSMaterialGroupBusiness.cs" />
+    <Compile Include="Employees\NTSUserBusiness.cs" />
+    <Compile Include="Employees\DepartmentBusiness.cs" />
+    <Compile Include="Employees\GroupUserBusiness.cs" />
+    <Compile Include="Practices\PracticeSkillBussiness.cs" />
+    <Compile Include="Projects\PlanBussiness.cs" />
+    <Compile Include="Practices\PracticeExpertBussiness.cs" />
+    <Compile Include="Practices\PracticeFileBussiness.cs" />
+    <Compile Include="Practices\PracticeGroupBusiness.cs" />
+    <Compile Include="Practices\PracticeMaterialConsumableBussiness.cs" />
+    <Compile Include="Practices\PracticeMaterialBussiness.cs" />
+    <Compile Include="Practices\PracticeProductBussiness.cs" />
+    <Compile Include="Practices\PracticeSupMaterialBussiness.cs" />
+    <Compile Include="Practices\PracticeBussiness.cs" />
+    <Compile Include="Products\ProductAccessoriesBussiness.cs" />
+    <Compile Include="Sales\ProductCompareSourceBussiness.cs" />
+    <Compile Include="Products\ProductGroupBussiness.cs" />
+    <Compile Include="Products\ProductMaterialsBussiness.cs" />
+    <Compile Include="Modules\ProductStandardGroupBussiness.cs" />
+    <Compile Include="Modules\ProductStandardsBusiness.cs" />
+    <Compile Include="Products\ProductStandardTPABussiness.cs" />
+    <Compile Include="Products\ProductStandardTPATypeBussiness.cs" />
+    <Compile Include="Products\ProductBusiness.cs" />
+    <Compile Include="Projects\ProjectAttchBusiness.cs" />
+    <Compile Include="Projects\ProjectErrorBusiness.cs" />
+    <Compile Include="Projects\ProjectGeneralDesignBusiness.cs" />
+    <Compile Include="Projects\ProjectProductBusiness.cs" />
+    <Compile Include="Projects\ProjectSolutionBusiness.cs" />
+    <Compile Include="Projects\ProjectTransferAttachBusiness.cs" />
+    <Compile Include="Projects\ProjectBusiness.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Modules\GroupModuleBussiness.cs" />
+    <Compile Include="Materials\QLTKMGBusiness.cs" />
+    <Compile Include="Modules\ModuleBussiness.cs" />
+    <Compile Include="Materials\QLTKMPBusiness.cs" />
+    <Compile Include="RabbitMQServer\RabbitMQServer.cs" />
+    <Compile Include="Materials\RawMaterialBusiness.cs" />
+    <Compile Include="Reports\ReportApplicationPresentBussiness.cs" />
+    <Compile Include="Reports\ReportEmployeesPresentBussiness.cs" />
+    <Compile Include="Reports\ReportQualityPresentBussiness.cs" />
+    <Compile Include="Reports\ReportStatusMaterialModel.cs" />
+    <Compile Include="Reports\ReportStatusModuleBussiness.cs" />
+    <Compile Include="Reports\ReportStatusProductBussiness.cs" />
+    <Compile Include="Reports\ReportBusiness.cs" />
+    <Compile Include="ClassRooms\RoomTypeBussiness.cs" />
+    <Compile Include="Sales\SaleGroupBussiness.cs" />
+    <Compile Include="Sales\SaleProductTypeBussiness.cs" />
+    <Compile Include="Sales\SaleProductBussiness.cs" />
+    <Compile Include="Sales\ProductForBusinessService.cs" />
+    <Compile Include="Employees\SBUBusiness.cs" />
+    <Compile Include="Projects\ScheduleProjectBusiness.cs" />
+    <Compile Include="SendEmailOutlook\SendEmailOutlookBussiness.cs" />
+    <Compile Include="Materials\SimilarMaterialConfigBusiness.cs" />
+    <Compile Include="Materials\SimilarMaterialBusiness.cs" />
+    <Compile Include="Modules\SketchesBusiness.cs" />
+    <Compile Include="Modules\SketchMaterialElectronicBussiness.cs" />
+    <Compile Include="Employees\SkillEmployeeBussiness.cs" />
+    <Compile Include="Practices\SkillGroupBussiness.cs" />
+    <Compile Include="Practices\SkillsBussiness.cs" />
+    <Compile Include="Solutions\SolutionGroupBussiness.cs" />
+    <Compile Include="Solutions\SolutionProductBussiness.cs" />
+    <Compile Include="Solutions\SolutionBussiness.cs" />
+    <Compile Include="Practices\SpecializeBussiness.cs" />
+    <Compile Include="Modules\StageBussiness.cs" />
+    <Compile Include="Reports\StatusReportMaterialBussiness.cs" />
+    <Compile Include="ClassRooms\SubjectsBussiness.cs" />
+    <Compile Include="Materials\SupplierGroupBusiness.cs" />
+    <Compile Include="Materials\SupplierBusiness.cs" />
+    <Compile Include="Employees\TaskFlowStageBussiness.cs" />
+    <Compile Include="Projects\TaskModuleGroupBussiness.cs" />
+    <Compile Include="Projects\TasksBussiness.cs" />
+    <Compile Include="Projects\TaskTimeStandardBussiness.cs" />
+    <Compile Include="Modules\TestCriteriaGroupBusiness.cs" />
+    <Compile Include="Modules\TestCriteriaBusiness.cs" />
+    <Compile Include="Tools\TestDesignBusiness.cs" />
+    <Compile Include="Materials\UnitBusiness.cs" />
+    <Compile Include="Employees\UserHistoryBussiness.cs" />
+    <Compile Include="Employees\UserHistoryBusiness.cs" />
+    <Compile Include="Employees\UserBusiness.cs" />
+    <Compile Include="Employees\UserLogUtil.cs" />
+    <Compile Include="Tools\WebServiceBussiness.cs" />
+    <Compile Include="Employees\WorkDiaryBussiness.cs" />
+    <Compile Include="Employees\WorkLocationBussiness.cs" />
+    <Compile Include="Practices\WorkPlaceBussiness.cs" />
+    <Compile Include="Employees\WorkSkillBussiess.cs" />
+    <Compile Include="Employees\WorkTimeBussiness.cs" />
+    <Compile Include="Employees\WorkTypeInterviewBussiness.cs" />
+    <Compile Include="Employees\WorkTypeBussiess.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\NTS.Caching\NTS.Caching.csproj">
+      <Project>{37FAD277-B376-4BAA-8F65-0A34FC961CBF}</Project>
+      <Name>NTS.Caching</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NTS.Model\NTS.Model.csproj">
+      <Project>{76B3E731-5736-4D6F-996B-989CF02F38A4}</Project>
+      <Name>NTS.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NTS.Utils\NTS.Utils.csproj">
+      <Project>{6B563FF1-98B1-4BE0-85BE-6B3E344BE946}</Project>
+      <Name>NTS.Utils</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NTS.Common\NTS.Common.csproj">
+      <Project>{E0662561-9E58-4BD7-A629-808D2671AD29}</Project>
+      <Name>NTS.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

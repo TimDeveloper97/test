@@ -1,0 +1,95 @@
+<div class="row">
+  <div class="col-md-12 col-sm-12 col-lg-12">
+    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+      <table class="table table-bordered" style="min-width:1510px">
+        <thead>
+          <tr>
+            <th width="80px" class="text-center">Xử lý</th>
+            <th width="250px" class="text-center">Công việc</th>
+            <th width="200px" class="text-center">Người thực hiện</th>
+            <th width="100px" class="text-center">Ngày dự kiến hoàn thành</th>
+            <th Width="100px" class="text-center">Ngày thực tế hoàn thành</th>
+            <th width="80px" class="text-center">% Hoàn thành</th>
+            <th width="150px" class="text-center">Trạng thái</th>
+            <th width="250px" class="text-center">Phòng ban</th>
+            <th width="300px" class="text-center">Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor="let row of listData; let i = index">
+            <tr>
+              <td colspan="9" style="background-color: rgb(165, 205, 255);">
+                <small>
+                  <a type="button" class="btn btn-success" href="javacript:void(0)"
+                    (click)="showCreate(row.StepInQuotationId)" container="body">
+                    <i class="fa fa-plus"></i>
+                  </a></small> &nbsp;
+                <b>Bước&nbsp;{{startIndex+i}}: &nbsp; {{row.Name}}</b>
+
+              </td>
+            </tr>
+
+            <tr *ngFor="let item of row.Listchild; let j= index">
+              <td class="text-center">
+                <button [disabled]="item.Status == 3" type="button" class="btn btn-xs btn-warning" (click)="showUpdate(item.Id)" placement="top"
+                  ngbTooltip="Cập nhật" container="body">
+                  <span class="fa fa-edit" aria-hidden="true"></span>
+                </button>&nbsp;
+                <button class="btn btn-xs btn-danger" (click)="showConfirmDelete(item.Id)" placement="top"
+                  ngbTooltip="Xóa" container="body">
+                  <span class="fas fa-times" aria-hidden="true"></span>
+                </button>
+              </td>
+              <td>{{item.QuotationPlanName}}</td>
+              <td>{{item.EmployeeName}}</td>
+              <td class="text-right">{{item.PlanDueDate|date:'dd/MM/yyyy'}}</td>
+              <td class="text-right">{{item.ActualEndDate|date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{item.DoneRatio}} %</td>
+              <td class="text-center">
+                <span class="badge badge-secondary" style="margin-top: 13px" *ngIf="item.Status == 1">Chưa có kế
+                  hoạch</span>
+                <span class="badge badge-warning" style="margin-top: 13px" *ngIf="item.Status == 2">Đang triển
+                  khai</span>
+                <span class="badge badge-success" style="margin-top: 13px" *ngIf="item.Status == 3">Đã xong</span>
+                <span class="badge badge-danger" style="margin-top: 13px" *ngIf="item.Status == 4">Trễ kế
+                  hoạch</span>
+              </td>
+              <td>{{item.DepartmentName}}</td>
+              <td>
+                <nts-text-more [ntsLimit]="30" [ntsText]="item.Description"></nts-text-more>
+              </td>
+            </tr>
+          </ng-container>
+
+
+        </tbody>
+        <!-- <tfoot *ngIf="listData.length == 0">
+          <tr class="bold">
+            <td colspan="17" min-width="2590px" class="text-center" style="height: 300px; font-size: 20px;">Không có
+              dữ liệu</td>
+          </tr>
+        </tfoot> -->
+      </table>
+    </perfect-scrollbar>
+  </div>
+</div>
+<hr />
+<div class="row">
+  <div class="col-md-12">
+    <button class="btn btn-view btn-success">
+      <i class="fas fa-plus"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Thêm công việc cho bước BG</small>
+
+    <button class="btn btn-view btn-warning">
+      <i class="fa fa-edit"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Sửa công việc</small>
+
+    <button class="btn btn-view btn-danger">
+      <i class="fas fa-times"></i>
+    </button>&nbsp;
+    <small class="padding-right-20">Xóa công việc</small>
+
+  </div>
+</div>

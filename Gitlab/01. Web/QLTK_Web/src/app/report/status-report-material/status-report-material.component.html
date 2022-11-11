@@ -1,0 +1,86 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+      <div class="row">
+        <div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+          <nts-search-bar [options]="searchOptions" [(ngModel)]="model" name="product"
+            (change)="getStatusReportMaterial()">
+          </nts-search-bar>
+        </div>
+        <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 text-right">
+          <button class="btn btn-success btn-success-system" (click)="getStatusReportMaterial()">
+            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                class="fas fa-cog"></i></button>
+            <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+              <button class="btn btn-success btn-success-system" (click)="reportModuleMaterial()">
+                <i class="fa fa-file-excel"></i> &nbsp;Tần xuất sử dụng vật tư</button>
+              <button class="btn btn-success btn-success-system" (click)="moduleMaterialCheck3D()">
+                <i class="fa fa-file-excel"></i> &nbsp;Vật tư chưa có thư viện 3D</button>
+              <button class="btn  btn-success" (click)="exportExcel()">
+                <i class="fas fa-file-excel" aria-hidden="true"></i>
+                Xuất excel
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+    <div class="row margin-bottom-10">
+      <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Số Module sử dụng vật tư:
+          <span class="bold text-danger">{{totalModule}};</span></label>
+        <label class="form-label" style="line-height:35px;">Tổng số vật tư sử dụng cho từng dự án:
+          <span class="bold text-danger">{{totalMaterial}};</span></label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width: 800px">
+            <thead>
+              <tr>
+                <th width="200px" class="text-center">Mã Module</th>
+                <th min-width="200px" class="text-center">Tên Module</th>
+                <th width="200px" class="text-center">Mã nhóm modele</th>
+                <th width="100px" class="text-center">Số lượng</th>
+                <th width="200px" class="text-center">Tình trạng sử dụng</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of listModule; let i = index">
+                <td>{{row.Code}}</td>
+                <td>{{row.Name}}</td>
+                <td>{{row.ModuleGroupName}}</td>
+                <td class="text-center">{{row.Quantity}}</td>
+                <td class="text-center">
+                  <span style="font-size: 16px; color:yellow;"><i *ngIf="row.Status=='1'"
+                      class="fas fa-circle"></i></span>
+                  <span style="font-size: 16px; color:green;"><i *ngIf="row.Status=='2'"
+                      class="fas fa-circle"></i></span>
+                  <span style="font-size: 16px; color:red;"><i *ngIf="row.Status=='3'" class="fas fa-circle"></i></span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+
+        <i class="fas fa-circle icon-warning"></i>
+        <small class="padding-right-20">Chỉ dùng một lần</small>
+        
+        <i class="fas fa-circle icon-success"></i>
+        <small class="padding-right-20">Module chuẩn</small>
+
+        <i class="fas fa-circle icon-danger"></i>
+        <small class="padding-right-20">Module ngừng sử dụng</small>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,237 @@
+<div class='content-wrapper'>   
+    <section class="box ">       
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelDepartment"
+                            (change)="searchDepartment()">
+                        </nts-search-bar>
+                    </div>
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchDepartment()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div> 
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{model.TotalItems}}</span> phòng ban</label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button *appUipermission="['F030001']" type="button" class="btn btn-success" (click)="showCreateUpdate('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2160px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="100px" class="text-center">Xử lý</th>
+                                    <th width="120px" class="text-center">Tình trạng</th>
+                                    <th width="150px" class="text-center">Phòng thiết kế</th>
+                                    <th width="120px" class="text-center">Mã phòng ban</th>
+                                    <th width="200px" class="text-center">Tên phòng ban</th>
+                                    <th min-width="200px" class="text-center">SBU</th>
+                                    <th width="100px" class="text-center">< 1 năm</th>
+                                    <th width="100px" class="text-center">1-3 năm</th>
+                                    <th width="100px" class="text-center">4-7 năm</th>
+                                    <th width="100px" class="text-center">8-12 năm</th>
+                                    <th width="100px" class="text-center">13-18 năm</th>
+                                    <th width="100px" class="text-center">19-25 năm</th>
+                                    <th width="100px" class="text-center">> 25 năm</th>
+                                    <th width="100px" class="text-center">Số lượng nhân viên</th>
+
+
+                                    <!-- <th width="200px" class="text-center ">Trưởng phòng</th>
+                                    <th width="200px" class="text-center ">Mô tả</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listData; let i = index" (click)="selectDepartment(i)"
+                                [ngClass]="{'selected':selectIndex==i}">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td class="text-center">
+                                        <button *appUipermission="['F030002','F030004']" type="button" (click)='showCreateUpdate(row.Id)'
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <button *appUipermission="['F030003']" class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDeleteDepartment(row.Id)" placement="top"
+                                            ngbTooltip="Xóa" container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.Status == '0'" class="badge badge-success">Đang hoạt
+                                            động</span>
+                                        <span *ngIf="row.Status == '1'" class="badge badge-danger">Dừng hoạt động</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.IsDesign == true" class="badge badge-success">Thuộc phòng thiết kế</span>
+                                        <span *ngIf="row.IsDesign == false" class="badge badge-danger">Không thuộc phòng thiết kế</span>
+                                    </td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.SBUName}}</td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.LessThanOneExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.LessThanOneExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.OneToThreeExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.OneToThreeExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.FourToSevenExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.FourToSevenExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.EightToTwelveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.EightToTwelveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.ThirteenToEighteenExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.ThirteenToEighteenExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.NineteenToTwentyFiveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.NineteenToTwentyFiveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.GreaterThanTwentyFiveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.GreaterThanTwentyFiveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center">{{row.TotalEmployee}}</td>
+
+                                    <!-- <td>{{row.ManagerName}}</td>
+                                    <td>{{row.Description}}</td> -->
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listData.length == 0">
+                                <tr class="bold">
+                                    <td colspan="8" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="searchDepartment()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.TotalItems" [(page)]="model.PageNumber"
+                        (pageChange)="searchDepartment()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <br>
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                        <span class="bold">Vị trí công việc</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1270px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="120px" class="text-center">Mã vị trí</th>
+                                    <th width="200px" class="text-center">Vị trí công việc</th>
+                                    <th width="100px" class="text-center">< 1 năm</th>
+                                    <th width="100px" class="text-center">1-3 năm</th>
+                                    <th width="100px" class="text-center">4-7 năm</th>
+                                    <th width="100px" class="text-center">8-12 năm</th>
+                                    <th width="100px" class="text-center">13-18 năm</th>
+                                    <th width="100px" class="text-center">19-25 năm</th>
+                                    <th width="100px" class="text-center">> 25 năm</th>
+                                    <th width="100px" class="text-center">Số lượng công việc</th>
+                                    <th width="100px" class="text-center">Số lượng nhân viên</th>
+
+
+                                    <!-- <th width="200px" class="text-center ">Trưởng phòng</th>
+                                    <th width="200px" class="text-center ">Mô tả</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listWorkType let i = index" (click)="selectWorkType(i)"
+                                [ngClass]="{'selected':selectIndexWorkType==i}">
+                                    <td class="text-center">{{startIndexWorkType+i}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.LessThanOneExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.LessThanOneExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.OneToThreeExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.OneToThreeExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.FourToSevenExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.FourToSevenExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.EightToTwelveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.EightToTwelveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.ThirteenToEighteenExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.ThirteenToEighteenExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.NineteenToTwentyFiveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.NineteenToTwentyFiveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center"><ng-container *ngIf ="row.TotalEmployee !=0">{{row.GreaterThanTwentyFiveExperience}}/{{row.TotalEmployee}}<sup class='text-primary text-strong'>{{row.GreaterThanTwentyFiveExperiencePercen|number :'1.0-2'}}%</sup></ng-container></td>
+                                    <td  class="text-center">{{row.TotalWorkNumber}}</td>
+                                    <td  class="text-center">{{row.TotalEmployee}}</td>
+
+                                    <!-- <td>{{row.ManagerName}}</td>
+                                    <td>{{row.Description}}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <br>
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                        <span class="bold">Công việc</span>
+                </div>
+            </div> 
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:1070px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="120px" class="text-center">Mã công việc</th>
+                                    <th min-width="300px" class="text-center">Tên công việc</th>
+                                    <th width="200px" class="text-center">Trình độ</th>
+                                    <th width="200px" class="text-center">Lĩnh vực chuyên môn</th>
+                                    <th width="200px" class="text-center">Chuyên ngành</th>
+
+
+                                    <!-- <th width="200px" class="text-center ">Trưởng phòng</th>
+                                    <th width="200px" class="text-center ">Mô tả</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listTask; let i = index">
+                                    <td class="text-center">{{startIndexWork+i}}</td>
+                                    <td>{{row.Code}}</td>
+                                    <td>{{row.Name}}</td>
+                                    <td  class="text-center">{{row.Level}}</td>
+                                    <td  class="text-center">{{row.Specialization}}</td>
+                                    <td  class="text-center">{{row.AreasOfExpertise}}</td>
+                                    <!-- <td>{{row.ManagerName}}</td>
+                                    <td>{{row.Description}}</td> -->
+                                </tr>
+                            </tbody>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa phòng ban</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa phòng ban</small>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

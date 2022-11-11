@@ -1,0 +1,46 @@
+<div class="modal-header">
+  <h4 class="modal-title text-uppercase text-danger">Upload tài liệu thiết kế</h4>
+  <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body padding-15" style="height: 600px;">
+  <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="form-group">
+          <label class="form-label">Đường dẫn</label>
+          <div class="controls">
+            <input type="text" class="form-control" name="Pathchoosefolderupload" [(ngModel)]="folderModel.Path"
+              #Path="ngModel" disabled>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-lg-12">
+        <dx-tree-list id="folder" [dataSource]="folderModel.ListFolder" keyExpr="Id" parentIdExpr="ParentId"
+          [showRowLines]="true" [showBorders]="true" [columnAutoWidth]="true"
+          (onSelectionChanged)="onSelectionChanged($event)" [expandedRowKeys]="ListFolderId" noDataText=" "
+          (onRowExpanding)="onRowExpanding($event)" height="450">
+          <dxo-selection mode="single"></dxo-selection>
+          <dxi-column dataField="Name" caption="Danh sách thư mục"></dxi-column>
+
+        </dx-tree-list>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" (click)="showConfirmUploadVersion()">
+    <i class="fa fa-save"></i>&nbsp;
+    <span>Upload tài liệu</span>
+  </button>
+  <button type="button" class="btn btn-danger" (click)="closeModal()">
+    <i class="fa fa-power-off"></i> &nbsp;
+    <span>
+      Đóng
+    </span>
+  </button>
+</div>

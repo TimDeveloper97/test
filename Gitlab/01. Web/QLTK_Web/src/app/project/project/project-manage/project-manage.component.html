@@ -1,0 +1,181 @@
+<div class='content-wrapper'>
+    <section class="box">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelProject"
+                            (change)="searchProjects()">
+                        </nts-search-bar>
+                    </div>
+
+                    <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="searchProjects()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{model.totalItems}}</span> dự án;</label>
+                    <label class="form-label" style="line-height:35px;">&nbsp;
+                        <span class="bold text-danger">{{status1}}</span> dự án chưa bắt đầu;</label>
+                    <label class="form-label" style="line-height:35px;">&nbsp;
+                        <span class="bold text-danger">{{status2}}</span> dự án đang sản xuất;</label>
+                    <label class="form-label" style="line-height:35px;">&nbsp;
+                        <span class="bold text-danger">{{status3}}</span> dự án đã hoàn thành;</label>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 text-right">
+                    <button *appUipermission="['F060001']" type="button" class="btn btn-success"
+                        (click)="showCreateUpdate()" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>&nbsp;
+                    <div ngbDropdown class="d-inline-block">
+                        <button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle><i
+                                class="fas fa-cog"></i></button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button *appUipermission="['F060006']" class="btn btn-success btn-file"
+                                (click)="exportExcel()">
+                                <i class="fas fa-file-excel"></i> &nbsp;Xuất excel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:2600px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="150px" class="text-center">Xử lý</th>
+                                    <th width="100px" class="text-center">Mức độ ưu tiên dự án</th>
+                                    <th width="100px" class="text-center">Loại dự án</th>
+                                    <th width="190px" class="text-center">Trạng thái dự án</th>
+                                    <th width="120px" class="text-center">Mã dự án</th>
+                                    <th min-width="180px" class="text-center">Tên dự án</th>
+                                    <th width="120px" class="text-center">Tài liệu</th>
+                                    <th width="80px" class="text-center">Giải pháp</th>
+                                    <th width="150px" class="text-center">Biên bản chuyển giao</th>
+                                    <th width="180px" class="text-center">Tên SBU</th>
+                                    <th width="150px" class="text-center">Tên phòng ban</th>
+                                    <th width="150px" class="text-center">Loại khách hàng</th>
+                                    <th width="180px" class="text-center">Tên khách hàng</th>
+                                    <th width="100px" class="text-center">Ngày Kickoff</th>
+                                    <th width="100px" class="text-center">Ngày bắt đầu</th>
+                                    <th width="100px" class="text-center">Ngày kết thúc</th>
+                                    <th width="150px" class="text-center">Chi phí chuyển giao (FCM)</th>
+                                    <th width="150px" class="text-center">Giá bán thực tế chưa VAT</th>
+                                    <th width="100px" class="text-center">Mã kho</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of listDA; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button *appUipermission="['F060004']" type="button"
+                                            class="btn btn-xs btn-info" (click)="showProject(row.Id)"
+                                            placement="top" ngbTooltip="Xem thông tin" container="body">
+                                            <span class="far fa-eye" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                        <a *appUipermission="['F060002','F060004','F060005']" type="button"
+                                            [routerLink]="['/du-an/quan-ly-du-an/chinh-sua/'+ row.Id]"
+                                            class="btn btn-xs btn-warning" placement="top" ngbTooltip="Cập nhật"
+                                            container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </a>&nbsp;
+                                        <button *appUipermission="['F060003']" class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDelete(row.Id)" placement="top" ngbTooltip="Xóa"
+                                            container="body">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>&nbsp;
+                                    </td>
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.ProjectPriority" [value]="row.Priority"></nts-status-badge>
+                                    </td>
+                                    <td class="text-center"><nts-status-badge [items]="constant.ProjectTypes" [value]="row.Type"></nts-status-badge></td>
+
+                                    <td class="text-center">
+                                        <nts-status-badge [items]="constant.ProjectStatus" [value]="row.Status"></nts-status-badge>
+                                    </td>
+                                    <td class="text-center" [ngbTooltip]="row.Code" container="body">{{row.Code}}</td>
+                                    <td [ngbTooltip]="row.Name" container="body">{{row.Name}}</td>
+                                    <td class="text-center">
+                                        <nts-status-badge [value]="row.DocumentStatus" [items]="constant.ProjectDocumentStatus"></nts-status-badge>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.IsSolution==false" class="badge badge-danger">Không</span>
+                                        <span *ngIf="row.IsSolution==true" class="badge badge-success">Có</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span *ngIf="row.IsTransfer==false" class="badge badge-danger">Không</span>
+                                        <span *ngIf="row.IsTransfer==true" class="badge badge-success">Có</span>
+                                    </td>
+                                    <td [ngbTooltip]="row.SBUName" container="body"> {{row.SBUName}}</td>
+                                    <td [ngbTooltip]="row.DepartmentName" container="body">
+                                        {{row.DepartmentName}}</td>
+                                    <td [ngbTooltip]="row.CustomerType" container="body">{{row.CustomerType}}
+                                    </td>
+                                    <td [ngbTooltip]="row.CustomerName" container="body">{{row.CustomerName}}
+                                    </td>
+                                    <td class="text-center">{{row.KickOffDate|date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.DateFrom |date:'dd/MM/yyyy'}}</td>
+                                    <td class="text-center">{{row.DateTo|date:'dd/MM/yyyy' }}</td>
+                                    <td class="text-right">{{row.FCMPrice|number:'1.0-0'}}</td>
+                                    <td class="text-right">{{row.SaleNoVAT|number:'1.0-0'}}</td>
+                                    <td>{{row.WarehouseCode}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="listDA.length == 0">
+                                <tr class="bold">
+                                    <td colspan="16" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="model.PageSize"
+                            (ngModelChange)="searchProjects()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="model.totalItems" [(page)]="model.PageNumber"
+                        (pageChange)="searchProjects()" [pageSize]="model.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-info">
+                        <i class="far fa-eye"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xem thông tin dự án</small>
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa dự án</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa dự án</small>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

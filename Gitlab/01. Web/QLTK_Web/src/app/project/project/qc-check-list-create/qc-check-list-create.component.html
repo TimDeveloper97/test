@@ -1,0 +1,202 @@
+<div class="modal-header">
+    <h4 class="modal-title text-uppercase text-danger">{{ModalInfo.Title}}</h4>
+    <button style="color: brown" type="button" class="close" aria-label="Close" (click)="closeModal(false)">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <!-- Tab thông tin tiêu chuẩn -->
+            <li [ngbNavItem]="1">
+               
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-md-12 col-lg-12 col-xl-12 col-sm-12">
+                            <div class="row">
+
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nhóm tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down [items]="listProductStandardGroup" [columns]="columnName"
+                                                ntsValue="Id" ntsLabel="Code" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="model.ProductStandardGroupId" name="ManufactureId" required>
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Mã tiêu chuẩn sản phẩm
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Code"
+                                                name="Codeproductstandardcreate" maxlength="100" >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tên tiêu chuẩn sản phẩm
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" [(ngModel)]="model.Name"
+                                                name="nameproductstandardcreate" maxlength="200" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+                                    <div class="form-group">
+                                        <label class="form-label">Nội dung tiêu chuẩn
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <textarea [(ngModel)]="model.Content" name="Content" class="form-control"
+                                                maxLength="300" ></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                       
+                    </div>
+                    <br>
+
+
+                    <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <label class="form-label" style="line-height:35px;">Ảnh đạt chuẩn</label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                    <button class="btn btn-success btn-upload" (click)="fileImage.click();">
+                                        <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                    <input name="moduleImageInput" style="display: none;" type="file"
+                                        id="moduleImageInput" #fileImage (change)="uploadFileClickImage($event)"
+                                        multiple accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="galleryOptions?.length && galleryImages?.length">
+                            <ngx-gallery class="ngx-gallery" [options]="galleryOptions" [images]="galleryImages">
+                            </ngx-gallery>
+                        </div>
+                        </div>
+                        <div class="col-md-6 col-lg-6 col-sm-6 col-xl-6">
+                        <div class="row">
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+                                <label class="form-label" style="line-height:35px;">Ảnh Không đạt chuẩn</label>
+                            </div>
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+                                <div style="margin-left: 5px" class="upload-btn-wrapper">
+                                    <button class="btn btn-success btn-upload" (click)="fileImageV.click();">
+                                        <i class="fas fa-arrow-up"></i> &nbsp;Upload ảnh</button>
+                                    <input name="moduleImageInputV" style="display: none;" type="file"
+                                        id="moduleImageInputV" #fileImageV (change)="uploadFileClickImageV($event)"
+                                        multiple accept="image/*" />
+                                </div>
+                            </div>
+                        </div>
+                        <div *ngIf="galleryOptionsV?.length && galleryImagesV?.length">
+                            <ngx-gallery class="ngx-gallery" [options]="galleryOptionsV" [images]="galleryImagesV">
+                            </ngx-gallery>
+                        </div>
+                    </div>
+                    </div>
+
+
+                    <br>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                            <div class="row">
+                                <div class="col-lg-7 col-md-8 col-sm-12">
+                                    <p class="text-uppercase" style="white-space: nowrap"><b>Danh sách file đính kèm</b>
+                                    </p>
+                                </div>
+                                <div class="col-lg-5 col-md-4 col-sm-12 text-right">
+                                    <button type="button" class="btn btn-success btn-upload"
+                                        (click)="fileInput.click();" ><i
+                                            class="fas fa-arrow-up"></i> &nbsp;Upload
+                                        file</button>
+                                    <input name="fileproductstandardcreate" style="display: none;" type="file"
+                                        id="fileInput" #fileInput (change)="uploadFileClick($event)" multiple />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <perfect-scrollbar [config]="constants.ScrollXConfig"
+                                        style="height:auto; width:100%;">
+                                        <table class="table table-bordered" style="min-width:650px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="100px" class="text-center">Xử lý</th>
+                                                    <th min-width="250px" class="text-center">Tên file</th>
+                                                    <th width="150px" class="text-center">Dung lượng</th>
+                                                    <th width="100px" class="text-center">Ngày upload</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of model.ListAttach; let i = index">
+                                                    <td class="text-center">{{StartIndex+i}}</td>
+                                                    <td class="text-center">
+                                                        <!-- <button type="button" (click)='ShowUpdate(row.Id)' class="btn btn-xs btn-warning" placement="top"
+                                                            ngbTooltip="Xem" container="body" >
+                                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                                        </button>&nbsp; -->
+                                                        <button type="button" class="btn btn-xs btn-danger"
+                                                            placement="top" container="body" ngbTooltip="Xóa"
+                                                            (click)="showConfirmDeleteFile(i)">
+                                                            <span class="fas fa-times" aria-hidden="true"
+                                                                *appUipermission="['F020502','F020501']"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>{{row.name}}</td>
+                                                    <td class="text-center">{{row.size / (1024*1024)| number: '1.1-3'}}
+                                                        MB</td>
+                                                    <td class="text-center">{{DateNow|date:'dd/MM/yyyy'}}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right mt-3">
+                            <ng-container>
+                                <button type="button" class="btn btn-success" [disabled]="!f.form.valid"
+                                    (click)="save(false)" *appUipermission="['F020501','F020502']">
+                                    <i class="fa fa-save"></i>&nbsp;
+                                    <span>{{ModalInfo.SaveText}}</span>
+                                </button>
+                            </ng-container>&nbsp;&nbsp;
+                            <button type="button" class="btn btn-danger" (click)="closeModal(false)">
+                                <i class="fa fa-power-off"></i> &nbsp;
+                                <span>
+                                    Đóng
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

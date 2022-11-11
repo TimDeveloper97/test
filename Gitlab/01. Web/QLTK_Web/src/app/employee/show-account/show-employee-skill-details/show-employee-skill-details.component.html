@@ -1,0 +1,118 @@
+<form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+          <label class="form-label">Tên nhân viên
+  
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="EmployeeName" [(ngModel)]="EmployeeName" maxlength="100"
+              disabled>
+          </div>
+        </div>
+      </div>
+  
+      <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+        <div class="form-group ">
+          <label class="form-label">Mã nhân viên
+  
+          </label>
+          <div class="controls">
+            <input type="text" class="form-control" name="EmployeeCode" [(ngModel)]="EmployeeCode" maxlength="100"
+              disabled>
+          </div>
+        </div>
+      </div>
+  
+    </div>
+    <div class="row margin-bottom-10">
+      <div class="col-md-6 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số
+          <span class="bold text-danger">{{listBase.length}}</span> kỹ năng</label>&nbsp;&nbsp;
+      </div>
+      <div class="col-md-6 text-right">
+        <!-- <button *appUipermission="['F080012']" type="button" class="btn btn-success" (click)="showClick()"
+          container="body">
+          <i class="fa fa-plus"></i>
+          Chọn kỹ năng
+        </button>&nbsp; -->
+        <!-- <button class="btn btn-default btn-default-system" (click)="getSkillEmployeeInfo()">
+          <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button> -->
+      </div>
+    </div>
+    <div class="row" #scrollPracticeMaterial>
+      <div class="col-lg-12 col-md-12 col-sm-12">
+        <div #scrollPracticeMaterialHeader style="overflow-x: auto;overflow: hidden;">
+          <table class="table table-bordered table-fixed mb-0" style="min-width:1050px">
+            <thead>
+              <tr>
+                <th width="50px" style="text-align: center">STT</th>
+                <!-- <th width="60px" style="text-align: center">Xử lý</th> -->
+                <th width="200px" style="text-align: center">Nhóm kỹ năng</th>
+                <th min-width="200px" style="text-align: center">Tên kỹ năng</th>
+                <th width="100px" style="text-align: center">Điểm sàn</th>
+                <th width="120px" style="text-align: center">Điểm đánh giá</th>
+                <th width="120px" style="text-align: center">Điểm tối đa</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <perfect-scrollbar [config]="constant.ScrollConfig" [style.height.px]="500">
+          <table class="table table-bordered table-fixed" style="min-width:1050px">
+            
+            <tbody>
+              <ng-container *ngFor="let row of listBase; let j = index">
+                <tr>
+                  <td width="50px" class="text-center">{{j+1}}</td>
+                  <!-- <td width="60px" class="text-center">
+                    <button *appUipermission="['F080013']" class="btn btn-xs btn-danger "
+                      (click)="showConfirmDeleteSkill(row)" placement="top" ngbTooltip="Xóa">
+                      <span class="fas fa-times" aria-hidden="true"></span>
+                    </button>&nbsp;
+                  </td> -->
+                  <td width="200px">{{row.WorkTypeName}}</td>
+                  <td min-width="200px"> {{row.Name}}</td>
+                  <td width="100px" [ngClass]="{'back':row.Grade < row.Score}"> {{row.Score}}</td>
+                  <td width="120px">
+                    <input [disUipermission]="['F080014']" [(ngModel)]="row.Grade" currencyMask
+                      name="{{'Grade'+row.Grade+j}}" maxlength="5" min="0.00" max="10.00"
+                      style="height:20px;width:100px;">
+                  </td>
+                  <td width="120px">
+                    <input [(ngModel)]="row.Mark" currencyMask name="{{'Mark'+row.Mark+j}}" maxlength="5" min="0.00"
+                      max="10.00" style="height:20px;width:100px;">
+                  </td>
+                </tr>
+              </ng-container>
+            </tbody>
+            <tfoot *ngIf="listBase.length == 0">
+              <tr class="bold">
+                <td colspan="7" min-width="300px" class="text-center" style="height: 300px; font-size: 20px; ">Không
+                  có dữ liệu</td>
+              </tr>
+            </tfoot>
+          </table>
+        </perfect-scrollbar>
+      </div>
+    </div>
+  </form>
+  <hr />
+  
+  <div class="row">
+  
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6">
+      <button class="btn btn-view btn-danger">
+        <i class="fas fa-times"></i>
+      </button>&nbsp;
+      <small class="padding-right-20">Xóa kĩ năng</small>
+    </div>
+    <!-- <div class="col-lg-6 col-md-6 col-sm-12 col-xl-6 text-right">
+      <ng-container>
+        <button *appUipermission="['F080012']" type="button" class="btn btn-success" (click)="Save()"
+          [disabled]="!f.form.valid">
+          <i class="fa fa-save"></i>&nbsp;
+          <span>Lưu</span>
+        </button>
+      </ng-container>
+    </div> -->
+  </div>

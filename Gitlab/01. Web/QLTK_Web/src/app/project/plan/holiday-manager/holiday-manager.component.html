@@ -1,0 +1,87 @@
+<div class='content-wrapper'>
+  <section class="box box-head">
+    <div class="content-body padding-15">
+      <div class="row">
+        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-2 text-left">
+          <div class="form-group ">
+            <label class="form-label">Chọn năm
+              <span class='text-danger text-strong'>&nbsp;*</span>
+            </label>
+            <div class="controls">
+              <select name="Year" class="form-control" [(ngModel)]="HolidayModel.Year" required
+                (change)="getCalendar()">
+                <option *ngFor="let item of ListCBBYear" [ngValue]="item">{{item}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-lg-12" *ngFor="let row of ListHoliday; let i = index">
+          <label>Tháng {{row.Month}}</label>
+          <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+            <table class="table table-bordered" style="min-width:1000px">
+              <thead>
+                <tr>
+                  <th width="30px" class="text-center dayOfWeek" *ngFor="let item of row.ListDayOfMonth; let k = index"
+                    >
+                    {{item.DayOfWeek!=1?'T'+item.DayOfWeek:'CN'}}
+                  </th>
+                </tr>
+                <tr>
+                  <th width="30px" class="text-center" *ngFor="let item of row.ListDayOfMonth; let j = index">
+                    <span> {{item.FullDate|date:"dd/MM"}}</span>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="height: 34px;">
+                  <td *ngFor="let item of row.ListDayOfMonth; let t = index" style="text-align: center;">
+                    <div class="custom-control custom-checkbox">
+                      <input class="text-center" [(ngModel)]="item.IsChecked" type="checkbox"
+                        class="custom-control-input" [id]="item.FullDate" [name]="item.FullDate">
+                      <label class="custom-control-label" [for]="item.FullDate"></label>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </perfect-scrollbar>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+          <table class="table table-bordered" style="min-width:1000px">
+            <thead>
+              <tr>
+                <th colspan="7">Tháng 1</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of ListHoliday[0].ListDayOfMonth; let i=index">
+                <td *ngFor="let item2 of ListDay; let j=index">
+                  <ng-container *ngIf="item2==item.DayOfWeek">
+                    {{item.FullDate|date:"dd"}}
+                  </ng-container>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </perfect-scrollbar>
+      </div> -->
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xl-12 text-right">
+          <ng-container>
+            <button *appUipermission="['F110001']" type="button" class="btn btn-success" (click)="save()">
+              <i class="fa fa-save"></i>&nbsp;
+              <span>Lưu</span>
+            </button>
+          </ng-container>&nbsp;
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

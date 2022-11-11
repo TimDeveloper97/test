@@ -1,0 +1,180 @@
+<div class='content-wrapper'>
+  <div class="content-body padding-15">
+    <form name="form" #f="ngForm" novalidate>
+      <div class="row">
+        <!-- <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+          <div class="form-group">
+            <label class="form-label">Dự án</label>
+            <div class="controls">
+              <nts-drop-down [items]="listProject" [columns]="columnName" ntsValue="Id" ntsLabel="Code" ntsMode="single"
+                ntsAutoClose="true" [(ngModel)]="model.ProjectId" name="project" (change)="getDataCurrentCostWarning()">
+              </nts-drop-down>
+            </div>
+          </div>
+        </div> -->
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12">
+          <nts-search-bar [(options)]="searchOptions" [(ngModel)]="model" name="modelCurrentCostWarning"
+            (change)="getDataCurrentCostWarning()">
+          </nts-search-bar>
+        </div>
+      </div>
+    </form>
+    <div class="row margin-bottom-10">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số dự án đã triển khai:
+          <span class="bold text-danger">{{totalProject|number:'1.0-0'}};</span></label>&nbsp;
+        <label class="form-label" style="line-height:35px;">Tổng giá vật tư dự kiến (FCM) dự án đã triển khai:
+          <span class="bold text-danger">{{totalPriceProject|number:'1.0-0'}};</span></label>&nbsp;
+        <label class="form-label" style="line-height:35px;">Tổng tiền nhân công TK (FCM) dự án đã triển khai:
+          <span class="bold text-danger">{{totalDesignPrice|number:'1.0-0'}};</span></label>&nbsp;
+      </div>
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+        <label class="form-label" style="line-height:35px;">Tổng số dự án đang triển khai:
+          <span class="bold text-danger">{{totalProjectProcessing|number:'1.0-0'}};</span></label>&nbsp;
+        <label class="form-label" style="line-height:35px;">Tổng giá vật tư dự kiến (FCM) dự án đang triển khai:
+          <span class="bold text-danger">{{totalPriceProcessing|number:'1.0-0'}};</span></label>&nbsp;
+        <label class="form-label" style="line-height:35px;">Tổng tiền nhân công TK (FCM) dự án đang triển khai:
+          <span class="bold text-danger">{{totalDesignPriceProcessing|number:'1.0-0'}};</span></label>&nbsp;
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div #scrollHeaderProject class="row">
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-left">
+            <label class="form-label" style="line-height:35px;">Danh sách dòng sản phẩm trong dự án theo chi phí dự án,
+              lỗi</label>
+          </div>
+          <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 text-right">
+            <button class="btn  btn-success" (click)="exportExcel()" *appUipermission="['F020505']">
+              <i class="fa fa-file-excel" aria-hidden="true"></i>
+              Xuất excel
+            </button>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div #scrollHeaderOne style="overflow-x: auto;overflow: hidden;">
+              <table class="table table-bordered table-fixed mb-0" style="min-width:1590px">
+                <colgroup>
+                  <col width="50px">
+                  <col width="200px">
+                  <col min-width="200px">
+                  <col width="100px">
+                  <col width="300px">
+                  <col width="100px">
+                  <col width="120px">
+                  <col width="300px">
+                  <col width="100px">
+                  <col width="120px">
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th rowspan="2" width="50px" class="text-center">STT</th>
+                    <th rowspan="2" width="200px" class="text-center">Mã dòng sản phẩm</th>
+                    <th rowspan="2" min-width="200px" class="text-center">Tên dòng sản phẩm</th>
+                    <th rowspan="2" width="100px" class="text-center">SL Module</th>
+                    <th colspan="3" width="520px" class="text-center">Chi phí theo dự án</th>
+                    <th colspan="3" width="520px" class="text-center">Chi phí lãng phí theo lỗi</th>
+                  </tr>
+                  <tr>
+                    <th width="300px" class="text-center">Định mức vật tư phân theo dòng sản phẩm</th>
+                    <th width="100px" class="text-center">Tỷ lệ (%)</th>
+                    <th width="120px" class="text-center">Giá trung bình</th>
+                    <th width="300px" class="text-center">Tổng chi phí lỗi</th>
+                    <th width="100px" class="text-center">Tỷ lệ (%)</th>
+                    <th width="120px" class="text-center">Giá trung bình</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="height">
+              <table class="table table-bordered table-fixed" style="min-width:1590px">
+                <colgroup>
+                  <col width="50px">
+                  <col width="200px">
+                  <col min-width="200px">
+                  <col width="100px">
+                  <col width="300px">
+                  <col width="100px">
+                  <col width="120px">
+                  <col width="300px">
+                  <col width="100px">
+                  <col width="120px">
+                </colgroup>
+                <tbody>
+                  <tr *ngFor="let row of listData; let i = index">
+                    <td width="50px" class="text-center">{{i+1}}</td>
+                    <td width="200px">{{row.ModuleGroupCode}}</td>
+                    <td min-width="200px">{{row.ModuleGroupName}}</td>
+                    <td width="100px" class="text-right">{{row.QuantityModule|number}}</td>
+                    <td width="300px" class="text-right">{{row.PriceProjectProduct|number:'1.0-0'}}</td>
+                    <td width="100px" class="text-right">{{row.PercentProjectProduct}}</td>
+                    <td width="120px" class="text-right">{{row.AveragePriceProjectProduct|number:'1.0-0'}}</td>
+                    <td width="300px" class="text-right">{{row.PriceError|number:'1.0-0'}}</td>
+                    <td width="100px" class="text-right">{{row.PercentError}}</td>
+                    <td width="120px" class="text-right">{{row.AverageError|number:'1.0-0'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center bold" colspan="4">Tổng tiền:</td>
+                    <td class="text-right bold text-danger" colspan="1">{{totalModuleGroup|number:'1.0-0'}}</td>
+                    <td></td>
+                    <td></td>
+                    <td class="text-right bold text-danger" colspan="1">{{totalError|number:'1.0-0'}}</td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+
+          </div>
+        </div>
+      </div>
+      <!-- <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
+        <div #scrollHeaderError class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 text-left">
+            <label class="form-label" style="line-height:35px;">Tổng chi phí lãng phí theo lỗi, theo tồn đọng theo dòng
+              sản phẩm</label>
+          </div>
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+            <div #scrollHeaderTwo style="height: auto; width:100%;overflow: hidden">
+              <table class="table table-bordered mb-0" style="word-wrap: break-word ;min-width:970px;">
+                <thead>
+                  <tr>
+                    <th width="50px" class="text-center">STT</th>
+                    <th width="200px" class="text-center">Mã dòng sản phẩm</th>
+                    <th min-width="200px" class="text-center">Tên dòng sản phẩm</th>
+                    <th width="200px" class="text-center">Tổng chi phí</th>
+                    <th width="100px" class="text-center">Tỷ lệ (%)</th>
+                    <th width="100px" class="text-center">SL Module</th>
+                    <th width="120px" class="text-center">Giá trung bình</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <perfect-scrollbar [config]="constant.ScrollConfig" [style.max-height.px]="height">
+              <table class="table table-bordered" style="min-width:970px; ">
+                <tbody>
+                  <tr *ngFor="let row of listPriceError; let i = index">
+                    <td width="50px" class="text-center">{{i+1}}</td>
+                    <td width="200px">{{row.ModuleGroupCode}}</td>
+                    <td min-width="200px">{{row.ModuleGroupName}}</td>
+                    <td width="200px" class="text-right">{{row.Price|number:'1.0-0'}}</td>
+                    <td width="100px" class="text-right">{{row.Percent}}</td>
+                    <td width="100px" class="text-right">{{row.Quantity|number}}</td>
+                    <td width="120px" class="text-right">{{row.AveragePrice|number:'1.0-0'}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-center bold" colspan="3">Tổng tiền:</td>
+                    <td class="text-right bold text-danger" colspan="1">{{totalError|number:'1.0-0'}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </perfect-scrollbar>
+          </div>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>

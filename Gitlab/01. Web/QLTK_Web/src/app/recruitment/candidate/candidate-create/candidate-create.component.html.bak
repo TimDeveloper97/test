@@ -1,0 +1,1028 @@
+<div class="modal-body padding-10">
+    <form name="form" class="tab-form-demo" #f="ngForm" novalidate>
+        <ul ngbNav #nav="ngbNav" class="nav-tabs">
+            <li [ngbNavItem]="1">
+                <a ngbNavLink>Thông tin ứng viên</a>
+                <ng-template ngbNavContent>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 ">
+                            <label class="form-label font-weight-bold">Ứng tuyển
+                            </label>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Yêu cầu tuyển dụng
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="recruitmentRequests" [columns]="columnNameRequest"
+                                        ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="applyModel.RecruitmentRequestId" name="RecruitmentRequestId"
+                                        (change)="changeRequest()" disabled>
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Vị trí ứng tuyển
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="applyModel.WorkTypeId" name="WorkTypeId"
+                                        (change)="getSalaryMaxMin()" autofocus required disabled>
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Mức lương min
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" name="SalaryLevelMin"
+                                        [value]="applyModel.SalaryLevelMin|number" maxlength="100" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Mức lương max
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" name="SalaryLevelMax"
+                                        [value]="applyModel.SalaryLevelMax|number" maxlength="100" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Mức lương đề nghị
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" name="Salary" currencyMask
+                                        [options]="{align:'left', prefix: '', thousands: ',', decimal: '.', precision:0  }"
+                                        [(ngModel)]="applyModel.Salary" maxlength="18" disabled>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày ứng tuyển
+                                    <span class='text-danger text-strong'>&nbsp;*</span>
+                                </label>
+                                <div class="controls">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="dd/mm/yyyy" name="applyDate"
+                                            [(ngModel)]="applyModel.ApplyDate" ngbDatepicker
+                                            #ngbApplyDate="ngbDatepicker" required disabled>
+                                        <div class="input-group-append">
+                                            <span class="dtp-icon" (click)="ngbApplyDate.toggle()" name="ngbApplyDate">
+                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="col-lg-3 col-md-3 col-sm-12 col-xs-4" *ngIf="id">
+                            <div class="form-group ">
+                                <label class="form-label">Ngày hẹn phỏng vấn
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div class="controls">
+                                    <div class="input-group">
+                                        <input class="form-control" placeholder="dd/mm/yyyy" name="interviewDate"
+                                            [(ngModel)]="interviewDate" ngbDatepicker #ngbinterviewDate="ngbDatepicker"
+                                            [disabled]="applyModel.InterviewStatus != 0">
+                                        <div class="input-group-append">
+                                            <span class="dtp-icon" (click)="ngbinterviewDate.toggle()"
+                                                name="ngbinterviewDate">
+                                                <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
+                            <div class="form-group ">
+                                <label class="form-label">Thời gian hẹn phỏng vấn
+                                    <span class='text-danger text-strong'>&nbsp;</span>
+                                </label>
+                                <div>
+                                    <ngb-timepicker [(ngModel)]="applyModel.InterviewTime" name="Time"
+                                        [spinners]="false"></ngb-timepicker>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-9 col-lg-9 col-sm-12 col-xl-9">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                                    <label class="form-label font-weight-bold">Thông tin ứng viên
+                                    </label>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Số HS ứng viên
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="Code"
+                                                [(ngModel)]="applyModel.Candidate.Code" maxlength="100" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tên ứng viên
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="Name"
+                                                [(ngModel)]="applyModel.Candidate.Name" maxlength="100" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 radio">
+                                    <label class="form-label">Giới tính
+                                        <span class='text-danger text-strong'>&nbsp;*</span>
+                                    </label>
+                                    <label class="radio">Nam
+                                        <input type="radio" name="Gender" [(ngModel)]="applyModel.Candidate.Gender"
+                                            required [value]="'1'">
+                                        <span class="checkround"></span>
+                                    </label>
+                                    <label class="radio">Nữ
+                                        <input type="radio" name="Gender" [(ngModel)]="applyModel.Candidate.Gender"
+                                            required [value]="'2'">
+                                        <span class="checkround"></span>
+                                    </label>
+
+                                    <!-- <div class="custom-control custom-radio custom-control-inline"
+                                    *ngFor="let row of constant.FllowStatus; let i = index;">
+                                    <input type="radio" class="custom-control-input" [id]="'FllowStatus'+i"
+                                        name="FllowStatus" [(ngModel)]="applyModel.Candidate.FllowStatus" [value]="row.Id">
+                                    <label class="custom-control-label" [for]="'FllowStatus'+i">{{row.Name}}</label>
+                                </div> -->
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ngày sinh
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="input-group">
+                                            <input class="form-control" placeholder="dd/mm/yyyy" name="DateOfBirth"
+                                                [(ngModel)]="dateOfBirth" ngbDatepicker #DateOfBirth="ngbDatepicker"
+                                                [minDate]="minDateNotificationV">
+                                            <div class="input-group-append">
+                                                <span class="dtp-icon" (click)="DateOfBirth.toggle()"
+                                                    name="DateOfBirth">
+                                                    <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Số điện thoại
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="PhoneNumber"
+                                                [(ngModel)]="applyModel.Candidate.PhoneNumber" maxlength="10"
+                                                ntsNumberInt required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Email
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input placeholder="name@example.com" type="email" class="form-control"
+                                                [(ngModel)]="applyModel.Candidate.Email" name="email" maxlength="300"
+                                                email>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Số CMND/CCCD
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="IdentifyNum"
+                                                [(ngModel)]="applyModel.Candidate.IdentifyNum" maxlength="15">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Ngày cấp
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <div class="input-group">
+                                                <input class="form-control" placeholder="dd/mm/yyyy" name="CmtndDate"
+                                                    [(ngModel)]="identifyDate" ngbDatepicker #CmtndDate="ngbDatepicker"
+                                                    [minDate]="minDateNotificationV">
+                                                <div class="input-group-append">
+                                                    <span class="dtp-icon" (click)="CmtndDate.toggle()"
+                                                        name="CmtndDate">
+                                                        <i class="far fa-calendar-alt" style="color: #999;"></i>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Nơi cấp
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="IdentifyAddress"
+                                                [(ngModel)]="applyModel.Candidate.IdentifyAddress" maxlength="500">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Địa chỉ
+                                            <span class='text-danger text-strong'>&nbsp;*</span>
+                                        </label>
+                                        <div class="controls">
+                                            <input type="text" class="form-control" name="Address"
+                                                [(ngModel)]="applyModel.Candidate.Address" maxlength="500" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Tỉnh/TP nguyên quán
+                                            <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down [items]="provinces" [columns]="columnNameAddress"
+                                                ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="applyModel.Candidate.ProvinceId" name="ProvinceId"
+                                                (change)="getDistricts()">
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Quận/ Huyện nguyên quán
+                                            <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down [items]="districts" [columns]="columnNameAddress"
+                                                ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="applyModel.Candidate.DistrictId" name="DistrictId"
+                                                (change)="getWards()">
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Phường/ Xã nguyên quán
+                                            <!-- <span class='text-danger text-strong'>&nbsp;*</span> -->
+                                        </label>
+                                        <div class="controls">
+                                            <nts-drop-down [items]="wards" [columns]="columnNameAddress" ntsValue="Id"
+                                                ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                [(ngModel)]="applyModel.Candidate.WardId" name="WardId">
+                                            </nts-drop-down>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                                    <div class="form-group ">
+                                        <label class="form-label">Thời gian phỏng vấn (Giờ)
+                                            <span class='text-danger text-strong'>&nbsp;</span>
+                                        </label>
+                                        <!-- <div class="controls">
+                                        <input ntsNumberFormatter type="text" class="form-control" [(ngModel)]="model.InterviewTime" name="InterviewTime"
+                                          maxlength="50" required>
+                                      </div> -->
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-4">
+                                    <label>
+                                        Ngoại ngữ
+                                        <span class='text-danger text-strong'>&nbsp;</span>
+                                    </label>
+                                    <perfect-scrollbar [config]="constant.ScrollConfig"
+                                        style="height:auto;max-height:200px; width:100%;overflow: visible;">
+                                        <table class="table table-bordered" style="min-width:620px">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50px" class="text-center">STT</th>
+                                                    <th width="70px" class="text-center">Xử lý</th>
+                                                    <th min-width="200px" class="text-center">Ngôn ngữ</th>
+                                                    <th width="300px" class="text-center">Level</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let row of applyModel.Candidate.Languages; let i = index;">
+                                                    <td class="text-center">{{i+1}}</td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-xs btn-danger"
+                                                            (click)="deleteLanguage(i)" placement="bottom"
+                                                            ngbTooltip="Xóa" container="body">
+                                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <nts-drop-down [items]="countries" [columns]="columnNameAddress"
+                                                            ntsValue="Name" ntsLabel="Name" ntsMode="single"
+                                                            ntsAutoClose="true" [(ngModel)]="row.Name"
+                                                            [name]="'CountryId' + i" (change)="getDistricts()">
+                                                        </nts-drop-down>
+                                                    </td>
+                                                    <td>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" [name]="'Level' + i"
+                                                                [(ngModel)]="row.Level" maxlength="300">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr class="bold">
+                                                    <td></td>
+                                                    <td class="text-center">
+                                                        <button type="button" (click)='addLanguage()'
+                                                            class="btn btn-xs btn-success" placement="bottom"
+                                                            ngbTooltip="Thêm mới" container="body">
+                                                            <span class="fa fa-plus" aria-hidden="true"></span>
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <nts-drop-down [items]="countries" [columns]="columnNameAddress"
+                                                            ntsValue="Name" ntsLabel="Name" ntsMode="single"
+                                                            ntsAutoClose="true" [(ngModel)]="languageModel.Name"
+                                                            name="CountryId">
+                                                        </nts-drop-down>
+                                                    </td>
+                                                    <td>
+                                                        <div class="controls">
+                                                            <input type="text" class="form-control" name="Level"
+                                                                [(ngModel)]="languageModel.Level" maxlength="300">
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </perfect-scrollbar>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-lg-3 col-sm-12 col-xl-3">
+                            <div class="col-lg-12 col-md-12 col-sm-12 padding-0">
+                                <div class="actions panel_actions">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 ">
+                                            <label class="form-label font-weight-bold">Ảnh ứng viên
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 text-right ">
+                                            <label class="form-label">Chọn ảnh
+                                            </label>
+                                            <i class="box_toggle material-icons actions-camera btn-file padding-top-5"
+                                                ngbTooltip="Thay ảnh">
+                                                photo_camera
+                                                <input type="file" id="fileInput" #fileInput accept="image/*"
+                                                    (change)="uploadImage($event)" />
+                                            </i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 img-avata padding-0">
+                                <img class="img-thumbnail"
+                                    [src]="this.fileProcess.fileModel.DataURL?this.fileProcess.fileModel.DataURL:applyModel.Candidate.ImagePath?config.ServerFileApi+applyModel.Candidate.ImagePath: ('/assets/img/noavatar.gif')">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <!-- Thông tin trình độ -->
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <label>
+                                Thông tin trình độ
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <perfect-scrollbar [config]="constant.ScrollConfig"
+                                style="height:auto; width:100%;overflow: visible;">
+                                <table class="table table-bordered" style="min-width:1170px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="70px" class="text-center">Xử lý</th>
+                                            <th min-width="200px" class="text-center">Trường/đơn vị đào tạo</th>
+                                            <th width="200px" class="text-center">Chuyên ngành</th>
+                                            <th width="200px" class="text-center">Hệ đào tạo</th>
+                                            <th width="200px" class="text-center">Loại hình đào tạo</th>
+                                            <th width="100px" class="text-center">Xếp loại</th>
+                                            <th width="150px" class="text-center">Thời gian đào tạo</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of applyModel.Candidate.Educations; let i = index;">
+                                            <td class="text-center" width="50px">{{i+1}}
+                                            </td>
+                                            <td class="text-center" width="70px">
+                                                <button class="btn btn-xs btn-danger" (click)="deleteEducation(i)"
+                                                    placement="bottom" ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Name" class="form-control"
+                                                        [name]="'Name' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Major" class="form-control"
+                                                        [name]="'Major' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="qualifications" [columns]="columnNameAddress"
+                                                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="row.QualificationId" [name]="'QualificationId' + i">
+                                                </nts-drop-down>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Type" class="form-control"
+                                                        [name]="'Type' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="classifications" [columns]="columnNameAddress"
+                                                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="row.ClassificationId" [name]="'ClassificationId' + i">
+                                                </nts-drop-down>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Time" class="form-control"
+                                                        [name]="'Time' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="bold">
+                                            <td></td>
+                                            <td class="text-center">
+                                                <button type="button" (click)='addEducation()'
+                                                    class="btn btn-xs btn-success" placement="bottom"
+                                                    ngbTooltip="Thêm mới" container="body">
+                                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="educationModel.Name"
+                                                        class="form-control" name="educationName" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="educationModel.Major"
+                                                        class="form-control" name="educationMajor" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="qualifications" [columns]="columnNameAddress"
+                                                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="educationModel.QualificationId"
+                                                    name="educationQualificationId">
+                                                </nts-drop-down>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="educationModel.Type"
+                                                        class="form-control" name="educationType" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="classifications" [columns]="columnNameAddress"
+                                                    ntsValue="Id" ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="educationModel.ClassificationId"
+                                                    name="educationClassificationId">
+                                                </nts-drop-down>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="educationModel.Time"
+                                                        class="form-control" name="educationTime" maxlength="300">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+
+                        <!-- Quá trình công tác -->
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <label>
+                                Quá trình công tác
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <perfect-scrollbar [config]="constant.ScrollConfig"
+                                style="height:auto; width:100%;overflow: visible;">
+                                <table class="table table-bordered" style="min-width:1120px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="70px" class="text-center">Xử lý</th>
+                                            <th min-width="200px" class="text-center">Tên công ty</th>
+                                            <th width="200px" class="text-center">Số năm công tác</th>
+                                            <th width="100px" class="text-center">Tình trạng</th>
+                                            <th width="200px" class="text-center">Vị trí</th>
+                                            <th width="200px" class="text-center">Thu nhập</th>
+                                            <th width="100px" class="text-center">SĐT quản lý</th>
+                                            <th width="200px" class="text-center">Vị trí tương ứng TPA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="7">
+                                                <label class="form-label font-weight-bold">Tổng số năm:
+                                                    {{totalYearExperience}}</label>
+                                            </td>
+                                        </tr>
+                                        <tr *ngFor="let row of applyModel.Candidate.WorkHistories; let i = index;">
+                                            <td class="text-center" width="50px">{{startExperienceIndex+i}}
+                                            </td>
+                                            <td class="text-center" width="70px">
+                                                <button class="btn btn-xs btn-danger" (click)="deleteWord(i)"
+                                                    placement="bottom" ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.CompanyName"
+                                                        class="form-control" [name]="'CompanyName' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.TotalTime" class="form-control"
+                                                        [name]="'TotalTime' + i" maxlength="10" ntsCurrencyFormatter
+                                                        (ngModelChange)="totalExp()">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select data-size="3" class="form-control" [(ngModel)]="row.Status"
+                                                    [name]="'Status'+i">
+                                                    <option style="height: auto;"
+                                                        *ngFor="let item of constant.WorkStatus" [ngValue]="item.Id">
+                                                        {{item.Name}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Position" class="form-control"
+                                                        [name]="'Position' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.Income" class="form-control"
+                                                        [name]="'Income' + i" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" [(ngModel)]="row.ReferencePersonPhone"
+                                                        class="form-control" [name]="'ReferencePersonPhone' + i"
+                                                        maxlength="300" ntsNumberInt>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="row.WorkTypeId" [name]="'WorkWorkTypeId'+i">
+                                                </nts-drop-down>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="bold">
+                                            <td></td>
+                                            <td class="text-center">
+                                                <button type="button" (click)='addWork()' class="btn btn-xs btn-success"
+                                                    placement="bottom" ngbTooltip="Thêm mới" container="body">
+                                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="CompanyName"
+                                                        [(ngModel)]="workModel.CompanyName" maxlength="300">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="TotalTime"
+                                                        [(ngModel)]="workModel.TotalTime" maxlength="20"
+                                                        ntsCurrencyFormatter>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <select data-size="3" class="form-control"
+                                                    [(ngModel)]="workModel.Status" name="WorkStatus">
+                                                    <option style="height: auto;"
+                                                        *ngFor="let item of constant.WorkStatus" [ngValue]="item.Id">
+                                                        {{item.Name}}
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="Position"
+                                                        [(ngModel)]="workModel.Position" maxlength="500">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="Income"
+                                                        [(ngModel)]="workModel.Income" maxlength="500"
+                                                        ntsCurrencyFormatter>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="controls">
+                                                    <input type="text" class="form-control" name="ReferencePersonPhone"
+                                                        [(ngModel)]="workModel.ReferencePersonPhone" maxlength="500"
+                                                        ntsNumberInt>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="workModel.WorkTypeId" name="WorkWorkTypeId">
+                                                </nts-drop-down>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <label>
+                                Tài liệu đính kèm
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12 text-right">
+                            <button type="button" class="btn btn-success btn-upload" (click)="fileAttachInput.click()">
+                                <i class="fa fa-plus"></i> &nbsp;Thêm tài liệu</button>
+                            <input name="file" style="display: none;" type="file" id="fileAttachInput" #fileAttachInput
+                                (change)="uploadFile($event)" />
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-lg-12">
+                            <perfect-scrollbar [config]="constant.ScrollXConfig" style=" height:auto; width:100%;">
+                                <table class="table table-bordered" style="min-width:670px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="80px" class="text-center">Xử lý</th>
+                                            <th min-width="200px" class="text-center">Tên file</th>
+                                            <th width="100px" class="text-center">Dung lượng</th>
+                                            <th width="100px" class="text-center">Ngày tải</th>
+                                            <th width="150px" class="text-center">Người tải</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <ng-container *ngFor="let row of applyModel.Candidate.Attachs; let i = index">
+                                            <tr *ngIf="!row.IsDelete">
+                                                <td class="text-center">{{i+1}}</td>
+                                                <td class="text-center">
+                                                    <ng-container *ngIf="row.FilePath">
+                                                        <button type="button" (click)="downloadAFile(row)"
+                                                            style="background-color: papayawhip" class="btn btn-xs"
+                                                            placement="top" ngbTooltip="Download" container="body">
+                                                            <span class="fas fa-download" aria-hidden="true"
+                                                                style="color: black"></span>
+                                                        </button>&nbsp;
+                                                    </ng-container>
+                                                    <button type="button" class="btn btn-xs btn-danger" ngbTooltip="Xóa"
+                                                        (click)="showConfirmDeleteFile(row,i,1)">
+                                                        <span class="fas fa-times" aria-hidden="true"></span>
+                                                    </button>
+                                                </td>
+                                                <td>
+                                                    {{row.FileName}}
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.FileSize / (1024*1024)| number: '1.1-3'}} MB
+                                                </td>
+                                                <td class="text-center">
+                                                    {{row.CreateDate |date:'dd/MM/yyyy'}}
+                                                </td>
+                                                <td>
+                                                    {{row.CreateByName}}
+                                                </td>
+                                            </tr>
+                                        </ng-container>
+                                    </tbody>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                            <label class="form-label font-weight-bold">Thông tin thêm
+                            </label>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4">
+                            <div class="form-group ">
+                                <label class="form-label">Kênh thông tin
+                                    <span class='text-danger text-strong'></span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="channels" [columns]="columnNameAddress" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="applyModel.Candidate.RecruitmentChannelId"
+                                        name="RecruitmentChannelId">
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4 radio">
+                            <label class="form-label">Có người quen làm tại TPA
+                                <span class='text-danger text-strong'>&nbsp;*</span>
+                            </label>
+                            <div class="controls">
+                                <label class="radio">Có
+                                    <input type="radio" name="AcquaintanceStatus"
+                                        [(ngModel)]="applyModel.Candidate.AcquaintanceStatus" [value]="true">
+                                    <span class="checkround"></span>
+                                </label>
+                                <label class="radio">Không
+                                    <input type="radio" name="AcquaintanceStatus"
+                                        [(ngModel)]="applyModel.Candidate.AcquaintanceStatus" [value]="false">
+                                    <span class="checkround"></span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4"
+                            *ngIf="applyModel.Candidate.AcquaintanceStatus">
+                            <div class="form-group ">
+                                <label class="form-label">Họ tên người quen (Nếu có)
+                                    <span class='text-danger text-strong'></span>
+                                </label>
+                                <div class="controls">
+                                    <input type="text" class="form-control" name="AcquaintanceName"
+                                        [(ngModel)]="applyModel.Candidate.AcquaintanceName" maxlength="500">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4"
+                            *ngIf="applyModel.Candidate.AcquaintanceStatus">
+                            <div class="form-group ">
+                                <label class="form-label">SBU người quen làm việc
+                                    <span class='text-danger text-strong'></span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="sbus" [columns]="columnName" ntsValue="Id" ntsLabel="Name"
+                                        ntsMode="single" ntsAutoClose="true" [(ngModel)]="applyModel.Candidate.SBUId"
+                                        name="SBUId" (ngModelChange)="getDepartments()">
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-12 col-sm-12 col-xs-4"
+                            *ngIf="applyModel.Candidate.AcquaintanceStatus">
+                            <div class="form-group ">
+                                <label class="form-label">Phòng ban người quen làm việc
+                                    <span class='text-danger text-strong'></span>
+                                </label>
+                                <div class="controls">
+                                    <nts-drop-down [items]="departments" [columns]="columnName" ntsValue="Id"
+                                        ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                        [(ngModel)]="applyModel.Candidate.DepartmentId" name="DepartmentId">
+                                    </nts-drop-down>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group ">
+                                <label class="form-label">Ghi chú
+                                    <span class='text-danger text-strong'></span>
+                                </label>
+                                <div class="controls">
+                                    <textarea [(ngModel)]="applyModel.Candidate.AcquaintanceNote"
+                                        name="AcquaintanceNote" rows="3" class="form-control"
+                                        [maxLength]="300"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="id">
+                        <div class="col-lg-12 col-md-12 col-sm-12 mt-3">
+                            <label class="form-label font-weight-bold">Kết luận
+                            </label>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3 radio">
+                            <label class="form-label">Kết quả lọc hồ sơ
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <div class="custom-control custom-radio custom-control-inline"
+                                    *ngFor="let row of constant.ProfileStatus; let i = index;">
+                                    <input type="radio" class="custom-control-input" [id]="'ProfileStatus'+i"
+                                        name="ProfileStatus" [(ngModel)]="applyModel.ProfileStatus" [value]="row.Id"
+                                        disabled>
+                                    <label class="custom-control-label" [for]="'ProfileStatus'+i">{{row.Name}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-6 radio">
+                            <label class="form-label">Kết quả phỏng vấn
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <div class="custom-control custom-radio custom-control-inline"
+                                    *ngFor="let row of constant.InterviewStatus; let i = index;">
+                                    <input type="radio" class="custom-control-input" [id]="'InterviewStatus'+i"
+                                        name="InterviewStatus" [(ngModel)]="applyModel.InterviewStatus"
+                                        [value]="row.Id" disabled>
+                                    <label class="custom-control-label" [for]="'InterviewStatus'+i">{{row.Name}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3 radio">
+                            <label class="form-label">Kết quả ứng tuyển
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <div class="custom-control custom-radio custom-control-inline"
+                                    *ngFor="let row of constant.ApplyStatus; let i = index;">
+                                    <input type="radio" class="custom-control-input" [id]="'ApplyStatus'+i"
+                                        name="ApplyStatus" [(ngModel)]="applyModel.Status" [value]="row.Id">
+                                    <label class="custom-control-label" [for]="'ApplyStatus'+i">{{row.Name}}</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-3 radio">
+                            <label class="form-label">Tình trạng liên hệ
+                                <span class='text-danger text-strong'>&nbsp;</span>
+                            </label>
+                            <div class="controls">
+                                <div class="custom-control custom-radio custom-control-inline"
+                                    *ngFor="let row of constant.FollowStatus; let i = index;">
+                                    <input type="radio" class="custom-control-input" [id]="'FollowStatus'+i"
+                                        name="FollowStatus" [(ngModel)]="applyModel.FollowStatus" [value]="row.Id">
+                                    <label class="custom-control-label" [for]="'FollowStatus'+i">{{row.Name}}</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="id">
+                        <!-- Các vị trí có thể phù hợp tại TPA -->
+                        <div class="col-md-6 col-sm-12 col-lg-6">
+                            <label class=" font-weight-bold">
+                                Vị trí có thể phù hợp
+                            </label>
+                            <perfect-scrollbar [config]="constant.ScrollConfig"
+                                style="height:auto; width:100%;overflow: visible;">
+                                <table class="table table-bordered" style="min-width:320px">
+                                    <thead>
+                                        <tr>
+                                            <th width="50px" class="text-center">STT</th>
+                                            <th width="70px" class="text-center">Xử lý</th>
+                                            <th min-width="200px" class="text-center">Vị trí</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of applyModel.Candidate.WorkTypes; let i = index;">
+                                            <td class="text-center" width="50px">{{startDegreesIndex+i}}
+                                            </td>
+                                            <td class="text-center" width="70px">
+                                                <button class="btn btn-xs btn-danger"
+                                                    (click)="showConfirmDeleteWorkType(i)" placement="bottom"
+                                                    ngbTooltip="Xóa" container="body">
+                                                    <span class="fas fa-times" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="row.WorkTypeId" [name]="'WorkTypeId'+i">
+                                                </nts-drop-down>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr class="bold">
+                                            <td></td>
+                                            <td class="text-center">
+                                                <button type="button" (click)='addWorkType()'
+                                                    class="btn btn-xs btn-success" placement="bottom"
+                                                    ngbTooltip="Thêm mới" container="body">
+                                                    <span class="fa fa-plus" aria-hidden="true"></span>
+                                                </button>
+                                            </td>
+                                            <td>
+                                                <nts-drop-down [items]="workTypes" [columns]="columnName" ntsValue="Id"
+                                                    ntsLabel="Name" ntsMode="single" ntsAutoClose="true"
+                                                    [(ngModel)]="workTypeModel.WorkTypeId" name="WorkTypeId">
+                                                </nts-drop-down>
+                                            </td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </perfect-scrollbar>
+                        </div>
+
+                    </div>
+                    <!-- Footer -->
+                    <div class="modal-footer">
+                        <ng-container>
+                            <button type="button" class="btn btn-warning" (click)="cancel()" [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Hồ sơ không đạt</span>
+                            </button>
+                        </ng-container>
+                        <ng-container>
+                            <button type="button" class="btn btn-success" (click)="save(false)"
+                                [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu</span>
+                            </button>
+                        </ng-container>
+                        <ng-container>
+                            <button type="button" class="btn btn-success" (click)="save(true)"
+                                [disabled]="!f.form.valid">
+                                <i class="fa fa-save"></i>&nbsp;
+                                <span>Lưu & tiếp tục</span>
+                            </button>
+                        </ng-container>
+                        <button type="button" class="btn btn-danger" (click)="closeModal()">
+                            <i class="fa fa-power-off"></i> &nbsp;
+                            <span>
+                                Đóng
+                            </span>
+                        </button>
+                    </div>
+                </ng-template>
+            </li>
+            <li [ngbNavItem]="'thong-tin-phong-van'" *ngIf="id">
+                <a ngbNavLink>Phỏng vấn</a>
+                <ng-template ngbNavContent>
+                    <app-apply-interview-tab [applyId]="id">
+                    </app-apply-interview-tab>
+                </ng-template>
+            </li>
+        </ul>
+        <div [ngbNavOutlet]="nav"></div>
+    </form>
+</div>

@@ -1,0 +1,113 @@
+<div class='content-wrapper'>
+    <section class="box box-head">
+        <div class="content-body pb-0">
+            <form name="searchForm" #f="ngForm">
+                <div class="row">
+                    <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8">
+                        <nts-search-bar [(options)]="searchOptions" [(ngModel)]="searchModel" name="searchModel"
+                            (change)="search()">
+                        </nts-search-bar>
+                    </div>
+
+                    <div class="col-xl-4 col-md-12 col-sm-12 text-right">
+                        <button class="btn btn-success btn-success-system" (click)="search()">
+                            <i class="fa fa-search"></i> &nbsp;Tìm kiếm</button>&nbsp; &nbsp;
+                        <button class="btn btn-default btn-default-system" (click)="clear()">
+                            <i class="fas fa-redo-alt"></i> &nbsp;Làm mới</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="content-body ">
+            <div class="row margin-bottom-10">
+                <div class="col-md-6 text-left">
+                    <label class="form-label" style="line-height:35px;">Tổng số
+                        <span class="bold text-danger">{{searchModel.TotalItems}}</span> lý do điều chỉnh mức đóng BHXH</label>
+                </div>
+                <div class="col-md-6 text-right">
+                    <button *appUipermission="['F121101']" type="button" class="btn btn-success"
+                        (click)="showCreateUpdate('')" container="body">
+                        <i class="fa fa-plus"></i>
+                        Thêm mới
+                    </button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-lg-12">
+                    <perfect-scrollbar [config]="constant.ScrollXConfig" style="height:auto; width:100%;">
+                        <table class="table table-bordered" style="min-width:950px">
+                            <thead>
+                                <tr>
+                                    <th width="50px" class="text-center">STT</th>
+                                    <th width="100px" class="text-center">Xử lý</th>
+                                    <th width="400px" class="text-center">Lý do điều chỉnh mức đóng BHXH</th>
+                                    <th min-width="400px" class="text-center ">Ghi chú</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let row of reasonsChangeInsurance; let i = index">
+                                    <td class="text-center">{{startIndex+i}}</td>
+                                    <td style="text-align: center">
+                                        <button *appUipermission="['F121102']" type="button"
+                                            (click)='showCreateUpdate(row.Id)' class="btn btn-xs btn-warning"
+                                            placement="top" ngbTooltip="Cập nhật" container="body">
+                                            <span class="fa fa-edit" aria-hidden="true"></span>
+                                        </button> &nbsp;
+                                        <button *appUipermission="['F121103']" class="btn btn-xs btn-danger"
+                                            (click)="showConfirmDeleteReason(row.Id, row.Index)" placement="top"
+                                            ngbTooltip="Xóa">
+                                            <span class="fas fa-times" aria-hidden="true"></span>
+                                        </button>
+                                    </td>
+                                    <td>{{row.Name}}</td>
+                                    <td>{{row.Note}}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot *ngIf="reasonsChangeInsurance.length == 0">
+                                <tr class="bold">
+                                    <td colspan="4" min-width="300px" class="text-center"
+                                        style="height: 300px; font-size: 20px;">Không có
+                                        dữ liệu</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </perfect-scrollbar>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 d-flex justify-content-start">
+                    <div class="controls ">
+                        <select class="form-control" style="border: 1px solid #ddd;" [(ngModel)]="searchModel.PageSize"
+                            (ngModelChange)="search()" name="pageSize">
+                            <option *ngFor="let item of constant.ListPageSize" [value]="item">{{item}}</option>
+                        </select>
+                    </div>
+                    <label class="form-label " style="padding:4px;">bản ghi/Trang</label>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12  d-flex justify-content-end">
+                    <ngb-pagination [collectionSize]="searchModel.TotalItems" [(page)]="searchModel.PageNumber"
+                        (pageChange)="search()" [pageSize]="searchModel.PageSize" [maxSize]="5" [rotate]="true"
+                        [boundaryLinks]="true"></ngb-pagination>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div class="col-md-12">
+                    <button class="btn btn-view btn-warning">
+                        <i class="fa fa-edit"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Sửa lý do điều chỉnh mức đóng BHXH</small>
+                    <button class="btn btn-view btn-danger">
+                        <i class="fas fa-times"></i>
+                    </button>&nbsp;
+                    <small class="padding-right-20">Xóa lý do điều chỉnh mức đóng BHXH</small>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</div>
